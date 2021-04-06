@@ -19,7 +19,9 @@ import { DatabaseConfigService } from './config/database/config.service';
         database: dbConfigService.database,
         host: dbConfigService.host,
         port: dbConfigService.port,
+        // TODO: Check if this can cause problems if certain modules are not needed
         entities: ['dist/**/*.entity{.ts,.js}'],
+        // TODO: Use migrations for production
         synchronize: true,
       }),
     }),
