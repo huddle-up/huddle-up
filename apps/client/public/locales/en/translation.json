@@ -1,0 +1,22 @@
+{
+  "landingpage": {
+    "title": "Welcome to HuddleUp",
+    "description": {
+      "main": "Create, Categorize, Search and Join on virtual meetings about things you like with unfamiliar users.",
+      "short": "Create and join Videomeetings with interesting topics",
+      "footer": "Webapplication for Videomeetings"
+    },
+    "head": {
+      "title": "Create and Join Videomeetings | HuddleUp",
+      "description": "Webapplication for Videomeetings, Create, Categorize, Search and Join on virtual meetings about things you like with unfamiliar users"
+    }
+  },
+  "button": {
+    "getstarted": "Get Started",
+    "login": "Login",
+    "register": "Register"
+  },
+  "link": {
+    "help": "help"
+  }
+}
