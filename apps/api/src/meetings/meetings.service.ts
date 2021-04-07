@@ -5,22 +5,25 @@ import { UpdateMeetingInput } from './dto/update-meeting.input';
 @Injectable()
 export class MeetingsService {
   create(createMeetingInput: CreateMeetingInput) {
-    return 'This action adds a new meeting';
+    return { ...createMeetingInput, id: 55 };
   }
 
   findAll() {
-    return `This action returns all meetings`;
+    return [
+      { id: 1, title: 'test 1', description: 'description test1', startDate: new Date(), endDate: new Date() },
+      { id: 2, title: 'test 2', description: 'description test2', startDate: new Date(), endDate: new Date() },
+    ];
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} meeting`;
+    return { id: 1, title: 'test 1', description: 'description test1', startDate: new Date(), endDate: new Date() };
   }
 
   update(id: number, updateMeetingInput: UpdateMeetingInput) {
-    return `This action updates a #${id} meeting`;
+    return updateMeetingInput;
   }
 
   remove(id: number) {
-    return `This action removes a #${id} meeting`;
+    return true;
   }
 }
