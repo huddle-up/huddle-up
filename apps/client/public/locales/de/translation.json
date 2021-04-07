@@ -1,0 +1,22 @@
+{
+  "landingpage": {
+    "title": "Willkommen bei HuddleUp",
+    "description": {
+      "main": "Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen.",
+      "short": "Erstelle und beitrete Videotreffen mit interessanten Themen",
+      "footer": "Webplattform für Videotreffen"
+    },
+    "head": {
+      "title": "Plattform für Videotreffen | HuddleUp",
+      "description": "Webplattform für Videotreffen, Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen"
+    }
+  },
+  "button": {
+    "getstarted": "Loslegen",
+    "login": "Einloggen",
+    "register": "Registrieren"
+  },
+  "link": {
+    "help": "Hilfe"
+  }
+}

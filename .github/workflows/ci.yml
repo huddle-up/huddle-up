@@ -35,7 +35,7 @@ jobs:
         run: yarn install
 
       - name: Lint commit messages
-        run: npx commitlint --from HEAD~${{ github.event.pull_request.commits }}
+        run: npx commitlint --from HEAD~1
 
       - name: Lint code
         run: yarn lint
