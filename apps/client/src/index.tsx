@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import reportWebVitals from './reportWebVitals';
 
 import './i18n';
@@ -9,7 +10,9 @@ import App from './App';
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback="loading...">
-      <App />
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <App />
+      </MuiPickersUtilsProvider>
     </Suspense>
   </React.StrictMode>,
   document.getElementById('root')
