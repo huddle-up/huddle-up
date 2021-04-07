@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { DateTimePicker, KeyboardDateTimePicker } from '@material-ui/pickers';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import EventIcon from '@material-ui/icons/Event';
 import { IconButton, Button, InputAdornment } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -76,11 +76,12 @@ function Meetings() {
                   showTodayButton
                   clearable
                   required
+                  format="dd.MM.yyyy hh:mm"
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton>
-                          <CalendarTodayIcon />
+                          <EventIcon />
                         </IconButton>
                       </InputAdornment>
                     ),
@@ -98,11 +99,12 @@ function Meetings() {
                   showTodayButton
                   clearable
                   required
+                  format="dd.MM.yyyy hh:mm"
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
                         <IconButton>
-                          <CalendarTodayIcon />
+                          <EventIcon />
                         </IconButton>
                       </InputAdornment>
                     ),

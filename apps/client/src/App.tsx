@@ -1,16 +1,23 @@
 import React from 'react';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
+import { useTranslation } from 'react-i18next';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { enUS, de } from 'date-fns/locale';
+import DateFnsUtils from '@date-io/date-fns';
 import LandingPage from './pages/landing-page';
 import Meetings from './pages/meetings';
 
 const theme = createMuiTheme();
 
 function App() {
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language.startsWith('de') ? de : enUS;
   return (
     <ThemeProvider theme={theme}>
-      <LandingPage />
-      <Meetings />
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={locale}>
+        <LandingPage />
+        <Meetings />
+      </MuiPickersUtilsProvider>
     </ThemeProvider>
   );
 }

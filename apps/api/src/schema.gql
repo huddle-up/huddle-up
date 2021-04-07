@@ -1,0 +1,30 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Meeting {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  meetings: [Meeting!]!
+  meeting(id: Int!): Meeting!
+}
+
+type Mutation {
+  createMeeting(createMeetingInput: CreateMeetingInput!): Meeting!
+  updateMeeting(updateMeetingInput: UpdateMeetingInput!): Meeting!
+  removeMeeting(id: Int!): Meeting!
+}
+
+input CreateMeetingInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateMeetingInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
