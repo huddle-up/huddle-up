@@ -24,7 +24,16 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   mainContent: {
-    backgroundImage: 'url(https://source.unsplash.com/1280x720/daily?meeting)',
+    backgroundImage: 'url(https://source.unsplash.com/960x400/daily?meeting,social)',
+    [theme.breakpoints.up('md')]: {
+      backgroundImage: 'url(https://source.unsplash.com/1280x720/daily?meeting,social)',
+    },
+    [theme.breakpoints.up('lg')]: {
+      backgroundImage: 'url(https://source.unsplash.com/1920x1080/daily?meeting,social)',
+    },
+    [theme.breakpoints.up('xl')]: {
+      backgroundImage: 'url(https://source.unsplash.com/2560x1440/daily?meeting,social)',
+    },
     backgroundSize: 'cover',
     backgroundPosition: 'center',
     padding: theme.spacing(8, 0, 6),
