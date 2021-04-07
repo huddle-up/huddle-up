@@ -28,7 +28,7 @@ export class MeetingsResolver {
     return this.meetingsService.update(updateMeetingInput.id, updateMeetingInput);
   }
 
-  @Mutation(() => Meeting)
+  @Mutation(() => Boolean)
   removeMeeting(@Args('id', { type: () => Int }) id: number) {
     return this.meetingsService.remove(id);
   }

@@ -69,7 +69,7 @@ function Meetings() {
                 <DateTimePicker
                   value={selectedDate}
                   onChange={handleDateChange}
-                  label="from"
+                  label="start"
                   autoOk
                   ampm={false}
                   disablePast
@@ -92,7 +92,7 @@ function Meetings() {
                 <DateTimePicker
                   value={selectedDate}
                   onChange={handleDateChange}
-                  label="to"
+                  label="end"
                   autoOk
                   ampm={false}
                   disablePast

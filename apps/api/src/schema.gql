@@ -3,9 +3,26 @@
 # ------------------------------------------------------
 
 type Meeting {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """The id of the meeting"""
+  id: Int!
+
+  """The title of the meeting"""
+  title: String!
+
+  """The description of the meeting"""
+  description: String
+
+  """The start date of the meeting"""
+  startDate: DateTime!
+
+  """The end date of the meeting"""
+  endDate: DateTime!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type Query {
   meetings: [Meeting!]!
@@ -15,16 +32,36 @@ type Query {
 type Mutation {
   createMeeting(createMeetingInput: CreateMeetingInput!): Meeting!
   updateMeeting(updateMeetingInput: UpdateMeetingInput!): Meeting!
-  removeMeeting(id: Int!): Meeting!
+  removeMeeting(id: Int!): Boolean!
 }
 
 input CreateMeetingInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """The title of the meeting"""
+  title: String!
+
+  """The description of the meeting"""
+  description: String
+
+  """The start date of the meeting"""
+  startDate: DateTime!
+
+  """The end date of the meeting"""
+  endDate: DateTime!
 }
 
 input UpdateMeetingInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  """The title of the meeting"""
+  title: String
+
+  """The description of the meeting"""
+  description: String
+
+  """The start date of the meeting"""
+  startDate: DateTime
+
+  """The end date of the meeting"""
+  endDate: DateTime
+
+  """The id of the meeting"""
   id: Int!
 }
