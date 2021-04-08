@@ -1,22 +1,64 @@
 {
+  "global": {
+    "head": {
+      "title": "Plattform für Videotreffen | HuddleUp",
+      "description": "Webplattform für Videotreffen, Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen"
+    },
+    "button": {
+      "login": "Einloggen",
+      "register": "Registrieren",
+      "cancel": "Abbrechen"
+    },
+    "link": {
+      "help": "Hilfe"
+    },
+    "datepicker": {
+      "okLabel": "ok",
+      "cancelLabel": "Abbrechen",
+      "clearLabel": "Reset",
+      "todayLabel": "Jetzt"
+    }
+  },
   "landingpage": {
     "title": "Willkommen bei HuddleUp",
+    "button": {
+      "getstarted": "Loslegen"
+    },
     "description": {
       "main": "Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen.",
       "short": "Erstelle und beitrete Videotreffen mit interessanten Themen",
       "footer": "Webplattform für Videotreffen"
-    },
-    "head": {
-      "title": "Plattform für Videotreffen | HuddleUp",
-      "description": "Webplattform für Videotreffen, Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen"
     }
   },
-  "button": {
-    "getstarted": "Loslegen",
-    "login": "Einloggen",
-    "register": "Registrieren"
-  },
-  "link": {
-    "help": "Hilfe"
+  "meetings": {
+    "head": {
+      "title": {
+        "create": "Neues Treffen | HuddleUp",
+        "edit": "Treffen bearbeiten | HuddleUp",
+        "view": "Treffen  | HuddleUp"
+      }
+    },
+    "button": {
+      "create": "Treffen erstellen",
+      "edit": "Treffen bearbeiten",
+      "save": "Treffen speichern",
+      "cancel": "Treffen absagen",
+      "start": "Meeting starten",
+      "attend": "Am Meeting beitreten",
+      "join": "Am Treffen teilnehmen",
+      "leave": "Treffen verlassen"
+    },
+    "title": {
+      "new": "Neues Meeting",
+      "details": "Details",
+      "about": "Über das Meeting",
+      "dateTime": "Datum und Zeit"
+    },
+    "form": {
+      "title": "Titel",
+      "description": "Beschreibung",
+      "startDate": "Start",
+      "endDate": "Geplantes Ende"
+    }
   }
 }

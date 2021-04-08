@@ -62,8 +62,8 @@ function LandingPage() {
   return (
     <>
       <Helmet>
-        <title>{t('landingpage.head.title')}</title>
-        <meta name="description" content={t('landingpage.head.description')} />
+        <title>{t('global.head.title')}</title>
+        <meta name="description" content={t('global.head.description')} />
       </Helmet>
       <CssBaseline />
       <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
@@ -73,11 +73,11 @@ function LandingPage() {
           </Typography>
           <nav>
             <Link variant="button" color="textPrimary" href="#" className={classes.link}>
-              {t('button.login')}
+              {t('global.button.login')}
             </Link>
           </nav>
           <Button href="#" color="primary" variant="outlined" className={classes.link}>
-            {t('button.register')}
+            {t('global.button.register')}
           </Button>
         </Toolbar>
       </AppBar>
@@ -96,7 +96,7 @@ function LandingPage() {
               <Grid container spacing={2} justify="center">
                 <Grid item>
                   <Button variant="contained" color="primary" endIcon={<ArrowForwardIosIcon />}>
-                    {t('button.getstarted')}
+                    {t('landingpage.button.getstarted')}
                   </Button>
                 </Grid>
               </Grid>
@@ -112,7 +112,7 @@ function LandingPage() {
           <Typography variant="subtitle1" align="center" color="textSecondary">
             {t('landingpage.description.short')}{' '}
             <Link href="#" variant="body2">
-              {t('link.help')}
+              {t('global.link.help')}
             </Link>
           </Typography>
         </Container>
