@@ -4,6 +4,9 @@
       "title": "Plattform für Videotreffen | HuddleUp",
       "description": "Webplattform für Videotreffen, Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen"
     },
+    "title": {
+      "meetings": "Treffen"
+    },
     "button": {
       "login": "Einloggen",
       "register": "Registrieren",
@@ -49,9 +52,10 @@
       "leave": "Treffen verlassen"
     },
     "title": {
-      "new": "Neues Meeting",
+      "new": "Neues Treffen",
+      "edit": "Treffen bearbeiten",
       "details": "Details",
-      "about": "Über das Meeting",
+      "about": "Über das Treffen",
       "dateTime": "Datum und Zeit"
     },
     "form": {

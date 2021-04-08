@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import Container from '@material-ui/core/Container';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { DateTimePicker } from '@material-ui/pickers';
-import EventIcon from '@material-ui/icons/Event';
-import { IconButton, Button, InputAdornment } from '@material-ui/core';
+import { useQuery, gql } from '@apollo/client';
+import { Paper, Typography } from '@material-ui/core';
+import MeetingUpdate from './meeting-update';
+import MeetingCreate from './meeting-create';
 
 const useStyles = makeStyles((theme) => ({
   mainContent: {},
@@ -35,111 +30,51 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const MEETINGS = gql`
+  query getMeetings {
+    meetings {
+      id
+      title
+      description
+      startDate
+      endDate
+      __typename
+    }
+  }
+`;
+
+function MeetingList() {
+  const { t } = useTranslation();
+  const { loading, error, data } = useQuery(MEETINGS);
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+  return data.meetings.map(({ id, title, description, startDate, endDate }) => (
+    <div key={id}>
+      <p>
+        [ID {id}] {t('meetings.form.title')}: {title} <br />
+        {t('meetings.form.description')}: {description} <br />
+        {t('meetings.form.startDate')}: {startDate} <br />
+        {t('meetings.form.endDate')}: {endDate}
+      </p>
+    </div>
+  ));
+}
+
 function Meetings() {
   const { t } = useTranslation();
   const classes = useStyles();
-  const [selectedDate, handleDateChange] = useState(undefined);
 
   return (
     <>
       <main className={classes.layout}>
+        <Typography variant="h6" gutterBottom>
+          {t('global.title.meetings')}
+        </Typography>
         <Paper className={classes.paper}>
-          <div className={classes.mainContent}>
-            <Typography variant="h6" gutterBottom>
-              {t('meetings.title.about')}
-            </Typography>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <TextField required id="title" name="title" label={t('meetings.form.title')} fullWidth />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  id="description"
-                  label={t('meetings.form.description')}
-                  multiline
-                  fullWidth
-                  rows={10}
-                  rowsMax={10}
-                />
-              </Grid>
-            </Grid>
-          </div>
+          <MeetingList />
         </Paper>
-        <Paper className={classes.paper}>
-          <Typography variant="h6" gutterBottom>
-            {t('meetings.title.dateTime')}
-          </Typography>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <DateTimePicker
-                value={selectedDate}
-                onChange={handleDateChange}
-                label={t('meetings.form.startDate')}
-                okLabel={t('global.datepicker.okLabel')}
-                cancelLabel={t('global.datepicker.cancelLabel')}
-                clearLabel={t('global.datepicker.clearLabel')}
-                todayLabel={t('global.datepicker.todayLabel')}
-                format="dd.MM.yyyy hh:mm"
-                disablePast
-                showTodayButton
-                clearable
-                required
-                autoOk
-                ampm={false}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton>
-                        <EventIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <DateTimePicker
-                value={selectedDate}
-                onChange={handleDateChange}
-                label={t('meetings.form.endDate')}
-                okLabel={t('global.datepicker.okLabel')}
-                cancelLabel={t('global.datepicker.cancelLabel')}
-                clearLabel={t('global.datepicker.clearLabel')}
-                todayLabel={t('global.datepicker.todayLabel')}
-                format="dd.MM.yyyy hh:mm"
-                disablePast
-                showTodayButton
-                clearable
-                required
-                autoOk
-                ampm={false}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton>
-                        <EventIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-            </Grid>
-          </Grid>
-        </Paper>
-        <Paper className={classes.paper} elevation={0}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <Button href="#" color="primary" variant="outlined">
-                {t('global.button.cancel')}
-              </Button>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button href="#" color="primary" variant="contained">
-                {t('meetings.button.create')}
-              </Button>
-            </Grid>
-          </Grid>
-        </Paper>
+        <MeetingUpdate />
+        <MeetingCreate />
       </main>
     </>
   );

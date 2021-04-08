@@ -4,19 +4,39 @@ import { UpdateMeetingInput } from './dto/update-meeting.input';
 
 @Injectable()
 export class MeetingsService {
+  private meetings = [
+    {
+      id: 1,
+      title: 'Hundetreffen',
+      description: 'Ein Treffen für Hundefreunde.',
+      startDate: new Date(2021, 10, 17),
+      endDate: new Date(2021, 11, 17),
+    },
+    {
+      id: 2,
+      title: 'Katzentreffen',
+      description: 'Ein Treffen für Katzenfreunde.',
+      startDate: new Date(2021, 11, 15),
+      endDate: new Date(2021, 12, 15),
+    },
+  ];
+
   create(createMeetingInput: CreateMeetingInput) {
-    return { ...createMeetingInput, id: 55 };
+    const newMeeting = {
+      ...createMeetingInput,
+      description: createMeetingInput.description || '',
+      id: this.meetings.length + 1,
+    };
+    this.meetings.push(newMeeting);
+    return newMeeting;
   }
 
   findAll() {
-    return [
-      { id: 1, title: 'test 1', description: 'description test1', startDate: new Date(), endDate: new Date() },
-      { id: 2, title: 'test 2', description: 'description test2', startDate: new Date(), endDate: new Date() },
-    ];
+    return this.meetings;
   }
 
   findOne(id: number) {
-    return { id: 1, title: 'test 1', description: 'description test1', startDate: new Date(), endDate: new Date() };
+    return this.meetings[1];
   }
 
   update(id: number, updateMeetingInput: UpdateMeetingInput) {
