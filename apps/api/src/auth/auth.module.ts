@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
-import { JwtModule } from '@nestjs/jwt';
-import { UsersModule } from '../users/users.module';
+import { JwtModule, JwtService } from '@nestjs/jwt';
 import { AuthConfigModule } from '../config/auth/config.module';
 import { AuthConfigService } from '../config/auth/config.service';
 import { AuthService } from './auth.service';
@@ -11,7 +10,6 @@ import { OidcAuthService } from './oidc-auth.service';
 
 @Module({
   imports: [
-    UsersModule,
     PassportModule,
     AuthConfigModule,
     JwtModule.registerAsync({
@@ -23,7 +21,8 @@ import { OidcAuthService } from './oidc-auth.service';
       }),
     }),
   ],
-  providers: [AuthService, JwtStrategy, OidcAuthService],
+  providers: [AuthService, JwtStrategy, OidcAuthService, JwtService],
   controllers: [AuthController],
+  exports: [AuthService],
 })
 export class AuthModule {}
