@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { AppConfigModule } from './config/app/config.module';
 import { DatabaseConfigModule } from './config/database/config.module';
 import { DatabaseConfigService } from './config/database/config.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { DatabaseConfigService } from './config/database/config.service';
         synchronize: true,
       }),
     }),
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
