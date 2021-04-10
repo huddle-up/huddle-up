@@ -1,49 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 import { CreateMeetingInput } from './dto/create-meeting.input';
 import { UpdateMeetingInput } from './dto/update-meeting.input';
+import { Meeting } from './entities/meeting.entity';
 
 @Injectable()
 export class MeetingsService {
-  private meetings = [
-    {
-      id: 1,
-      title: 'Hundetreffen',
-      description: 'Ein Treffen für Hundefreunde.',
-      startDate: new Date(2021, 10, 17),
-      endDate: new Date(2021, 11, 17),
-    },
-    {
-      id: 2,
-      title: 'Katzentreffen',
-      description: 'Ein Treffen für Katzenfreunde.',
-      startDate: new Date(2021, 11, 15),
-      endDate: new Date(2021, 12, 15),
-    },
-  ];
+  constructor(@InjectRepository(Meeting) private readonly meetingRepository: Repository<Meeting>) {}
 
   create(createMeetingInput: CreateMeetingInput) {
-    const newMeeting = {
-      ...createMeetingInput,
-      description: createMeetingInput.description || '',
-      id: this.meetings.length + 1,
-    };
-    this.meetings.push(newMeeting);
-    return newMeeting;
+    return this.meetingRepository.save(createMeetingInput);
   }
 
   findAll() {
-    return this.meetings;
+    return this.meetingRepository.find();
   }
 
   findOne(id: number) {
-    return this.meetings[1];
+    return this.meetingRepository.findOne(id);
   }
 
   update(id: number, updateMeetingInput: UpdateMeetingInput) {
-    return updateMeetingInput;
+    return id && this.meetingRepository.save(updateMeetingInput);
   }
 
-  remove(id: number) {
-    return true;
+  async remove(id: number) {
+    const result: DeleteResult = await this.meetingRepository.delete(id);
+    return result.affected === 1;
   }
 }
