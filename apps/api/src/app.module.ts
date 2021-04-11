@@ -10,6 +10,7 @@ import { DatabaseConfigService } from './config/database/config.service';
 import { GraphqlConfigModule } from './config/graphql/config.module';
 import { GraphqlConfigService } from './config/graphql/config.service';
 import { MeetingsModule } from './meetings/meetings.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { MeetingsModule } from './meetings/meetings.module';
       }),
     }),
     MeetingsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
