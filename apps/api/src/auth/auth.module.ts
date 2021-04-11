@@ -17,11 +17,11 @@ import { OidcAuthService } from './oidc-auth.service';
       inject: [AuthConfigService],
       useFactory: async (authConfigService: AuthConfigService) => ({
         secret: authConfigService.secret,
-        signOptions: { expiresIn: '60s' },
+        signOptions: { expiresIn: '10m' },
       }),
     }),
   ],
-  providers: [AuthService, JwtStrategy, OidcAuthService, JwtService],
+  providers: [AuthService, JwtStrategy, OidcAuthService],
   controllers: [AuthController],
   exports: [AuthService],
 })
