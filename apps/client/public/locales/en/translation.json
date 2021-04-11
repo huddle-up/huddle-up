@@ -1,22 +1,68 @@
 {
+  "global": {
+    "head": {
+      "title": "Create and Join Videomeetings | HuddleUp",
+      "description": "Webapplication for Videomeetings, Create, Categorize, Search and Join on virtual meetings about things you like with unfamiliar users"
+    },
+    "title": {
+      "meetings": "Meetings"
+    },
+    "button": {
+      "login": "Login",
+      "register": "Register",
+      "cancel": "Cancel"
+    },
+    "link": {
+      "help": "help"
+    },
+    "datepicker": {
+      "okLabel": "ok",
+      "cancelLabel": "Cancel",
+      "clearLabel": "Clear",
+      "todayLabel": "Now"
+    }
+  },
   "landingpage": {
     "title": "Welcome to HuddleUp",
+    "button": {
+      "getstarted": "Get Started"
+    },
     "description": {
       "main": "Create, Categorize, Search and Join on virtual meetings about things you like with unfamiliar users.",
       "short": "Create and join Videomeetings with interesting topics",
       "footer": "Webapplication for Videomeetings"
-    },
-    "head": {
-      "title": "Create and Join Videomeetings | HuddleUp",
-      "description": "Webapplication for Videomeetings, Create, Categorize, Search and Join on virtual meetings about things you like with unfamiliar users"
     }
   },
-  "button": {
-    "getstarted": "Get Started",
-    "login": "Login",
-    "register": "Register"
-  },
-  "link": {
-    "help": "help"
+  "meetings": {
+    "head": {
+      "title": {
+        "create": "Create Meeting | HuddleUp",
+        "edit": "Edit Meeting | HuddleUp",
+        "view": "Meeting Details | HuddleUp"
+      }
+    },
+    "button": {
+      "create": "Create Meeting",
+      "edit": "Edit Meeting",
+      "save": "Save Meeting",
+      "cancel": "Cancel Meeting",
+      "start": "Start Meeting",
+      "attend": "Attend Meeting",
+      "join": "Join this Meeting",
+      "leave": "Leave this Meeting"
+    },
+    "title": {
+      "new": "New Meeting",
+      "edit": "Edit Meeting",
+      "details": "Details",
+      "about": "About the Meeting",
+      "dateTime": "Date and Time"
+    },
+    "form": {
+      "title": "Title",
+      "description": "Description",
+      "startDate": "Start",
+      "endDate": "Estimated End"
+    }
   }
 }

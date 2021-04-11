@@ -1,15 +1,24 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
-
+import { ApolloProvider } from '@apollo/client/react';
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 import reportWebVitals from './reportWebVitals';
 
 import './i18n';
 import App from './App';
 
+// TODO move to api or adapters
+const gqlClient = new ApolloClient({
+  uri: 'http://localhost:4000/graphql',
+  cache: new InMemoryCache(),
+});
+
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback="loading...">
-      <App />
+      <ApolloProvider client={gqlClient}>
+        <App />
+      </ApolloProvider>
     </Suspense>
   </React.StrictMode>,
   document.getElementById('root')
