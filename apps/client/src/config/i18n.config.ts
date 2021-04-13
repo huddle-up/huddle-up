@@ -13,7 +13,7 @@ export function loadi18nConfig(config: Config) {
     values: {
       defaultLocale: process.env.REACT_APP_I18N_DEFAULT_LOCALE || 'en',
       availableLocales: extractAvailableLocales(process.env.REACT_APP_I18N_AVAILABLE_LOCALES),
-      debug: config.get<string>('base.env') === 'development',
+      debug: config.get<string>('base.env') === 'development' && !!process.env.REACT_APP_I18N_ENABLE_DEBUG,
     },
   };
 }
