@@ -1,8 +1,8 @@
 import React from 'react';
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core';
+import { CssBaseline, ThemeProvider as MuiThemeProvider } from '@material-ui/core';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { createTheme } from './theme';
+import { createTheme } from '../../styles/theme';
 import { useLocales } from '../locales';
 
 function ThemeProvider({ children }: { children: React.ReactNode }) {
@@ -10,6 +10,7 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
   const theme = createTheme(uiLocale);
   return (
     <MuiThemeProvider theme={theme}>
+      <CssBaseline />
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={dateLocale}>
         {children}
       </MuiPickersUtilsProvider>
