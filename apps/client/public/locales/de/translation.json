@@ -1,7 +1,7 @@
 {
   "global": {
     "head": {
-      "title": "Plattform für Videotreffen | HuddleUp",
+      "title": "Plattform für Videotreffen",
       "description": "Webplattform für Videotreffen, Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen"
     },
     "title": {
@@ -20,7 +20,19 @@
       "cancelLabel": "Abbrechen",
       "clearLabel": "Reset",
       "todayLabel": "Jetzt"
+    },
+    "footer": {
+      "tagline": "Webplattform für Videotreffen",
+      "description": "Erstelle und beitrete Videotreffen mit interessanten Themen"
     }
+  },
+  "notFoundPage": {
+    "head": {
+      "title": "Seite nicht gefunden"
+    },
+    "title": "Seite nicht gefunden",
+    "description": "Oje! Diese Seite wurde nicht gefunden",
+    "backLink": "Zurück zur Startseite"
   },
   "landingpage": {
     "title": "Willkommen bei HuddleUp",
@@ -28,17 +40,15 @@
       "getstarted": "Loslegen"
     },
     "description": {
-      "main": "Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen.",
-      "short": "Erstelle und beitrete Videotreffen mit interessanten Themen",
-      "footer": "Webplattform für Videotreffen"
+      "main": "Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen."
     }
   },
   "meetings": {
     "head": {
       "title": {
-        "create": "Neues Treffen | HuddleUp",
-        "edit": "Treffen bearbeiten | HuddleUp",
-        "view": "Treffen  | HuddleUp"
+        "create": "Neues Treffen",
+        "edit": "Treffen bearbeiten",
+        "view": "Treffen"
       }
     },
     "button": {
