@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { JwksClient } from 'jwks-rsa';
 import * as jwt from 'jsonwebtoken';
 import { AuthConfigService } from '../config/auth/config.service';
-import { IdToken } from './interfaces/id-token.interface';
+import { OidcIdToken } from './interfaces/oidc-id-token.interface';
+import { AuthEntity } from './interfaces/auth-entity.interface';
 
 @Injectable()
 export class OidcAuthService {
@@ -17,7 +18,7 @@ export class OidcAuthService {
     });
   }
 
-  public async verify(token: string): Promise<IdToken | null> {
+  public async verify(token: string): Promise<OidcIdToken | null> {
     try {
       const getKey = (header, callback) => {
         this.jwksClient.getSigningKey(header.kid, (err, key) => {
@@ -30,7 +31,7 @@ export class OidcAuthService {
         });
       };
 
-      const result = await new Promise<IdToken | null>((resolve) => {
+      const result = await new Promise<OidcIdToken | null>((resolve) => {
         jwt.verify(
           token,
           getKey,
@@ -42,7 +43,7 @@ export class OidcAuthService {
             if (err) {
               resolve(null);
             } else {
-              resolve(decoded as IdToken);
+              resolve(decoded as OidcIdToken);
             }
           }
         );
@@ -51,5 +52,17 @@ export class OidcAuthService {
     } catch (e) {
       return null;
     }
+  }
+
+  public toAuthEntity(oidcToken: OidcIdToken): AuthEntity {
+    const { sub, iss, email, name, nickname, picture } = oidcToken;
+    return {
+      sub,
+      issuer: iss,
+      email,
+      name,
+      nickname,
+      picture,
+    };
   }
 }
