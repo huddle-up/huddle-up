@@ -1,17 +1,20 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthConfigModule } from '../config/auth/config.module';
 import { AuthConfigService } from '../config/auth/config.service';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt/jwt.strategy';
 import { OidcAuthService } from './oidc-auth.service';
+import { AuthUser } from './entities/auth-user.entity';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [
-    PassportModule,
     AuthConfigModule,
+    PassportModule,
     JwtModule.registerAsync({
       imports: [AuthConfigModule],
       inject: [AuthConfigService],
@@ -20,6 +23,8 @@ import { OidcAuthService } from './oidc-auth.service';
         signOptions: { expiresIn: '10m' },
       }),
     }),
+    TypeOrmModule.forFeature([AuthUser]),
+    UsersModule,
   ],
   providers: [AuthService, JwtStrategy, OidcAuthService],
   controllers: [AuthController],
