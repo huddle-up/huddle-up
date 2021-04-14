@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +12,6 @@ import { IconButton, Button, InputAdornment } from '@material-ui/core';
 import { useMutation, gql } from '@apollo/client';
 
 const useStyles = makeStyles((theme) => ({
-  mainContent: {},
   layout: {
     width: 'auto',
     marginLeft: theme.spacing(2),
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CREATE_MEETING = gql`
-  mutation createMeeting($title: String!, $description: String, $startDate: DateTime!, $endDate: DateTime!) {
+  mutation CreateMeeting($title: String!, $description: String, $startDate: DateTime!, $endDate: DateTime!) {
     createMeeting(
       createMeetingInput: { title: $title, description: $description, startDate: $startDate, endDate: $endDate }
     ) {
@@ -71,20 +71,23 @@ function MeetingCreate() {
 
   return (
     <>
-      <Typography variant="h6" gutterBottom>
-        {t('meetings.title.new')}
-      </Typography>
-      {mutationLoading && <p>Loading...</p>}
-      {mutationError && <p>Error... ${mutationError.message}</p>}
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          createMeeting({
-            variables: meeting,
-          });
-        }}>
-        <Paper className={classes.paper}>
-          <div className={classes.mainContent}>
+      <Helmet>
+        <title>{t('meetings.head.title.create')}</title>
+      </Helmet>
+      <main className={classes.layout}>
+        <Typography variant="h6" gutterBottom>
+          {t('meetings.title.new')}
+        </Typography>
+        {mutationLoading && <p>Loading...</p>}
+        {mutationError && <p>Error... ${mutationError.message}</p>}
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            createMeeting({
+              variables: meeting,
+            });
+          }}>
+          <Paper className={classes.paper}>
             <Typography variant="h6" gutterBottom>
               {t('meetings.title.about')}
             </Typography>
@@ -113,87 +116,87 @@ function MeetingCreate() {
                 />
               </Grid>
             </Grid>
-          </div>
-        </Paper>
-        <Paper className={classes.paper}>
-          <Typography variant="h6" gutterBottom>
-            {t('meetings.title.dateTime')}
-          </Typography>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <DateTimePicker
-                value={meeting.startDate}
-                onChange={(date) => setMeeting({ ...meeting, startDate: date ? date.toString() : null })}
-                label={t('meetings.form.startDate')}
-                okLabel={t('global.datepicker.okLabel')}
-                cancelLabel={t('global.datepicker.cancelLabel')}
-                clearLabel={t('global.datepicker.clearLabel')}
-                todayLabel={t('global.datepicker.todayLabel')}
-                format="dd.MM.yyyy hh:mm"
-                disablePast
-                clearable
-                required
-                autoOk
-                ampm={false}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton>
-                        <EventIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
+          </Paper>
+          <Paper className={classes.paper}>
+            <Typography variant="h6" gutterBottom>
+              {t('meetings.title.dateTime')}
+            </Typography>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <DateTimePicker
+                  value={meeting.startDate}
+                  onChange={(date) => setMeeting({ ...meeting, startDate: date ? date.toString() : null })}
+                  label={t('meetings.form.startDate')}
+                  okLabel={t('global.datepicker.okLabel')}
+                  cancelLabel={t('global.datepicker.cancelLabel')}
+                  clearLabel={t('global.datepicker.clearLabel')}
+                  todayLabel={t('global.datepicker.todayLabel')}
+                  format="dd.MM.yyyy hh:mm"
+                  disablePast
+                  clearable
+                  required
+                  autoOk
+                  ampm={false}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton>
+                          <EventIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <DateTimePicker
+                  value={meeting.endDate}
+                  onChange={(date) => setMeeting({ ...meeting, endDate: date ? date.toString() : null })}
+                  label={t('meetings.form.endDate')}
+                  okLabel={t('global.datepicker.okLabel')}
+                  cancelLabel={t('global.datepicker.cancelLabel')}
+                  clearLabel={t('global.datepicker.clearLabel')}
+                  todayLabel={t('global.datepicker.todayLabel')}
+                  format="dd.MM.yyyy hh:mm"
+                  disablePast
+                  showTodayButton
+                  clearable
+                  required
+                  autoOk
+                  ampm={false}
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton>
+                          <EventIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <DateTimePicker
-                value={meeting.endDate}
-                onChange={(date) => setMeeting({ ...meeting, endDate: date ? date.toString() : null })}
-                label={t('meetings.form.endDate')}
-                okLabel={t('global.datepicker.okLabel')}
-                cancelLabel={t('global.datepicker.cancelLabel')}
-                clearLabel={t('global.datepicker.clearLabel')}
-                todayLabel={t('global.datepicker.todayLabel')}
-                format="dd.MM.yyyy hh:mm"
-                disablePast
-                showTodayButton
-                clearable
-                required
-                autoOk
-                ampm={false}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton>
-                        <EventIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
+          </Paper>
+          <Paper className={classes.paper} elevation={0}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} sm={6}>
+                <Button href="#" color="primary" variant="outlined">
+                  {t('global.button.cancel')}
+                </Button>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Button
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  disabled={!meeting.title || !meeting.startDate || !meeting.endDate}>
+                  {t('meetings.button.create')}
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-        </Paper>
-        <Paper className={classes.paper} elevation={0}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <Button href="#" color="primary" variant="outlined">
-                {t('global.button.cancel')}
-              </Button>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Button
-                type="submit"
-                color="primary"
-                variant="contained"
-                disabled={!meeting.title || !meeting.startDate || !meeting.endDate}>
-                {t('meetings.button.create')}
-              </Button>
-            </Grid>
-          </Grid>
-        </Paper>
-      </form>
+          </Paper>
+        </form>
+      </main>
     </>
   );
 }

@@ -1,7 +1,7 @@
 {
   "global": {
     "head": {
-      "title": "Plattform für Videotreffen",
+      "title": "Plattform für Videotreffen | HuddleUp ",
       "description": "Webplattform für Videotreffen, Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen"
     },
     "title": {
@@ -59,7 +59,8 @@
       "start": "Meeting starten",
       "attend": "Am Meeting beitreten",
       "join": "Am Treffen teilnehmen",
-      "leave": "Treffen verlassen"
+      "leave": "Treffen verlassen",
+      "showmore": "Mehr anzeigen"
     },
     "title": {
       "new": "Neues Treffen",
@@ -73,6 +74,9 @@
       "description": "Beschreibung",
       "startDate": "Start",
       "endDate": "Geplantes Ende"
-    }
+    },
+    "today": "Heute",
+    "hostedby": "Veranstaltet von",
+    "participant": "Teilnehmer"
   }
 }

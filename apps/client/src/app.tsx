@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useConfig } from './contexts/config';
 import { LandingPage } from './pages/landing-page';
-import { MeetingsPage } from './pages/meetings';
+import { MeetingCreate, MeetingsPage, MeetingUpdate } from './pages/meetings';
 import { NotFoundPage } from './pages/not-found-page';
 
 function App() {
@@ -23,6 +23,15 @@ function App() {
           </Route>
           <Route path="/meetings">
             <MeetingsPage />
+          </Route>
+          <Route path="/meeting">
+            <MeetingsPage />
+          </Route>
+          <Route path="/create-meeting">
+            <MeetingCreate />
+          </Route>
+          <Route path="/edit-meeting">
+            <MeetingUpdate />
           </Route>
           <Route path="*">
             <NotFoundPage />
