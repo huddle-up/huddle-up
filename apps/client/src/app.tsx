@@ -12,7 +12,7 @@ function App() {
   const { t } = useTranslation();
   return (
     <>
-      <Helmet titleTemplate="%s | HuddleUp" defaultTitle={t('global.head.title')} defaul>
+      <Helmet titleTemplate="%s | HuddleUp" defaultTitle={t('global.head.title')}>
         <base href={config.get('base.host')} />
         <meta name="description" content={t('global.head.description')} />
       </Helmet>
