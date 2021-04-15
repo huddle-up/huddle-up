@@ -7,12 +7,28 @@
 // GraphQL mutation operation: UpdateMeeting
 // ====================================================
 
+export interface UpdateMeeting_updateMeeting_user {
+  __typename: "User";
+  /**
+   * The id of the user
+   */
+  id: string;
+  /**
+   * The email of the user
+   */
+  email: string;
+  /**
+   * The name of the user
+   */
+  name: string;
+}
+
 export interface UpdateMeeting_updateMeeting {
   __typename: "Meeting";
   /**
    * The id of the meeting
    */
-  id: number;
+  id: string;
   /**
    * The title of the meeting
    */
@@ -29,6 +45,10 @@ export interface UpdateMeeting_updateMeeting {
    * The end date of the meeting
    */
   endDate: any;
+  /**
+   * The hoster of the meeting
+   */
+  user: UpdateMeeting_updateMeeting_user;
 }
 
 export interface UpdateMeeting {
@@ -36,7 +56,7 @@ export interface UpdateMeeting {
 }
 
 export interface UpdateMeetingVariables {
-  id: number;
+  id: string;
   title?: string | null;
   description?: string | null;
   startDate?: any | null;
