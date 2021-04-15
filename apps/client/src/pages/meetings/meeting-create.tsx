@@ -10,6 +10,8 @@ import { DateTimePicker } from '@material-ui/pickers';
 import EventIcon from '@material-ui/icons/Event';
 import { IconButton, Button, InputAdornment } from '@material-ui/core';
 import { useMutation, gql } from '@apollo/client';
+import CreateIcon from '@material-ui/icons/Create';
+import { LinkButton } from '../../components/link';
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -57,12 +59,6 @@ const CREATE_MEETING = gql`
       startDate
       endDate
       __typename
-      user {
-        id
-        email
-        name
-        __typename
-      }
     }
   }
 `;
@@ -72,6 +68,7 @@ interface FormProps {
   description?: string;
   startDate: string;
   endDate: string;
+  userId: string;
 }
 
 function MeetingCreate() {
@@ -85,6 +82,7 @@ function MeetingCreate() {
     description: undefined,
     startDate: null,
     endDate: null,
+    userId: 'e8d463ee-34d4-4f46-a2ed-850c9fde6c47',
   });
 
   return (
@@ -151,6 +149,7 @@ function MeetingCreate() {
                   todayLabel={t('global.datepicker.todayLabel')}
                   format="dd.MM.yyyy hh:mm"
                   disablePast
+                  showTodayButton
                   clearable
                   required
                   autoOk
@@ -198,16 +197,17 @@ function MeetingCreate() {
           <Paper className={classes.paper} elevation={0}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
-                <Button href="#" color="primary" variant="outlined">
+                <LinkButton to="/meetings" variant="outlined" color="primary">
                   {t('global.button.cancel')}
-                </Button>
+                </LinkButton>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Button
                   type="submit"
                   color="primary"
                   variant="contained"
-                  disabled={!meeting.title || !meeting.startDate || !meeting.endDate}>
+                  disabled={!meeting.title || !meeting.startDate || !meeting.endDate}
+                  startIcon={<CreateIcon />}>
                   {t('meetings.button.create')}
                 </Button>
               </Grid>

@@ -42,7 +42,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
-  const { title, startDate, endDate } = meeting;
+  const { id, title, startDate, endDate, user } = meeting;
   const meetingStart = new Date(startDate);
   const meetingEnd = new Date(endDate);
   const live = isWithinInterval(new Date(), { start: meetingStart, end: meetingEnd });
@@ -56,7 +56,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
             {format(meetingStart, 'HH:mm')}
           </Typography>
           {live && (
-            <Link to="/meeting">
+            <Link to={`/meeting/${id}`}>
               <Grid container direction="row" alignItems="center">
                 <Typography className={classes.title} color="textSecondary">
                   Live
@@ -67,7 +67,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
           )}
         </Grid>
         <Typography variant="h5" component="h2">
-          <Link to="/meeting">{title}</Link>
+          <Link to={`/meeting/${id}`}>{title}</Link>
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           Tags
@@ -75,7 +75,10 @@ function MeetingCard({ meeting }: MeetingCardProps) {
         <Grid container direction="row" justify="space-between" alignItems="center">
           <Link to="/profile">
             <Grid container direction="row" alignItems="center">
-              <AccountCircleIcon /> <Typography variant="body2">{t('meetings.hostedby')} Max Muster</Typography>
+              <AccountCircleIcon />{' '}
+              <Typography variant="body2">
+                {t('meetings.hostedby')} {user.name}
+              </Typography>
             </Grid>
           </Link>
           <LinkButton to="/meetings" variant="outlined" size="small" startIcon={<CheckIcon />}>

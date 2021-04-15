@@ -54,7 +54,7 @@ function MeetingsPage() {
       </Helmet>
       <main className={classes.layout}>
         <Typography variant="h6" gutterBottom>
-          {t('global.title.meetings')}
+          {t('global.title.meeting')}
         </Typography>
         <MeetingList meetings={data.meetings} />
       </main>
