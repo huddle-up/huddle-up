@@ -19,17 +19,17 @@ export class MeetingsResolver {
   }
 
   @Query(() => Meeting, { name: 'meeting' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.meetingsService.findOne(id);
+  findOne(@Args('id', { type: () => String }) id: string) {
+    return this.meetingsService.findOne({ id });
   }
 
   @Mutation(() => Meeting)
   updateMeeting(@Args('updateMeetingInput') updateMeetingInput: UpdateMeetingInput) {
-    return this.meetingsService.update(updateMeetingInput.id, updateMeetingInput);
+    return this.meetingsService.update(updateMeetingInput);
   }
 
   @Mutation(() => Boolean)
-  removeMeeting(@Args('id', { type: () => Int }) id: number) {
+  removeMeeting(@Args('id', { type: () => String }) id: string) {
     return this.meetingsService.remove(id);
   }
 }
