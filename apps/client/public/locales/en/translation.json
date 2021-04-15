@@ -5,6 +5,7 @@
       "description": "Webapplication for Videomeetings, Create, Categorize, Search and Join on virtual meetings about things you like with unfamiliar users"
     },
     "title": {
+      "meeting": "Treffen",
       "meetings": "Meetings"
     },
     "button": {
@@ -60,7 +61,8 @@
       "attend": "Attend Meeting",
       "join": "Join this Meeting",
       "leave": "Leave this Meeting",
-      "showmore": "Show more"
+      "showmore": "Show more",
+      "member": "You're a member"
     },
     "title": {
       "new": "New Meeting",

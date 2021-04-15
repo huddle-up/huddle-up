@@ -5,6 +5,7 @@
       "description": "Webplattform für Videotreffen, Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen"
     },
     "title": {
+      "meeting": "Treffen",
       "meetings": "Treffen"
     },
     "button": {
@@ -60,7 +61,8 @@
       "attend": "Am Meeting beitreten",
       "join": "Am Treffen teilnehmen",
       "leave": "Treffen verlassen",
-      "showmore": "Mehr anzeigen"
+      "showmore": "Mehr anzeigen",
+      "member": "Du bist mitglied"
     },
     "title": {
       "new": "Neues Treffen",
