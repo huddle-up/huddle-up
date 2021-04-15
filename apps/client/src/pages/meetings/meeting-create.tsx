@@ -35,9 +35,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CREATE_MEETING = gql`
-  mutation CreateMeeting($title: String!, $description: String, $startDate: DateTime!, $endDate: DateTime!) {
+  mutation CreateMeeting(
+    $title: String!
+    $description: String
+    $startDate: DateTime!
+    $endDate: DateTime!
+    $userId: String!
+  ) {
     createMeeting(
-      createMeetingInput: { title: $title, description: $description, startDate: $startDate, endDate: $endDate }
+      createMeetingInput: {
+        title: $title
+        description: $description
+        startDate: $startDate
+        endDate: $endDate
+        userId: $userId
+      }
     ) {
       id
       title
@@ -45,6 +57,12 @@ const CREATE_MEETING = gql`
       startDate
       endDate
       __typename
+      user {
+        id
+        email
+        name
+        __typename
+      }
     }
   }
 `;

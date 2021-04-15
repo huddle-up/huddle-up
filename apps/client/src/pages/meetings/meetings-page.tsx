@@ -29,6 +29,12 @@ const MEETINGS = gql`
       startDate
       endDate
       __typename
+      user {
+        id
+        email
+        name
+        __typename
+      }
     }
   }
 `;

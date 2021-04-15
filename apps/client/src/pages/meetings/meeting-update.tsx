@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const MEETING = gql`
-  query Meeting($id: Int!) {
+  query Meeting($id: String!) {
     meeting(id: $id) {
       id
       title
@@ -43,12 +43,18 @@ const MEETING = gql`
       startDate
       endDate
       __typename
+      user {
+        id
+        email
+        name
+        __typename
+      }
     }
   }
 `;
 
 const UPDATE_MEETING = gql`
-  mutation UpdateMeeting($id: Int!, $title: String, $description: String, $startDate: DateTime, $endDate: DateTime) {
+  mutation UpdateMeeting($id: String!, $title: String, $description: String, $startDate: DateTime, $endDate: DateTime) {
     updateMeeting(
       updateMeetingInput: {
         id: $id
@@ -64,6 +70,12 @@ const UPDATE_MEETING = gql`
       startDate
       endDate
       __typename
+      user {
+        id
+        email
+        name
+        __typename
+      }
     }
   }
 `;
