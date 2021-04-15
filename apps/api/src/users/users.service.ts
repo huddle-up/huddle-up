@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { CreateUserInput } from './dto/create-user.input';
+import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
   constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>) {}
 
-  async create(newUser: Partial<User>) {
+  async create(newUser: CreateUserInput) {
     const user = this.usersRepository.create(newUser);
     return this.usersRepository.save(user);
   }
@@ -20,7 +22,7 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  async update(user: User) {
+  async update(user: UpdateUserInput) {
     return this.usersRepository.save(user);
   }
 }
