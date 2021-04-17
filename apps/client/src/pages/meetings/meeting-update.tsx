@@ -112,7 +112,6 @@ function MeetingUpdate() {
     updateMeeting({
       variables: meeting,
     });
-    console.log('The link was clicked.');
   }
 
   if (queryLoading || !meeting) return <Paper className={classes.paper}>Loading...</Paper>;

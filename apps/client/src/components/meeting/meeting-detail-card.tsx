@@ -8,7 +8,6 @@ import { format, isToday, isWithinInterval } from 'date-fns';
 import Divider from '@material-ui/core/Divider';
 import EventIcon from '@material-ui/icons/Event';
 import EditIcon from '@material-ui/icons/Edit';
-import TextField from '@material-ui/core/TextField';
 import { Meeting_meeting as Meeting } from '../../pages/meetings/__generated-interfaces__/Meeting';
 import { Link, LinkButton } from '../link';
 import { SplitButton } from '../button';
@@ -115,17 +114,9 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
               </Grid>
             </Grid>
           </Grid>
-          {/* <Typography variant="body2" className={classes.description}>
+          <Typography variant="body2" className={classes.description}>
             {description}
-          </Typography> */}
-          <TextField
-            defaultValue={description}
-            multiline
-            fullWidth
-            InputProps={{
-              readOnly: true,
-            }}
-          />
+          </Typography>
         </CardContent>
       </Card>
       <Grid container direction="row" justify="space-between" alignItems="center">
