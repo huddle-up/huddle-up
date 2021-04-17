@@ -33,7 +33,7 @@ type Meeting {
   endDate: DateTime!
 
   """The hoster of the meeting"""
-  user: User!
+  host: User!
 }
 
 """
@@ -52,7 +52,6 @@ type Mutation {
   createMeeting(createMeetingInput: CreateMeetingInput!): Meeting!
   updateMeeting(updateMeetingInput: UpdateMeetingInput!): Meeting!
   removeMeeting(id: String!): Boolean!
-  createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
@@ -70,7 +69,7 @@ input CreateMeetingInput {
   endDate: DateTime!
 
   """The id of the hoster"""
-  userId: String!
+  hostId: String!
 }
 
 input UpdateMeetingInput {
@@ -87,27 +86,19 @@ input UpdateMeetingInput {
   endDate: DateTime
 
   """The id of the hoster"""
-  userId: String
+  hostId: String
 
   """The id of the meeting"""
   id: String!
 }
 
-input CreateUserInput {
+input UpdateUserInput {
+  """The id of the user"""
+  id: String!
+
   """The email of the user"""
   email: String!
 
   """The name of the user"""
   name: String!
-}
-
-input UpdateUserInput {
-  """The email of the user"""
-  email: String
-
-  """The name of the user"""
-  name: String
-
-  """The id of the user"""
-  id: String!
 }
