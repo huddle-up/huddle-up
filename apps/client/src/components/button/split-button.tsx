@@ -9,29 +9,17 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { useTranslation } from 'react-i18next';
-import CheckIcon from '@material-ui/icons/Check';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import CloseIcon from '@material-ui/icons/Close';
 
-function SplitButton() {
-  const { t } = useTranslation();
+interface SplitButtonProps {
+  options: string[];
+  icons: React.ReactNode[];
+  defaultSelectedIndex: number;
+}
+
+function SplitButton({ options, icons, defaultSelectedIndex }: SplitButtonProps) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(1);
-  const options = [
-    t('meetings.button.member'),
-    t('meetings.button.join'),
-    t('meetings.button.leave'),
-    t('meetings.button.cancel'),
-  ];
-
-  const iconOptions = [
-    <CheckIcon fontSize="small" />,
-    <PersonAddIcon fontSize="small" />,
-    <CloseIcon fontSize="small" />,
-    <CloseIcon fontSize="small" />,
-  ];
+  const [selectedIndex, setSelectedIndex] = React.useState(defaultSelectedIndex);
 
   const handleClick = () => {};
 
@@ -55,7 +43,7 @@ function SplitButton() {
   return (
     <>
       <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
-        <Button size="small" onClick={handleClick} startIcon={iconOptions[selectedIndex]}>
+        <Button size="small" onClick={handleClick} startIcon={icons[selectedIndex]}>
           {options[selectedIndex]}
         </Button>
         <Button
@@ -83,10 +71,9 @@ function SplitButton() {
                   {options.map((option, index) => (
                     <MenuItem
                       key={option}
-                      disabled={index === 3}
                       selected={index === selectedIndex}
                       onClick={(event) => handleMenuItemClick(event, index)}>
-                      <ListItemIcon>{iconOptions[index]}</ListItemIcon>
+                      <ListItemIcon>{icons[index]}</ListItemIcon>
                       {option}
                     </MenuItem>
                   ))}

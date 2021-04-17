@@ -4,10 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { Meeting, MeetingVariables } from './__generated-interfaces__/Meeting';
 import { MeetingDetailCard } from '../../components/meeting';
+import { MEETING } from './meeting-update';
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -31,25 +32,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-const MEETING = gql`
-  query Meeting($id: String!) {
-    meeting(id: $id) {
-      id
-      title
-      description
-      startDate
-      endDate
-      __typename
-      user {
-        id
-        email
-        name
-        __typename
-      }
-    }
-  }
-`;
 
 function MeetingDetail() {
   const { t } = useTranslation();
