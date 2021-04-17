@@ -1,10 +1,13 @@
+import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { MeetingsService } from './meetings.service';
 import { Meeting } from './entities/meeting.entity';
 import { CreateMeetingInput } from './dto/create-meeting.input';
 import { UpdateMeetingInput } from './dto/update-meeting.input';
+import { JwtGqlAuthGuard } from '../auth/jwt/jwt-gql-auth.guard';
 
 @Resolver(() => Meeting)
+@UseGuards(JwtGqlAuthGuard)
 export class MeetingsResolver {
   constructor(private readonly meetingsService: MeetingsService) {}
 
