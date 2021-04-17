@@ -26,6 +26,32 @@
       "description": "Erstelle und beitrete Videotreffen mit interessanten Themen"
     }
   },
+  "authPages": {
+    "callback": {
+      "error": "Bei der Anmeldung ist ein Fehler aufgetreten.",
+      "backToLogin": "Zurück zum Login"
+    },
+    "backToHome": "Zurück zur Startseite",
+    "login": {
+      "head": {
+        "title": "Login"
+      },
+      "title": "Login",
+      "switchToRegisterText": "Noch keinen Account?",
+      "switchToRegisterLink": "Jetzt registrieren",
+      "loginWith": "Mit {{with}} anmelden"
+    },
+    "register": {
+      "head": {
+        "title": "Registration"
+      },
+      "title": "Registration",
+      "registerInfoText": "Erstelle jetzt deinen Account um mit HuddleUp zu starten!",
+      "switchToLoginText": "Du hast bereits einen Account?",
+      "switchToLoginLink": "Login",
+      "registerWith": "Mit {{with}} registrieren"
+    }
+  },
   "notFoundPage": {
     "head": {
       "title": "Seite nicht gefunden"

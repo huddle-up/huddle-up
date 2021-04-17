@@ -2,7 +2,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { AuthRoute, PublicRoute } from './components/auth-routes';
 import { useConfig } from './contexts/config';
+import { AuthPages } from './pages/auth-pages';
 import { LandingPage } from './pages/landing-page';
 import { MeetingCreate, MeetingsPage, MeetingUpdate } from './pages/meetings';
 import { NotFoundPage } from './pages/not-found-page';
@@ -18,21 +20,21 @@ function App() {
       </Helmet>
       <Router>
         <Switch>
-          <Route path="/" exact>
+          <PublicRoute path="/" exact>
             <LandingPage />
-          </Route>
-          <Route path="/meetings">
+          </PublicRoute>
+          <PublicRoute path="/(login|register)">
+            <AuthPages />
+          </PublicRoute>
+          <AuthRoute path="/meetings">
             <MeetingsPage />
-          </Route>
-          <Route path="/meeting">
-            <MeetingsPage />
-          </Route>
-          <Route path="/create-meeting">
+          </AuthRoute>
+          <AuthRoute path="/create-meeting">
             <MeetingCreate />
-          </Route>
-          <Route path="/edit-meeting">
+          </AuthRoute>
+          <AuthRoute path="/edit-meeting">
             <MeetingUpdate />
-          </Route>
+          </AuthRoute>
           <Route path="*">
             <NotFoundPage />
           </Route>

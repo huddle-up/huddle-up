@@ -26,6 +26,32 @@
       "description": "Create and join Videomeetings with interesting topics"
     }
   },
+  "authPages": {
+    "callback": {
+      "error": "There was an error while signing in.",
+      "backToLogin": "Back to Login"
+    },
+    "backToHome": "Back to the start page",
+    "login": {
+      "head": {
+        "title": "Login"
+      },
+      "title": "Login",
+      "switchToRegisterText": "Don't have an account?",
+      "switchToRegisterLink": "Register now",
+      "loginWith": "Login with {{with}}"
+    },
+    "register": {
+      "head": {
+        "title": "Register"
+      },
+      "title": "Register",
+      "registerInfoText": "Register now to start using HuddleUp!",
+      "switchToLoginText": "Already have an account?",
+      "switchToLoginLink": "Login",
+      "registerWith": "Register with {{with}}"
+    }
+  },
   "notFoundPage": {
     "head": {
       "title": "Page not found"
