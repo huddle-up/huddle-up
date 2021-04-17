@@ -17,5 +17,5 @@ export class CreateMeetingInput {
   endDate: Date;
 
   @Field({ description: 'The id of the hoster' })
-  userId: string;
+  hostId: string;
 }

@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Meeting } from 'src/meetings/entities/meeting.entity';
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Meeting } from '../../meetings/entities/meeting.entity';
 
 @Entity()
 @ObjectType()
@@ -17,7 +17,7 @@ export class User {
   @Field({ description: 'The name of the user' })
   name: string;
 
-  @OneToMany(() => Meeting, (meeting) => meeting.user)
+  @OneToMany(() => Meeting, (meeting) => meeting.host)
   @Field(() => [Meeting], { description: 'The meetings of the user' })
   meetings: Promise<Meeting[]>;
 

@@ -1,6 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { User } from 'src/users/entities/user.entity';
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { User } from '../../users/entities/user.entity';
 
 @Entity()
 @ObjectType()
@@ -26,11 +26,11 @@ export class Meeting {
   endDate: Date;
 
   @ManyToOne(() => User, (user) => user.meetings)
-  @Field(() => User, { description: 'The hoster of the meeting' })
-  user: Promise<User>;
+  @Field(() => User, { name: 'host', description: 'The hoster of the meeting' })
+  host: Promise<User>;
 
   @Column()
-  userId: string;
+  hostId: string;
 
   @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
 
