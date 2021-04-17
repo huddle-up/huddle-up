@@ -10,18 +10,16 @@ function parseToken(token?: string) {
   if (!token) {
     return null;
   }
-  const user = jwtDecode(token) as IdToken;
-  if (!user) {
-    console.log(user);
+  const authUser = jwtDecode(token) as IdToken;
+  if (!authUser) {
     return null;
   }
   // We'll have to check if the token is still valid.
   // The iss date is in seconds since epoch, so it has to be multiplied by 1000 to be comparable with the current Date from the Date API
-  if (user.exp * 1000 < Date.now()) {
-    console.log('eeeee?', user.exp * 1000, Date.now());
+  if (authUser.exp * 1000 < Date.now()) {
     return null;
   }
-  return { user, token };
+  return { authUser, token };
 }
 
 export function useAuthService(config: Config): AuthService {
@@ -43,10 +41,10 @@ export function useAuthService(config: Config): AuthService {
     setUserData(null);
   }, [storage]);
 
-  const { token, user } = userData || {};
+  const { token, authUser } = userData || {};
 
   return {
-    user,
+    authUser,
     token,
     login,
     logout,
