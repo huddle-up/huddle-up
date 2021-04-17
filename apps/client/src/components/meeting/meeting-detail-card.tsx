@@ -8,6 +8,9 @@ import { format, isToday, isWithinInterval } from 'date-fns';
 import Divider from '@material-ui/core/Divider';
 import EventIcon from '@material-ui/icons/Event';
 import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import CloseIcon from '@material-ui/icons/Close';
 import { Meeting_meeting as Meeting } from '../../pages/meetings/__generated-interfaces__/Meeting';
 import { Link, LinkButton } from '../link';
 import { SplitButton } from '../button';
@@ -48,10 +51,24 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
-  const { id, title, description, startDate, endDate, user } = meeting;
+  const { id, title, description, startDate, endDate, host } = meeting;
   const meetingStart = new Date(startDate);
   const meetingEnd = new Date(endDate);
   const live = isWithinInterval(new Date(), { start: meetingStart, end: meetingEnd });
+
+  const options = [
+    t('meetings.button.member'),
+    t('meetings.button.join'),
+    t('meetings.button.leave'),
+    t('meetings.button.cancel'),
+  ];
+
+  const iconOptions = [
+    <CheckIcon fontSize="small" />,
+    <PersonAddIcon fontSize="small" />,
+    <CloseIcon fontSize="small" />,
+    <CloseIcon fontSize="small" />,
+  ];
 
   return (
     <>
@@ -87,7 +104,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
               <Grid container direction="row" alignItems="center">
                 <AccountCircleIcon fontSize="large" />{' '}
                 <Typography variant="body2">
-                  {t('meetings.hostedby')} {user.name}
+                  {t('meetings.hostedby')} {host.name}
                 </Typography>
               </Grid>
             </Link>
@@ -98,7 +115,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
           <br />
           <Grid container direction="row" justify="space-between" alignItems="center">
             <Typography variant="body2">...</Typography>
-            <SplitButton />
+            <SplitButton options={options} icons={iconOptions} defaultSelectedIndex={1} />
           </Grid>
         </CardContent>
         <Divider />

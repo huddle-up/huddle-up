@@ -11,7 +11,9 @@ import EventIcon from '@material-ui/icons/Event';
 import { IconButton, Button, InputAdornment } from '@material-ui/core';
 import { useMutation, gql } from '@apollo/client';
 import CreateIcon from '@material-ui/icons/Create';
+import { Redirect } from 'react-router';
 import { LinkButton } from '../../components/link';
+import { CreateMeeting } from './__generated-interfaces__/CreateMeeting';
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -42,7 +44,7 @@ const CREATE_MEETING = gql`
     $description: String
     $startDate: DateTime!
     $endDate: DateTime!
-    $userId: String!
+    $hostId: String!
   ) {
     createMeeting(
       createMeetingInput: {
@@ -50,7 +52,7 @@ const CREATE_MEETING = gql`
         description: $description
         startDate: $startDate
         endDate: $endDate
-        userId: $userId
+        hostId: $hostId
       }
     ) {
       id
@@ -62,28 +64,35 @@ const CREATE_MEETING = gql`
     }
   }
 `;
-
 interface FormProps {
   title: string;
   description?: string;
   startDate: string;
   endDate: string;
-  userId: string;
 }
 
 function MeetingCreate() {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const [createMeeting, { loading: mutationLoading, error: mutationError }] = useMutation(CREATE_MEETING);
+  const [
+    createMeeting,
+    { loading: mutationLoading, error: mutationError, called: mutationCalled, data: mutationData },
+  ] = useMutation<CreateMeeting>(CREATE_MEETING);
 
   const [meeting, setMeeting] = useState<FormProps>({
     title: undefined,
     description: undefined,
     startDate: null,
     endDate: null,
-    userId: 'e8d463ee-34d4-4f46-a2ed-850c9fde6c47',
   });
+
+  function handleCreateMeeting(e) {
+    e.preventDefault();
+    createMeeting({
+      variables: meeting,
+    });
+  }
 
   return (
     <>
@@ -96,13 +105,10 @@ function MeetingCreate() {
         </Typography>
         {mutationLoading && <p>Loading...</p>}
         {mutationError && <p>Error... ${mutationError.message}</p>}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            createMeeting({
-              variables: meeting,
-            });
-          }}>
+        {!mutationLoading && !mutationError && mutationCalled && (
+          <Redirect to={`/meeting/${mutationData.createMeeting.id}`} />
+        )}
+        <form>
           <Paper className={classes.paper}>
             <Typography variant="h6" gutterBottom>
               {t('meetings.title.about')}
@@ -203,7 +209,7 @@ function MeetingCreate() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Button
-                  type="submit"
+                  onClick={handleCreateMeeting}
                   color="primary"
                   variant="contained"
                   disabled={!meeting.title || !meeting.startDate || !meeting.endDate}

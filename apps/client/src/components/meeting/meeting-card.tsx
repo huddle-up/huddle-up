@@ -42,7 +42,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
-  const { id, title, startDate, endDate, user } = meeting;
+  const { id, title, startDate, endDate, host } = meeting;
   const meetingStart = new Date(startDate);
   const meetingEnd = new Date(endDate);
   const live = isWithinInterval(new Date(), { start: meetingStart, end: meetingEnd });
@@ -77,7 +77,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
             <Grid container direction="row" alignItems="center">
               <AccountCircleIcon />{' '}
               <Typography variant="body2">
-                {t('meetings.hostedby')} {user.name}
+                {t('meetings.hostedby')} {host.name}
               </Typography>
             </Grid>
           </Link>

@@ -7,22 +7,6 @@
 // GraphQL mutation operation: CreateMeeting
 // ====================================================
 
-export interface CreateMeeting_createMeeting_user {
-  __typename: "User";
-  /**
-   * The id of the user
-   */
-  id: string;
-  /**
-   * The email of the user
-   */
-  email: string;
-  /**
-   * The name of the user
-   */
-  name: string;
-}
-
 export interface CreateMeeting_createMeeting {
   __typename: "Meeting";
   /**
@@ -45,10 +29,6 @@ export interface CreateMeeting_createMeeting {
    * The end date of the meeting
    */
   endDate: any;
-  /**
-   * The hoster of the meeting
-   */
-  user: CreateMeeting_createMeeting_user;
 }
 
 export interface CreateMeeting {
@@ -60,5 +40,5 @@ export interface CreateMeetingVariables {
   description?: string | null;
   startDate: any;
   endDate: any;
-  userId: string;
+  hostId: string;
 }

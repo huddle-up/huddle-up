@@ -7,7 +7,7 @@
 // GraphQL query operation: Meeting
 // ====================================================
 
-export interface Meeting_meeting_user {
+export interface Meeting_meeting_host {
   __typename: "User";
   /**
    * The id of the user
@@ -48,7 +48,7 @@ export interface Meeting_meeting {
   /**
    * The hoster of the meeting
    */
-  user: Meeting_meeting_user;
+  host: Meeting_meeting_host;
 }
 
 export interface Meeting {

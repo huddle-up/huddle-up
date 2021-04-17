@@ -8,9 +8,9 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { DateTimePicker } from '@material-ui/pickers';
 import EventIcon from '@material-ui/icons/Event';
-import { IconButton, InputAdornment } from '@material-ui/core';
+import { Button, IconButton, InputAdornment } from '@material-ui/core';
 import { useQuery, useMutation, gql } from '@apollo/client';
-import { useParams } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import SaveIcon from '@material-ui/icons/Save';
 import { Meeting, MeetingVariables, Meeting_meeting } from './__generated-interfaces__/Meeting';
 import { UpdateMeeting, UpdateMeetingVariables } from './__generated-interfaces__/UpdateMeeting';
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MEETING = gql`
+export const MEETING = gql`
   query Meeting($id: String!) {
     meeting(id: $id) {
       id
@@ -48,7 +48,7 @@ const MEETING = gql`
       startDate
       endDate
       __typename
-      user {
+      host {
         id
         email
         name
@@ -79,6 +79,7 @@ const UPDATE_MEETING = gql`
   }
 `;
 
+// TODO is it possible to remove a meeting?
 // const REMOVE_MEETING = gql`
 //   mutation RemoveMeeting($id: Int) {
 //     removeMeeting(id: $id)
@@ -94,7 +95,7 @@ function MeetingUpdate() {
     variables: { id },
   });
 
-  const [updateMeeting, { loading: mutationLoading, error: mutationError }] = useMutation<
+  const [updateMeeting, { loading: mutationLoading, error: mutationError, called: mutationCalled }] = useMutation<
     UpdateMeeting,
     UpdateMeetingVariables
   >(UPDATE_MEETING);
@@ -108,7 +109,7 @@ function MeetingUpdate() {
   }, [queryError, data, meeting]);
 
   function handleMeetingUpdate(e) {
-    // e.preventDefault();
+    e.preventDefault();
     updateMeeting({
       variables: meeting,
     });
@@ -128,6 +129,7 @@ function MeetingUpdate() {
         </Typography>
         {mutationLoading && <p>Loading...</p>}
         {mutationError && <p>Error... ${mutationError.message}</p>}
+        {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meeting/${id}`} />}
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -234,15 +236,14 @@ function MeetingUpdate() {
                 </LinkButton>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <LinkButton
-                  to={`/meeting/${id}`}
+                <Button
                   onClick={handleMeetingUpdate}
                   variant="contained"
                   color="primary"
                   size="small"
                   startIcon={<SaveIcon />}>
                   {t('meetings.button.save')}
-                </LinkButton>
+                </Button>
               </Grid>
             </Grid>
           </Paper>
