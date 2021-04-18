@@ -5,7 +5,7 @@ import { Redirect, Route, Switch } from 'react-router';
 import LoginPage from './login-page';
 import { LoginCallbackPage } from './login-callback-page';
 import RegisterPage from './register-page';
-import { PublicPageLayout } from '../../components/page-layout';
+import { PublicPageLayout } from '../../components/public-page-layout';
 import { OidcProvider } from '../../contexts/oidc';
 import { useAuth } from '../../contexts/auth';
 import { LargeLogo } from '../../components/logo';

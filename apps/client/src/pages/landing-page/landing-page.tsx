@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import ChevronRight from '@material-ui/icons/ChevronRight';
-import { PublicPageLayout } from '../../components/page-layout';
+import { PublicPageLayout } from '../../components/public-page-layout';
 import { LinkButton } from '../../components/link';
 
 const useStyles = makeStyles((theme) => ({
