@@ -1,15 +1,17 @@
-import { Body, Controller, Post, UnauthorizedException } from '@nestjs/common';
-import { User } from 'src/users/entities/user.entity';
-import { UsersService } from 'src/users/users.service';
+import { Body, Controller, Post, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { Public } from './decorators/public-route.decorator';
 import { AuthenticateUserDto } from './dto/authenticate-user.dto';
 import { AuthEntity } from './interfaces/auth-entity.interface';
+import { JwtAuthGuard } from './jwt/jwt-auth.guard';
 import { OidcAuthService } from './oidc-auth.service';
 
 @Controller('auth')
+@UseGuards(JwtAuthGuard)
 export class AuthController {
   constructor(private authService: AuthService, private oidcAuthService: OidcAuthService) {}
 
+  @Public()
   @Post('login')
   async login(@Body() { idToken }: AuthenticateUserDto) {
     const token = await this.oidcAuthService.verify(idToken);

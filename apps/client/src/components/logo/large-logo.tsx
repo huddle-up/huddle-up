@@ -1,22 +1,14 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
 
 interface LargeLogoProps {
-  width?: number;
+  className?: string;
 }
 
-const useStyles = makeStyles({
-  logo: {
-    width: (props: LargeLogoProps) => props.width,
-  },
-});
-
-function LargeLogo({ width }: LargeLogoProps) {
-  const classes = useStyles({ width });
-  return <img className={classes.logo} src="logo.svg" alt="HuddleUp Logo" />;
+function LargeLogo({ className }: LargeLogoProps) {
+  return <img className={className} src="/logo.svg" alt="HuddleUp Logo" />;
 }
 LargeLogo.defaultProps = {
-  width: 100,
+  className: undefined,
 };
 
 export default LargeLogo;

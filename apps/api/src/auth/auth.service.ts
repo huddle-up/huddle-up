@@ -18,7 +18,7 @@ export class AuthService {
 
   async login({ sub, issuer }: AuthEntity) {
     const authUser = await this.authUserRepository.findOne({ sub, issuer });
-    return this.sign({ email: authUser.email, userId: authUser.userId });
+    return this.sign({ sub: authUser.sub, email: authUser.email, userId: authUser.userId });
   }
 
   async register(entity: AuthEntity): Promise<AuthUser> {

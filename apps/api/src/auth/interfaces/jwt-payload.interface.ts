@@ -1,8 +1,8 @@
 import { JsonObject } from '../../common/interfaces/json-object.interface';
 
 export interface JwtPayload extends JsonObject {
+  sub: string;
   iss?: string;
-  sub?: string;
   aud?: string[];
   iat?: number;
   exp?: number;

@@ -106,7 +106,7 @@ function MeetingCreate() {
         {mutationLoading && <p>Loading...</p>}
         {mutationError && <p>Error... ${mutationError.message}</p>}
         {!mutationLoading && !mutationError && mutationCalled && (
-          <Redirect to={`/meeting/${mutationData.createMeeting.id}`} />
+          <Redirect to={`/meetings/${mutationData.createMeeting.id}`} />
         )}
         <form>
           <Paper className={classes.paper}>
@@ -120,7 +120,7 @@ function MeetingCreate() {
                   name="title"
                   label={t('meetings.form.title')}
                   value={meeting.title}
-                  onChange={(e) => setMeeting({ ...meeting, title: e.target.value.toString() })}
+                  onChange={(e) => setMeeting({ ...meeting, title: e.target.value })}
                   required
                   fullWidth
                 />
@@ -130,7 +130,7 @@ function MeetingCreate() {
                   id="description"
                   label={t('meetings.form.description')}
                   value={meeting.description}
-                  onChange={(e) => setMeeting({ ...meeting, description: e.target.value.toString() })}
+                  onChange={(e) => setMeeting({ ...meeting, description: e.target.value })}
                   multiline
                   fullWidth
                   rows={10}

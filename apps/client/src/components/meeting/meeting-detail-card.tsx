@@ -138,7 +138,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
       </Card>
       <Grid container direction="row" justify="space-between" alignItems="center">
         <LinkButton
-          to={`/update-meeting/${id}`}
+          to={`/meetings/${id}/edit`}
           variant="contained"
           color="primary"
           size="small"

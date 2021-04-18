@@ -11,8 +11,11 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     flexWrap: 'wrap',
   },
-  logo: {
+  logoContainer: {
     display: 'flex',
+  },
+  logo: {
+    width: 120,
   },
   spacer: {
     flexGrow: 1,
@@ -28,8 +31,8 @@ function PublicPageHeader() {
   return (
     <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <Link to="/" className={classes.logo}>
-          <LargeLogo />
+        <Link to="/" className={classes.logoContainer}>
+          <LargeLogo className={classes.logo} />
         </Link>
         <div className={classes.spacer} />
         <nav>
