@@ -12,7 +12,7 @@ export interface UpdateMeeting_updateMeeting {
   /**
    * The id of the meeting
    */
-  id: number;
+  id: string;
   /**
    * The title of the meeting
    */
@@ -36,7 +36,7 @@ export interface UpdateMeeting {
 }
 
 export interface UpdateMeetingVariables {
-  id: number;
+  id: string;
   title?: string | null;
   description?: string | null;
   startDate?: any | null;

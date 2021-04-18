@@ -6,5 +6,5 @@ module.exports = {
   },
 };
 
-// -- apollo cli interface generation  --
+// -- apollo cli interface generation --
 // apollo client:codegen --target typescript __generated-interfaces__

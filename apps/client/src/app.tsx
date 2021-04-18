@@ -6,7 +6,7 @@ import { AuthRoute, PublicRoute } from './components/auth-routes';
 import { useConfig } from './contexts/config';
 import { AuthPages } from './pages/auth-pages';
 import { LandingPage } from './pages/landing-page';
-import { MeetingCreate, MeetingsPage, MeetingUpdate } from './pages/meetings';
+import { MeetingCreate, MeetingDetail, MeetingsPage, MeetingUpdate } from './pages/meetings';
 import { NotFoundPage } from './pages/not-found-page';
 
 function App() {
@@ -28,11 +28,14 @@ function App() {
           </PublicRoute>
           <AuthRoute path="/meetings">
             <MeetingsPage />
-          </AuthRoute>
-          <AuthRoute path="/create-meeting">
+          </Route>
+          <Route path="/meeting/:id">
+            <MeetingDetail />
+          </Route>
+          <Route path="/create-meeting">
             <MeetingCreate />
-          </AuthRoute>
-          <AuthRoute path="/edit-meeting">
+          </Route>
+          <Route path="/update-meeting/:id">
             <MeetingUpdate />
           </AuthRoute>
           <Route path="*">

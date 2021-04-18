@@ -1,15 +1,16 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { User } from '../../users/entities/user.entity';
 
 @Entity()
 @ObjectType()
 export class Meeting {
-  @PrimaryGeneratedColumn()
-  @Field(() => Int, { description: 'The id of the meeting' })
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  @Field({ description: 'The id of the meeting' })
+  id: string;
 
   @Column()
-  @Field(() => String, { description: 'The title of the meeting' })
+  @Field({ description: 'The title of the meeting' })
   title: string;
 
   @Column('text', { nullable: true })
@@ -23,6 +24,13 @@ export class Meeting {
   @Column()
   @Field(() => Date, { description: 'The end date of the meeting' })
   endDate: Date;
+
+  @ManyToOne(() => User, (user) => user.meetings)
+  @Field(() => User, { name: 'host', description: 'The hoster of the meeting' })
+  host: Promise<User>;
+
+  @Column()
+  hostId: string;
 
   @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
 

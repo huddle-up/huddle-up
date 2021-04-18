@@ -2,9 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  """The id of the user"""
+  id: String!
+
+  """The email of the user"""
+  email: String!
+
+  """The name of the user"""
+  name: String!
+
+  """The meetings of the user"""
+  meetings: [Meeting!]!
+}
+
 type Meeting {
   """The id of the meeting"""
-  id: Int!
+  id: String!
 
   """The title of the meeting"""
   title: String!
@@ -17,6 +31,9 @@ type Meeting {
 
   """The end date of the meeting"""
   endDate: DateTime!
+
+  """The hoster of the meeting"""
+  host: User!
 }
 
 """
@@ -26,13 +43,16 @@ scalar DateTime
 
 type Query {
   meetings: [Meeting!]!
-  meeting(id: Int!): Meeting!
+  meeting(id: String!): Meeting!
+  users: [User!]!
+  user(id: String!): User!
 }
 
 type Mutation {
   createMeeting(createMeetingInput: CreateMeetingInput!): Meeting!
   updateMeeting(updateMeetingInput: UpdateMeetingInput!): Meeting!
-  removeMeeting(id: Int!): Boolean!
+  removeMeeting(id: String!): Boolean!
+  updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 input CreateMeetingInput {
@@ -47,6 +67,9 @@ input CreateMeetingInput {
 
   """The end date of the meeting"""
   endDate: DateTime!
+
+  """The id of the hoster"""
+  hostId: String!
 }
 
 input UpdateMeetingInput {
@@ -62,6 +85,20 @@ input UpdateMeetingInput {
   """The end date of the meeting"""
   endDate: DateTime
 
+  """The id of the hoster"""
+  hostId: String
+
   """The id of the meeting"""
-  id: Int!
+  id: String!
+}
+
+input UpdateUserInput {
+  """The id of the user"""
+  id: String!
+
+  """The email of the user"""
+  email: String!
+
+  """The name of the user"""
+  name: String!
 }

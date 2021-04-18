@@ -17,15 +17,15 @@ export class MeetingsService {
     return this.meetingRepository.find();
   }
 
-  findOne(id: number) {
-    return this.meetingRepository.findOne(id);
+  findOne(entity: Partial<Meeting>) {
+    return this.meetingRepository.findOne(entity);
   }
 
-  update(id: number, updateMeetingInput: UpdateMeetingInput) {
-    return id && this.meetingRepository.save(updateMeetingInput);
+  update(updateMeetingInput: UpdateMeetingInput) {
+    return this.meetingRepository.save(updateMeetingInput);
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     const result: DeleteResult = await this.meetingRepository.delete(id);
     return result.affected === 1;
   }

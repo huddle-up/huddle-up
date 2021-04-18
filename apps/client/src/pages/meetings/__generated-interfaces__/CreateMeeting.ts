@@ -12,7 +12,7 @@ export interface CreateMeeting_createMeeting {
   /**
    * The id of the meeting
    */
-  id: number;
+  id: string;
   /**
    * The title of the meeting
    */
@@ -40,4 +40,5 @@ export interface CreateMeetingVariables {
   description?: string | null;
   startDate: any;
   endDate: any;
+  hostId: string;
 }

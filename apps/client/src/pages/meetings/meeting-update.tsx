@@ -8,8 +8,13 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { DateTimePicker } from '@material-ui/pickers';
 import EventIcon from '@material-ui/icons/Event';
-import { IconButton, Button, InputAdornment } from '@material-ui/core';
+import { Button, IconButton, InputAdornment } from '@material-ui/core';
 import { useQuery, useMutation, gql } from '@apollo/client';
+import { Redirect, useParams } from 'react-router-dom';
+import SaveIcon from '@material-ui/icons/Save';
+import { Meeting, MeetingVariables, Meeting_meeting } from './__generated-interfaces__/Meeting';
+import { UpdateMeeting, UpdateMeetingVariables } from './__generated-interfaces__/UpdateMeeting';
+import { LinkButton } from '../../components/link';
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -34,8 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MEETING = gql`
-  query Meeting($id: Int!) {
+export const MEETING = gql`
+  query Meeting($id: String!) {
     meeting(id: $id) {
       id
       title
@@ -43,12 +48,18 @@ const MEETING = gql`
       startDate
       endDate
       __typename
+      host {
+        id
+        email
+        name
+        __typename
+      }
     }
   }
 `;
 
 const UPDATE_MEETING = gql`
-  mutation UpdateMeeting($id: Int!, $title: String, $description: String, $startDate: DateTime, $endDate: DateTime) {
+  mutation UpdateMeeting($id: String!, $title: String, $description: String, $startDate: DateTime, $endDate: DateTime) {
     updateMeeting(
       updateMeetingInput: {
         id: $id
@@ -68,37 +79,41 @@ const UPDATE_MEETING = gql`
   }
 `;
 
+// TODO is it possible to remove a meeting?
 // const REMOVE_MEETING = gql`
 //   mutation RemoveMeeting($id: Int) {
 //     removeMeeting(id: $id)
 //   }
 // `;
 
-interface FormProps {
-  id: number;
-  title: string;
-  description?: string;
-  startDate: string;
-  endDate: string;
-}
-
 function MeetingUpdate() {
   const { t } = useTranslation();
   const classes = useStyles();
+  const { id } = useParams<MeetingVariables>();
 
-  const { loading: queryLoading, error: queryError, data } = useQuery(MEETING, {
-    variables: { id: 1 },
+  const { loading: queryLoading, error: queryError, data } = useQuery<Meeting>(MEETING, {
+    variables: { id },
   });
 
-  const [updateMeeting, { loading: mutationLoading, error: mutationError }] = useMutation(UPDATE_MEETING);
+  const [updateMeeting, { loading: mutationLoading, error: mutationError, called: mutationCalled }] = useMutation<
+    UpdateMeeting,
+    UpdateMeetingVariables
+  >(UPDATE_MEETING);
 
-  const [meeting, setMeeting] = useState<FormProps | undefined>();
+  const [meeting, setMeeting] = useState<Meeting_meeting | undefined>();
 
   useEffect(() => {
     if (!queryError && data && data.meeting && !meeting) {
       setMeeting(data.meeting);
     }
   }, [queryError, data, meeting]);
+
+  function handleMeetingUpdate(e) {
+    e.preventDefault();
+    updateMeeting({
+      variables: meeting,
+    });
+  }
 
   if (queryLoading || !meeting) return <Paper className={classes.paper}>Loading...</Paper>;
   if (queryError) return <Paper className={classes.paper}>`Error loading meeting! ${queryError.message}`</Paper>;
@@ -114,6 +129,7 @@ function MeetingUpdate() {
         </Typography>
         {mutationLoading && <p>Loading...</p>}
         {mutationError && <p>Error... ${mutationError.message}</p>}
+        {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meeting/${id}`} />}
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -215,12 +231,17 @@ function MeetingUpdate() {
           <Paper className={classes.paper} elevation={0}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
-                <Button href="#" color="primary" variant="outlined">
+                <LinkButton to={`/meeting/${id}`} variant="outlined" color="primary" size="small">
                   {t('global.button.cancel')}
-                </Button>
+                </LinkButton>
               </Grid>
               <Grid item xs={12} sm={6}>
-                <Button type="submit" color="primary" variant="contained">
+                <Button
+                  onClick={handleMeetingUpdate}
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  startIcon={<SaveIcon />}>
                   {t('meetings.button.save')}
                 </Button>
               </Grid>
