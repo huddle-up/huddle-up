@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
-import { PublicPageFooter } from '../page-footer';
-import { PublicPageHeader } from '../page-header';
+import PublicPageFooter from './public-page-footer';
+import PublicPageHeader from './public-page-header';
 
 const useStyles = makeStyles({
   root: {

@@ -4,7 +4,7 @@ import { ChevronLeft } from '@material-ui/icons';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { LinkButton } from '../../components/link';
-import { PublicPageLayout } from '../../components/page-layout';
+import { PublicPageLayout } from '../../components/public-page-layout';
 
 const useStyles = makeStyles((theme) => ({
   container: {
