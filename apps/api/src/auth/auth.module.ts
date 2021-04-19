@@ -20,7 +20,7 @@ import { UsersModule } from '../users/users.module';
       inject: [AuthConfigService],
       useFactory: async (authConfigService: AuthConfigService) => ({
         secret: authConfigService.secret,
-        signOptions: { expiresIn: '10m' },
+        signOptions: { expiresIn: '60m' },
       }),
     }),
     TypeOrmModule.forFeature([AuthUser]),
