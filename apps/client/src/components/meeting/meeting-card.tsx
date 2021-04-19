@@ -56,7 +56,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
             {format(meetingStart, 'HH:mm')}
           </Typography>
           {live && (
-            <Link to={`/meeting/${id}`}>
+            <Link to={`/meetings/${id}`}>
               <Grid container direction="row" alignItems="center">
                 <Typography className={classes.title} color="textSecondary">
                   Live
@@ -67,7 +67,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
           )}
         </Grid>
         <Typography variant="h5" component="h2">
-          <Link to={`/meeting/${id}`}>{title}</Link>
+          <Link to={`/meetings/${id}`}>{title}</Link>
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
           Tags

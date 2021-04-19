@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery, gql } from '@apollo/client';
 import { Typography } from '@material-ui/core';
+import { AppPageMain } from '../../components/app-page-layout';
 import { MeetingList } from '../../components/meeting';
 import { Meetings } from './__generated-interfaces__/Meetings';
 
@@ -52,12 +53,12 @@ function MeetingsPage() {
       <Helmet>
         <title>{t('meetings.head.title.view')}</title>
       </Helmet>
-      <main className={classes.layout}>
+      <AppPageMain className={classes.layout}>
         <Typography variant="h6" gutterBottom>
           {t('global.title.meeting')}
         </Typography>
         <MeetingList meetings={data.meetings} />
-      </main>
+      </AppPageMain>
     </>
   );
 }
