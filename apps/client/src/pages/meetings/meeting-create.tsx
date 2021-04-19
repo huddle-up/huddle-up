@@ -14,6 +14,8 @@ import CreateIcon from '@material-ui/icons/Create';
 import { Redirect } from 'react-router';
 import { LinkButton } from '../../components/link';
 import { CreateMeeting } from './__generated-interfaces__/CreateMeeting';
+import { AppPageMain } from '../../components/app-page-layout';
+import { useAuth } from '../../contexts/auth';
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -74,6 +76,8 @@ interface FormProps {
 function MeetingCreate() {
   const { t } = useTranslation();
   const classes = useStyles();
+  // TODO: This should be done server-side
+  const auth = useAuth();
 
   const [
     createMeeting,
@@ -81,8 +85,8 @@ function MeetingCreate() {
   ] = useMutation<CreateMeeting>(CREATE_MEETING);
 
   const [meeting, setMeeting] = useState<FormProps>({
-    title: undefined,
-    description: undefined,
+    title: '',
+    description: '',
     startDate: null,
     endDate: null,
   });
@@ -90,7 +94,7 @@ function MeetingCreate() {
   function handleCreateMeeting(e) {
     e.preventDefault();
     createMeeting({
-      variables: meeting,
+      variables: { ...meeting, hostId: auth.authUser.userId },
     });
   }
 
@@ -99,7 +103,7 @@ function MeetingCreate() {
       <Helmet>
         <title>{t('meetings.head.title.create')}</title>
       </Helmet>
-      <main className={classes.layout}>
+      <AppPageMain className={classes.layout}>
         <Typography variant="h6" gutterBottom>
           {t('meetings.title.new')}
         </Typography>
@@ -220,7 +224,7 @@ function MeetingCreate() {
             </Grid>
           </Paper>
         </form>
-      </main>
+      </AppPageMain>
     </>
   );
 }

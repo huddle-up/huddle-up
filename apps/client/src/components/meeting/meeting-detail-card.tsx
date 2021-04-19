@@ -80,7 +80,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
               {format(meetingStart, 'HH:mm')}
             </Typography>
             {live && (
-              <Link to="/meeting">
+              <Link to="/meetings">
                 <Grid container direction="row" alignItems="center">
                   <Typography className={classes.title} color="textSecondary">
                     Live
@@ -91,7 +91,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
             )}
           </Grid>
           <Typography variant="h5" component="h2">
-            <Link to="/meeting">{title}</Link>
+            <Link to="/meetings">{title}</Link>
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
             Tags
@@ -108,7 +108,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
                 </Typography>
               </Grid>
             </Link>
-            <LinkButton to="/meeting" variant="contained" color="secondary" size="small" endIcon={<VideocamIcon />}>
+            <LinkButton to="/meetings" variant="contained" color="secondary" size="small" endIcon={<VideocamIcon />}>
               {t('meetings.button.attend')}
             </LinkButton>
           </Grid>

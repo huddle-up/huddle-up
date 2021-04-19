@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import { Meeting, MeetingVariables } from './__generated-interfaces__/Meeting';
 import { MeetingDetailCard } from '../../components/meeting';
 import { MEETING } from './meeting-update';
+import { AppPageMain } from '../../components/app-page-layout';
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -50,12 +51,12 @@ function MeetingDetail() {
       <Helmet>
         <title>{t('meetings.head.title.view')}</title>
       </Helmet>
-      <main className={classes.layout}>
+      <AppPageMain className={classes.layout}>
         <Typography variant="h6" gutterBottom>
           {t('global.title.meeting')}
         </Typography>
         <MeetingDetailCard meeting={data.meeting} />
-      </main>
+      </AppPageMain>
     </>
   );
 }

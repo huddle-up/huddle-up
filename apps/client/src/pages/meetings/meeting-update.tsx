@@ -15,6 +15,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import { Meeting, MeetingVariables, Meeting_meeting } from './__generated-interfaces__/Meeting';
 import { UpdateMeeting, UpdateMeetingVariables } from './__generated-interfaces__/UpdateMeeting';
 import { LinkButton } from '../../components/link';
+import { AppPageMain } from '../../components/app-page-layout';
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -123,13 +124,13 @@ function MeetingUpdate() {
       <Helmet>
         <title>{t('meetings.head.title.edit')}</title>
       </Helmet>
-      <main className={classes.layout}>
+      <AppPageMain className={classes.layout}>
         <Typography variant="h6" gutterBottom>
           {t('meetings.title.edit')}
         </Typography>
         {mutationLoading && <p>Loading...</p>}
         {mutationError && <p>Error... ${mutationError.message}</p>}
-        {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meeting/${id}`} />}
+        {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meetings/${id}`} />}
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -231,7 +232,7 @@ function MeetingUpdate() {
           <Paper className={classes.paper} elevation={0}>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={6}>
-                <LinkButton to={`/meeting/${id}`} variant="outlined" color="primary" size="small">
+                <LinkButton to={`/meetings/${id}`} variant="outlined" color="primary" size="small">
                   {t('global.button.cancel')}
                 </LinkButton>
               </Grid>
@@ -248,7 +249,7 @@ function MeetingUpdate() {
             </Grid>
           </Paper>
         </form>
-      </main>
+      </AppPageMain>
     </>
   );
 }
