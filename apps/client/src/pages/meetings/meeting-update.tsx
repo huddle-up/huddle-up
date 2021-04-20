@@ -210,7 +210,7 @@ function MeetingUpdate() {
                   clearLabel={t('global.datepicker.clearLabel')}
                   todayLabel={t('global.datepicker.todayLabel')}
                   format="dd.MM.yyyy hh:mm"
-                  // disablePast
+                  minDate={meeting.startDate}
                   showTodayButton
                   clearable
                   required
