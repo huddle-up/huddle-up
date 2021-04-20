@@ -36,7 +36,7 @@ import { UsersModule } from './users/users.module';
         host: dbConfigService.host,
         port: dbConfigService.port,
         // TODO: Check if this can cause problems if certain modules are not needed
-        entities: ['dist/**/*.entity{.ts,.js}'],
+        entities: [join(__dirname, '/**/*.entity{.ts,.js}')],
         // TODO: Use migrations for production
         synchronize: true,
       }),
