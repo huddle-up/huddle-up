@@ -1,7 +1,8 @@
-import { makeStyles } from '@material-ui/core';
+import { Container, makeStyles } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { LinkButton } from '../link';
+import { UserMenu } from '../user-menu';
 import AppPageHeader from './app-page-header';
 import AppPageMenu from './app-page-menu';
 
@@ -14,7 +15,32 @@ const useStyles = makeStyles((theme) => ({
   },
   offset: theme.mixins.toolbar,
   content: {
-    flex: '1 0',
+    flex: '0 0',
+    display: 'grid',
+    gridTemplateColumns: 'auto',
+    gridTemplateRows: 'auto',
+    gridTemplateAreas: `
+      "aside"
+      "main"
+      "meta"
+    `,
+    rowGap: theme.spacing(2),
+    [theme.breakpoints.up('md')]: {
+      gridTemplateColumns: '1fr 3fr',
+      gridTemplateRows: 'auto',
+      gridTemplateAreas: `
+      "aside main"
+      "meta main"
+      `,
+      rowGap: 0,
+      columnGap: theme.spacing(3),
+    },
+    [theme.breakpoints.up('lg')]: {
+      gridTemplateColumns: '1fr 3fr 1fr',
+      gridTemplateAreas: `
+      "aside main meta"
+      `,
+    },
   },
 }));
 
@@ -27,13 +53,18 @@ function AppPageLayout({ children }: { children: React.ReactNode }) {
       <AppPageHeader
         menu={<AppPageMenu />}
         actions={
-          <LinkButton variant="contained" disableElevation color="secondary" to="/meetings/create">
-            {t('meetings.title.new')}
-          </LinkButton>
+          <>
+            <LinkButton variant="contained" disableElevation color="secondary" to="/meetings/create">
+              {t('meetings.title.new')}
+            </LinkButton>
+            <UserMenu />
+          </>
         }
       />
       <div className={classes.offset} />
-      <div className={classes.content}>{children}</div>
+      <Container maxWidth="xl" className={classes.content}>
+        {children}
+      </Container>
     </div>
   );
 }

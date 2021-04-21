@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateRows: 'auto',
     gridTemplateColumns: '1fr auto 1fr',
     gridTemplateAreas: '"menu logo actions"',
+    columnGap: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
       gridTemplateAreas: '"logo menu actions"',
     },
@@ -19,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
   logoContainer: {
     display: 'flex',
     gridArea: 'logo',
-    margin: theme.spacing(0, 2),
   },
   logo: {
     width: 120,
