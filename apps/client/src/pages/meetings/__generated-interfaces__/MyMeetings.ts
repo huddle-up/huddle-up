@@ -4,10 +4,26 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: CreateMeeting
+// GraphQL query operation: MyMeetings
 // ====================================================
 
-export interface CreateMeeting_createMeeting {
+export interface MyMeetings_myMeetings_host {
+  __typename: "User";
+  /**
+   * The id of the user
+   */
+  id: string;
+  /**
+   * The email of the user
+   */
+  email: string;
+  /**
+   * The name of the user
+   */
+  name: string;
+}
+
+export interface MyMeetings_myMeetings {
   __typename: "Meeting";
   /**
    * The id of the meeting
@@ -29,15 +45,12 @@ export interface CreateMeeting_createMeeting {
    * The end date of the meeting
    */
   endDate: any;
+  /**
+   * The hoster of the meeting
+   */
+  host: MyMeetings_myMeetings_host;
 }
 
-export interface CreateMeeting {
-  createMeeting: CreateMeeting_createMeeting;
-}
-
-export interface CreateMeetingVariables {
-  title: string;
-  description?: string | null;
-  startDate: any;
-  endDate: any;
+export interface MyMeetings {
+  myMeetings: MyMeetings_myMeetings[];
 }

@@ -15,7 +15,4 @@ export class CreateMeetingInput {
 
   @Field(() => Date, { description: 'The end date of the meeting' })
   endDate: Date;
-
-  @Field({ description: 'The id of the hoster' })
-  hostId: string;
 }

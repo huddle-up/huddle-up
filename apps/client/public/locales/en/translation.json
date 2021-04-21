@@ -5,8 +5,10 @@
       "description": "Webapplication for Videomeetings, Create, Categorize, Search and Join on virtual meetings about things you like with unfamiliar users"
     },
     "title": {
-      "meeting": "Treffen",
-      "meetings": "Meetings"
+      "meeting": "Meeting",
+      "meetings": "Pending Meetings",
+      "myMeetings": "My Meetings",
+      "discover": "Discover"
     },
     "button": {
       "login": "Login",
@@ -105,6 +107,7 @@
     },
     "today": "Today",
     "hostedby": "Hosted by",
-    "participant": "Participant"
+    "participant": "Participant",
+    "noMeetingsPlaceholder": "No meetings yet. Create one!"
   }
 }

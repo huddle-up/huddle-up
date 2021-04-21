@@ -15,7 +15,6 @@ import { Redirect } from 'react-router';
 import { LinkButton } from '../../components/link';
 import { CreateMeeting } from './__generated-interfaces__/CreateMeeting';
 import { AppPageMain } from '../../components/app-page-layout';
-import { useAuth } from '../../contexts/auth';
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -41,21 +40,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CREATE_MEETING = gql`
-  mutation CreateMeeting(
-    $title: String!
-    $description: String
-    $startDate: DateTime!
-    $endDate: DateTime!
-    $hostId: String!
-  ) {
+  mutation CreateMeeting($title: String!, $description: String, $startDate: DateTime!, $endDate: DateTime!) {
     createMeeting(
-      createMeetingInput: {
-        title: $title
-        description: $description
-        startDate: $startDate
-        endDate: $endDate
-        hostId: $hostId
-      }
+      createMeetingInput: { title: $title, description: $description, startDate: $startDate, endDate: $endDate }
     ) {
       id
       title
@@ -76,25 +63,26 @@ interface FormProps {
 function MeetingCreate() {
   const { t } = useTranslation();
   const classes = useStyles();
-  // TODO: This should be done server-side
-  const auth = useAuth();
 
   const [
     createMeeting,
     { loading: mutationLoading, error: mutationError, called: mutationCalled, data: mutationData },
   ] = useMutation<CreateMeeting>(CREATE_MEETING);
 
+  const endDate = new Date();
+  endDate.setHours(endDate.getHours() + 1);
+
   const [meeting, setMeeting] = useState<FormProps>({
     title: '',
     description: '',
-    startDate: null,
-    endDate: null,
+    startDate: new Date().toUTCString(),
+    endDate: endDate.toUTCString(),
   });
 
   function handleCreateMeeting(e) {
     e.preventDefault();
     createMeeting({
-      variables: { ...meeting, hostId: auth.authUser.userId },
+      variables: meeting,
     });
   }
 
@@ -157,7 +145,7 @@ function MeetingCreate() {
                   cancelLabel={t('global.datepicker.cancelLabel')}
                   clearLabel={t('global.datepicker.clearLabel')}
                   todayLabel={t('global.datepicker.todayLabel')}
-                  format="dd.MM.yyyy hh:mm"
+                  format="dd.MM.yyyy HH:mm"
                   disablePast
                   showTodayButton
                   clearable
@@ -184,7 +172,7 @@ function MeetingCreate() {
                   cancelLabel={t('global.datepicker.cancelLabel')}
                   clearLabel={t('global.datepicker.clearLabel')}
                   todayLabel={t('global.datepicker.todayLabel')}
-                  format="dd.MM.yyyy hh:mm"
+                  format="dd.MM.yyyy HH:mm"
                   disablePast
                   minDate={meeting.startDate}
                   showTodayButton

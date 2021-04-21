@@ -1,27 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
-import { CreateMeetingInput } from './dto/create-meeting.input';
 import { UpdateMeetingInput } from './dto/update-meeting.input';
 import { Meeting } from './entities/meeting.entity';
+import { CreateMeeting } from './interfaces/create-meeting';
 
 @Injectable()
 export class MeetingsService {
   constructor(@InjectRepository(Meeting) private readonly meetingRepository: Repository<Meeting>) {}
 
-  create(createMeetingInput: CreateMeetingInput) {
-    return this.meetingRepository.save(createMeetingInput);
+  async create(createMeeting: CreateMeeting) {
+    const meeting = this.meetingRepository.create(createMeeting);
+    return this.meetingRepository.save(meeting);
   }
 
-  findAll() {
+  async findAll() {
     return this.meetingRepository.find();
   }
 
-  findOne(entity: Partial<Meeting>) {
+  async find(entity: Partial<Meeting>) {
+    return this.meetingRepository.find(entity);
+  }
+
+  async findOne(entity: Partial<Meeting>) {
     return this.meetingRepository.findOne(entity);
   }
 
-  update(updateMeetingInput: UpdateMeetingInput) {
+  async update(updateMeetingInput: UpdateMeetingInput) {
     return this.meetingRepository.save(updateMeetingInput);
   }
 

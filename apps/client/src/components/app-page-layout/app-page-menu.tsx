@@ -16,7 +16,7 @@ function MenuDesktop({ links }: MenuProps) {
   return (
     <nav>
       {links.map(({ label, to }, i) => (
-        <NavLink to={to} key={`${label}-${to}`}>
+        <NavLink exact to={to} key={`${label}-${to}`}>
           {label}
         </NavLink>
       ))}
@@ -33,7 +33,11 @@ function AppPageMenu() {
   const { t } = useTranslation();
   const links: MenuLink[] = [
     {
-      label: t('global.title.meetings'),
+      label: t('global.title.discover'),
+      to: '/discover',
+    },
+    {
+      label: t('global.title.myMeetings'),
       to: '/meetings',
     },
   ];

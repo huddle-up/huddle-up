@@ -10,7 +10,7 @@ function parseToken(token?: string) {
   if (!token) {
     return null;
   }
-  const authUser = jwtDecode(token) as IdToken;
+  const authUser: IdToken = jwtDecode(token) as IdToken;
   if (!authUser) {
     return null;
   }
