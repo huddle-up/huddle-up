@@ -1,13 +1,12 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { AuthRoute, PublicRoute } from './components/auth-routes';
 import { useConfig } from './contexts/config';
+import { AppPage } from './pages/app-page';
 import { AuthPages } from './pages/auth-pages';
 import { LandingPage } from './pages/landing-page';
-import { MeetingPages } from './pages/meetings';
-import { NotFoundPage } from './pages/not-found-page';
 
 function App() {
   const config = useConfig();
@@ -26,12 +25,9 @@ function App() {
           <PublicRoute path="/(login|register)">
             <AuthPages />
           </PublicRoute>
-          <AuthRoute path="/(meetings|discover)">
-            <MeetingPages />
+          <AuthRoute path="*">
+            <AppPage />
           </AuthRoute>
-          <Route path="*">
-            <NotFoundPage />
-          </Route>
         </Switch>
       </Router>
     </>

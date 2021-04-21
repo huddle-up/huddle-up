@@ -5,7 +5,7 @@ import { useAuth } from '../../contexts/auth';
 function PublicRoute({ children, ...props }: RouteProps) {
   const { loggedIn } = useAuth();
   // eslint-disable-next-line react/jsx-props-no-spreading
-  return <Route {...props}>{loggedIn ? <Redirect to="/meetings" /> : children}</Route>;
+  return <Route {...props}>{loggedIn ? <Redirect to="/discover" /> : children}</Route>;
 }
 
 export default PublicRoute;

@@ -1,9 +1,9 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import { blueGrey, pink } from '@material-ui/core/colors';
 import { Localization } from '@material-ui/core/locale';
 
 export function createTheme(locale: Localization) {
-  return createMuiTheme(
+  const theme = createMuiTheme(
     {
       palette: {
         primary: {
@@ -16,4 +16,6 @@ export function createTheme(locale: Localization) {
     },
     locale
   );
+
+  return responsiveFontSizes(theme);
 }

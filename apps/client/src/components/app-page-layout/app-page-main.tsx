@@ -3,22 +3,24 @@ import React from 'react';
 
 const useStyles = makeStyles((theme) => ({
   main: {
-    flex: '1 0',
     marginTop: theme.spacing(5),
+    gridArea: 'main',
   },
 }));
 
 interface AppPageMainProps {
   children: React.ReactNode;
   className?: string;
+  component?: React.ElementType;
 }
 
-function AppPageMain({ children, className }: AppPageMainProps) {
+function AppPageMain({ children, className, component: Component }: AppPageMainProps) {
   const classes = useStyles();
-  return <main className={[classes.main, className].join(' ')}>{children}</main>;
+  return <Component className={[classes.main, className].join(' ')}>{children}</Component>;
 }
 AppPageMain.defaultProps = {
   className: '',
+  component: 'main',
 };
 
 export default AppPageMain;

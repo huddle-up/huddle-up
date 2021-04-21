@@ -41,7 +41,7 @@ function AuthPages() {
   const { t } = useTranslation();
   return (
     <OidcProvider>
-      {loggedIn && <Redirect to="/meetings" />}
+      {loggedIn && <Redirect to="/discover" />}
       <PublicPageLayout header={<></>}>
         <Container className={classes.root}>
           <Container className={classes.logoContainer}>
