@@ -6,7 +6,7 @@ import { useQuery, gql } from '@apollo/client';
 import { Typography } from '@material-ui/core';
 import { AppPageMain } from '../../components/app-page-layout';
 import { MeetingList } from '../../components/meeting';
-import { DiscoverMeetings } from './__generated-interfaces__/DiscoverMeetings';
+import { MyMeetings } from './__generated-interfaces__/MyMeetings';
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -21,9 +21,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const MEETINGS = gql`
-  query DiscoverMeetings {
-    meetings {
+const MY_MEETINGS = gql`
+  query MyMeetings {
+    myMeetings {
       id
       title
       description
@@ -40,27 +40,27 @@ const MEETINGS = gql`
   }
 `;
 
-function MeetingsPage() {
+function MyMeetingsPage() {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const { loading, error, data } = useQuery<DiscoverMeetings>(MEETINGS);
+  const { loading, error, data } = useQuery<MyMeetings>(MY_MEETINGS);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! ${error.message}</p>;
 
   return (
     <>
       <Helmet>
-        <title>{t('global.title.meetings')}</title>
+        <title>{t('global.title.myMeetings')}</title>
       </Helmet>
       <AppPageMain className={classes.layout}>
         <Typography variant="h6" gutterBottom>
-          {t('global.title.meetings')}
+          {t('global.title.myMeetings')}
         </Typography>
-        <MeetingList meetings={data.meetings} />
+        <MeetingList meetings={data.myMeetings} />
       </AppPageMain>
     </>
   );
 }
 
-export default MeetingsPage;
+export default MyMeetingsPage;

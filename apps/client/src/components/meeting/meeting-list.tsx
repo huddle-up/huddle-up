@@ -1,11 +1,12 @@
+import { Typography } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MeetingCard } from '.';
-import { Meetings_meetings } from '../../pages/meetings/__generated-interfaces__/Meetings';
+import { MyMeetings_myMeetings } from '../../pages/meetings/__generated-interfaces__/MyMeetings';
 import { LinkButton } from '../link';
 
 interface MeetingListProps {
-  meetings: Meetings_meetings[];
+  meetings: MyMeetings_myMeetings[];
 }
 
 function MeetingList({ meetings }: MeetingListProps) {
@@ -13,9 +14,11 @@ function MeetingList({ meetings }: MeetingListProps) {
 
   return (
     <div>
-      {meetings.map((meeting) => (
-        <MeetingCard key={meeting.id} meeting={meeting} />
-      ))}
+      {meetings ? (
+        meetings.map((meeting) => <MeetingCard key={meeting.id} meeting={meeting} />)
+      ) : (
+        <Typography>{t('meetings.noMeetingsPlaceholder')}</Typography>
+      )}
       <LinkButton to="/meetings">{t('meetings.button.showmore')}</LinkButton>
     </div>
   );

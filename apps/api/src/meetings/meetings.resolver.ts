@@ -5,34 +5,48 @@ import { Meeting } from './entities/meeting.entity';
 import { CreateMeetingInput } from './dto/create-meeting.input';
 import { UpdateMeetingInput } from './dto/update-meeting.input';
 import { JwtGqlAuthGuard } from '../auth/jwt/jwt-gql-auth.guard';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { AuthUser } from '../auth/entities/auth-user.entity';
+import { AuthService } from '../auth/auth.service';
 
 @Resolver(() => Meeting)
 @UseGuards(JwtGqlAuthGuard)
 export class MeetingsResolver {
-  constructor(private readonly meetingsService: MeetingsService) {}
+  constructor(private authService: AuthService, private readonly meetingsService: MeetingsService) {}
 
   @Mutation(() => Meeting)
-  createMeeting(@Args('createMeetingInput') createMeetingInput: CreateMeetingInput) {
-    return this.meetingsService.create(createMeetingInput);
+  async createMeeting(@Args('createMeetingInput') createMeetingInput: CreateMeetingInput, @CurrentUser() authUser) {
+    const user = await this.authService.findOne({ sub: authUser.id });
+    // TODO: only id is available from @CurrentUser, what about userId and issuer?
+    const meeting = { ...createMeetingInput, hostId: user.userId };
+    return this.meetingsService.create(meeting);
   }
 
   @Query(() => [Meeting], { name: 'meetings' })
-  findAll() {
+  async findAll() {
     return this.meetingsService.findAll();
   }
 
+  @Query(() => [Meeting], { name: 'myMeetings' })
+  async findMyMeetings(@CurrentUser() authUser) {
+    // TODO: only id is available from @CurrentUser, what about userId and issuer?
+    const user = await this.authService.findOne({ sub: authUser.id });
+    const meetings = await this.meetingsService.find({ hostId: user.userId });
+    return meetings;
+  }
+
   @Query(() => Meeting, { name: 'meeting' })
-  findOne(@Args('id', { type: () => String }) id: string) {
+  async findOne(@Args('id', { type: () => String }) id: string) {
     return this.meetingsService.findOne({ id });
   }
 
   @Mutation(() => Meeting)
-  updateMeeting(@Args('updateMeetingInput') updateMeetingInput: UpdateMeetingInput) {
+  async updateMeeting(@Args('updateMeetingInput') updateMeetingInput: UpdateMeetingInput) {
     return this.meetingsService.update(updateMeetingInput);
   }
 
   @Mutation(() => Boolean)
-  removeMeeting(@Args('id', { type: () => String }) id: string) {
+  async removeMeeting(@Args('id', { type: () => String }) id: string) {
     return this.meetingsService.remove(id);
   }
 }

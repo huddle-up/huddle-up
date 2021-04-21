@@ -5,6 +5,7 @@ import MeetingCreate from './meeting-create';
 import MeetingDetail from './meeting-detail';
 import MeetingUpdate from './meeting-update';
 import MeetingsPage from './meetings-page';
+import MyMeetingsPage from './my-meetings-page';
 
 function MeetingPages() {
   return (
@@ -13,6 +14,9 @@ function MeetingPages() {
         <Route path="/meetings/create">
           <MeetingCreate />
         </Route>
+        <Route path="/discover">
+          <MeetingsPage />
+        </Route>
         <Route path="/meetings/:id/edit">
           <MeetingUpdate />
         </Route>
@@ -20,7 +24,7 @@ function MeetingPages() {
           <MeetingDetail />
         </Route>
         <Route path="/meetings">
-          <MeetingsPage />
+          <MyMeetingsPage />
         </Route>
       </Switch>
     </AppPageLayout>

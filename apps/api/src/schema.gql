@@ -43,6 +43,7 @@ scalar DateTime
 
 type Query {
   meetings: [Meeting!]!
+  myMeetings: [Meeting!]!
   meeting(id: String!): Meeting!
   users: [User!]!
   user(id: String!): User!
@@ -67,9 +68,6 @@ input CreateMeetingInput {
 
   """The end date of the meeting"""
   endDate: DateTime!
-
-  """The id of the hoster"""
-  hostId: String!
 }
 
 input UpdateMeetingInput {
@@ -84,9 +82,6 @@ input UpdateMeetingInput {
 
   """The end date of the meeting"""
   endDate: DateTime
-
-  """The id of the hoster"""
-  hostId: String
 
   """The id of the meeting"""
   id: String!

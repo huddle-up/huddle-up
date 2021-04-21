@@ -182,8 +182,8 @@ function MeetingUpdate() {
                   cancelLabel={t('global.datepicker.cancelLabel')}
                   clearLabel={t('global.datepicker.clearLabel')}
                   todayLabel={t('global.datepicker.todayLabel')}
-                  format="dd.MM.yyyy hh:mm"
-                  // disablePast
+                  format="dd.MM.yyyy HH:mm"
+                  disablePast
                   showTodayButton
                   clearable
                   required
@@ -209,9 +209,10 @@ function MeetingUpdate() {
                   cancelLabel={t('global.datepicker.cancelLabel')}
                   clearLabel={t('global.datepicker.clearLabel')}
                   todayLabel={t('global.datepicker.todayLabel')}
-                  format="dd.MM.yyyy hh:mm"
+                  format="dd.MM.yyyy HH:mm"
                   minDate={meeting.startDate}
                   showTodayButton
+                  disablePast
                   clearable
                   required
                   autoOk

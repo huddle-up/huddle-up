@@ -26,7 +26,7 @@ function App() {
           <PublicRoute path="/(login|register)">
             <AuthPages />
           </PublicRoute>
-          <AuthRoute path="/meetings">
+          <AuthRoute path="/(meetings|discover)">
             <MeetingPages />
           </AuthRoute>
           <Route path="*">

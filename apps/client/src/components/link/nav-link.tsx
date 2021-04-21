@@ -9,6 +9,8 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'none',
       color: theme.palette.secondary.light,
     },
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
   },
   active: {
     color: theme.palette.secondary.main,
