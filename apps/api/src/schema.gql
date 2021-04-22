@@ -45,12 +45,17 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Query {
-  meetings: [Meeting!]!
-  myMeetings: [Meeting!]!
+  meetings(searchMeetingInput: SearchMeetingInput): [Meeting!]!
+  myMeetings(searchMeetingInput: SearchMeetingInput!): [Meeting!]!
   meeting(id: String!): Meeting!
   users: [User!]!
   user(id: String!): User!
   currentUser: User!
+}
+
+input SearchMeetingInput {
+  """The value to search for in meetings"""
+  value: String!
 }
 
 type Mutation {

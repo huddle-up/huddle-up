@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, Repository } from 'typeorm';
+import { DeleteResult, FindOperator, Like, Repository } from 'typeorm';
+import { SearchMeetingInput } from './dto/search-meeting.input';
 import { UpdateMeetingInput } from './dto/update-meeting.input';
 import { Meeting } from './entities/meeting.entity';
 import { CreateMeeting } from './interfaces/create-meeting.interface';
@@ -24,6 +25,17 @@ export class MeetingsService {
 
   async findOne(entity: Partial<Meeting>) {
     return this.meetingRepository.findOne(entity);
+  }
+
+  async search(searchMeetingInput: SearchMeetingInput, hostId?: string) {
+    const searchValue: FindOperator<string> = Like(`%${searchMeetingInput.value}%`);
+    const searchCondition = {
+      where: [
+        { hostId, title: searchValue },
+        { hostId, description: searchValue },
+      ],
+    };
+    return this.meetingRepository.find(searchCondition);
   }
 
   async update(updateMeetingInput: UpdateMeetingInput) {
