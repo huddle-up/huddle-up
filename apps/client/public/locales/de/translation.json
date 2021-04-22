@@ -27,6 +27,19 @@
     "footer": {
       "tagline": "Webplattform für Videotreffen",
       "description": "Erstelle und beitrete Videotreffen mit interessanten Themen"
+    },
+    "form": {
+      "save": "Speichern",
+      "cancel": "Abbrechen",
+      "validation": {
+        "maxCountCharacters": "Maximal {{count}} Zeichen",
+        "required": "Dieses Feld muss ausgefüllt sein",
+        "validEmail": "Ungültige E-Mail-Adresse"
+      },
+      "fields": {
+        "name": "Name",
+        "email": "E-Mail"
+      }
     }
   },
   "authPages": {
@@ -109,5 +122,23 @@
     "hostedby": "Veranstaltet von",
     "participant": "Teilnehmer",
     "noMeetingsPlaceholder": "Noch keine Treffen vorhanden. Erstelle eines!"
+  },
+  "profile": {
+    "head": {
+      "title": "Mein Profil"
+    },
+    "nav": {
+      "profile": "Profil",
+      "logout": "Logout"
+    },
+    "profile": {
+      "profileSection": "Mein Profile",
+      "yourInformation": "Deine Angaben",
+      "aboutYou": "Über dich",
+      "aboutYouText": "Erzähl anderen Benutzern etwas über dich!"
+    },
+    "fields": {
+      "biography": "Biographie"
+    }
   }
 }
