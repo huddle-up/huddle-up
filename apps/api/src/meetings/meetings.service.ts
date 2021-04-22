@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { UpdateMeetingInput } from './dto/update-meeting.input';
 import { Meeting } from './entities/meeting.entity';
-import { CreateMeeting } from './interfaces/create-meeting';
+import { CreateMeeting } from './interfaces/create-meeting.interface';
 
 @Injectable()
 export class MeetingsService {

@@ -6,8 +6,6 @@ import { CreateMeetingInput } from './dto/create-meeting.input';
 import { UpdateMeetingInput } from './dto/update-meeting.input';
 import { JwtGqlAuthGuard } from '../auth/jwt/jwt-gql-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { AuthUser } from '../auth/entities/auth-user.entity';
-import { AuthService } from '../auth/auth.service';
 
 @Resolver(() => Meeting)
 @UseGuards(JwtGqlAuthGuard)
