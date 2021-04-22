@@ -121,7 +121,7 @@
     "today": "Today",
     "hostedby": "Hosted by",
     "participant": "Participant",
-    "noMeetingsPlaceholder": "No meetings yet. Create one!",
+    "noMeetingsPlaceholder": "No meetings found. Create one!",
     "searchPlaceholder": "Meeting Search"
   },
   "profile": {

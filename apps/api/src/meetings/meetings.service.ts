@@ -29,12 +29,16 @@ export class MeetingsService {
 
   async search(searchMeetingInput: SearchMeetingInput, hostId?: string) {
     const searchValue: FindOperator<string> = Like(`%${searchMeetingInput.value}%`);
-    const searchCondition = {
-      where: [
-        { hostId, title: searchValue },
-        { hostId, description: searchValue },
-      ],
-    };
+    const searchCondition = hostId
+      ? {
+          where: [
+            { hostId, title: searchValue },
+            { hostId, description: searchValue },
+          ],
+        }
+      : {
+          where: [{ title: searchValue }, { description: searchValue }],
+        };
     return this.meetingRepository.find(searchCondition);
   }
 

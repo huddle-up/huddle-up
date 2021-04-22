@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, Grid } from '@material-ui/core';
+import { Card, CardContent, Typography, Grid, CardActions } from '@material-ui/core';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { format, isToday, isWithinInterval } from 'date-fns';
@@ -11,7 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import CloseIcon from '@material-ui/icons/Close';
-import { Meeting_meeting as Meeting } from '../../pages/meetings/__generated-interfaces__/Meeting';
+import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { Link, LinkButton } from '../link';
 import { SplitButton } from '../button';
 
@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
   },
   description: {
     marginTop: theme.spacing(1),
+  },
+  actions: {
+    display: 'flex',
+    justifyContent: 'flex-end',
   },
 }));
 
@@ -72,7 +76,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
 
   return (
     <>
-      <Card className={classes.card}>
+      <Card className={classes.card} variant="outlined">
         <CardContent className={classes.cardContent}>
           <Grid container direction="row" justify="space-between" alignItems="center">
             <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -135,17 +139,13 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
             {description}
           </Typography>
         </CardContent>
+        <Divider />
+        <CardActions className={classes.actions}>
+          <LinkButton to={`/meetings/${id}/edit`} variant="contained" color="primary" startIcon={<EditIcon />}>
+            {t('meetings.button.edit')}
+          </LinkButton>
+        </CardActions>
       </Card>
-      <Grid container direction="row" justify="space-between" alignItems="center">
-        <LinkButton
-          to={`/meetings/${id}/edit`}
-          variant="contained"
-          color="primary"
-          size="small"
-          startIcon={<EditIcon />}>
-          {t('meetings.button.edit')}
-        </LinkButton>
-      </Grid>
     </>
   );
 }

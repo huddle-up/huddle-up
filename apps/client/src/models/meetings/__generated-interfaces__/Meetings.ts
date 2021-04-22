@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: DiscoverMeetings
+// GraphQL query operation: Meetings
 // ====================================================
 
-export interface DiscoverMeetings_meetings_host {
+export interface Meetings_meetings_host {
   __typename: "User";
   /**
    * The id of the user
@@ -23,7 +23,7 @@ export interface DiscoverMeetings_meetings_host {
   name: string;
 }
 
-export interface DiscoverMeetings_meetings {
+export interface Meetings_meetings {
   __typename: "Meeting";
   /**
    * The id of the meeting
@@ -48,9 +48,13 @@ export interface DiscoverMeetings_meetings {
   /**
    * The hoster of the meeting
    */
-  host: DiscoverMeetings_meetings_host;
+  host: Meetings_meetings_host;
 }
 
-export interface DiscoverMeetings {
-  meetings: DiscoverMeetings_meetings[];
+export interface Meetings {
+  meetings: Meetings_meetings[];
+}
+
+export interface MeetingsVariables {
+  value: string;
 }

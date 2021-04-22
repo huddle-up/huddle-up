@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -8,25 +7,18 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { DateTimePicker } from '@material-ui/pickers';
 import EventIcon from '@material-ui/icons/Event';
-import { IconButton, Button, InputAdornment } from '@material-ui/core';
-import { useMutation, gql } from '@apollo/client';
+import { IconButton, Button, InputAdornment, CardActions } from '@material-ui/core';
+import { useMutation } from '@apollo/client';
 import CreateIcon from '@material-ui/icons/Create';
 import { Redirect } from 'react-router';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { LinkButton } from '../../components/link';
-import { CreateMeeting } from './__generated-interfaces__/CreateMeeting';
+import { CreateMeeting } from '../../models/meetings/__generated-interfaces__/CreateMeeting';
+import { CREATE_MEETING } from '../../models/meetings';
 import { AppPageMain } from '../../components/app-page-layout';
+import { SectionHeader } from '../../components/section-header';
 
 const useStyles = makeStyles((theme) => ({
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
   paper: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
@@ -37,22 +29,12 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(3),
     },
   },
+  actions: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
 }));
 
-const CREATE_MEETING = gql`
-  mutation CreateMeeting($title: String!, $description: String, $startDate: DateTime!, $endDate: DateTime!) {
-    createMeeting(
-      createMeetingInput: { title: $title, description: $description, startDate: $startDate, endDate: $endDate }
-    ) {
-      id
-      title
-      description
-      startDate
-      endDate
-      __typename
-    }
-  }
-`;
 interface FormProps {
   title: string;
   description?: string;
@@ -87,21 +69,16 @@ function MeetingCreate() {
   }
 
   return (
-    <>
-      <Helmet>
-        <title>{t('meetings.head.title.create')}</title>
-      </Helmet>
-      <AppPageMain className={classes.layout}>
-        <Typography variant="h6" gutterBottom>
-          {t('meetings.title.new')}
-        </Typography>
+    <AppPageMain>
+      <section>
+        <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.new')} />
         {mutationLoading && <p>Loading...</p>}
         {mutationError && <p>Error... ${mutationError.message}</p>}
         {!mutationLoading && !mutationError && mutationCalled && (
           <Redirect to={`/meetings/${mutationData.createMeeting.id}`} />
         )}
         <form>
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} variant="outlined">
             <Typography variant="h6" gutterBottom>
               {t('meetings.title.about')}
             </Typography>
@@ -131,7 +108,7 @@ function MeetingCreate() {
               </Grid>
             </Grid>
           </Paper>
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} variant="outlined">
             <Typography variant="h6" gutterBottom>
               {t('meetings.title.dateTime')}
             </Typography>
@@ -193,28 +170,24 @@ function MeetingCreate() {
               </Grid>
             </Grid>
           </Paper>
-          <Paper className={classes.paper} elevation={0}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                <LinkButton to="/meetings" variant="outlined" color="primary">
-                  {t('global.button.cancel')}
-                </LinkButton>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Button
-                  onClick={handleCreateMeeting}
-                  color="primary"
-                  variant="contained"
-                  disabled={!meeting.title || !meeting.startDate || !meeting.endDate}
-                  startIcon={<CreateIcon />}>
-                  {t('meetings.button.create')}
-                </Button>
-              </Grid>
-            </Grid>
+          <Paper className={classes.paper} variant="outlined">
+            <CardActions className={classes.actions}>
+              <LinkButton to="/meetings" variant="outlined" color="primary">
+                {t('global.button.cancel')}
+              </LinkButton>
+              <Button
+                onClick={handleCreateMeeting}
+                color="primary"
+                variant="contained"
+                disabled={!meeting.title || !meeting.startDate || !meeting.endDate}
+                startIcon={<CreateIcon />}>
+                {t('meetings.button.create')}
+              </Button>
+            </CardActions>
           </Paper>
         </form>
-      </AppPageMain>
-    </>
+      </section>
+    </AppPageMain>
   );
 }
 

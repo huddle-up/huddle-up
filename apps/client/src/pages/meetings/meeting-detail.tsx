@@ -1,27 +1,17 @@
 import React from 'react';
-import { Helmet } from 'react-helmet';
-import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
-import { Meeting, MeetingVariables } from './__generated-interfaces__/Meeting';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import { Meeting, MeetingVariables } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { MeetingDetailCard } from '../../components/meeting';
-import { MEETING } from './meeting-update';
+import { MEETING } from '../../models/meetings';
 import { AppPageMain } from '../../components/app-page-layout';
+import { SectionHeader } from '../../components/section-header';
 
 const useStyles = makeStyles((theme) => ({
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
   paper: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
@@ -47,17 +37,12 @@ function MeetingDetail() {
   if (queryError) return <Paper className={classes.paper}>`Error loading meeting! ${queryError.message}`</Paper>;
 
   return (
-    <>
-      <Helmet>
-        <title>{t('meetings.head.title.view')}</title>
-      </Helmet>
-      <AppPageMain className={classes.layout}>
-        <Typography variant="h6" gutterBottom>
-          {t('global.title.meeting')}
-        </Typography>
+    <AppPageMain>
+      <section>
+        <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('global.title.meeting')} />
         <MeetingDetailCard meeting={data.meeting} />
-      </AppPageMain>
-    </>
+      </section>
+    </AppPageMain>
   );
 }
 
