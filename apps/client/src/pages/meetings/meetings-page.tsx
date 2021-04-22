@@ -7,6 +7,7 @@ import { Typography } from '@material-ui/core';
 import { AppPageMain } from '../../components/app-page-layout';
 import { MeetingList } from '../../components/meeting';
 import { DiscoverMeetings } from './__generated-interfaces__/DiscoverMeetings';
+import SearchField from '../../components/search/search-field';
 
 const useStyles = makeStyles((theme) => ({
   layout: {
@@ -48,6 +49,9 @@ function MeetingsPage() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! ${error.message}</p>;
 
+  function onSearch(value: string) {}
+  function onReset() {}
+
   return (
     <>
       <Helmet>
@@ -57,6 +61,7 @@ function MeetingsPage() {
         <Typography variant="h6" gutterBottom>
           {t('global.title.meetings')}
         </Typography>
+        <SearchField placeholderText={t('meetings.searchPlaceholder')} onSearch={onSearch} onReset={onReset} />
         <MeetingList meetings={data.meetings} />
       </AppPageMain>
     </>

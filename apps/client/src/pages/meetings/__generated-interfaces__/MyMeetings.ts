@@ -54,3 +54,7 @@ export interface MyMeetings_myMeetings {
 export interface MyMeetings {
   myMeetings: MyMeetings_myMeetings[];
 }
+
+export interface MyMeetingsVariables {
+  value: string;
+}

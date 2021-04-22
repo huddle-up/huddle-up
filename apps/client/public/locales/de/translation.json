@@ -121,7 +121,8 @@
     "today": "Heute",
     "hostedby": "Veranstaltet von",
     "participant": "Teilnehmer",
-    "noMeetingsPlaceholder": "Noch keine Treffen vorhanden. Erstelle eines!"
+    "noMeetingsPlaceholder": "Noch keine Treffen vorhanden. Erstelle eines!",
+    "searchPlaceholder": "Meeting Suche"
   },
   "profile": {
     "head": {
