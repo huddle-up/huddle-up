@@ -9,4 +9,7 @@ export class UpdateUserInput {
 
   @Field({ description: 'The name of the user' })
   name: string;
+
+  @Field({ description: 'The biography of the user', nullable: true })
+  biography?: string;
 }
