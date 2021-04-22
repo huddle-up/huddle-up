@@ -12,6 +12,9 @@ type User {
   """The name of the user"""
   name: String!
 
+  """The biography of the user"""
+  biography: String
+
   """The meetings of the user"""
   meetings: [Meeting!]!
 }
@@ -96,4 +99,7 @@ input UpdateUserInput {
 
   """The name of the user"""
   name: String!
+
+  """The biography of the user"""
+  biography: String
 }

@@ -17,6 +17,10 @@ export class User {
   @Field({ description: 'The name of the user' })
   name: string;
 
+  @Column('text', { nullable: true })
+  @Field({ nullable: true, description: 'The biography of the user' })
+  biography?: string;
+
   @OneToMany(() => Meeting, (meeting) => meeting.host)
   @Field(() => [Meeting], { description: 'The meetings of the user' })
   meetings: Promise<Meeting[]>;
