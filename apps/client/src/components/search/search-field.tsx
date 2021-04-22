@@ -50,7 +50,7 @@ function SearchField({ placeholderText, onSearch, onReset }: SearchFieldProps) {
   }
 
   return (
-    <Paper component="form" className={classes.root} onSubmit={handleSearch} onReset={handleReset}>
+    <Paper component="form" className={classes.root} onSubmit={handleSearch} onReset={handleReset} variant="outlined">
       <InputBase
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}

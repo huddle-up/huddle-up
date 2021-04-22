@@ -1,6 +1,6 @@
+import React from 'react';
 import { useMutation } from '@apollo/client';
 import { PersonOutlined } from '@material-ui/icons';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { SectionHeader } from '../../components/section-header';
 import { UserProfileForm } from '../../components/user-profile-form';

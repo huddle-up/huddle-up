@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -8,26 +7,19 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import { DateTimePicker } from '@material-ui/pickers';
 import EventIcon from '@material-ui/icons/Event';
-import { Button, IconButton, InputAdornment } from '@material-ui/core';
-import { useQuery, useMutation, gql } from '@apollo/client';
+import { Button, Card, CardActions, IconButton, InputAdornment } from '@material-ui/core';
+import { useQuery, useMutation } from '@apollo/client';
 import { Redirect, useParams } from 'react-router-dom';
 import SaveIcon from '@material-ui/icons/Save';
-import { Meeting, MeetingVariables, Meeting_meeting } from './__generated-interfaces__/Meeting';
-import { UpdateMeeting, UpdateMeetingVariables } from './__generated-interfaces__/UpdateMeeting';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import { Meeting, MeetingVariables, Meeting_meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
+import { UpdateMeeting, UpdateMeetingVariables } from '../../models/meetings/__generated-interfaces__/UpdateMeeting';
 import { LinkButton } from '../../components/link';
+import { MEETING, UPDATE_MEETING } from '../../models/meetings';
 import { AppPageMain } from '../../components/app-page-layout';
+import { SectionHeader } from '../../components/section-header';
 
 const useStyles = makeStyles((theme) => ({
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
   paper: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
@@ -38,54 +30,11 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(3),
     },
   },
+  actions: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
 }));
-
-export const MEETING = gql`
-  query Meeting($id: String!) {
-    meeting(id: $id) {
-      id
-      title
-      description
-      startDate
-      endDate
-      __typename
-      host {
-        id
-        email
-        name
-        __typename
-      }
-    }
-  }
-`;
-
-const UPDATE_MEETING = gql`
-  mutation UpdateMeeting($id: String!, $title: String, $description: String, $startDate: DateTime, $endDate: DateTime) {
-    updateMeeting(
-      updateMeetingInput: {
-        id: $id
-        title: $title
-        description: $description
-        startDate: $startDate
-        endDate: $endDate
-      }
-    ) {
-      id
-      title
-      description
-      startDate
-      endDate
-      __typename
-    }
-  }
-`;
-
-// TODO is it possible to remove a meeting?
-// const REMOVE_MEETING = gql`
-//   mutation RemoveMeeting($id: Int) {
-//     removeMeeting(id: $id)
-//   }
-// `;
 
 function MeetingUpdate() {
   const { t } = useTranslation();
@@ -120,14 +69,9 @@ function MeetingUpdate() {
   if (queryError) return <Paper className={classes.paper}>`Error loading meeting! ${queryError.message}`</Paper>;
 
   return (
-    <>
-      <Helmet>
-        <title>{t('meetings.head.title.edit')}</title>
-      </Helmet>
-      <AppPageMain className={classes.layout}>
-        <Typography variant="h6" gutterBottom>
-          {t('meetings.title.edit')}
-        </Typography>
+    <AppPageMain>
+      <section>
+        <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.edit')} />
         {mutationLoading && <p>Loading...</p>}
         {mutationError && <p>Error... ${mutationError.message}</p>}
         {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meetings/${id}`} />}
@@ -138,7 +82,7 @@ function MeetingUpdate() {
               variables: meeting,
             });
           }}>
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} variant="outlined">
             <Typography variant="h6" gutterBottom>
               {t('meetings.title.about')}
             </Typography>
@@ -168,7 +112,7 @@ function MeetingUpdate() {
               </Grid>
             </Grid>
           </Paper>
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} variant="outlined">
             <Typography variant="h6" gutterBottom>
               {t('meetings.title.dateTime')}
             </Typography>
@@ -230,28 +174,19 @@ function MeetingUpdate() {
               </Grid>
             </Grid>
           </Paper>
-          <Paper className={classes.paper} elevation={0}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                <LinkButton to={`/meetings/${id}`} variant="outlined" color="primary" size="small">
-                  {t('global.button.cancel')}
-                </LinkButton>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Button
-                  onClick={handleMeetingUpdate}
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  startIcon={<SaveIcon />}>
-                  {t('meetings.button.save')}
-                </Button>
-              </Grid>
-            </Grid>
+          <Paper className={classes.paper} variant="outlined">
+            <CardActions className={classes.actions}>
+              <LinkButton to={`/meetings/${id}`} variant="outlined" color="primary">
+                {t('global.button.cancel')}
+              </LinkButton>
+              <Button onClick={handleMeetingUpdate} variant="contained" color="primary" startIcon={<SaveIcon />}>
+                {t('meetings.button.save')}
+              </Button>
+            </CardActions>
           </Paper>
         </form>
-      </AppPageMain>
-    </>
+      </section>
+    </AppPageMain>
   );
 }
 

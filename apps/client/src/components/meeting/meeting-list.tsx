@@ -1,9 +1,9 @@
-import { Typography } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MeetingCard } from '.';
-import { MyMeetings_myMeetings } from '../../pages/meetings/__generated-interfaces__/MyMeetings';
+import { MyMeetings_myMeetings } from '../../models/meetings/__generated-interfaces__/MyMeetings';
 import { LinkButton } from '../link';
+import NoEntryCard from '../no-entry-card/no-meeting-card';
 
 interface MeetingListProps {
   meetings: MyMeetings_myMeetings[];
@@ -14,10 +14,10 @@ function MeetingList({ meetings }: MeetingListProps) {
 
   return (
     <div>
-      {meetings ? (
+      {meetings && meetings.length > 0 ? (
         meetings.map((meeting) => <MeetingCard key={meeting.id} meeting={meeting} />)
       ) : (
-        <Typography>{t('meetings.noMeetingsPlaceholder')}</Typography>
+        <NoEntryCard message={t('meetings.noMeetingsPlaceholder')} />
       )}
       <LinkButton to="/meetings">{t('meetings.button.showmore')}</LinkButton>
     </div>

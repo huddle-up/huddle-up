@@ -20,8 +20,9 @@ export class MeetingsResolver {
   }
 
   @Query(() => [Meeting], { name: 'meetings' })
-  async findAll(@Args('searchMeetingInput', { nullable: true }) searchMeetingInput?: SearchMeetingInput) {
-    if (searchMeetingInput) {
+  async findAll(@Args('searchMeetingInput') searchMeetingInput: SearchMeetingInput) {
+    const searchValue = searchMeetingInput.value;
+    if (searchValue && searchValue.trim().length > 0) {
       return this.meetingsService.search(searchMeetingInput);
     }
     return this.meetingsService.findAll();

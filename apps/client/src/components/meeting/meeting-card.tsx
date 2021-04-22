@@ -6,7 +6,7 @@ import VideocamIcon from '@material-ui/icons/Videocam';
 import CheckIcon from '@material-ui/icons/Check';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { format, isToday, isWithinInterval } from 'date-fns';
-import { Meeting_meeting as Meeting } from '../../pages/meetings/__generated-interfaces__/Meeting';
+import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { Link, LinkButton } from '../link';
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +48,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
   const live = isWithinInterval(new Date(), { start: meetingStart, end: meetingEnd });
 
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} variant="outlined">
       <CardContent className={classes.cardContent}>
         <Grid container direction="row" justify="space-between" alignItems="center">
           <Typography className={classes.title} color="textSecondary" gutterBottom>
