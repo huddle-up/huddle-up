@@ -7,7 +7,7 @@
 // GraphQL query operation: CurrentUser
 // ====================================================
 
-export interface CurrentUser_user {
+export interface CurrentUser_currentUser {
   __typename: "User";
   /**
    * The id of the user
@@ -28,9 +28,5 @@ export interface CurrentUser_user {
 }
 
 export interface CurrentUser {
-  user: CurrentUser_user;
-}
-
-export interface CurrentUserVariables {
-  id: string;
+  currentUser: CurrentUser_currentUser;
 }

@@ -4,17 +4,16 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { SectionHeader } from '../../components/section-header';
 import { UserProfileForm } from '../../components/user-profile-form';
-import { UPDATE_USER, useUser } from '../../models/user';
-import { UpdateUser } from '../../models/user/__generated-interfaces__/UpdateUser';
+import { UPDATE_CURRENT_USER, useUser } from '../../models/user';
+import { UpdateCurrentUser } from '../../models/user/__generated-interfaces__/UpdateCurrentUser';
 
 function ProfilePage() {
   const { t } = useTranslation();
   const { user } = useUser();
-  const [updateUser] = useMutation<UpdateUser>(UPDATE_USER, { refetchQueries: ['CurrentUser'] });
+  const [updateUser] = useMutation<UpdateCurrentUser>(UPDATE_CURRENT_USER);
   const onFormSubmit = async ({ name, email, biography }) => {
     await updateUser({
       variables: {
-        id: user.id,
         name,
         email,
         biography,

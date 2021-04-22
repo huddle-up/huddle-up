@@ -9,7 +9,7 @@ function useUser() {
   return {
     loading,
     error,
-    user: data?.user,
+    user: data?.currentUser,
   };
 }
 

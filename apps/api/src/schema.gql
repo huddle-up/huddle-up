@@ -50,6 +50,7 @@ type Query {
   meeting(id: String!): Meeting!
   users: [User!]!
   user(id: String!): User!
+  currentUser: User!
 }
 
 type Mutation {
@@ -57,6 +58,7 @@ type Mutation {
   updateMeeting(updateMeetingInput: UpdateMeetingInput!): Meeting!
   removeMeeting(id: String!): Boolean!
   updateUser(updateUserInput: UpdateUserInput!): User!
+  updateCurrentUser(updateCurrentUserInput: UpdateCurrentUserInput!): User!
 }
 
 input CreateMeetingInput {
@@ -94,6 +96,17 @@ input UpdateUserInput {
   """The id of the user"""
   id: String!
 
+  """The email of the user"""
+  email: String!
+
+  """The name of the user"""
+  name: String!
+
+  """The biography of the user"""
+  biography: String
+}
+
+input UpdateCurrentUserInput {
   """The email of the user"""
   email: String!
 
