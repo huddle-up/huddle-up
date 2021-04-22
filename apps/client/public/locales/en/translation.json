@@ -27,6 +27,19 @@
     "footer": {
       "tagline": "Webapplication for Videomeetings",
       "description": "Create and join Videomeetings with interesting topics"
+    },
+    "form": {
+      "save": "Save",
+      "cancel": "Cancel",
+      "validation": {
+        "maxCountCharacters": "Max. {{count}} characters",
+        "required": "This field is required",
+        "validEmail": "Invalid Email address"
+      },
+      "fields": {
+        "name": "Name",
+        "email": "Email"
+      }
     }
   },
   "authPages": {
@@ -109,5 +122,23 @@
     "hostedby": "Hosted by",
     "participant": "Participant",
     "noMeetingsPlaceholder": "No meetings yet. Create one!"
+  },
+  "profile": {
+    "head": {
+      "title": "My Profile"
+    },
+    "nav": {
+      "profile": "Profile",
+      "logout": "Logout"
+    },
+    "profile": {
+      "profileSection": "My Profile",
+      "yourInformation": "Your Information",
+      "aboutYou": "About You",
+      "aboutYouText": "Tell other users something about you!",
+      "fields": {
+        "biography": "Biography"
+      }
+    }
   }
 }

@@ -16,6 +16,8 @@
     "@types/react-dom": "^17.0.3",
     "@types/react-router-dom": "^5.1.7",
     "date-fns": "^2.19.0",
+    "formik": "^2.2.6",
+    "formik-material-ui": "^3.0.1",
     "graphql": "^15.5.0",
     "i18next": "^20.1.0",
     "i18next-browser-languagedetector": "^6.1.0",
@@ -30,7 +32,8 @@
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "web-vitals": "^1.1.1"
+    "web-vitals": "^1.1.1",
+    "yup": "^0.32.9"
   },
   "scripts": {
     "start:dev": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts start",
@@ -40,7 +43,8 @@
     "format": "prettier --write ./",
     "eject": "react-scripts eject",
     "lint": "eslint ./",
-    "lint:fix": "eslint --fix ./"
+    "lint:fix": "eslint --fix ./",
+    "apollo:codegen": "apollo client:codegen --target typescript __generated-interfaces__"
   },
   "eslintConfig": {
     "extends": [
