@@ -6,7 +6,6 @@
     },
     "title": {
       "meeting": "Meeting",
-      "meetings": "Pending Meetings",
       "myMeetings": "My Meetings",
       "discover": "Discover"
     },
@@ -110,7 +109,11 @@
       "edit": "Edit Meeting",
       "details": "Details",
       "about": "About the Meeting",
-      "dateTime": "Date and Time"
+      "dateTime": "Date and Time",
+      "ongoing": "Ongoing Meetings",
+      "upcoming": "Upcoming Meetings",
+      "createdByMe": "Meetings created by me",
+      "past": "Past Meetings"
     },
     "form": {
       "title": "Title",

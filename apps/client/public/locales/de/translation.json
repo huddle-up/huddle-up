@@ -6,7 +6,6 @@
     },
     "title": {
       "meeting": "Treffen",
-      "meetings": "Anstehende Treffen",
       "myMeetings": "Meine Treffen",
       "discover": "Entdecken"
     },
@@ -110,7 +109,11 @@
       "edit": "Treffen bearbeiten",
       "details": "Details",
       "about": "Über das Treffen",
-      "dateTime": "Datum und Zeit"
+      "dateTime": "Datum und Zeit",
+      "ongoing": "Laufende Treffen",
+      "upcoming": "Anstehende Treffen",
+      "createdByMe": "Von mir erstellte Treffen",
+      "past": "Vergangene Treffen"
     },
     "form": {
       "title": "Titel",
