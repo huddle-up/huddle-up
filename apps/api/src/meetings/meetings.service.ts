@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, FindOperator, Like, Repository } from 'typeorm';
+import { DeleteResult, FindOperator, Like, Repository, MoreThan } from 'typeorm';
 import { SearchMeetingInput } from './dto/search-meeting.input';
 import { UpdateMeetingInput } from './dto/update-meeting.input';
 import { Meeting } from './entities/meeting.entity';
@@ -29,6 +29,7 @@ export class MeetingsService {
 
   async search(searchMeetingInput: SearchMeetingInput, hostId?: string) {
     const searchValue: FindOperator<string> = Like(`%${searchMeetingInput.value}%`);
+    const moreThanCurrentDate: FindOperator<Date> = MoreThan(new Date());
     const searchCondition = hostId
       ? {
           where: [
@@ -37,7 +38,10 @@ export class MeetingsService {
           ],
         }
       : {
-          where: [{ title: searchValue }, { description: searchValue }],
+          where: [
+            { title: searchValue, endDate: moreThanCurrentDate },
+            { description: searchValue, endDate: moreThanCurrentDate },
+          ],
         };
     return this.meetingRepository.find(searchCondition);
   }
