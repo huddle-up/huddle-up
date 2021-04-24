@@ -12,11 +12,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface NoMeetingCardProps {
+interface NoEntryCardProps {
   message: string;
 }
 
-function NoEntryCard({ message }: NoMeetingCardProps) {
+function NoEntryCard({ message }: NoEntryCardProps) {
   const classes = useStyles();
 
   return (
