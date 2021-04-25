@@ -1,5 +1,14 @@
 import { ObjectType, Field } from '@nestjs/graphql';
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Conference } from '../../conferences/entities/conference.entity';
 import { User } from '../../users/entities/user.entity';
 
 @Entity()
@@ -32,7 +41,12 @@ export class Meeting {
   @Column()
   hostId: string;
 
-  @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
+  @OneToOne(() => Conference, (conference) => conference.meeting)
+  @Field(() => Conference, { description: 'The conference associated with the meeting', nullable: true })
+  conference: Promise<Conference>;
+
+  @CreateDateColumn({ name: 'created_at' })
+  'created_at': Date;
 
   @UpdateDateColumn({ name: 'updated_at' }) 'updated_at': Date;
 }

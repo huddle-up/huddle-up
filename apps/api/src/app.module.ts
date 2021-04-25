@@ -11,6 +11,8 @@ import { GraphqlConfigService } from './config/graphql/config.service';
 import { MeetingsModule } from './meetings/meetings.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ConferencesModule } from './conferences/conferences.module';
+import { JitsiModule } from './jitsi/jitsi.module';
 
 @Module({
   imports: [
@@ -44,6 +46,8 @@ import { UsersModule } from './users/users.module';
     MeetingsModule,
     AuthModule,
     UsersModule,
+    ConferencesModule,
+    JitsiModule,
   ],
   providers: [AppService],
 })
