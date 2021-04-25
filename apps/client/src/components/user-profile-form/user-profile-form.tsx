@@ -85,7 +85,7 @@ function UserProfileForm({ initialValues: { name, email, biography }, onSubmit }
                     fullWidth
                     variant="outlined"
                     name="biography"
-                    label={t('profile.fields.biography')}
+                    label={t('profile.profile.fields.biography')}
                     multiline
                   />
                 </Grid>

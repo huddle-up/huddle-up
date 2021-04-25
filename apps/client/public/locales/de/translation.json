@@ -139,10 +139,10 @@
       "profileSection": "Mein Profile",
       "yourInformation": "Deine Angaben",
       "aboutYou": "Über dich",
-      "aboutYouText": "Erzähl anderen Benutzern etwas über dich!"
-    },
-    "fields": {
-      "biography": "Biographie"
+      "aboutYouText": "Erzähl anderen Benutzern etwas über dich!",
+      "fields": {
+        "biography": "Biographie"
+      }
     }
   }
 }
