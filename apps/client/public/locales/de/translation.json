@@ -19,8 +19,6 @@
     },
     "datepicker": {
       "okLabel": "ok",
-      "cancelLabel": "Abbrechen",
-      "clearLabel": "Reset",
       "todayLabel": "Jetzt"
     },
     "footer": {
@@ -30,8 +28,10 @@
     "form": {
       "save": "Speichern",
       "cancel": "Abbrechen",
+      "clear": "Reset",
       "validation": {
         "maxCountCharacters": "Maximal {{count}} Zeichen",
+        "minCountCharacters": "Mindestens {{count}} Zeichen",
         "required": "Dieses Feld muss ausgefüllt sein",
         "validEmail": "Ungültige E-Mail-Adresse"
       },
@@ -124,7 +124,7 @@
     "today": "Heute",
     "hostedby": "Veranstaltet von",
     "participant": "Teilnehmer",
-    "noMeetingsPlaceholder": "Keine Treffen gefunden. Erstelle eines!",
+    "noMeetingsPlaceholder": "Keine Treffen gefunden",
     "searchPlaceholder": "Meeting Suche"
   },
   "profile": {
