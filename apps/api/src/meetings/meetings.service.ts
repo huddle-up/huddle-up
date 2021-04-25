@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, FindOperator, Like, Repository, MoreThan } from 'typeorm';
+import { DeleteResult, FindOperator, Like, Repository, MoreThan, FindOneOptions, FindManyOptions } from 'typeorm';
 import { SearchMeetingInput } from './dto/search-meeting.input';
 import { UpdateMeetingInput } from './dto/update-meeting.input';
 import { Meeting } from './entities/meeting.entity';
@@ -30,20 +30,28 @@ export class MeetingsService {
   async search(searchMeetingInput: SearchMeetingInput, hostId?: string) {
     const searchValue: FindOperator<string> = Like(`%${searchMeetingInput.value}%`);
     const moreThanCurrentDate: FindOperator<Date> = MoreThan(new Date());
-    const searchCondition = hostId
-      ? {
-          where: [
-            { hostId, title: searchValue },
-            { hostId, description: searchValue },
-          ],
-        }
-      : {
-          where: [
-            { title: searchValue, endDate: moreThanCurrentDate },
-            { description: searchValue, endDate: moreThanCurrentDate },
-          ],
-        };
-    return this.meetingRepository.find(searchCondition);
+    const where: FindOneOptions['where'] = hostId
+      ? [
+          { hostId, title: searchValue },
+          { hostId, description: searchValue },
+        ]
+      : [
+          { title: searchValue, endDate: moreThanCurrentDate },
+          { description: searchValue, endDate: moreThanCurrentDate },
+        ];
+
+    // TODO implement order parameter
+    const order: FindOneOptions['order'] = {
+      startDate: 'ASC',
+    };
+
+    // TODO implement pagination parameter (skip: offset, take: limit)
+    const skip: FindManyOptions['skip'] = 0;
+    const take: FindManyOptions['take'] = 100;
+
+    const searchOptions: FindManyOptions = { where, order, skip, take };
+
+    return this.meetingRepository.find(searchOptions);
   }
 
   async update(updateMeetingInput: UpdateMeetingInput) {
