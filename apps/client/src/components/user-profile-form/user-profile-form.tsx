@@ -10,6 +10,9 @@ const useStyles = makeStyles((theme) => ({
   card: {
     marginBottom: theme.spacing(3),
   },
+  cardContent: {
+    border: 'none',
+  },
   actions: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -43,9 +46,9 @@ function UserProfileForm({ initialValues: { name, email, biography }, onSubmit }
       onSubmit={onSubmit}>
       {({ submitForm, isSubmitting, handleReset }) => (
         <Form>
-          <Card className={classes.card} component="fieldset" variant="outlined">
-            <CardContent>
-              <CardTitle title={t('profile.profile.yourInformation')} />
+          <Card className={classes.card} variant="outlined">
+            <CardContent className={classes.cardContent} component="fieldset">
+              <CardTitle title={t('profile.profile.yourInformation')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
                   <Field
@@ -69,8 +72,12 @@ function UserProfileForm({ initialValues: { name, email, biography }, onSubmit }
               </Grid>
             </CardContent>
             <Divider />
-            <CardContent>
-              <CardTitle title={t('profile.profile.aboutYou')} caption={t('profile.profile.aboutYouText')} />
+            <CardContent className={classes.cardContent} component="fieldset">
+              <CardTitle
+                title={t('profile.profile.aboutYou')}
+                caption={t('profile.profile.aboutYouText')}
+                titleComponent="legend"
+              />
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Field

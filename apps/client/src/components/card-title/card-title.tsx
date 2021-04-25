@@ -13,13 +13,19 @@ const useStyles = makeStyles((theme) => ({
 interface CardTitleProps {
   title: string;
   caption?: string;
+  titleComponent?: React.ElementType;
 }
 
-function CardTitle({ title, caption }: CardTitleProps) {
+CardTitle.defaultProps = {
+  caption: undefined,
+  titleComponent: 'h6',
+};
+
+function CardTitle({ title, caption, titleComponent }: CardTitleProps) {
   const classes = useStyles();
   return (
     <div className={classes.cardTitle}>
-      <Typography component="legend" variant="h6">
+      <Typography component={titleComponent} variant="h6">
         {title}
       </Typography>
       {caption && (
@@ -30,9 +36,5 @@ function CardTitle({ title, caption }: CardTitleProps) {
     </div>
   );
 }
-
-CardTitle.defaultProps = {
-  caption: undefined,
-};
 
 export default CardTitle;

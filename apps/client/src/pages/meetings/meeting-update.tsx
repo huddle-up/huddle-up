@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useQuery, useMutation } from '@apollo/client';
 import { Redirect, useParams } from 'react-router-dom';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import { Card } from '@material-ui/core';
+import { Card, Typography } from '@material-ui/core';
 import { Meeting, MeetingVariables } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { UpdateMeeting, UpdateMeetingVariables } from '../../models/meetings/__generated-interfaces__/UpdateMeeting';
 import { MEETING, UPDATE_MEETING } from '../../models/meetings';
@@ -15,6 +15,7 @@ import { UpdateMeetingForm } from '../../components/meeting-form';
 const useStyles = makeStyles((theme) => ({
   card: {
     marginBottom: theme.spacing(2),
+    padding: theme.spacing(2),
   },
 }));
 
@@ -38,17 +39,19 @@ function MeetingUpdate() {
     });
   }
 
-  // TODO Add generic handling of loading and errors
+  // TODO Improve handling of loading and errors
   if (queryLoading)
     return (
-      <Card className={classes.card} component="fieldset" variant="outlined">
-        Loading...
+      <Card className={classes.card} variant="outlined">
+        <Card className={classes.card} variant="outlined">
+          <Typography>Loading...</Typography>
+        </Card>
       </Card>
     );
   if (queryError)
     return (
-      <Card className={classes.card} component="fieldset" variant="outlined">
-        `Error loading meeting! ${queryError.message}`
+      <Card className={classes.card} variant="outlined">
+        <Typography>`Error loading meeting! ${queryError.message}`</Typography>
       </Card>
     );
 
@@ -57,13 +60,13 @@ function MeetingUpdate() {
       <section>
         <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.edit')} />
         {mutationLoading && (
-          <Card className={classes.card} component="fieldset" variant="outlined">
-            Loading...
+          <Card className={classes.card} variant="outlined">
+            <Typography>Loading...</Typography>
           </Card>
         )}
         {mutationError && (
-          <Card className={classes.card} component="fieldset" variant="outlined">
-            Error... ${mutationError.message}
+          <Card className={classes.card} variant="outlined">
+            <Typography>Error... ${mutationError.message}</Typography>
           </Card>
         )}
         {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meetings/${id}`} />}
