@@ -1,17 +1,12 @@
-import { Button, Card, CardActions, CardContent, Divider, Grid, makeStyles, Typography } from '@material-ui/core';
+import React from 'react';
+import { Button, Card, CardActions, CardContent, Divider, Grid, makeStyles } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
+import { CardTitle } from '../card-title';
 
 const useStyles = makeStyles((theme) => ({
-  cardTitle: {
-    marginBottom: theme.spacing(2),
-  },
-  titleCaption: {
-    marginTop: theme.spacing(0.5),
-  },
   card: {
     marginBottom: theme.spacing(3),
   },
@@ -30,25 +25,6 @@ interface UserProfileFormProps {
   initialValues: UserProfileFormValues;
   onSubmit: (values: UserProfileFormValues) => Promise<void>;
 }
-
-function CardTitle({ title, caption }: { title: string; caption?: string }) {
-  const classes = useStyles();
-  return (
-    <div className={classes.cardTitle}>
-      <Typography component="legend" variant="h6">
-        {title}
-      </Typography>
-      {caption && (
-        <Typography className={classes.titleCaption} component="p" variant="body2">
-          {caption}
-        </Typography>
-      )}
-    </div>
-  );
-}
-CardTitle.defaultProps = {
-  caption: undefined,
-};
 
 function UserProfileForm({ initialValues: { name, email, biography }, onSubmit }: UserProfileFormProps) {
   const classes = useStyles();
@@ -111,10 +87,10 @@ function UserProfileForm({ initialValues: { name, email, biography }, onSubmit }
             <Divider />
             <CardActions className={classes.actions}>
               <Button onClick={handleReset} disabled={isSubmitting} variant="outlined" color="primary">
-                Cancel
+                {t('global.form.cancel')}
               </Button>
               <Button onClick={submitForm} disabled={isSubmitting} variant="contained" disableElevation color="primary">
-                SAVE
+                {t('global.form.save')}
               </Button>
             </CardActions>
           </Card>
