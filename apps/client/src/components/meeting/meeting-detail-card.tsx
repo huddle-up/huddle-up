@@ -8,12 +8,12 @@ import { format, isToday, isWithinInterval } from 'date-fns';
 import Divider from '@material-ui/core/Divider';
 import EventIcon from '@material-ui/icons/Event';
 import EditIcon from '@material-ui/icons/Edit';
-import CheckIcon from '@material-ui/icons/Check';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import CloseIcon from '@material-ui/icons/Close';
+// TODO implement different meeting actions
+// import CheckIcon from '@material-ui/icons/Check';
+// import PersonAddIcon from '@material-ui/icons/PersonAdd';
+// import CloseIcon from '@material-ui/icons/Close';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { Link, LinkButton } from '../link';
-import { SplitButton } from '../button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,19 +60,19 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
   const meetingEnd = new Date(endDate);
   const live = isWithinInterval(new Date(), { start: meetingStart, end: meetingEnd });
 
-  const options = [
-    t('meetings.button.member'),
-    t('meetings.button.join'),
-    t('meetings.button.leave'),
-    t('meetings.button.cancel'),
-  ];
-
-  const iconOptions = [
-    <CheckIcon fontSize="small" />,
-    <PersonAddIcon fontSize="small" />,
-    <CloseIcon fontSize="small" />,
-    <CloseIcon fontSize="small" />,
-  ];
+  // TODO implement different meeting actions
+  // const options = [
+  //   t('meetings.button.member'),
+  //   t('meetings.button.join'),
+  //   t('meetings.button.leave'),
+  //   t('meetings.button.cancel'),
+  // ];
+  // const iconOptions = [
+  //   <CheckIcon fontSize="small" />,
+  //   <PersonAddIcon fontSize="small" />,
+  //   <CloseIcon fontSize="small" />,
+  //   <CloseIcon fontSize="small" />,
+  // ];
 
   return (
     <>
@@ -116,11 +116,12 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
               {t('meetings.button.attend')}
             </LinkButton>
           </Grid>
+          {/* TODO implement different meeting actions
           <br />
           <Grid container direction="row" justify="space-between" alignItems="center">
             <Typography variant="body2">...</Typography>
             <SplitButton options={options} icons={iconOptions} defaultSelectedIndex={1} />
-          </Grid>
+          </Grid> */}
         </CardContent>
         <Divider />
         <CardContent className={classes.cardContent}>
