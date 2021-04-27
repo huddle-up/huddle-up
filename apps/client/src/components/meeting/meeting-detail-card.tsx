@@ -14,6 +14,8 @@ import EditIcon from '@material-ui/icons/Edit';
 // import CloseIcon from '@material-ui/icons/Close';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { Link, LinkButton } from '../link';
+import { ConferenceStatus } from '../conference-status';
+import { useUser } from '../../models/user';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -60,6 +62,9 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
   const meetingEnd = new Date(endDate);
   const live = isWithinInterval(new Date(), { start: meetingStart, end: meetingEnd });
 
+  const { user } = useUser();
+  const isHost = user.id === host.id;
+
   // TODO implement different meeting actions
   // const options = [
   //   t('meetings.button.member'),
@@ -75,79 +80,88 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
   // ];
 
   return (
-    <>
-      <Card className={classes.card} variant="outlined">
-        <CardContent className={classes.cardContent}>
-          <Grid container direction="row" justify="space-between" alignItems="center">
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
-              {isToday(meetingStart) ? t('meetings.today') : format(meetingStart, 'dd. MMMM yyyy')} {bull}{' '}
-              {format(meetingStart, 'HH:mm')}
-            </Typography>
-            {live && (
-              <Link to="/meetings">
-                <Grid container direction="row" alignItems="center">
-                  <Typography className={classes.title} color="textSecondary">
-                    Live
-                  </Typography>
-                  <VideocamIcon />
-                </Grid>
-              </Link>
-            )}
-          </Grid>
-          <Typography variant="h5" component="h2">
-            <Link to="/meetings">{title}</Link>
+    <Card className={classes.card} variant="outlined">
+      <CardContent className={classes.cardContent}>
+        <Grid container direction="row" justify="space-between" alignItems="center">
+          <Typography className={classes.title} color="textSecondary" gutterBottom>
+            {isToday(meetingStart) ? t('meetings.today') : format(meetingStart, 'dd. MMMM yyyy')} {bull}{' '}
+            {format(meetingStart, 'HH:mm')}
           </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            Tags
-          </Typography>
-        </CardContent>
-        <Divider />
-        <CardContent className={classes.cardContent}>
-          <Grid container direction="row" justify="space-between" alignItems="center">
-            <Link to="/profile">
+          {live && (
+            <Link to="/meetings">
               <Grid container direction="row" alignItems="center">
-                <AccountCircleIcon fontSize="large" />{' '}
-                <Typography variant="body2">
-                  {t('meetings.hostedby')} {host.name}
+                <Typography className={classes.title} color="textSecondary">
+                  Live
                 </Typography>
+                <VideocamIcon />
               </Grid>
             </Link>
-            <LinkButton to="/meetings" variant="contained" color="secondary" size="small" endIcon={<VideocamIcon />}>
-              {t('meetings.button.attend')}
-            </LinkButton>
-          </Grid>
-          {/* TODO implement different meeting actions
+          )}
+        </Grid>
+        <Typography variant="h5" component="h2">
+          <Link to="/meetings">{title}</Link>
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          Tags
+        </Typography>
+      </CardContent>
+      <Divider />
+      <CardContent className={classes.cardContent}>
+        <Grid container direction="row" justify="space-between" alignItems="center">
+          <Link to="/profile">
+            <Grid container direction="row" alignItems="center">
+              <AccountCircleIcon fontSize="large" />{' '}
+              <Typography variant="body2">
+                {t('meetings.hostedby')} {host.name}
+              </Typography>
+            </Grid>
+          </Link>
+          <ConferenceStatus meeting={meeting} />
+          {/* <LinkButton
+            to="/meetings"
+            variant="contained"
+            color="secondary"
+            size="small"
+            disableElevation
+            endIcon={<VideocamIcon />}>
+            {t('meetings.button.attend')}
+          </LinkButton> */}
+        </Grid>
+        {/* TODO implement different meeting actions
           <br />
           <Grid container direction="row" justify="space-between" alignItems="center">
             <Typography variant="body2">...</Typography>
             <SplitButton options={options} icons={iconOptions} defaultSelectedIndex={1} />
           </Grid> */}
-        </CardContent>
-        <Divider />
-        <CardContent className={classes.cardContent}>
-          <Grid container direction="row" justify="space-between" alignItems="center">
-            <Grid item>
-              <Typography variant="h6">{t('meetings.title.details')}</Typography>
-            </Grid>
-            <Grid item>
-              <Grid container direction="row" alignItems="center">
-                <EventIcon />
-                {format(meetingStart, 'dd. MMMM yyyy HH:mm')} - {format(meetingEnd, 'dd. MMMM yyyy HH:mm')}
-              </Grid>
+      </CardContent>
+      <Divider />
+      <CardContent className={classes.cardContent}>
+        <Grid container direction="row" justify="space-between" alignItems="center">
+          <Grid item>
+            <Typography variant="h6">{t('meetings.title.details')}</Typography>
+          </Grid>
+          <Grid item>
+            <Grid container direction="row" alignItems="center">
+              <EventIcon />
+              {format(meetingStart, 'dd. MMMM yyyy HH:mm')} - {format(meetingEnd, 'dd. MMMM yyyy HH:mm')}
             </Grid>
           </Grid>
-          <Typography variant="body2" className={classes.description}>
-            {description}
-          </Typography>
-        </CardContent>
-        <Divider />
-        <CardActions className={classes.actions}>
-          <LinkButton to={`/meetings/${id}/edit`} variant="contained" color="primary" startIcon={<EditIcon />}>
-            {t('meetings.button.edit')}
-          </LinkButton>
-        </CardActions>
-      </Card>
-    </>
+        </Grid>
+        <Typography variant="body2" className={classes.description}>
+          {description}
+        </Typography>
+      </CardContent>
+      {isHost && (
+        <>
+          <Divider />
+          <CardActions className={classes.actions}>
+            <LinkButton to={`/meetings/${id}/edit`} variant="outlined" color="primary" startIcon={<EditIcon />}>
+              {t('meetings.button.edit')}
+            </LinkButton>
+          </CardActions>
+        </>
+      )}
+    </Card>
   );
 }
 

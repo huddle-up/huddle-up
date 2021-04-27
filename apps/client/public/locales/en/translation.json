@@ -121,6 +121,11 @@
       "startDate": "Start",
       "endDate": "Estimated End"
     },
+    "conference": {
+      "start": "Start Meeting",
+      "join": "Join Meeting",
+      "pending": "The meeting has not been started"
+    },
     "today": "Today",
     "hostedby": "Hosted by",
     "participant": "Participant",
