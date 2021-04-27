@@ -7,6 +7,7 @@ import { JitsiConferenceProps } from './interfaces/jitsi-conference-props.interf
 interface CreateConnectionStringOptions {
   host: string;
   roomName: string;
+  subject: string;
   userInfo?: {
     displayName?: string;
   };
@@ -17,34 +18,46 @@ export class JitsiService {
   constructor(private jitsiConfigService: JitsiConfigService) {}
 
   async create(conference: Conference): Promise<JitsiConferenceProps> {
-    const roomName = await this.createRoomName(conference);
+    const subject = await this.createSubject(conference);
     return {
-      roomName,
-      host: this.jitsiConfigService.host,
+      roomName: `HuddleUp--${conference.id}`,
+      subject,
+    };
+  }
+
+  async update(conference: Conference): Promise<JitsiConferenceProps> {
+    const jitsiProps = conference.providerProps as JitsiConferenceProps;
+    const subject = await this.createSubject(conference);
+    return {
+      ...jitsiProps,
+      subject,
     };
   }
 
   async getAccessLink(user: User, conference: Conference) {
     const jitsiProps = conference.providerProps as JitsiConferenceProps;
     return this.createConnectionString({
-      host: jitsiProps.host,
+      host: this.jitsiConfigService.host,
       roomName: jitsiProps.roomName,
+      subject: jitsiProps.subject,
       userInfo: {
         displayName: user.name,
       },
     });
   }
 
-  private async createRoomName(conference: Conference) {
+  private async createSubject(conference: Conference) {
     const meeting = await conference.meeting;
-    return `${meeting.title.split(' ').join('')}--${meeting.id}`;
+    return meeting.title;
   }
 
-  private createConnectionString({ host, roomName, userInfo }: CreateConnectionStringOptions) {
+  private createConnectionString({ host, roomName, subject, userInfo }: CreateConnectionStringOptions) {
     const baseString = new URL(roomName, host);
+    const hash = [`config.subject="${encodeURIComponent(subject)}"`];
     if (userInfo) {
-      baseString.hash = `userInfo.displayName="${userInfo.displayName}"`;
+      hash.push(`userInfo.displayName="${userInfo.displayName}"`);
     }
+    baseString.hash = hash.join('&');
     return baseString.toString();
   }
 }

@@ -2,5 +2,5 @@ import { ConferenceProviderProps } from '../../conferences/interfaces/conference
 
 export interface JitsiConferenceProps extends ConferenceProviderProps {
   roomName: string;
-  host: string;
+  subject: string;
 }
