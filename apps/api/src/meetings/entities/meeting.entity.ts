@@ -43,7 +43,7 @@ export class Meeting {
 
   @OneToOne(() => Conference, (conference) => conference.meeting)
   @Field(() => Conference, { description: 'The conference associated with the meeting', nullable: true })
-  conference: Promise<Conference>;
+  conference: Promise<Conference | null>;
 
   @CreateDateColumn({ name: 'created_at' })
   'created_at': Date;
