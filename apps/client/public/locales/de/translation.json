@@ -115,6 +115,11 @@
       "createdByMe": "Von mir erstellte Treffen",
       "past": "Vergangene Treffen"
     },
+    "conference": {
+      "start": "Treffen starten",
+      "join": "Treffen beitreten",
+      "pending": "Das Treffen wurde noch nicht gestartet."
+    },
     "form": {
       "title": "Titel",
       "description": "Beschreibung",
