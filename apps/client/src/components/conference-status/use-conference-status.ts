@@ -11,7 +11,7 @@ import { useUser } from '../../models/user';
 
 type ConferenceState = 'loading' | 'error' | 'void' | 'created' | 'started' | 'published' | 'stopped';
 
-type DisplayState = 'loading' | 'pending' | 'start' | 'setup' | 'join' | 'ended' | 'error';
+type DisplayState = 'loading' | 'error' | 'pending' | 'start' | 'setup' | 'join' | 'ended';
 
 interface UseConferenceStatusProps {
   meeting: {
