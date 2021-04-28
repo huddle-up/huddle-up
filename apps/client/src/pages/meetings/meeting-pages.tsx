@@ -15,7 +15,7 @@ function MeetingPages() {
     <Switch>
       <Route path="/discover">
         <Helmet>
-          <title>{t('profile.head.title')}</title>
+          <title>{t('global.title.discover')}</title>
         </Helmet>
         <MeetingsPage />
       </Route>
