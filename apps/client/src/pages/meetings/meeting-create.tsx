@@ -25,7 +25,9 @@ function MeetingCreate() {
   const [
     createMeeting,
     { loading: mutationLoading, error: mutationError, called: mutationCalled, data: mutationData },
-  ] = useMutation<CreateMeeting>(CREATE_MEETING);
+  ] = useMutation<CreateMeeting>(CREATE_MEETING, {
+    refetchQueries: ['Meetings', 'MyMeetings'],
+  });
 
   const endDate = new Date();
   endDate.setHours(endDate.getHours() + 1);

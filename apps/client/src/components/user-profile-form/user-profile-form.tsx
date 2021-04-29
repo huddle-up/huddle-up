@@ -57,6 +57,7 @@ function UserProfileForm({ initialValues: { name, email, biography }, onSubmit }
                     variant="outlined"
                     name="name"
                     label={t('global.form.fields.name')}
+                    required
                   />
                 </Grid>
                 <Grid item xs={12} md={6}>

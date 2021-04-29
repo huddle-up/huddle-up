@@ -29,6 +29,7 @@
       "save": "Speichern",
       "cancel": "Abbrechen",
       "clear": "Reset",
+      "search": "Suchen",
       "validation": {
         "maxCountCharacters": "Maximal {{count}} Zeichen",
         "minCountCharacters": "Mindestens {{count}} Zeichen",
@@ -130,7 +131,10 @@
     "hostedby": "Veranstaltet von",
     "participant": "Teilnehmer",
     "noMeetingsPlaceholder": "Keine Treffen gefunden",
-    "searchPlaceholder": "Meeting Suche"
+    "searchPlaceholder": "Suche",
+    "orderPlaceholder": "Sortierung",
+    "orderDesc": "Neuste Treffen zuerst",
+    "orderAsc": "Älteste Treffen zuerst"
   },
   "profile": {
     "head": {
@@ -149,5 +153,9 @@
         "biography": "Biographie"
       }
     }
+  },
+  "filter": {
+    "filterSection": "Filter",
+    "searchMeeting": "Treffen suchen"
   }
 }

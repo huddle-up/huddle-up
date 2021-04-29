@@ -28,21 +28,22 @@ export class MeetingsService {
   }
 
   async search(searchMeetingInput: SearchMeetingInput, hostId?: string) {
-    const searchValue: FindOperator<string> = Like(`%${searchMeetingInput.value}%`);
+    const { searchValue, startDateOrderBy } = searchMeetingInput;
+    const value: FindOperator<string> = Like(`%${searchValue}%`);
     const moreThanCurrentDate: FindOperator<Date> = MoreThan(new Date());
+
     const where: FindOneOptions['where'] = hostId
       ? [
-          { hostId, title: searchValue },
-          { hostId, description: searchValue },
+          { title: value, hostId },
+          { description: value, hostId },
         ]
       : [
-          { title: searchValue, endDate: moreThanCurrentDate },
-          { description: searchValue, endDate: moreThanCurrentDate },
+          { title: value, endDate: moreThanCurrentDate },
+          { description: value, endDate: moreThanCurrentDate },
         ];
 
-    // TODO implement order parameter
     const order: FindOneOptions['order'] = {
-      startDate: 'ASC',
+      startDate: startDateOrderBy,
     };
 
     // TODO implement pagination parameter (skip: offset, take: limit)

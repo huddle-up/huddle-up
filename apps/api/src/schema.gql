@@ -77,7 +77,16 @@ type Query {
 
 input SearchMeetingInput {
   """The value to search for in meetings"""
-  value: String!
+  searchValue: String!
+
+  """The start date order by direction for in meetings"""
+  startDateOrderBy: OrderBy!
+}
+
+"""The order by direction"""
+enum OrderBy {
+  ASC
+  DESC
 }
 
 type Mutation {

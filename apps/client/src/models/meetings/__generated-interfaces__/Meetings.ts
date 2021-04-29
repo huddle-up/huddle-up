@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { OrderBy } from "./../../__generated-interfaces__/globalTypes";
+
 // ====================================================
 // GraphQL query operation: Meetings
 // ====================================================
@@ -56,5 +58,6 @@ export interface Meetings {
 }
 
 export interface MeetingsVariables {
-  value: string;
+  searchValue: string;
+  startDateOrderBy: OrderBy;
 }
