@@ -60,4 +60,6 @@ export interface Meetings {
 export interface MeetingsVariables {
   searchValue: string;
   startDateOrderBy: OrderBy;
+  fromDate?: any | null;
+  toDate?: any | null;
 }

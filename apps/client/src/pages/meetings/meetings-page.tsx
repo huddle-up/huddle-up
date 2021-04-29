@@ -16,32 +16,41 @@ import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 function MeetingsPage() {
   const { t } = useTranslation();
 
+  const initialValues: MeetingsVariables = {
+    searchValue: '',
+    startDateOrderBy: OrderBy.DESC,
+    fromDate: null,
+    toDate: null,
+  };
+
   const { loading, error, data, refetch } = useQuery<Meetings, MeetingsVariables>(MEETINGS, {
-    variables: { searchValue: '', startDateOrderBy: OrderBy.DESC },
+    variables: initialValues,
   });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! ${error.message}</p>;
 
-  async function onSearch({ searchValue, startDateOrderBy }: MeetingsVariables) {
+  async function onSearch({ searchValue, startDateOrderBy, fromDate, toDate }: MeetingsVariables) {
     await refetch({
       searchValue,
       startDateOrderBy,
+      fromDate,
+      toDate,
     });
   }
 
   return (
     <>
       <AppPageAside>
-        <section>
-          <SectionHeader icon={<FilterListIcon />} title={t('filter.filterSection')} />
-          <SearchForm onSubmit={onSearch} initialValues={{ searchValue: '', startDateOrderBy: OrderBy.DESC }} />
-        </section>
+        <SectionHeader icon={<FilterListIcon />} title={t('filter.filterSection')} />
+        <SearchForm onSubmit={onSearch} initialValues={initialValues} />
       </AppPageAside>
       <AppPageMain>
         <section>
           <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.ongoing')} />
           <MeetingList meetings={isWithinIntervalFilter(data.meetings)} />
+        </section>
+        <section>
           <SectionHeader icon={<CalendarTodayIcon />} title={t('meetings.title.upcoming')} />
           <MeetingList meetings={isInFutureFilter(data.meetings)} />
         </section>

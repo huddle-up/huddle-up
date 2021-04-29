@@ -1,10 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DeleteResult, FindOperator, Like, Repository, MoreThan, FindOneOptions, FindManyOptions } from 'typeorm';
-import { SearchMeetingInput } from './dto/search-meeting.input';
-import { UpdateMeetingInput } from './dto/update-meeting.input';
+import {
+  DeleteResult,
+  FindOperator,
+  Like,
+  Repository,
+  MoreThan,
+  FindOneOptions,
+  FindManyOptions,
+  Between,
+  LessThan,
+} from 'typeorm';
 import { Meeting } from './entities/meeting.entity';
 import { CreateMeeting } from './interfaces/create-meeting.interface';
+import { SearchCriteria } from './interfaces/search-criteria.interface';
 
 @Injectable()
 export class MeetingsService {
@@ -27,20 +36,10 @@ export class MeetingsService {
     return this.meetingRepository.findOne(entity);
   }
 
-  async search(searchMeetingInput: SearchMeetingInput, hostId?: string) {
-    const { searchValue, startDateOrderBy } = searchMeetingInput;
-    const value: FindOperator<string> = Like(`%${searchValue}%`);
-    const moreThanCurrentDate: FindOperator<Date> = MoreThan(new Date());
+  async search(searchCriteria: SearchCriteria, hostId?: string) {
+    const { startDateOrderBy } = searchCriteria;
 
-    const where: FindOneOptions['where'] = hostId
-      ? [
-          { title: value, hostId },
-          { description: value, hostId },
-        ]
-      : [
-          { title: value, endDate: moreThanCurrentDate },
-          { description: value, endDate: moreThanCurrentDate },
-        ];
+    const where = this.getWhereOptions(searchCriteria, hostId);
 
     const order: FindOneOptions['order'] = {
       startDate: startDateOrderBy,
@@ -55,7 +54,32 @@ export class MeetingsService {
     return this.meetingRepository.find(searchOptions);
   }
 
-  async update(updateMeetingInput: UpdateMeetingInput) {
+  private getWhereOptions(searchCriteria: SearchCriteria, hostId: string): FindOneOptions['where'] {
+    const { searchValue } = searchCriteria;
+    const valueOperator: FindOperator<string> = Like(`%${searchValue}%`);
+    const baseOptions = hostId ? { hostId } : { endDate: MoreThan(new Date()) };
+    const dateOperator = this.getDateFilterOperator(searchCriteria);
+    const dateOptions = dateOperator && { startDate: dateOperator };
+    return [
+      { title: valueOperator, ...baseOptions, ...dateOptions },
+      { description: valueOperator, ...baseOptions, ...dateOptions },
+    ];
+  }
+
+  private getDateFilterOperator({ fromDate, toDate }: SearchCriteria): FindOperator<Date> {
+    if (fromDate) {
+      if (toDate) {
+        return Between(fromDate, toDate);
+      }
+      return MoreThan(fromDate);
+    }
+    if (toDate) {
+      return LessThan(toDate);
+    }
+    return undefined;
+  }
+
+  async update(updateMeetingInput: Partial<Meeting>) {
     return this.meetingRepository.save(updateMeetingInput);
   }
 

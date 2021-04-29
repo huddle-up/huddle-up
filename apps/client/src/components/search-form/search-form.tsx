@@ -11,25 +11,10 @@ import { OrderField } from '../order-field';
 import { MeetingsVariables } from '../../models/meetings/__generated-interfaces__/Meetings';
 import { CardTitle } from '../card-title';
 import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
+import { DateTimeField } from '../datetime-field';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      padding: '2px 4px',
-      display: 'flex',
-      alignItems: 'center',
-    },
-    input: {
-      marginLeft: theme.spacing(1),
-      flex: 1,
-    },
-    iconButton: {
-      padding: 10,
-    },
-    divider: {
-      height: 28,
-      margin: 4,
-    },
     card: {
       marginBottom: theme.spacing(3),
     },
@@ -48,7 +33,7 @@ interface SearchFormProps {
   onSubmit: (values: MeetingsVariables) => Promise<void>;
 }
 
-function SearchForm({ initialValues: { searchValue, startDateOrderBy }, onSubmit }: SearchFormProps) {
+function SearchForm({ initialValues: { searchValue, startDateOrderBy, fromDate, toDate }, onSubmit }: SearchFormProps) {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -60,10 +45,15 @@ function SearchForm({ initialValues: { searchValue, startDateOrderBy }, onSubmit
   const FormSchema = Yup.object().shape({
     value: Yup.string(),
     order: Yup.string(),
+    fromDate: Yup.string().nullable(),
+    toDate: Yup.string().nullable(),
   });
 
   return (
-    <Formik initialValues={{ searchValue, startDateOrderBy }} validationSchema={FormSchema} onSubmit={onSubmit}>
+    <Formik
+      initialValues={{ searchValue, startDateOrderBy, fromDate, toDate }}
+      validationSchema={FormSchema}
+      onSubmit={onSubmit}>
       {({ submitForm, isSubmitting, handleReset, setFieldValue }) => (
         <Form>
           <Card className={classes.card} variant="outlined">
@@ -72,12 +62,18 @@ function SearchForm({ initialValues: { searchValue, startDateOrderBy }, onSubmit
               <Grid item xs={12}>
                 <SearchField
                   name="searchValue"
-                  placeholder={t('meetings.searchPlaceholder')}
+                  placeholder={t('global.form.fields.search')}
                   setFieldValue={setFieldValue}
                 />
               </Grid>
               <Grid item xs={12}>
-                <OrderField name="startDateOrderBy" label={t('meetings.orderPlaceholder')} options={orderOptions} />
+                <OrderField name="startDateOrderBy" label={t('global.form.fields.order')} options={orderOptions} />
+              </Grid>
+              <Grid item xs={12} spacing={2}>
+                <DateTimeField name="fromDate" label={t('global.form.fields.from')} />
+              </Grid>
+              <Grid item xs={12} spacing={2}>
+                <DateTimeField name="toDate" label={t('global.form.fields.to')} />
               </Grid>
             </CardContent>
             <Divider />

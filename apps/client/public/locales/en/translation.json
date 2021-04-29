@@ -39,7 +39,11 @@
       },
       "fields": {
         "name": "Name",
-        "email": "Email"
+        "email": "Email",
+        "search": "Search",
+        "order": "Order",
+        "from": "From",
+        "to": "To"
       }
     }
   },
@@ -132,8 +136,6 @@
     "hostedby": "Hosted by",
     "participant": "Participant",
     "noMeetingsPlaceholder": "No meetings found",
-    "searchPlaceholder": "Search",
-    "orderPlaceholder": "Order",
     "orderDesc": "Newest Meetings first",
     "orderAsc": "Oldest Meetings first"
   },
