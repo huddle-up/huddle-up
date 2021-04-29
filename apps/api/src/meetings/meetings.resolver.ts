@@ -6,7 +6,7 @@ import { CreateMeetingInput } from './dto/create-meeting.input';
 import { UpdateMeetingInput } from './dto/update-meeting.input';
 import { JwtGqlAuthGuard } from '../auth/jwt/jwt-gql-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { SearchMeetingInput } from './dto/search-meeting.input';
+import { SearchCriteriaInput } from './dto/search-criteria.input';
 
 @Resolver(() => Meeting)
 @UseGuards(JwtGqlAuthGuard)
@@ -20,13 +20,13 @@ export class MeetingsResolver {
   }
 
   @Query(() => [Meeting], { name: 'meetings' })
-  async findAll(@Args('searchMeetingInput') searchMeetingInput: SearchMeetingInput) {
-    return this.meetingsService.search(searchMeetingInput);
+  async findAll(@Args('searchMeetingInput') searchCriteria: SearchCriteriaInput) {
+    return this.meetingsService.search(searchCriteria);
   }
 
   @Query(() => [Meeting], { name: 'myMeetings' })
-  async findMyMeetings(@CurrentUser() authUser, @Args('searchMeetingInput') searchMeetingInput: SearchMeetingInput) {
-    return this.meetingsService.search(searchMeetingInput, authUser.userId);
+  async findMyMeetings(@CurrentUser() authUser, @Args('searchMeetingInput') searchCriteria: SearchCriteriaInput) {
+    return this.meetingsService.search(searchCriteria, authUser.userId);
   }
 
   @Query(() => Meeting, { name: 'meeting' })

@@ -64,8 +64,8 @@ type ConferenceAccess {
 }
 
 type Query {
-  meetings(searchMeetingInput: SearchMeetingInput!): [Meeting!]!
-  myMeetings(searchMeetingInput: SearchMeetingInput!): [Meeting!]!
+  meetings(searchMeetingInput: SearchCriteriaInput!): [Meeting!]!
+  myMeetings(searchMeetingInput: SearchCriteriaInput!): [Meeting!]!
   meeting(id: String!): Meeting!
   users: [User!]!
   user(id: String!): User!
@@ -75,12 +75,18 @@ type Query {
   conferenceAccess(conferenceId: String!): ConferenceAccess!
 }
 
-input SearchMeetingInput {
+input SearchCriteriaInput {
   """The value to search for in meetings"""
   searchValue: String!
 
   """The start date order by direction for in meetings"""
   startDateOrderBy: OrderBy!
+
+  """The from date to filter meetings"""
+  fromDate: DateTime
+
+  """The to date to filter meetings"""
+  toDate: DateTime
 }
 
 """The order by direction"""

@@ -38,7 +38,11 @@
       },
       "fields": {
         "name": "Name",
-        "email": "E-Mail"
+        "email": "E-Mail",
+        "search": "Suche",
+        "order": "Sortierung",
+        "from": "Von",
+        "to": "Bis"
       }
     }
   },
@@ -131,8 +135,6 @@
     "hostedby": "Veranstaltet von",
     "participant": "Teilnehmer",
     "noMeetingsPlaceholder": "Keine Treffen gefunden",
-    "searchPlaceholder": "Suche",
-    "orderPlaceholder": "Sortierung",
     "orderDesc": "Neuste Treffen zuerst",
     "orderAsc": "Älteste Treffen zuerst"
   },

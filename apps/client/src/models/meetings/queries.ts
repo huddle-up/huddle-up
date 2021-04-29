@@ -20,8 +20,15 @@ export const MEETING = gql`
 `;
 
 export const MEETINGS = gql`
-  query Meetings($searchValue: String!, $startDateOrderBy: OrderBy!) {
-    meetings(searchMeetingInput: { searchValue: $searchValue, startDateOrderBy: $startDateOrderBy }) {
+  query Meetings($searchValue: String!, $startDateOrderBy: OrderBy!, $fromDate: DateTime, $toDate: DateTime) {
+    meetings(
+      searchMeetingInput: {
+        searchValue: $searchValue
+        startDateOrderBy: $startDateOrderBy
+        fromDate: $fromDate
+        toDate: $toDate
+      }
+    ) {
       id
       title
       description
@@ -39,8 +46,15 @@ export const MEETINGS = gql`
 `;
 
 export const MY_MEETINGS = gql`
-  query MyMeetings($searchValue: String!, $startDateOrderBy: OrderBy!) {
-    myMeetings(searchMeetingInput: { searchValue: $searchValue, startDateOrderBy: $startDateOrderBy }) {
+  query MyMeetings($searchValue: String!, $startDateOrderBy: OrderBy!, $fromDate: DateTime, $toDate: DateTime) {
+    myMeetings(
+      searchMeetingInput: {
+        searchValue: $searchValue
+        startDateOrderBy: $startDateOrderBy
+        fromDate: $fromDate
+        toDate: $toDate
+      }
+    ) {
       id
       title
       description
