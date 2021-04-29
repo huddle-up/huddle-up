@@ -21,21 +21,12 @@ export class MeetingsResolver {
 
   @Query(() => [Meeting], { name: 'meetings' })
   async findAll(@Args('searchMeetingInput') searchMeetingInput: SearchMeetingInput) {
-    const searchValue = searchMeetingInput.value;
-    if (searchValue && searchValue.trim().length > 0) {
-      return this.meetingsService.search(searchMeetingInput);
-    }
-    return this.meetingsService.findAll();
+    return this.meetingsService.search(searchMeetingInput);
   }
 
   @Query(() => [Meeting], { name: 'myMeetings' })
   async findMyMeetings(@CurrentUser() authUser, @Args('searchMeetingInput') searchMeetingInput: SearchMeetingInput) {
-    const hostId = authUser.userId;
-    const searchValue = searchMeetingInput.value;
-    if (searchValue && searchValue.trim().length > 0) {
-      return this.meetingsService.search(searchMeetingInput, hostId);
-    }
-    return this.meetingsService.find({ hostId });
+    return this.meetingsService.search(searchMeetingInput, authUser.userId);
   }
 
   @Query(() => Meeting, { name: 'meeting' })

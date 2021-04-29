@@ -7,7 +7,8 @@
     "title": {
       "meeting": "Meeting",
       "myMeetings": "My Meetings",
-      "discover": "Discover"
+      "discover": "Discover",
+      "filter": "Filter"
     },
     "button": {
       "login": "Login",
@@ -29,6 +30,7 @@
       "save": "Save",
       "cancel": "Cancel",
       "clear": "Clear",
+      "search": "Search",
       "validation": {
         "maxCountCharacters": "Max. {{count}} characters",
         "minCountCharacters": "Min. {{count}} characters",
@@ -130,7 +132,10 @@
     "hostedby": "Hosted by",
     "participant": "Participant",
     "noMeetingsPlaceholder": "No meetings found",
-    "searchPlaceholder": "Meeting Search"
+    "searchPlaceholder": "Search",
+    "orderPlaceholder": "Order",
+    "orderDesc": "Newest Meetings first",
+    "orderAsc": "Oldest Meetings first"
   },
   "profile": {
     "head": {
@@ -149,5 +154,9 @@
         "biography": "Biography"
       }
     }
+  },
+  "filter": {
+    "filterSection": "Filter",
+    "searchMeeting": "Meeting search"
   }
 }

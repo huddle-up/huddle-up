@@ -66,7 +66,7 @@ function UpdateMeetingForm({
               <CardTitle title={t('meetings.title.about')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <Field component={TextField} fullWidth name="title" label={t('meetings.form.title')} />
+                  <Field component={TextField} fullWidth name="title" label={t('meetings.form.title')} required />
                 </Grid>
                 <Grid item xs={12}>
                   <Field
