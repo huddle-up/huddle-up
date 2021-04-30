@@ -20,53 +20,77 @@ export const MEETING = gql`
 `;
 
 export const MEETINGS = gql`
-  query Meetings($searchValue: String!, $startDateOrderBy: OrderBy!, $fromDate: DateTime, $toDate: DateTime) {
-    meetings(
+  query Meetings(
+    $searchValue: String!
+    $startDateOrderBy: OrderBy!
+    $fromDate: DateTime
+    $toDate: DateTime
+    $offset: Int
+    $limit: Int
+  ) {
+    discover(
       searchMeetingInput: {
         searchValue: $searchValue
         startDateOrderBy: $startDateOrderBy
         fromDate: $fromDate
         toDate: $toDate
+        offset: $offset
+        limit: $limit
       }
     ) {
-      id
-      title
-      description
-      startDate
-      endDate
-      __typename
-      host {
+      meetings {
         id
-        email
-        name
+        title
+        description
+        startDate
+        endDate
         __typename
+        host {
+          id
+          email
+          name
+          __typename
+        }
       }
+      totalCount
     }
   }
 `;
 
 export const MY_MEETINGS = gql`
-  query MyMeetings($searchValue: String!, $startDateOrderBy: OrderBy!, $fromDate: DateTime, $toDate: DateTime) {
+  query MyMeetings(
+    $searchValue: String!
+    $startDateOrderBy: OrderBy!
+    $fromDate: DateTime
+    $toDate: DateTime
+    $offset: Int
+    $limit: Int
+  ) {
     myMeetings(
       searchMeetingInput: {
         searchValue: $searchValue
         startDateOrderBy: $startDateOrderBy
         fromDate: $fromDate
         toDate: $toDate
+        offset: $offset
+        limit: $limit
       }
     ) {
-      id
-      title
-      description
-      startDate
-      endDate
-      __typename
-      host {
+      meetings {
         id
-        email
-        name
+        title
+        description
+        startDate
+        endDate
         __typename
+        host {
+          id
+          email
+          name
+          __typename
+        }
       }
+      totalCount
     }
   }
 `;

@@ -107,7 +107,8 @@
       "attend": "Attend Meeting",
       "join": "Join this Meeting",
       "leave": "Leave this Meeting",
-      "showmore": "Show more",
+      "showmore": "{{limit}} more",
+      "showall": "Show all",
       "member": "You're a member"
     },
     "title": {

@@ -9,7 +9,7 @@ import { OrderBy } from "./../../__generated-interfaces__/globalTypes";
 // GraphQL query operation: MyMeetings
 // ====================================================
 
-export interface MyMeetings_myMeetings_host {
+export interface MyMeetings_myMeetings_meetings_host {
   __typename: "User";
   /**
    * The id of the user
@@ -25,7 +25,7 @@ export interface MyMeetings_myMeetings_host {
   name: string;
 }
 
-export interface MyMeetings_myMeetings {
+export interface MyMeetings_myMeetings_meetings {
   __typename: "Meeting";
   /**
    * The id of the meeting
@@ -50,11 +50,23 @@ export interface MyMeetings_myMeetings {
   /**
    * The hoster of the meeting
    */
-  host: MyMeetings_myMeetings_host;
+  host: MyMeetings_myMeetings_meetings_host;
+}
+
+export interface MyMeetings_myMeetings {
+  __typename: "MeetingSearchResponse";
+  /**
+   * The found meetings
+   */
+  meetings: MyMeetings_myMeetings_meetings[];
+  /**
+   * The total number of meetings ignoring the pagination attributes
+   */
+  totalCount: number;
 }
 
 export interface MyMeetings {
-  myMeetings: MyMeetings_myMeetings[];
+  myMeetings: MyMeetings_myMeetings;
 }
 
 export interface MyMeetingsVariables {
@@ -62,4 +74,6 @@ export interface MyMeetingsVariables {
   startDateOrderBy: OrderBy;
   fromDate?: any | null;
   toDate?: any | null;
+  offset?: number | null;
+  limit?: number | null;
 }

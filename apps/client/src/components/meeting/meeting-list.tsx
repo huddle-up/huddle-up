@@ -1,12 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MeetingCard } from '.';
-import { MyMeetings_myMeetings } from '../../models/meetings/__generated-interfaces__/MyMeetings';
-import { LinkButton } from '../link';
+import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import NoEntryCard from '../no-entry-card/no-meeting-card';
 
 interface MeetingListProps {
-  meetings: MyMeetings_myMeetings[];
+  meetings: Meeting[];
 }
 
 function MeetingList({ meetings }: MeetingListProps) {
@@ -19,7 +18,6 @@ function MeetingList({ meetings }: MeetingListProps) {
       ) : (
         <NoEntryCard message={t('meetings.noMeetingsPlaceholder')} />
       )}
-      <LinkButton to="/meetings">{t('meetings.button.showmore')}</LinkButton>
     </div>
   );
 }

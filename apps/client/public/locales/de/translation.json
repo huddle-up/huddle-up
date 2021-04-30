@@ -106,7 +106,8 @@
       "attend": "Am Meeting beitreten",
       "join": "Am Treffen teilnehmen",
       "leave": "Treffen verlassen",
-      "showmore": "Mehr anzeigen",
+      "showmore": "{{limit}} mehr",
+      "showall": "Alle laden",
       "member": "Du bist Mitglied"
     },
     "title": {
