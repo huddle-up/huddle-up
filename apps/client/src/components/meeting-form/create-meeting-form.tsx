@@ -1,25 +1,14 @@
 import React from 'react';
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Grid,
-  IconButton,
-  InputAdornment,
-  makeStyles,
-} from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, Divider, Grid, makeStyles } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import { DateTimePicker } from 'formik-material-ui-pickers';
-import EventIcon from '@material-ui/icons/Event';
 import CreateIcon from '@material-ui/icons/Create';
 import { CardTitle } from '../card-title';
 import { LinkButton } from '../link';
 import { CreateMeetingVariables } from '../../models/meetings/__generated-interfaces__/CreateMeeting';
+import { DateTimeField } from '../datetime-field';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -63,11 +52,19 @@ function CreateMeetingForm({ initialValues: { title, description, startDate, end
               <CardTitle title={t('meetings.title.about')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12}>
-                  <Field component={TextField} fullWidth name="title" label={t('meetings.form.title')} required />
+                  <Field
+                    component={TextField}
+                    variant="outlined"
+                    fullWidth
+                    name="title"
+                    label={t('meetings.form.title')}
+                    required
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   <Field
                     component={TextField}
+                    variant="outlined"
                     fullWidth
                     name="description"
                     label={t('meetings.form.description')}
@@ -83,60 +80,10 @@ function CreateMeetingForm({ initialValues: { title, description, startDate, end
               <CardTitle title={t('meetings.title.dateTime')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
-                  <Field
-                    component={DateTimePicker}
-                    fullWidth
-                    name="startDate"
-                    label={t('meetings.form.startDate')}
-                    okLabel={t('global.datepicker.okLabel')}
-                    cancelLabel={t('global.form.cancel')}
-                    clearLabel={t('global.form.clear')}
-                    todayLabel={t('global.datepicker.todayLabel')}
-                    format="dd.MM.yyyy HH:mm"
-                    disablePast
-                    showTodayButton
-                    clearable
-                    required
-                    autoOk
-                    ampm={false}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton>
-                            <EventIcon />
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
+                  <DateTimeField name="startDate" label={t('meetings.form.startDate')} disablePast required />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <Field
-                    component={DateTimePicker}
-                    fullWidth
-                    name="endDate"
-                    label={t('meetings.form.endDate')}
-                    okLabel={t('global.datepicker.okLabel')}
-                    cancelLabel={t('global.form.cancel')}
-                    clearLabel={t('global.form.clear')}
-                    todayLabel={t('global.datepicker.todayLabel')}
-                    format="dd.MM.yyyy HH:mm"
-                    disablePast
-                    showTodayButton
-                    clearable
-                    required
-                    autoOk
-                    ampm={false}
-                    InputProps={{
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton>
-                            <EventIcon />
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
+                  <DateTimeField name="endDate" label={t('meetings.form.endDate')} disablePast required />
                 </Grid>
               </Grid>
             </CardContent>

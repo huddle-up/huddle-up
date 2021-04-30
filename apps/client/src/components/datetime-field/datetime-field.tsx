@@ -1,18 +1,9 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { Field } from 'formik';
 import { DateTimePicker } from 'formik-material-ui-pickers';
 import { useTranslation } from 'react-i18next';
 import { IconButton, InputAdornment } from '@material-ui/core';
 import EventIcon from '@material-ui/icons/Event';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      marginTop: theme.spacing(2),
-    },
-  })
-);
 
 interface DateTimeFieldProps {
   label: string;
@@ -32,11 +23,9 @@ DateTimeField.defaultProps = {
 
 function DateTimeField({ name, label, required, clearable, disablePast, showTodayButton }: DateTimeFieldProps) {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   return (
     <Field
-      className={classes.root}
       component={DateTimePicker}
       inputVariant="outlined"
       fullWidth
