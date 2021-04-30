@@ -95,7 +95,7 @@ function UserProfileForm({ initialValues: { name, email, biography }, onSubmit }
             <Divider />
             <CardActions className={classes.actions}>
               <Button onClick={handleReset} disabled={isSubmitting} variant="outlined" color="primary">
-                {t('global.form.cancel')}
+                {t('global.form.clear')}
               </Button>
               <Button onClick={submitForm} disabled={isSubmitting} variant="contained" disableElevation color="primary">
                 {t('global.form.save')}

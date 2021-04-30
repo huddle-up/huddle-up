@@ -59,21 +59,23 @@ function SearchForm({ initialValues: { searchValue, startDateOrderBy, fromDate, 
           <Card className={classes.card} variant="outlined">
             <CardContent className={classes.cardContent} component="fieldset">
               <CardTitle title={t('filter.searchMeeting')} titleComponent="legend" />
-              <Grid item xs={12}>
-                <SearchField
-                  name="searchValue"
-                  placeholder={t('global.form.fields.search')}
-                  setFieldValue={setFieldValue}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <OrderField name="startDateOrderBy" label={t('global.form.fields.order')} options={orderOptions} />
-              </Grid>
-              <Grid item xs={12} spacing={2}>
-                <DateTimeField name="fromDate" label={t('global.form.fields.from')} />
-              </Grid>
-              <Grid item xs={12} spacing={2}>
-                <DateTimeField name="toDate" label={t('global.form.fields.to')} />
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <SearchField
+                    name="searchValue"
+                    placeholder={t('global.form.fields.search')}
+                    setFieldValue={setFieldValue}
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <OrderField name="startDateOrderBy" label={t('global.form.fields.order')} options={orderOptions} />
+                </Grid>
+                <Grid item xs={12} spacing={2}>
+                  <DateTimeField name="fromDate" label={t('global.form.fields.from')} />
+                </Grid>
+                <Grid item xs={12} spacing={2}>
+                  <DateTimeField name="toDate" label={t('global.form.fields.to')} />
+                </Grid>
               </Grid>
             </CardContent>
             <Divider />
