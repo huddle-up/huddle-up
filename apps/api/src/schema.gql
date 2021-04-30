@@ -55,6 +55,14 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type MeetingSearchResponse {
+  """The found meetings"""
+  meetings: [Meeting!]!
+
+  """The total number of meetings ignoring the pagination attributes"""
+  totalCount: Int!
+}
+
 type ConferenceAccess {
   """The conference the url is for"""
   conferenceId: String!
@@ -64,8 +72,8 @@ type ConferenceAccess {
 }
 
 type Query {
-  meetings(searchMeetingInput: SearchCriteriaInput!): [Meeting!]!
-  myMeetings(searchMeetingInput: SearchCriteriaInput!): [Meeting!]!
+  discover(searchMeetingInput: SearchCriteriaInput!): MeetingSearchResponse!
+  myMeetings(searchMeetingInput: SearchCriteriaInput!): MeetingSearchResponse!
   meeting(id: String!): Meeting!
   users: [User!]!
   user(id: String!): User!
@@ -82,11 +90,17 @@ input SearchCriteriaInput {
   """The start date order by direction for in meetings"""
   startDateOrderBy: OrderBy!
 
-  """The from date to filter meetings"""
+  """The optional from date to filter meetings"""
   fromDate: DateTime
 
-  """The to date to filter meetings"""
+  """The optional to date to filter meetings"""
   toDate: DateTime
+
+  """The optional pagination offset, needs limit field to work."""
+  offset: Int
+
+  """The optional pagination limit, needs offset field to work."""
+  limit: Int
 }
 
 """The order by direction"""

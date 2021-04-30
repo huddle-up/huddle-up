@@ -1,16 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  DeleteResult,
-  FindOperator,
-  Like,
-  Repository,
-  MoreThan,
-  FindOneOptions,
-  FindManyOptions,
-  Between,
-  LessThan,
-} from 'typeorm';
+import { DeleteResult, FindOperator, Like, Repository, MoreThan, FindOneOptions, Between, LessThan } from 'typeorm';
 import { Meeting } from './entities/meeting.entity';
 import { CreateMeeting } from './interfaces/create-meeting.interface';
 import { SearchCriteria } from './interfaces/search-criteria.interface';
@@ -37,7 +27,7 @@ export class MeetingsService {
   }
 
   async search(searchCriteria: SearchCriteria, hostId?: string) {
-    const { startDateOrderBy } = searchCriteria;
+    const { startDateOrderBy, offset, limit } = searchCriteria;
 
     const where = this.getWhereOptions(searchCriteria, hostId);
 
@@ -45,13 +35,10 @@ export class MeetingsService {
       startDate: startDateOrderBy,
     };
 
-    // TODO implement pagination parameter (skip: offset, take: limit)
-    const skip: FindManyOptions['skip'] = 0;
-    const take: FindManyOptions['take'] = 100;
+    const pagination = offset >= 0 && limit > 0 && { skip: offset, take: limit };
 
-    const searchOptions: FindManyOptions = { where, order, skip, take };
-
-    return this.meetingRepository.find(searchOptions);
+    const [meetings, totalCount] = await this.meetingRepository.findAndCount({ where, order, ...pagination });
+    return { meetings, totalCount };
   }
 
   private getWhereOptions(searchCriteria: SearchCriteria, hostId: string): FindOneOptions['where'] {

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MeetingCreate() {
+function MeetingCreatePage() {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -63,4 +63,4 @@ function MeetingCreate() {
   );
 }
 
-export default MeetingCreate;
+export default MeetingCreatePage;

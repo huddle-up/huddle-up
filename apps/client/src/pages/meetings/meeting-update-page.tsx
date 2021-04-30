@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MeetingUpdate() {
+function MeetingUpdatePage() {
   const { t } = useTranslation();
   const classes = useStyles();
   const { id } = useParams<MeetingVariables>();
@@ -77,4 +77,4 @@ function MeetingUpdate() {
   );
 }
 
-export default MeetingUpdate;
+export default MeetingUpdatePage;

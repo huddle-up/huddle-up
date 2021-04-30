@@ -33,7 +33,10 @@ interface SearchFormProps {
   onSubmit: (values: MeetingsVariables) => Promise<void>;
 }
 
-function SearchForm({ initialValues: { searchValue, startDateOrderBy, fromDate, toDate }, onSubmit }: SearchFormProps) {
+function SearchForm({
+  initialValues: { searchValue, startDateOrderBy, fromDate, toDate, offset, limit },
+  onSubmit,
+}: SearchFormProps) {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -51,7 +54,7 @@ function SearchForm({ initialValues: { searchValue, startDateOrderBy, fromDate, 
 
   return (
     <Formik
-      initialValues={{ searchValue, startDateOrderBy, fromDate, toDate }}
+      initialValues={{ searchValue, startDateOrderBy, fromDate, toDate, offset, limit }}
       validationSchema={FormSchema}
       onSubmit={onSubmit}>
       {({ submitForm, isSubmitting, handleReset, setFieldValue }) => (

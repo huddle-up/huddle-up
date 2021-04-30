@@ -12,6 +12,7 @@ import { SectionHeader } from '../../components/section-header';
 import { isInFutureFilter, isWithinIntervalFilter } from '../../utils';
 import { SearchForm } from '../../components/search-form';
 import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
+import { ShowMoreCard } from '../../components/show-more-card';
 
 function MeetingsPage() {
   const { t } = useTranslation();
@@ -21,6 +22,8 @@ function MeetingsPage() {
     startDateOrderBy: OrderBy.DESC,
     fromDate: null,
     toDate: null,
+    offset: 0,
+    limit: 5,
   };
 
   const { loading, error, data, refetch } = useQuery<Meetings, MeetingsVariables>(MEETINGS, {
@@ -30,29 +33,43 @@ function MeetingsPage() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! ${error.message}</p>;
 
-  async function onSearch({ searchValue, startDateOrderBy, fromDate, toDate }: MeetingsVariables) {
+  async function onSearch({ searchValue, startDateOrderBy, fromDate, toDate, offset, limit }: MeetingsVariables) {
     await refetch({
       searchValue,
       startDateOrderBy,
       fromDate,
       toDate,
+      offset,
+      limit,
     });
   }
+  const { meetings, totalCount } = data.discover;
+  const handlePageLimit = (max?: boolean) => {
+    const newLimit = max ? totalCount : initialValues.limit + meetings.length;
+    refetch({ limit: newLimit });
+  };
 
   return (
     <>
       <AppPageAside>
         <SectionHeader icon={<FilterListIcon />} title={t('filter.filterSection')} />
         <SearchForm onSubmit={onSearch} initialValues={initialValues} />
+        {totalCount > meetings.length && (
+          <ShowMoreCard
+            title={`${t('global.title.discover')} (${meetings.length}/${totalCount})`}
+            limit={initialValues.limit}
+            handlePageLimit={handlePageLimit}
+          />
+        )}
       </AppPageAside>
       <AppPageMain>
         <section>
           <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.ongoing')} />
-          <MeetingList meetings={isWithinIntervalFilter(data.meetings)} />
+          <MeetingList meetings={isWithinIntervalFilter(meetings)} />
         </section>
         <section>
           <SectionHeader icon={<CalendarTodayIcon />} title={t('meetings.title.upcoming')} />
-          <MeetingList meetings={isInFutureFilter(data.meetings)} />
+          <MeetingList meetings={isInFutureFilter(meetings)} />
         </section>
       </AppPageMain>
     </>

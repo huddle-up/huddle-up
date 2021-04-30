@@ -2,9 +2,9 @@ import React from 'react';
 import { Switch, Route } from 'react-router';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
-import MeetingCreate from './meeting-create';
-import MeetingDetail from './meeting-detail';
-import MeetingUpdate from './meeting-update';
+import MeetingCreatePage from './meeting-create-page';
+import MeetingDetailPage from './meeting-detail-page';
+import MeetingUpdatePage from './meeting-update-page';
 import MeetingsPage from './meetings-page';
 import MyMeetingsPage from './my-meetings-page';
 
@@ -23,19 +23,19 @@ function MeetingPages() {
         <Helmet>
           <title>{t('meetings.head.title.create')}</title>
         </Helmet>
-        <MeetingCreate />
+        <MeetingCreatePage />
       </Route>
       <Route path="/meetings/:id/edit">
         <Helmet>
           <title>{t('meetings.head.title.edit')}</title>
         </Helmet>
-        <MeetingUpdate />
+        <MeetingUpdatePage />
       </Route>
       <Route path="/meetings/:id">
         <Helmet>
           <title>{t('meetings.head.title.view')}</title>
         </Helmet>
-        <MeetingDetail />
+        <MeetingDetailPage />
       </Route>
       <Route path="/meetings">
         <Helmet>
