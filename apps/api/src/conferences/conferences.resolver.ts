@@ -32,6 +32,32 @@ export class ConferenceResolver {
     return conference;
   }
 
+  @Mutation(() => Conference)
+  async publishConference(@Args('conferenceId') conferenceId: string, @CurrentUser() { userId }) {
+    const conference = await this.conferencesService.findOne({ id: conferenceId });
+    if (!conference) {
+      throw new NotFoundException(`Conference with id ${conferenceId} does not exist.`);
+    }
+    const meeting = await conference.meeting;
+    if (meeting.hostId !== userId) {
+      throw new UnauthorizedException();
+    }
+    return this.conferencesService.publish(conference);
+  }
+
+  @Mutation(() => Conference)
+  async stopConference(@Args('conferenceId') conferenceId: string, @CurrentUser() { userId }) {
+    const conference = await this.conferencesService.findOne({ id: conferenceId });
+    if (!conference) {
+      throw new NotFoundException(`Conference with id ${conferenceId} does not exist.`);
+    }
+    const meeting = await conference.meeting;
+    if (meeting.hostId !== userId) {
+      throw new UnauthorizedException();
+    }
+    return this.conferencesService.stop(conference);
+  }
+
   @Query(() => Conference, { name: 'conference' })
   async findOne(@Args('id', { type: () => String }) id: string) {
     return this.conferencesService.findOne({ id });

@@ -45,6 +45,10 @@ export class Meeting {
   @Field(() => Conference, { description: 'The conference associated with the meeting', nullable: true })
   conference: Promise<Conference | null>;
 
+  @Column({ default: () => 'CURRENT_TIMESTAMP' })
+  @Field(() => Date, { description: 'The date from which the conference can be created' })
+  prepareDate: Date;
+
   @CreateDateColumn({ name: 'created_at' })
   'created_at': Date;
 
