@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: ConferenceByMeeting
+// GraphQL mutation operation: StopConference
 // ====================================================
 
-export interface ConferenceByMeeting_conferenceByMeeting {
+export interface StopConference_stopConference {
   __typename: "Conference";
   /**
    * The id of the conference
@@ -31,10 +31,10 @@ export interface ConferenceByMeeting_conferenceByMeeting {
   stoppedAt: any | null;
 }
 
-export interface ConferenceByMeeting {
-  conferenceByMeeting: ConferenceByMeeting_conferenceByMeeting | null;
+export interface StopConference {
+  stopConference: StopConference_stopConference;
 }
 
-export interface ConferenceByMeetingVariables {
-  meetingId: string;
+export interface StopConferenceVariables {
+  conferenceId: string;
 }
