@@ -131,7 +131,12 @@
     "conference": {
       "start": "Start Meeting",
       "join": "Join Meeting",
-      "pending": "The meeting has not been started"
+      "pending": "The meeting has not been started",
+      "early": "You cannot start the conference, yet",
+      "setup": "Setup",
+      "publish": "Make Public",
+      "stop": "End Meeting",
+      "ended": "The meeting has ended"
     },
     "today": "Today",
     "hostedby": "Hosted by",

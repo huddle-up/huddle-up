@@ -124,7 +124,12 @@
     "conference": {
       "start": "Treffen starten",
       "join": "Treffen beitreten",
-      "pending": "Das Treffen wurde noch nicht gestartet."
+      "pending": "Das Treffen wurde noch nicht gestartet",
+      "early": "Das Treffen kann noch nicht gestartet werden",
+      "setup": "Einrichten",
+      "publish": "Öffentlich machen",
+      "stop": "Beenden",
+      "ended": "Das Treffen wurde beendet"
     },
     "form": {
       "title": "Titel",
