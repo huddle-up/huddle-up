@@ -1,5 +1,5 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
-import { OrderBy } from 'meetings/enums/OrderBy.enum';
+import { OrderBy } from '../enums/OrderBy.enum';
 
 @InputType()
 export class SearchCriteriaInput {

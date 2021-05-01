@@ -1,5 +1,5 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Meeting } from 'meetings/entities/meeting.entity';
+import { Meeting } from '../entities/meeting.entity';
 
 @ObjectType()
 export class MeetingSearchResponse {
