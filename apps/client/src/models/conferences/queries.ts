@@ -1,19 +1,20 @@
 import { gql } from '@apollo/client';
+import { CONFERENCE_CORE_FIELDS } from './fragments';
 
 export const CONFERENCE = gql`
+  ${CONFERENCE_CORE_FIELDS}
   query Conference($id: String!) {
     conference(id: $id) {
-      id
-      __typename
+      ...ConferenceCoreFields
     }
   }
 `;
 
 export const CONFERENCE_BY_MEETING = gql`
+  ${CONFERENCE_CORE_FIELDS}
   query ConferenceByMeeting($meetingId: String!) {
     conferenceByMeeting(meetingId: $meetingId) {
-      id
-      __typename
+      ...ConferenceCoreFields
     }
   }
 `;

@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: ConferenceByMeeting
+// GraphQL fragment: ConferenceCoreFields
 // ====================================================
 
-export interface ConferenceByMeeting_conferenceByMeeting {
+export interface ConferenceCoreFields {
   __typename: "Conference";
   /**
    * The id of the conference
@@ -29,12 +29,4 @@ export interface ConferenceByMeeting_conferenceByMeeting {
    * The date the conference has been stopped at
    */
   stoppedAt: any | null;
-}
-
-export interface ConferenceByMeeting {
-  conferenceByMeeting: ConferenceByMeeting_conferenceByMeeting | null;
-}
-
-export interface ConferenceByMeetingVariables {
-  meetingId: string;
 }
