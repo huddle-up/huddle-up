@@ -48,6 +48,10 @@ export interface Meetings_discover_meetings {
    */
   endDate: any;
   /**
+   * The date from which the conference can be created
+   */
+  prepareDate: any;
+  /**
    * The hoster of the meeting
    */
   host: Meetings_discover_meetings_host;
