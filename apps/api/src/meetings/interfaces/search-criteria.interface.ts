@@ -1,4 +1,4 @@
-import { OrderBy } from 'meetings/enums/OrderBy.enum';
+import { OrderBy } from '../enums/OrderBy.enum';
 
 export interface SearchCriteria {
   searchValue: string;
