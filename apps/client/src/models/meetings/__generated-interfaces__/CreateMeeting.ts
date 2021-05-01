@@ -29,6 +29,10 @@ export interface CreateMeeting_createMeeting {
    * The end date of the meeting
    */
   endDate: any;
+  /**
+   * The date from which the conference can be created
+   */
+  prepareDate: any;
 }
 
 export interface CreateMeeting {

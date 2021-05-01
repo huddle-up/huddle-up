@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: UpdateMeeting
+// GraphQL fragment: MeetingCoreFields
 // ====================================================
 
-export interface UpdateMeeting_updateMeeting {
+export interface MeetingCoreFields {
   __typename: "Meeting";
   /**
    * The id of the meeting
@@ -33,16 +33,4 @@ export interface UpdateMeeting_updateMeeting {
    * The date from which the conference can be created
    */
   prepareDate: any;
-}
-
-export interface UpdateMeeting {
-  updateMeeting: UpdateMeeting_updateMeeting;
-}
-
-export interface UpdateMeetingVariables {
-  id: string;
-  title?: string | null;
-  description?: string | null;
-  startDate?: any | null;
-  endDate?: any | null;
 }

@@ -1,25 +1,17 @@
 import { gql } from '@apollo/client';
+import { MEETING_FIELDS } from './fragments';
 
 export const MEETING = gql`
+  ${MEETING_FIELDS}
   query Meeting($id: String!) {
     meeting(id: $id) {
-      id
-      title
-      description
-      startDate
-      endDate
-      __typename
-      host {
-        id
-        email
-        name
-        __typename
-      }
+      ...MeetingFields
     }
   }
 `;
 
 export const MEETINGS = gql`
+  ${MEETING_FIELDS}
   query Meetings(
     $searchValue: String!
     $startDateOrderBy: OrderBy!
@@ -39,18 +31,7 @@ export const MEETINGS = gql`
       }
     ) {
       meetings {
-        id
-        title
-        description
-        startDate
-        endDate
-        __typename
-        host {
-          id
-          email
-          name
-          __typename
-        }
+        ...MeetingFields
       }
       totalCount
     }
@@ -58,6 +39,7 @@ export const MEETINGS = gql`
 `;
 
 export const MY_MEETINGS = gql`
+  ${MEETING_FIELDS}
   query MyMeetings(
     $searchValue: String!
     $startDateOrderBy: OrderBy!
@@ -77,18 +59,7 @@ export const MY_MEETINGS = gql`
       }
     ) {
       meetings {
-        id
-        title
-        description
-        startDate
-        endDate
-        __typename
-        host {
-          id
-          email
-          name
-          __typename
-        }
+        ...MeetingFields
       }
       totalCount
     }
