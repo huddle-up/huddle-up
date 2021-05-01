@@ -73,10 +73,10 @@ function SearchForm({
                 <Grid item xs={12}>
                   <OrderField name="startDateOrderBy" label={t('global.form.fields.order')} options={orderOptions} />
                 </Grid>
-                <Grid item xs={12} spacing={2}>
+                <Grid item xs={12}>
                   <DateTimeField name="fromDate" label={t('global.form.fields.from')} />
                 </Grid>
-                <Grid item xs={12} spacing={2}>
+                <Grid item xs={12}>
                   <DateTimeField name="toDate" label={t('global.form.fields.to')} />
                 </Grid>
               </Grid>
