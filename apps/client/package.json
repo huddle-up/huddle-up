@@ -45,7 +45,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./",
     "lint:fix": "eslint --fix ./",
-    "apollo:codegen": "apollo client:codegen --target typescript __generated-interfaces__"
+    "apollo:codegen": "apollo client:codegen --target typescript __generated-interfaces__  --globalTypesFile=./src/models/__generated-interfaces__/globalTypes.ts"
   },
   "eslintConfig": {
     "extends": [
