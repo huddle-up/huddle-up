@@ -35,6 +35,24 @@ export class ConferencesService {
     return this.conferenceRepository.save(conference);
   }
 
+  async publish(conf: Conference) {
+    const conference = conf;
+    if (!conference.publishedAt) {
+      conference.publishedAt = new Date();
+    }
+    conference.providerProps = await this.jitsiService.publish(conference);
+    return this.conferenceRepository.save(conference);
+  }
+
+  async stop(conf: Conference) {
+    const conference = conf;
+    if (!conference.stoppedAt) {
+      conference.stoppedAt = new Date();
+    }
+    conference.providerProps = await this.jitsiService.stop(conference);
+    return this.conferenceRepository.save(conference);
+  }
+
   async getAccessLink(user: User, conference: Conference) {
     return this.jitsiService.getAccessLink(user, conference);
   }

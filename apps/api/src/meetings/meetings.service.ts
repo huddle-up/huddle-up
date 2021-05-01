@@ -1,16 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { addMinutes } from 'date-fns';
 import { DeleteResult, FindOperator, Like, Repository, MoreThan, FindOneOptions, Between, LessThan } from 'typeorm';
+import { MeetingsConfigService } from '../config/meetings/config.service';
+import { UpdateMeetingInput } from './dto/update-meeting.input';
 import { Meeting } from './entities/meeting.entity';
 import { CreateMeeting } from './interfaces/create-meeting.interface';
 import { SearchCriteria } from './interfaces/search-criteria.interface';
 
 @Injectable()
 export class MeetingsService {
-  constructor(@InjectRepository(Meeting) private readonly meetingRepository: Repository<Meeting>) {}
+  constructor(
+    private readonly meetingsConfigService: MeetingsConfigService,
+    @InjectRepository(Meeting) private readonly meetingRepository: Repository<Meeting>
+  ) {}
 
   async create(createMeeting: CreateMeeting) {
     const meeting = this.meetingRepository.create(createMeeting);
+    meeting.prepareDate = addMinutes(meeting.startDate, -1 * this.meetingsConfigService.preparationTime);
     return this.meetingRepository.save(meeting);
   }
 
@@ -66,8 +73,16 @@ export class MeetingsService {
     return undefined;
   }
 
-  async update(updateMeetingInput: Partial<Meeting>) {
-    return this.meetingRepository.save(updateMeetingInput);
+  async update(updateMeetingInput: UpdateMeetingInput) {
+    const meeting = await this.meetingRepository.findOne({ id: updateMeetingInput.id });
+    if (!meeting) {
+      throw new NotFoundException(`Meeting with id ${updateMeetingInput.id} does not exist`);
+    }
+    const updatedMeeting: Meeting = { ...meeting, ...updateMeetingInput };
+    return this.meetingRepository.save({
+      ...updatedMeeting,
+      prepareDate: addMinutes(updatedMeeting.startDate, -1 * this.meetingsConfigService.preparationTime),
+    });
   }
 
   async remove(id: string) {

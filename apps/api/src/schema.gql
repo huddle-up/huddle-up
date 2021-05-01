@@ -8,7 +8,21 @@ type Conference {
 
   """The id of the meeting associated with the conference"""
   meetingId: String!
+
+  """The date the conference has been published to participants at"""
+  publishedAt: DateTime
+
+  """The date the conference has been stopped at"""
+  stoppedAt: DateTime
+
+  """The date the conference has been created at"""
+  createdAt: DateTime!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type User {
   """The id of the user"""
@@ -48,12 +62,10 @@ type Meeting {
 
   """The conference associated with the meeting"""
   conference: Conference
-}
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
+  """The date from which the conference can be created"""
+  prepareDate: DateTime!
+}
 
 type MeetingSearchResponse {
   """The found meetings"""
@@ -116,6 +128,8 @@ type Mutation {
   updateUser(updateUserInput: UpdateUserInput!): User!
   updateCurrentUser(updateCurrentUserInput: UpdateCurrentUserInput!): User!
   createConference(createConferenceInput: CreateConferenceInput!): Conference!
+  publishConference(conferenceId: String!): Conference!
+  stopConference(conferenceId: String!): Conference!
 }
 
 input CreateMeetingInput {

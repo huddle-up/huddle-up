@@ -3,9 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MeetingsService } from './meetings.service';
 import { MeetingsResolver } from './meetings.resolver';
 import { Meeting } from './entities/meeting.entity';
+import { MeetingsConfigModule } from '../config/meetings/config.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Meeting])],
+  imports: [MeetingsConfigModule, TypeOrmModule.forFeature([Meeting])],
   providers: [MeetingsResolver, MeetingsService],
   exports: [MeetingsService],
 })

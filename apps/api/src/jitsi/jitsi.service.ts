@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Conference } from '../conferences/entities/conference.entity';
+import { ConferenceProviderProps } from '../conferences/interfaces/conference-provider-props.interface';
 import { JitsiConfigService } from '../config/jitsi/config.service';
 import { User } from '../users/entities/user.entity';
 import { JitsiConferenceProps } from './interfaces/jitsi-conference-props.interface';
@@ -17,7 +18,7 @@ interface CreateConnectionStringOptions {
 export class JitsiService {
   constructor(private jitsiConfigService: JitsiConfigService) {}
 
-  async create(conference: Conference): Promise<JitsiConferenceProps> {
+  async create(conference: Conference): Promise<ConferenceProviderProps> {
     const subject = await this.createSubject(conference);
     return {
       roomName: `HuddleUp--${conference.id}`,
@@ -25,13 +26,21 @@ export class JitsiService {
     };
   }
 
-  async update(conference: Conference): Promise<JitsiConferenceProps> {
+  async update(conference: Conference): Promise<ConferenceProviderProps> {
     const jitsiProps = conference.providerProps as JitsiConferenceProps;
     const subject = await this.createSubject(conference);
     return {
       ...jitsiProps,
       subject,
     };
+  }
+
+  async publish(conference: Conference): Promise<ConferenceProviderProps> {
+    return Promise.resolve(conference.providerProps);
+  }
+
+  async stop(conference: Conference): Promise<ConferenceProviderProps> {
+    return Promise.resolve(conference.providerProps);
   }
 
   async getAccessLink(user: User, conference: Conference) {
