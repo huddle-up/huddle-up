@@ -1,3 +1,4 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -35,8 +36,7 @@ export class ConferencesService {
     return this.conferenceRepository.save(conference);
   }
 
-  async publish(conf: Conference) {
-    const conference = conf;
+  async publish(conference: Conference) {
     if (!conference.publishedAt) {
       conference.publishedAt = new Date();
     }
@@ -44,8 +44,7 @@ export class ConferencesService {
     return this.conferenceRepository.save(conference);
   }
 
-  async stop(conf: Conference) {
-    const conference = conf;
+  async stop(conference: Conference) {
     if (!conference.stoppedAt) {
       conference.stoppedAt = new Date();
     }
