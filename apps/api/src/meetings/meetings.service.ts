@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { addMinutes } from 'date-fns';
 import { DeleteResult, FindOperator, Like, Repository, MoreThan, FindOneOptions, Between, LessThan } from 'typeorm';
 import { MeetingsConfigService } from '../config/meetings/config.service';
-import { UpdateMeetingInput } from './dto/update-meeting.input';
 import { Meeting } from './entities/meeting.entity';
 import { CreateMeeting } from './interfaces/create-meeting.interface';
 import { SearchCriteria } from './interfaces/search-criteria.interface';
@@ -73,15 +72,16 @@ export class MeetingsService {
     return undefined;
   }
 
-  async update(updateMeetingInput: UpdateMeetingInput) {
-    const meeting = await this.meetingRepository.findOne({ id: updateMeetingInput.id });
+  async update(partialMeeting: Partial<Meeting>) {
+    const meeting = await this.meetingRepository.findOne({ id: partialMeeting.id });
     if (!meeting) {
-      throw new NotFoundException(`Meeting with id ${updateMeetingInput.id} does not exist`);
+      throw new NotFoundException(`Meeting with id ${partialMeeting.id} does not exist`);
     }
-    const updatedMeeting: Meeting = { ...meeting, ...updateMeetingInput };
+    const updatedMeeting: Meeting = { ...meeting, ...partialMeeting };
+    const prepareDate = addMinutes(updatedMeeting.startDate, -1 * this.meetingsConfigService.preparationTime);
     return this.meetingRepository.save({
       ...updatedMeeting,
-      prepareDate: addMinutes(updatedMeeting.startDate, -1 * this.meetingsConfigService.preparationTime),
+      prepareDate,
     });
   }
 
