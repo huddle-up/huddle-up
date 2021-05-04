@@ -10,6 +10,15 @@ import configuration from './configuration';
       load: [configuration],
       validationSchema: Joi.object({
         HU_JITSI_HOST: Joi.string().required(),
+        HU_JITSI_JWT_ENABLED: Joi.boolean(),
+        HU_JITSI_JWT_APP_ID: Joi.when('HU_JITSI_JWT_ENABLED', {
+          is: true,
+          then: Joi.string().required(),
+        }),
+        HU_JITSI_JWT_SECRET: Joi.when('HU_JITSI_JWT_ENABLED', {
+          is: true,
+          then: Joi.string().required(),
+        }),
       }),
       validationOptions: {
         allowUnknown: true,

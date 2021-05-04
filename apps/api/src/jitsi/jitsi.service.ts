@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import * as jsonwebtoken from 'jsonwebtoken';
 import { Conference } from '../conferences/entities/conference.entity';
 import { ConferenceProviderProps } from '../conferences/interfaces/conference-provider-props.interface';
 import { JitsiConfigService } from '../config/jitsi/config.service';
@@ -12,6 +13,7 @@ interface CreateConnectionStringOptions {
   userInfo?: {
     displayName?: string;
   };
+  jwt?: string;
 }
 
 @Injectable()
@@ -44,6 +46,13 @@ export class JitsiService {
   }
 
   async getAccessLink(user: User, conference: Conference) {
+    if (this.jitsiConfigService.jwt.enabled) {
+      return this.getJwtAccessLink(user, conference);
+    }
+    return Promise.resolve(this.getPublicAccessLink(user, conference));
+  }
+
+  private getPublicAccessLink(user: User, conference: Conference) {
     const jitsiProps = conference.providerProps as JitsiConferenceProps;
     return this.createConnectionString({
       host: this.jitsiConfigService.host,
@@ -55,18 +64,58 @@ export class JitsiService {
     });
   }
 
+  private async getJwtAccessLink(user: User, conference: Conference) {
+    const jitsiProps = conference.providerProps as JitsiConferenceProps;
+    const jwt = await this.createJwt(user, conference);
+    return this.createConnectionString({
+      host: this.jitsiConfigService.host,
+      roomName: jitsiProps.roomName,
+      subject: jitsiProps.subject,
+      jwt,
+      userInfo: {
+        displayName: user.name,
+      },
+    });
+  }
+
   private async createSubject(conference: Conference) {
     const meeting = await conference.meeting;
     return meeting.title;
   }
 
-  private createConnectionString({ host, roomName, subject, userInfo }: CreateConnectionStringOptions) {
+  private async createJwt(user: User, conference: Conference) {
+    const meeting = await conference.meeting;
+    const jitsiProps = conference.providerProps as JitsiConferenceProps;
+    const content = {
+      aud: 'jitsi',
+      sub: this.jitsiConfigService.host,
+      iss: this.jitsiConfigService.jwt.appId,
+      room: jitsiProps.roomName,
+      moderator: user.id === meeting.hostId,
+      context: {
+        user: {
+          name: user.name,
+          id: user.id,
+          email: user.email,
+        },
+      },
+    };
+    return jsonwebtoken.sign(content, this.jitsiConfigService.jwt.secret);
+  }
+
+  private createConnectionString({ host, roomName, subject, userInfo, jwt }: CreateConnectionStringOptions) {
     const baseString = new URL(roomName, host);
+
     const hash = [`config.subject="${encodeURIComponent(subject)}"`];
     if (userInfo) {
       hash.push(`userInfo.displayName="${userInfo.displayName}"`);
     }
     baseString.hash = hash.join('&');
+
+    if (jwt) {
+      baseString.searchParams.set('jwt', jwt);
+    }
+
     return baseString.toString();
   }
 }
