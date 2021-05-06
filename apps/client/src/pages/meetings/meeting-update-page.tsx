@@ -11,6 +11,7 @@ import { MEETING, UPDATE_MEETING } from '../../models/meetings';
 import { AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
 import { UpdateMeetingForm } from '../../components/meeting-form';
+import { TagOption } from '../../components/tags/tags-field';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -38,6 +39,12 @@ function MeetingUpdatePage() {
       variables: meeting,
     });
   }
+
+  const tagOptions: TagOption[] = [
+    { name: 'The Shawshank Redemption', id: 1 },
+    { name: 'The Godfather', id: 2 },
+    { name: 'The Godfather: Part II', id: 3 },
+  ];
 
   // TODO Improve handling of loading and errors
   if (queryLoading)
@@ -71,7 +78,7 @@ function MeetingUpdatePage() {
         )}
         {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meetings/${id}`} />}
 
-        <UpdateMeetingForm onSubmit={handleMeetingUpdate} initialValues={data.meeting} />
+        <UpdateMeetingForm onSubmit={handleMeetingUpdate} initialValues={data.meeting} tagOptions={tagOptions} />
       </section>
     </AppPageMain>
   );

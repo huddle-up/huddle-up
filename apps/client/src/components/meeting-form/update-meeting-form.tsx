@@ -9,6 +9,8 @@ import { CardTitle } from '../card-title';
 import { LinkButton } from '../link';
 import { UpdateMeetingVariables } from '../../models/meetings/__generated-interfaces__/UpdateMeeting';
 import { DateTimeField } from '../datetime-field';
+import { TagsField } from '../tags';
+import { TagOption } from '../tags/tags-field';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -25,11 +27,13 @@ const useStyles = makeStyles((theme) => ({
 
 interface MeetingFormProps {
   initialValues: UpdateMeetingVariables;
+  tagOptions: TagOption[];
   onSubmit: (values: UpdateMeetingVariables) => Promise<void>;
 }
 
 function UpdateMeetingForm({
-  initialValues: { id, title, description, startDate, endDate },
+  initialValues: { id, title, description, startDate, endDate, tags },
+  tagOptions,
   onSubmit,
 }: MeetingFormProps) {
   const classes = useStyles();
@@ -45,10 +49,10 @@ function UpdateMeetingForm({
   });
   return (
     <Formik
-      initialValues={{ id, title, description: description || '', startDate, endDate }}
+      initialValues={{ id, title, description: description || '', startDate, endDate, tags: tags || [] }}
       validationSchema={FormSchema}
       onSubmit={onSubmit}>
-      {({ submitForm, isSubmitting, handleReset }) => (
+      {({ submitForm, isSubmitting, handleReset, setFieldValue }) => (
         <Form>
           <Card className={classes.card} variant="outlined">
             <CardContent className={classes.cardContent} component="fieldset">
@@ -63,6 +67,9 @@ function UpdateMeetingForm({
                     label={t('meetings.form.title')}
                     required
                   />
+                </Grid>
+                <Grid item xs={12}>
+                  <TagsField name="tags" label="Tags" tagOptions={tagOptions} setFieldValue={setFieldValue} />
                 </Grid>
                 <Grid item xs={12}>
                   <Field
