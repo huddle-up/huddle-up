@@ -10,6 +10,7 @@ import { CREATE_MEETING } from '../../models/meetings';
 import { AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
 import { CreateeMeetingForm } from '../../components/meeting-form';
+import { TagOption } from '../../components/tags/tags-field';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -36,6 +37,7 @@ function MeetingCreatePage() {
     description: '',
     startDate: new Date().toUTCString(),
     endDate: endDate.toUTCString(),
+    tags: [],
   };
 
   async function handleCreateMeeting(meeting: CreateMeetingVariables) {
@@ -43,6 +45,12 @@ function MeetingCreatePage() {
       variables: meeting,
     });
   }
+
+  const tagOptions: TagOption[] = [
+    { name: 'The Shawshank Redemption', id: 1 },
+    { name: 'The Godfather', id: 2 },
+    { name: 'The Godfather: Part II', id: 3 },
+  ];
 
   return (
     <AppPageMain>
@@ -57,7 +65,7 @@ function MeetingCreatePage() {
         {!mutationLoading && !mutationError && mutationCalled && (
           <Redirect to={`/meetings/${mutationData.createMeeting.id}`} />
         )}
-        <CreateeMeetingForm onSubmit={handleCreateMeeting} initialValues={initialValues} />
+        <CreateeMeetingForm onSubmit={handleCreateMeeting} initialValues={initialValues} tagOptions={tagOptions} />
       </section>
     </AppPageMain>
   );
