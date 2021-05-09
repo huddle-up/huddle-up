@@ -26,6 +26,9 @@
       "tagline": "Webapplication for Videomeetings",
       "description": "Create and join Videomeetings with interesting topics"
     },
+    "option": {
+      "add": "Add"
+    },
     "form": {
       "save": "Save",
       "cancel": "Cancel",
@@ -43,7 +46,8 @@
         "search": "Search",
         "order": "Order",
         "from": "From",
-        "to": "To"
+        "to": "To",
+        "tags": "Tags"
       }
     }
   },

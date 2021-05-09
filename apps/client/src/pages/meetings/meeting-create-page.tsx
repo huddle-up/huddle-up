@@ -10,7 +10,7 @@ import { CREATE_MEETING } from '../../models/meetings';
 import { AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
 import { CreateeMeetingForm } from '../../components/meeting-form';
-import { TagOption } from '../../components/tags/tags-field';
+import { TagOption } from '../../models/__generated-interfaces__/globalTypes';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -40,17 +40,18 @@ function MeetingCreatePage() {
     tags: [],
   };
 
-  async function handleCreateMeeting(meeting: CreateMeetingVariables) {
+  async function handleCreateMeeting(meetingVariables: CreateMeetingVariables) {
+    const tags: TagOption[] = meetingVariables.tags?.map((tag) => {
+      return {
+        id: tag.id,
+        name: tag.name,
+      };
+    });
+
     await createMeeting({
-      variables: meeting,
+      variables: { ...meetingVariables, tags },
     });
   }
-
-  const tagOptions: TagOption[] = [
-    { name: 'The Shawshank Redemption', id: 1 },
-    { name: 'The Godfather', id: 2 },
-    { name: 'The Godfather: Part II', id: 3 },
-  ];
 
   return (
     <AppPageMain>
@@ -65,7 +66,7 @@ function MeetingCreatePage() {
         {!mutationLoading && !mutationError && mutationCalled && (
           <Redirect to={`/meetings/${mutationData.createMeeting.id}`} />
         )}
-        <CreateeMeetingForm onSubmit={handleCreateMeeting} initialValues={initialValues} tagOptions={tagOptions} />
+        <CreateeMeetingForm onSubmit={handleCreateMeeting} initialValues={initialValues} />
       </section>
     </AppPageMain>
   );

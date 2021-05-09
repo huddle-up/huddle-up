@@ -1,8 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { Field } from 'formik';
+import { CircularProgress } from '@material-ui/core';
+import useTagsQuery from './use-tags-query';
 
 const filter = createFilterOptions<TagOption>({
   matchFrom: 'any',
@@ -21,16 +24,23 @@ export interface TagOption {
 interface TagsFieldProps {
   label: string;
   name: string;
-  tagOptions: TagOption[];
   filterSelectedOptions?: boolean;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
+  allowUserOptions?: boolean;
 }
 
 TagsField.defaultProps = {
   filterSelectedOptions: false,
+  allowUserOptions: true,
 };
 
-function TagsField({ name, label, tagOptions, setFieldValue, filterSelectedOptions }: TagsFieldProps) {
+function TagsField({ name, label, setFieldValue, filterSelectedOptions, allowUserOptions }: TagsFieldProps) {
+  const { t } = useTranslation();
+  const { queryLoading, queryError, tagOptions } = useTagsQuery();
+
+  if (queryLoading) return <CircularProgress size="2em" />;
+  if (queryError) return <p>Error! ${queryError.message}</p>;
+
   return (
     <Field name={name}>
       {({ field: { value }, form: { errors } }) => (
@@ -38,7 +48,7 @@ function TagsField({ name, label, tagOptions, setFieldValue, filterSelectedOptio
           id="tags"
           value={value}
           multiple
-          freeSolo
+          freeSolo={allowUserOptions}
           filterSelectedOptions={filterSelectedOptions}
           options={tagOptions}
           getOptionLabel={(option) => option.name}
@@ -59,9 +69,9 @@ function TagsField({ name, label, tagOptions, setFieldValue, filterSelectedOptio
           filterOptions={(options, params) => {
             const filtered = filter(options, params);
             const inputValue = params.inputValue.trim();
-            if (inputValue !== '') {
+            if (allowUserOptions && inputValue !== '') {
               filtered.push({
-                inputValue: `Hinzufügen: "${params.inputValue}"`,
+                inputValue: `${t('global.option.add')}: "${params.inputValue}"`,
                 name: params.inputValue,
               });
             }

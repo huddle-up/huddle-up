@@ -1,4 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
+import { TagOption } from './tag-option.input';
 // import { MinLength } from 'class-validator';
 
 @InputType()
@@ -7,7 +8,7 @@ export class CreateMeetingInput {
   // @MinLength(5)
   title: string;
 
-  @Field({ nullable: true, description: 'The description of the meeting' })
+  @Field({ nullable: true, description: 'The optional description of the meeting' })
   description?: string;
 
   @Field(() => Date, { description: 'The start date of the meeting' })
@@ -15,4 +16,7 @@ export class CreateMeetingInput {
 
   @Field(() => Date, { description: 'The end date of the meeting' })
   endDate: Date;
+
+  @Field(() => [TagOption], { nullable: true, description: 'The optional tags of the meeting' })
+  tags?: TagOption[];
 }

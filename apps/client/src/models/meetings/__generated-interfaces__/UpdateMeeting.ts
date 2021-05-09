@@ -3,6 +3,8 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
+import { TagOption } from "./../../__generated-interfaces__/globalTypes";
+
 // ====================================================
 // GraphQL mutation operation: UpdateMeeting
 // ====================================================
@@ -45,4 +47,5 @@ export interface UpdateMeetingVariables {
   description?: string | null;
   startDate?: any | null;
   endDate?: any | null;
+  tags?: TagOption[] | null;
 }

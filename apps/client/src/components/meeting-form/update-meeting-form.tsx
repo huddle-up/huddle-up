@@ -10,7 +10,6 @@ import { LinkButton } from '../link';
 import { UpdateMeetingVariables } from '../../models/meetings/__generated-interfaces__/UpdateMeeting';
 import { DateTimeField } from '../datetime-field';
 import { TagsField } from '../tags';
-import { TagOption } from '../tags/tags-field';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -27,13 +26,11 @@ const useStyles = makeStyles((theme) => ({
 
 interface MeetingFormProps {
   initialValues: UpdateMeetingVariables;
-  tagOptions: TagOption[];
   onSubmit: (values: UpdateMeetingVariables) => Promise<void>;
 }
 
 function UpdateMeetingForm({
   initialValues: { id, title, description, startDate, endDate, tags },
-  tagOptions,
   onSubmit,
 }: MeetingFormProps) {
   const classes = useStyles();
@@ -43,6 +40,9 @@ function UpdateMeetingForm({
       .min(3, t('global.form.validation.minCountCharacters', { count: 3 }))
       .max(100, t('global.form.validation.maxCountCharacters', { count: 100 }))
       .required(t('global.form.validation.required')),
+    tags: Yup.array().of(
+      Yup.object().shape({ name: Yup.string().max(25, t('global.form.validation.maxCountCharacters', { count: 25 })) })
+    ),
     description: Yup.string(),
     startDate: Yup.string().nullable().required(t('global.form.validation.required')),
     endDate: Yup.string().nullable().required(t('global.form.validation.required')),
@@ -69,7 +69,7 @@ function UpdateMeetingForm({
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TagsField name="tags" label="Tags" tagOptions={tagOptions} setFieldValue={setFieldValue} />
+                  <TagsField name="tags" label={t('global.form.fields.tags')} setFieldValue={setFieldValue} />
                 </Grid>
                 <Grid item xs={12}>
                   <Field

@@ -1,5 +1,6 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
 import { OrderBy } from '../enums/OrderBy.enum';
+import { TagOption } from './tag-option.input';
 
 @InputType()
 export class SearchCriteriaInput {
@@ -13,7 +14,10 @@ export class SearchCriteriaInput {
   fromDate: Date;
 
   @Field(() => Date, { nullable: true, description: 'The optional to date to filter meetings' })
-  toDate: Date;
+  toDate?: Date;
+
+  @Field(() => [TagOption], { nullable: true, description: 'The optional tags filter meetings' })
+  tags?: TagOption[];
 
   @Field(() => Int, {
     nullable: true,

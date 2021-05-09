@@ -25,6 +25,9 @@
       "tagline": "Webplattform für Videotreffen",
       "description": "Erstelle und beitrete Videotreffen mit interessanten Themen"
     },
+    "option": {
+      "add": "Hinzufügen"
+    },
     "form": {
       "save": "Speichern",
       "cancel": "Abbrechen",
@@ -42,7 +45,8 @@
         "search": "Suche",
         "order": "Sortierung",
         "from": "Von",
-        "to": "Bis"
+        "to": "Bis",
+        "tags": "Tags"
       }
     }
   },

@@ -8,6 +8,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { format, isToday, isWithinInterval } from 'date-fns';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { Link, LinkButton } from '../link';
+import { TagsList } from '../tags';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,9 +21,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
   },
   card: {
     marginTop: theme.spacing(1),
@@ -69,8 +67,8 @@ function MeetingCard({ meeting }: MeetingCardProps) {
         <Typography variant="h5" component="h2">
           <Link to={`/meetings/${id}`}>{title}</Link>
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          Tags
+        <Typography>
+          <TagsList tags={meeting.tags} />
         </Typography>
         <Grid container direction="row" justify="space-between" alignItems="center">
           <Link to="/profile">

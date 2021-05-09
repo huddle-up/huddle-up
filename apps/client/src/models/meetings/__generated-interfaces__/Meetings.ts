@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { OrderBy } from "./../../__generated-interfaces__/globalTypes";
+import { OrderBy, TagOption } from "./../../__generated-interfaces__/globalTypes";
 
 // ====================================================
 // GraphQL query operation: Meetings
@@ -21,6 +21,18 @@ export interface Meetings_discover_meetings_host {
   email: string;
   /**
    * The name of the user
+   */
+  name: string;
+}
+
+export interface Meetings_discover_meetings_tags {
+  __typename: "Tag";
+  /**
+   * The id of the tag
+   */
+  id: number;
+  /**
+   * The name of the tag
    */
   name: string;
 }
@@ -55,6 +67,10 @@ export interface Meetings_discover_meetings {
    * The hoster of the meeting
    */
   host: Meetings_discover_meetings_host;
+  /**
+   * The tags of the meeting
+   */
+  tags: Meetings_discover_meetings_tags[] | null;
 }
 
 export interface Meetings_discover {
@@ -78,6 +94,7 @@ export interface MeetingsVariables {
   startDateOrderBy: OrderBy;
   fromDate?: any | null;
   toDate?: any | null;
+  tags?: TagOption[] | null;
   offset?: number | null;
   limit?: number | null;
 }

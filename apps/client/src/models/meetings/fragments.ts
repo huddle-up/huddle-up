@@ -22,5 +22,10 @@ export const MEETING_FIELDS = gql`
       name
       __typename
     }
+    tags {
+      id
+      name
+      __typename
+    }
   }
 `;

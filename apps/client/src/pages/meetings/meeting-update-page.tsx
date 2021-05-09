@@ -11,7 +11,7 @@ import { MEETING, UPDATE_MEETING } from '../../models/meetings';
 import { AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
 import { UpdateMeetingForm } from '../../components/meeting-form';
-import { TagOption } from '../../components/tags/tags-field';
+import { TagOption } from '../../models/__generated-interfaces__/globalTypes';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -34,17 +34,18 @@ function MeetingUpdatePage() {
     UpdateMeetingVariables
   >(UPDATE_MEETING);
 
-  async function handleMeetingUpdate(meeting: UpdateMeetingVariables) {
+  async function handleMeetingUpdate(meetingVariables: UpdateMeetingVariables) {
+    const tags: TagOption[] = meetingVariables.tags?.map((tag) => {
+      return {
+        id: tag.id,
+        name: tag.name,
+      };
+    });
+
     await updateMeeting({
-      variables: meeting,
+      variables: { ...meetingVariables, tags },
     });
   }
-
-  const tagOptions: TagOption[] = [
-    { name: 'The Shawshank Redemption', id: 1 },
-    { name: 'The Godfather', id: 2 },
-    { name: 'The Godfather: Part II', id: 3 },
-  ];
 
   // TODO Improve handling of loading and errors
   if (queryLoading)
@@ -78,7 +79,7 @@ function MeetingUpdatePage() {
         )}
         {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meetings/${id}`} />}
 
-        <UpdateMeetingForm onSubmit={handleMeetingUpdate} initialValues={data.meeting} tagOptions={tagOptions} />
+        <UpdateMeetingForm onSubmit={handleMeetingUpdate} initialValues={data.meeting} />
       </section>
     </AppPageMain>
   );

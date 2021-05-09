@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ConferencesModule } from './conferences/conferences.module';
 import { JitsiModule } from './jitsi/jitsi.module';
+import { TagsModule } from './tags/tags.module';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { JitsiModule } from './jitsi/jitsi.module';
     UsersModule,
     ConferencesModule,
     JitsiModule,
+    TagsModule,
   ],
   providers: [AppService],
 })

@@ -1,20 +1,39 @@
 import { gql } from '@apollo/client';
-import { MEETING_CORE_FIELDS } from './fragments';
+import { MEETING_FIELDS } from './fragments';
 
 export const CREATE_MEETING = gql`
-  ${MEETING_CORE_FIELDS}
-  mutation CreateMeeting($title: String!, $description: String, $startDate: DateTime!, $endDate: DateTime!) {
+  ${MEETING_FIELDS}
+  mutation CreateMeeting(
+    $title: String!
+    $description: String
+    $startDate: DateTime!
+    $endDate: DateTime!
+    $tags: [TagOption!]
+  ) {
     createMeeting(
-      createMeetingInput: { title: $title, description: $description, startDate: $startDate, endDate: $endDate }
+      createMeetingInput: {
+        title: $title
+        description: $description
+        startDate: $startDate
+        endDate: $endDate
+        tags: $tags
+      }
     ) {
-      ...MeetingCoreFields
+      ...MeetingFields
     }
   }
 `;
 
 export const UPDATE_MEETING = gql`
-  ${MEETING_CORE_FIELDS}
-  mutation UpdateMeeting($id: String!, $title: String, $description: String, $startDate: DateTime, $endDate: DateTime) {
+  ${MEETING_FIELDS}
+  mutation UpdateMeeting(
+    $id: String!
+    $title: String
+    $description: String
+    $startDate: DateTime
+    $endDate: DateTime
+    $tags: [TagOption!]
+  ) {
     updateMeeting(
       updateMeetingInput: {
         id: $id
@@ -22,9 +41,10 @@ export const UPDATE_MEETING = gql`
         description: $description
         startDate: $startDate
         endDate: $endDate
+        tags: $tags
       }
     ) {
-      ...MeetingCoreFields
+      ...MeetingFields
     }
   }
 `;

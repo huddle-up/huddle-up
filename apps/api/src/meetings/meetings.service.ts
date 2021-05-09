@@ -2,21 +2,31 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { addMinutes } from 'date-fns';
 import { DeleteResult, FindOperator, Like, Repository, MoreThan, FindOneOptions, Between, LessThan } from 'typeorm';
+import { TagsService } from '../tags/tags.service';
 import { MeetingsConfigService } from '../config/meetings/config.service';
 import { Meeting } from './entities/meeting.entity';
 import { CreateMeeting } from './interfaces/create-meeting.interface';
 import { SearchCriteria } from './interfaces/search-criteria.interface';
+import { UpdateMeeting } from './interfaces/update-meeting.inferface';
 
 @Injectable()
 export class MeetingsService {
   constructor(
     private readonly meetingsConfigService: MeetingsConfigService,
+    private readonly tagService: TagsService,
     @InjectRepository(Meeting) private readonly meetingRepository: Repository<Meeting>
   ) {}
 
   async create(createMeeting: CreateMeeting) {
-    const meeting = this.meetingRepository.create(createMeeting);
-    meeting.prepareDate = addMinutes(meeting.startDate, -1 * this.meetingsConfigService.preparationTime);
+    const { tags, ...partialMeeting } = createMeeting;
+    const meeting = this.meetingRepository.create(partialMeeting);
+
+    if (tags) {
+      const newTags = await this.tagService.findOrCreate(tags);
+      meeting.tags = Promise.resolve(newTags);
+    }
+    console.log('create', meeting);
+    meeting.prepareDate = this.addPreparationTime(meeting.startDate);
     return this.meetingRepository.save(meeting);
   }
 
@@ -28,8 +38,8 @@ export class MeetingsService {
     return this.meetingRepository.find(entity);
   }
 
-  async findOne(entity: Partial<Meeting>) {
-    return this.meetingRepository.findOne(entity);
+  findOne(entity: Partial<Meeting>) {
+    return this.meetingRepository.findOne(entity, { relations: ['tags'] });
   }
 
   async search(searchCriteria: SearchCriteria, hostId?: string) {
@@ -72,17 +82,26 @@ export class MeetingsService {
     return undefined;
   }
 
-  async update(partialMeeting: Partial<Meeting>) {
-    const meeting = await this.meetingRepository.findOne({ id: partialMeeting.id });
-    if (!meeting) {
+  async update(updateMeeting: UpdateMeeting) {
+    const { tags, ...partialMeeting } = updateMeeting;
+    const existingMeeting = await this.meetingRepository.findOne({ id: partialMeeting.id });
+    if (!existingMeeting) {
       throw new NotFoundException(`Meeting with id ${partialMeeting.id} does not exist`);
     }
-    const updatedMeeting: Meeting = { ...meeting, ...partialMeeting };
-    const prepareDate = addMinutes(updatedMeeting.startDate, -1 * this.meetingsConfigService.preparationTime);
-    return this.meetingRepository.save({
-      ...updatedMeeting,
-      prepareDate,
-    });
+    const meeting: Meeting = { ...existingMeeting, ...partialMeeting };
+
+    if (tags) {
+      const newTags = await this.tagService.findOrCreate(tags);
+      meeting.tags = Promise.resolve(newTags); // TODO update does not work with promises
+    }
+
+    meeting.prepareDate = this.addPreparationTime(meeting.startDate);
+    const { id } = await this.meetingRepository.save(meeting);
+    return this.meetingRepository.findOne({ id });
+  }
+
+  private addPreparationTime(startDate: Date) {
+    return addMinutes(startDate, -1 * this.meetingsConfigService.preparationTime);
   }
 
   async remove(id: string) {
