@@ -3,11 +3,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Tag } from '../../tags/entities/tag.entity';
 import { Conference } from '../../conferences/entities/conference.entity';
 import { User } from '../../users/entities/user.entity';
 
@@ -44,6 +47,11 @@ export class Meeting {
   @OneToOne(() => Conference, (conference) => conference.meeting)
   @Field(() => Conference, { description: 'The conference associated with the meeting', nullable: true })
   conference: Promise<Conference | null>;
+
+  @ManyToMany(() => Tag, (tag) => tag.meetings)
+  @JoinTable()
+  @Field(() => [Tag], { nullable: true, description: 'The tags of the meeting' })
+  tags?: Promise<Tag[]>;
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   @Field(() => Date, { description: 'The date from which the conference can be created' })

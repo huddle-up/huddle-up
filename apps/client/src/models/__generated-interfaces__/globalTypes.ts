@@ -15,6 +15,11 @@ export enum OrderBy {
   DESC = "DESC",
 }
 
+export interface TagOption {
+  id?: number | null;
+  name: string;
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

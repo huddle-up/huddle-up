@@ -24,6 +24,7 @@ function MyMeetingsPage() {
     startDateOrderBy: OrderBy.DESC,
     fromDate: null,
     toDate: null,
+    tags: [],
     offset: 0,
     limit: 5,
   };

@@ -16,6 +16,7 @@ import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-in
 import { Link, LinkButton } from '../link';
 import { ConferenceStatus } from '../conference-status';
 import { useUser } from '../../models/user';
+import { TagsList } from '../tags';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,9 +29,6 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
   },
   card: {
     marginTop: theme.spacing(1),
@@ -91,6 +89,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
             <Link to="/meetings">
               <Grid container direction="row" alignItems="center">
                 <Typography className={classes.title} color="textSecondary">
+                  {/* TODO add status */}
                   Live
                 </Typography>
                 <VideocamIcon />
@@ -101,9 +100,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
         <Typography variant="h5" component="h2">
           <Link to="/meetings">{title}</Link>
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          Tags
-        </Typography>
+        <TagsList tags={meeting.tags} />
       </CardContent>
       <Divider />
       <CardContent className={classes.cardContent}>

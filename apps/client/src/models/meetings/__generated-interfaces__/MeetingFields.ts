@@ -23,6 +23,18 @@ export interface MeetingFields_host {
   name: string;
 }
 
+export interface MeetingFields_tags {
+  __typename: "Tag";
+  /**
+   * The id of the tag
+   */
+  id: number;
+  /**
+   * The name of the tag
+   */
+  name: string;
+}
+
 export interface MeetingFields {
   __typename: "Meeting";
   /**
@@ -53,4 +65,8 @@ export interface MeetingFields {
    * The hoster of the meeting
    */
   host: MeetingFields_host;
+  /**
+   * The tags of the meeting
+   */
+  tags: MeetingFields_tags[] | null;
 }

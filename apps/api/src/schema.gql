@@ -63,8 +63,22 @@ type Meeting {
   """The conference associated with the meeting"""
   conference: Conference
 
+  """The tags of the meeting"""
+  tags: [Tag!]
+
   """The date from which the conference can be created"""
   prepareDate: DateTime!
+}
+
+type Tag {
+  """The id of the tag"""
+  id: Int!
+
+  """The name of the tag"""
+  name: String!
+
+  """The meetings with this tag"""
+  meetings: [Meeting!]
 }
 
 type MeetingSearchResponse {
@@ -87,6 +101,8 @@ type Query {
   discover(searchMeetingInput: SearchCriteriaInput!): MeetingSearchResponse!
   myMeetings(searchMeetingInput: SearchCriteriaInput!): MeetingSearchResponse!
   meeting(id: String!): Meeting!
+  tags: [Tag!]!
+  tag(id: Int!): Tag!
   users: [User!]!
   user(id: String!): User!
   currentUser: User!
@@ -108,6 +124,9 @@ input SearchCriteriaInput {
   """The optional to date to filter meetings"""
   toDate: DateTime
 
+  """The optional tags filter meetings"""
+  tags: [TagOption!]
+
   """The optional pagination offset, needs limit field to work."""
   offset: Int
 
@@ -121,10 +140,21 @@ enum OrderBy {
   DESC
 }
 
+input TagOption {
+  """The id of the tag"""
+  id: Int
+
+  """The name of the tag"""
+  name: String!
+}
+
 type Mutation {
   createMeeting(createMeetingInput: CreateMeetingInput!): Meeting!
   updateMeeting(updateMeetingInput: UpdateMeetingInput!): Meeting!
   removeMeeting(id: String!): Boolean!
+  createTag(createTagInput: CreateTagInput!): Tag!
+  updateTag(updateTagInput: UpdateTagInput!): Tag!
+  removeTag(id: Int!): Tag!
   updateUser(updateUserInput: UpdateUserInput!): User!
   updateCurrentUser(updateCurrentUserInput: UpdateCurrentUserInput!): User!
   createConference(createConferenceInput: CreateConferenceInput!): Conference!
@@ -136,7 +166,7 @@ input CreateMeetingInput {
   """The title of the meeting"""
   title: String!
 
-  """The description of the meeting"""
+  """The optional description of the meeting"""
   description: String
 
   """The start date of the meeting"""
@@ -144,13 +174,16 @@ input CreateMeetingInput {
 
   """The end date of the meeting"""
   endDate: DateTime!
+
+  """The optional tags of the meeting"""
+  tags: [TagOption!]
 }
 
 input UpdateMeetingInput {
   """The title of the meeting"""
   title: String
 
-  """The description of the meeting"""
+  """The optional description of the meeting"""
   description: String
 
   """The start date of the meeting"""
@@ -159,8 +192,24 @@ input UpdateMeetingInput {
   """The end date of the meeting"""
   endDate: DateTime
 
+  """The optional tags of the meeting"""
+  tags: [TagOption!]
+
   """The id of the meeting"""
   id: String!
+}
+
+input CreateTagInput {
+  """The name of the tag"""
+  name: String!
+}
+
+input UpdateTagInput {
+  """The name of the tag"""
+  name: String
+
+  """The id of the tag"""
+  id: Int!
 }
 
 input UpdateUserInput {

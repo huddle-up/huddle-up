@@ -17,6 +17,7 @@ export const MEETINGS = gql`
     $startDateOrderBy: OrderBy!
     $fromDate: DateTime
     $toDate: DateTime
+    $tags: [TagOption!]
     $offset: Int
     $limit: Int
   ) {
@@ -26,6 +27,7 @@ export const MEETINGS = gql`
         startDateOrderBy: $startDateOrderBy
         fromDate: $fromDate
         toDate: $toDate
+        tags: $tags
         offset: $offset
         limit: $limit
       }
@@ -45,6 +47,7 @@ export const MY_MEETINGS = gql`
     $startDateOrderBy: OrderBy!
     $fromDate: DateTime
     $toDate: DateTime
+    $tags: [TagOption!]
     $offset: Int
     $limit: Int
   ) {
@@ -54,6 +57,7 @@ export const MY_MEETINGS = gql`
         startDateOrderBy: $startDateOrderBy
         fromDate: $fromDate
         toDate: $toDate
+        tags: $tags
         offset: $offset
         limit: $limit
       }

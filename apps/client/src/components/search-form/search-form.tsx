@@ -12,6 +12,7 @@ import { MeetingsVariables } from '../../models/meetings/__generated-interfaces_
 import { CardTitle } from '../card-title';
 import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { DateTimeField } from '../datetime-field';
+import { TagsField } from '../tags';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -34,7 +35,7 @@ interface SearchFormProps {
 }
 
 function SearchForm({
-  initialValues: { searchValue, startDateOrderBy, fromDate, toDate, offset, limit },
+  initialValues: { searchValue, startDateOrderBy, fromDate, toDate, tags, offset, limit },
   onSubmit,
 }: SearchFormProps) {
   const classes = useStyles();
@@ -54,7 +55,7 @@ function SearchForm({
 
   return (
     <Formik
-      initialValues={{ searchValue, startDateOrderBy, fromDate, toDate, offset, limit }}
+      initialValues={{ searchValue, startDateOrderBy, fromDate, toDate, tags, offset, limit }}
       validationSchema={FormSchema}
       onSubmit={onSubmit}>
       {({ submitForm, isSubmitting, handleReset, setFieldValue }) => (
@@ -72,6 +73,14 @@ function SearchForm({
                 </Grid>
                 <Grid item xs={12}>
                   <OrderField name="startDateOrderBy" label={t('global.form.fields.order')} options={orderOptions} />
+                </Grid>
+                <Grid item xs={12}>
+                  <TagsField
+                    name="tags"
+                    label={t('global.form.fields.tags')}
+                    setFieldValue={setFieldValue}
+                    allowUserOptions={false}
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   <DateTimeField name="fromDate" label={t('global.form.fields.from')} />

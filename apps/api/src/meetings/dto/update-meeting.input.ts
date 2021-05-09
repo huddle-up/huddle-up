@@ -1,4 +1,4 @@
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType } from '@nestjs/graphql';
 import { CreateMeetingInput } from './create-meeting.input';
 
 @InputType()
