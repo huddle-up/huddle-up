@@ -32,7 +32,7 @@ function TagsList({ tags }: TagsListProps) {
 
   return (
     <ul className={classes.root}>
-      {tags && tags.length > 0 && (
+      {tags?.length > 0 && (
         <>
           <li key="0">
             <LocalOfferIcon className={classes.icon} />

@@ -22,9 +22,9 @@ function MyMeetingsPage() {
   const initialValues: MeetingsVariables = {
     searchValue: '',
     startDateOrderBy: OrderBy.DESC,
+    tags: [],
     fromDate: null,
     toDate: null,
-    tags: [],
     offset: 0,
     limit: 5,
   };
@@ -36,10 +36,13 @@ function MyMeetingsPage() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! ${error.message}</p>;
 
-  async function onSearch({ searchValue, startDateOrderBy, fromDate, toDate, offset, limit }: MeetingsVariables) {
+  async function onSearch({ searchValue, startDateOrderBy, tags, fromDate, toDate, offset, limit }: MeetingsVariables) {
     await refetch({
       searchValue,
       startDateOrderBy,
+      tags: tags.map((tag) => {
+        return { id: tag.id, name: tag.name };
+      }),
       fromDate,
       toDate,
       offset,
