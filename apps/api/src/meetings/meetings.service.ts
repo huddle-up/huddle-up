@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { addMinutes } from 'date-fns';
-import { DeleteResult, FindOperator, Like, Repository, MoreThan, FindOneOptions, Between, LessThan } from 'typeorm';
+import { DeleteResult, FindOperator, Like, Repository, MoreThan, FindOneOptions, Between, LessThan, In } from 'typeorm';
 import { TagsService } from '../tags/tags.service';
 import { MeetingsConfigService } from '../config/meetings/config.service';
 import { Meeting } from './entities/meeting.entity';
@@ -53,19 +53,26 @@ export class MeetingsService {
 
     const pagination = offset >= 0 && limit > 0 && { skip: offset, take: limit };
 
-    const [meetings, totalCount] = await this.meetingRepository.findAndCount({ where, order, ...pagination });
+    const [meetings, totalCount] = await this.meetingRepository.findAndCount({
+      relations: ['tags'],
+      where,
+      order,
+      ...pagination,
+    });
     return { meetings, totalCount };
   }
 
   private getWhereOptions(searchCriteria: SearchCriteria, hostId: string): FindOneOptions['where'] {
-    const { searchValue } = searchCriteria;
+    const { searchValue, tags } = searchCriteria;
     const valueOperator: FindOperator<string> = Like(`%${searchValue}%`);
     const baseOptions = hostId ? { hostId } : { endDate: MoreThan(new Date()) };
     const dateOperator = this.getDateFilterOperator(searchCriteria);
     const dateOptions = dateOperator && { startDate: dateOperator };
+    const tagsOptions = tags?.length > 0 && { tags: { id: In(tags.map((tag) => tag.id)) } };
+
     return [
-      { title: valueOperator, ...baseOptions, ...dateOptions },
-      { description: valueOperator, ...baseOptions, ...dateOptions },
+      { title: valueOperator, ...baseOptions, ...dateOptions, ...tagsOptions },
+      { description: valueOperator, ...baseOptions, ...dateOptions, ...tagsOptions },
     ];
   }
 

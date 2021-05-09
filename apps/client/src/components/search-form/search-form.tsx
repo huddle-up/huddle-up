@@ -49,13 +49,14 @@ function SearchForm({
   const FormSchema = Yup.object().shape({
     value: Yup.string(),
     order: Yup.string(),
+    tags: Yup.array().of(Yup.object().shape({ id: Yup.number(), name: Yup.string() })),
     fromDate: Yup.string().nullable(),
     toDate: Yup.string().nullable(),
   });
 
   return (
     <Formik
-      initialValues={{ searchValue, startDateOrderBy, fromDate, toDate, tags, offset, limit }}
+      initialValues={{ searchValue, startDateOrderBy, tags, fromDate, toDate, offset, limit }}
       validationSchema={FormSchema}
       onSubmit={onSubmit}>
       {({ submitForm, isSubmitting, handleReset, setFieldValue }) => (
