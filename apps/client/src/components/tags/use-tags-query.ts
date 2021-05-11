@@ -4,7 +4,9 @@ import { Tags } from '../../models/tags/__generated-interfaces__/Tags';
 import { TagOption } from '../../models/__generated-interfaces__/globalTypes';
 
 function useTagsQuery() {
-  const { loading: queryLoading, error: queryError, data } = useQuery<Tags>(TAGS);
+  const { loading: queryLoading, error: queryError, data } = useQuery<Tags>(TAGS, {
+    fetchPolicy: 'network-only',
+  });
   const tagOptions: TagOption[] = data ? data.tags : [];
 
   return {

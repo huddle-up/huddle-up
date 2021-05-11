@@ -50,7 +50,8 @@ function TagsField({ name, label, setFieldValue, filterSelectedOptions, allowUse
           multiple
           freeSolo={allowUserOptions}
           filterSelectedOptions={filterSelectedOptions}
-          options={value.concat(tagOptions)}
+          options={tagOptions}
+          getOptionSelected={(tagOption, tag) => tagOption.name === tag.name}
           getOptionLabel={(option) => option.name}
           onChange={(event, newValues) => {
             setFieldValue(
