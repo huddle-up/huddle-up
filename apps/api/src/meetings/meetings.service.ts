@@ -42,7 +42,7 @@ export class MeetingsService {
   }
 
   findOne(entity: Partial<Meeting>) {
-    return this.meetingRepository.findOne(entity, { relations: ['tags'] });
+    return this.meetingRepository.findOne(entity);
   }
 
   async search(searchCriteria: SearchCriteria, hostId?: string) {
