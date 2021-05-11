@@ -38,8 +38,9 @@ export class MeetingsService {
       const newTags = await this.tagService.findOrCreate(tags);
       meeting.tags = Promise.resolve(newTags);
     }
-    console.log('create', meeting);
+
     meeting.prepareDate = this.addPreparationTime(meeting.startDate);
+
     return this.meetingRepository.save(meeting);
   }
 
@@ -121,14 +122,16 @@ export class MeetingsService {
     if (!existingMeeting) {
       throw new NotFoundException(`Meeting with id ${partialMeeting.id} does not exist`);
     }
-    const meeting: Meeting = { ...existingMeeting, ...partialMeeting };
+
+    const meeting: Meeting = this.meetingRepository.create({ ...existingMeeting, ...partialMeeting });
 
     if (tags) {
       const newTags = await this.tagService.findOrCreate(tags);
-      meeting.tags = Promise.resolve(newTags); // TODO update does not work with promises
+      meeting.tags = Promise.resolve(newTags);
     }
 
     meeting.prepareDate = this.addPreparationTime(meeting.startDate);
+
     const { id } = await this.meetingRepository.save(meeting);
     return this.meetingRepository.findOne({ id });
   }
