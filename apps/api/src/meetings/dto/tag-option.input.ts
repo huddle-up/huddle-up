@@ -1,11 +1,10 @@
-import { Field, InputType, Int, PartialType } from '@nestjs/graphql';
-import { Tag } from '../../tags/entities/tag.entity';
+import { Field, InputType, Int } from '@nestjs/graphql';
 
 @InputType()
-export class TagOption extends PartialType(Tag) {
+export class TagOption {
   @Field(() => Int, { nullable: true, description: 'The id of the tag' })
   id?: number;
 
-  @Field({ description: 'The name of the tag' })
-  name: string;
+  @Field({ nullable: true, description: 'The name of the tag' })
+  name?: string;
 }

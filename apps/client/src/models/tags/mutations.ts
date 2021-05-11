@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
-import { TAG_CORE_FIELDS } from './fragments';
+import { TAG_FIELDS } from './fragments';
 
 export const CREATE_TAG = gql`
-  ${TAG_CORE_FIELDS}
+  ${TAG_FIELDS}
   mutation CreateTag($name: String!) {
     createTag(createTagInput: { name: $name }) {
       ...TagFields
@@ -11,7 +11,7 @@ export const CREATE_TAG = gql`
 `;
 
 export const UPDATE_TAG = gql`
-  ${TAG_CORE_FIELDS}
+  ${TAG_FIELDS}
   mutation UpdateTag($id: Int!, $name: String!) {
     updateTag(updateTagInput: { id: $id, name: $name }) {
       ...TagFields

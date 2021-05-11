@@ -15,7 +15,7 @@ export class Tag {
 
   @ManyToMany(() => Meeting, (meeting) => meeting.tags)
   @Field(() => [Meeting], { nullable: true, description: 'The meetings with this tag' })
-  meetings?: Promise<Meeting[]>;
+  meetings: Promise<Meeting[]>;
 
   @CreateDateColumn({ name: 'created_at' })
   'created_at': Date;
