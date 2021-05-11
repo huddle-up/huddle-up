@@ -1,18 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { addMinutes, format } from 'date-fns';
-import {
-  DeleteResult,
-  FindOperator,
-  Like,
-  Repository,
-  MoreThan,
-  FindOneOptions,
-  Between,
-  LessThan,
-  In,
-  SelectQueryBuilder,
-} from 'typeorm';
+import { addMinutes } from 'date-fns';
+import { DeleteResult, Repository, SelectQueryBuilder } from 'typeorm';
 import { flow } from 'lodash';
 import { TagsService } from '../tags/tags.service';
 import { MeetingsConfigService } from '../config/meetings/config.service';
@@ -133,7 +122,7 @@ export class MeetingsService {
     meeting.prepareDate = this.addPreparationTime(meeting.startDate);
 
     const { id } = await this.meetingRepository.save(meeting);
-    return this.meetingRepository.findOne({ id });
+    return this.findOne({ id });
   }
 
   private addPreparationTime(startDate: Date) {

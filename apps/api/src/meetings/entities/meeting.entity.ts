@@ -51,7 +51,7 @@ export class Meeting {
   @ManyToMany(() => Tag, (tag) => tag.meetings)
   @JoinTable()
   @Field(() => [Tag], { nullable: true, description: 'The tags of the meeting' })
-  tags?: Promise<Tag[]>;
+  tags: Promise<Tag[]>;
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   @Field(() => Date, { description: 'The date from which the conference can be created' })

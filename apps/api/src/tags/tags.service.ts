@@ -2,12 +2,13 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import { Tag } from './entities/tag.entity';
+import { CreateTag } from './interfaces/create-tag.interface';
 
 @Injectable()
 export class TagsService {
   constructor(@InjectRepository(Tag) private readonly tagRepository: Repository<Tag>) {}
 
-  async create(newTag: Partial<Tag>) {
+  async create(newTag: CreateTag) {
     const tag = this.tagRepository.create(newTag);
     return this.tagRepository.save(tag);
   }

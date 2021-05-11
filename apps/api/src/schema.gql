@@ -145,7 +145,7 @@ input TagOption {
   id: Int
 
   """The name of the tag"""
-  name: String!
+  name: String
 }
 
 type Mutation {

@@ -1,3 +1,3 @@
-export interface CreateMeeting {
+export interface CreateTag {
   name: string;
 }
