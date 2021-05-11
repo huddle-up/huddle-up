@@ -1,13 +1,26 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { addMinutes } from 'date-fns';
-import { DeleteResult, FindOperator, Like, Repository, MoreThan, FindOneOptions, Between, LessThan, In } from 'typeorm';
+import { addMinutes, format } from 'date-fns';
+import {
+  DeleteResult,
+  FindOperator,
+  Like,
+  Repository,
+  MoreThan,
+  FindOneOptions,
+  Between,
+  LessThan,
+  In,
+  SelectQueryBuilder,
+} from 'typeorm';
+import { flow } from 'lodash';
 import { TagsService } from '../tags/tags.service';
 import { MeetingsConfigService } from '../config/meetings/config.service';
 import { Meeting } from './entities/meeting.entity';
 import { CreateMeeting } from './interfaces/create-meeting.interface';
 import { SearchCriteria } from './interfaces/search-criteria.interface';
 import { UpdateMeeting } from './interfaces/update-meeting.inferface';
+import { Tag } from '../tags/entities/tag.entity';
 
 @Injectable()
 export class MeetingsService {
@@ -43,50 +56,63 @@ export class MeetingsService {
   }
 
   async search(searchCriteria: SearchCriteria, hostId?: string) {
-    const { startDateOrderBy, offset, limit } = searchCriteria;
+    const { searchValue, startDateOrderBy, offset, limit, fromDate, toDate, tags } = searchCriteria;
 
-    const where = this.getWhereOptions(searchCriteria, hostId);
+    // This will append the query builder options to the base query in the specified order
+    const query = flow(
+      (q) => this.applySearchFilter(q, searchValue),
+      (q) => this.applyHostFilter(q, hostId),
+      (q) => this.applyDateFilter(q, fromDate, toDate),
+      (q) => this.applyTagFilter(q, tags)
+    )(this.meetingRepository.createQueryBuilder('meeting'));
 
-    const order: FindOneOptions['order'] = {
-      startDate: startDateOrderBy,
-    };
-
-    const pagination = offset >= 0 && limit > 0 && { skip: offset, take: limit };
-
-    const [meetings, totalCount] = await this.meetingRepository.findAndCount({
-      relations: ['tags'],
-      where,
-      order,
-      ...pagination,
-    });
+    const [meetings, totalCount] = await query
+      .orderBy('meeting.startDate', startDateOrderBy)
+      .limit(limit)
+      .offset(offset)
+      .getManyAndCount();
     return { meetings, totalCount };
   }
 
-  private getWhereOptions(searchCriteria: SearchCriteria, hostId: string): FindOneOptions['where'] {
-    const { searchValue, tags } = searchCriteria;
-    const valueOperator: FindOperator<string> = Like(`%${searchValue}%`);
-    const baseOptions = hostId ? { hostId } : { endDate: MoreThan(new Date()) };
-    const dateOperator = this.getDateFilterOperator(searchCriteria);
-    const dateOptions = dateOperator && { startDate: dateOperator };
-    const tagsOptions = tags?.length > 0 && { tags: { id: In(tags.map((tag) => tag.id)) } };
-
-    return [
-      { title: valueOperator, ...baseOptions, ...dateOptions, ...tagsOptions },
-      { description: valueOperator, ...baseOptions, ...dateOptions, ...tagsOptions },
-    ];
+  private applySearchFilter(query: SelectQueryBuilder<Meeting>, search: string): SelectQueryBuilder<Meeting> {
+    if (search) {
+      return query.andWhere('(meeting.title LIKE :search OR meeting.description LIKE :search)', {
+        search: `%${search}%`,
+      });
+    }
+    return query;
   }
 
-  private getDateFilterOperator({ fromDate, toDate }: SearchCriteria): FindOperator<Date> {
+  private applyDateFilter(
+    query: SelectQueryBuilder<Meeting>,
+    fromDate: Date,
+    toDate: Date
+  ): SelectQueryBuilder<Meeting> {
     if (fromDate) {
       if (toDate) {
-        return Between(fromDate, toDate);
+        return query.andWhere('meeting.startDate BETWEEN :fromDate AND :toDate', { fromDate, toDate });
       }
-      return MoreThan(fromDate);
+      return query.andWhere('meeting.startDate > :fromDate', { fromDate });
     }
     if (toDate) {
-      return LessThan(toDate);
+      return query.andWhere('meeting.startDate < :toDate', { toDate });
     }
-    return undefined;
+    return query;
+  }
+
+  private applyHostFilter(query: SelectQueryBuilder<Meeting>, hostId: string): SelectQueryBuilder<Meeting> {
+    if (hostId) {
+      return query.andWhere('meeting.hostId = :hostId', { hostId });
+    }
+    return query;
+  }
+
+  private applyTagFilter(query: SelectQueryBuilder<Meeting>, tags?: Partial<Tag>[]): SelectQueryBuilder<Meeting> {
+    if (tags && tags.length > 0) {
+      const tagIds = tags.map((t) => t.id);
+      return query.innerJoin('meeting.tags', 'tag', 'tag.id IN (:...tagIds)', { tagIds });
+    }
+    return query;
   }
 
   async update(updateMeeting: UpdateMeeting) {
