@@ -11,13 +11,7 @@ export const CREATE_MEETING = gql`
     $tags: [TagOption!]
   ) {
     createMeeting(
-      createMeetingInput: {
-        title: $title
-        description: $description
-        startDate: $startDate
-        endDate: $endDate
-        tags: $tags
-      }
+      input: { title: $title, description: $description, startDate: $startDate, endDate: $endDate, tags: $tags }
     ) {
       ...MeetingFields
     }
@@ -35,7 +29,7 @@ export const UPDATE_MEETING = gql`
     $tags: [TagOption!]
   ) {
     updateMeeting(
-      updateMeetingInput: {
+      input: {
         id: $id
         title: $title
         description: $description

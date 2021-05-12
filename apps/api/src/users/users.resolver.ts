@@ -28,13 +28,13 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
-  async updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    const { id, ...user } = updateUserInput;
+  async updateUser(@Args('input') input: UpdateUserInput) {
+    const { id, ...user } = input;
     return this.usersService.update(id, user);
   }
 
   @Mutation(() => User)
-  async updateCurrentUser(@Args('updateCurrentUserInput') input: UpdateCurrentUserInput, @CurrentUser() { userId }) {
+  async updateCurrentUser(@Args('input') input: UpdateCurrentUserInput, @CurrentUser() { userId }) {
     return this.usersService.update(userId, input);
   }
 }

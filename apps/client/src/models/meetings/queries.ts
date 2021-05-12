@@ -22,7 +22,7 @@ export const MEETINGS = gql`
     $limit: Int
   ) {
     discover(
-      searchMeetingInput: {
+      input: {
         searchValue: $searchValue
         startDateOrderBy: $startDateOrderBy
         fromDate: $fromDate

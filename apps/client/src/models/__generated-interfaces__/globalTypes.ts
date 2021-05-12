@@ -17,7 +17,7 @@ export enum OrderBy {
 
 export interface TagOption {
   id?: number | null;
-  name: string;
+  name?: string | null;
 }
 
 //==============================================================

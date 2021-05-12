@@ -9,8 +9,8 @@ export class TagsResolver {
   constructor(private readonly tagsService: TagsService) {}
 
   @Mutation(() => Tag)
-  createTag(@Args('createTagInput') createTagInput: CreateTagInput) {
-    return this.tagsService.create(createTagInput);
+  createTag(@Args('input') input: CreateTagInput) {
+    return this.tagsService.create(input);
   }
 
   @Query(() => [Tag], { name: 'tags' })
@@ -24,8 +24,8 @@ export class TagsResolver {
   }
 
   @Mutation(() => Tag)
-  updateTag(@Args('updateTagInput') updateTagInput: UpdateTagInput) {
-    return this.tagsService.update(updateTagInput);
+  updateTag(@Args('input') input: UpdateTagInput) {
+    return this.tagsService.update(input);
   }
 
   @Mutation(() => Tag)
