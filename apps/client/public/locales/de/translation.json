@@ -142,7 +142,8 @@
       "endDate": "Geplantes Ende"
     },
     "today": "Heute",
-    "hostedby": "Veranstaltet von",
+    "hostedby": "Veranstaltet von {{ host }}",
+    "hostedbyYou": "Veranstaltet von dir",
     "participant": "Teilnehmer",
     "noMeetingsPlaceholder": "Keine Treffen gefunden",
     "orderDesc": "Neuste Treffen zuerst",

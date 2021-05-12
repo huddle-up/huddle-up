@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL fragment: MeetingHostFields
+// GraphQL fragment: UserCoreFields
 // ====================================================
 
-export interface MeetingHostFields_host {
+export interface UserCoreFields {
   __typename: "User";
   /**
    * The id of the user
@@ -21,12 +21,4 @@ export interface MeetingHostFields_host {
    * The name of the user
    */
   name: string;
-}
-
-export interface MeetingHostFields {
-  __typename: "Meeting";
-  /**
-   * The hoster of the meeting
-   */
-  host: MeetingHostFields_host;
 }
