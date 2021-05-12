@@ -4,7 +4,7 @@ import { CONFERENCE_CORE_FIELDS } from './fragments';
 export const CREATE_CONFERENCE = gql`
   ${CONFERENCE_CORE_FIELDS}
   mutation CreateConference($meetingId: String!) {
-    createConference(createConferenceInput: { meetingId: $meetingId }) {
+    createConference(input: { meetingId: $meetingId }) {
       ...ConferenceCoreFields
     }
   }

@@ -16,11 +16,8 @@ export class ConferenceResolver {
   ) {}
 
   @Mutation(() => Conference)
-  async createConference(
-    @Args('createConferenceInput') createConferenceInput: CreateConferenceInput,
-    @CurrentUser() { userId }
-  ) {
-    const { meetingId } = createConferenceInput;
+  async createConference(@Args('input') input: CreateConferenceInput, @CurrentUser() { userId }) {
+    const { meetingId } = input;
     const meeting = await this.meetingsService.findOne({ id: meetingId });
     if (!meeting) {
       throw new NotFoundException(`Meeting with id ${meetingId} does not exist.`);

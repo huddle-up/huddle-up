@@ -15,13 +15,13 @@ export class MeetingsResolver {
   constructor(private readonly meetingsService: MeetingsService) {}
 
   @Mutation(() => Meeting)
-  async createMeeting(@Args('createMeetingInput') createMeetingInput: CreateMeetingInput, @CurrentUser() authUser) {
-    const meeting = { ...createMeetingInput, hostId: authUser.userId };
+  async createMeeting(@Args('input') input: CreateMeetingInput, @CurrentUser() authUser) {
+    const meeting = { ...input, hostId: authUser.userId };
     return this.meetingsService.create(meeting);
   }
 
   @Query(() => MeetingSearchResponse, { name: 'discover' })
-  async findAll(@Args('searchMeetingInput') searchCriteria: SearchCriteriaInput) {
+  async findAll(@Args('input') searchCriteria: SearchCriteriaInput) {
     return this.meetingsService.search(searchCriteria);
   }
 
@@ -36,8 +36,8 @@ export class MeetingsResolver {
   }
 
   @Mutation(() => Meeting)
-  async updateMeeting(@Args('updateMeetingInput') updateMeetingInput: UpdateMeetingInput) {
-    return this.meetingsService.update(updateMeetingInput);
+  async updateMeeting(@Args('input') input: UpdateMeetingInput) {
+    return this.meetingsService.update(input);
   }
 
   @Mutation(() => Boolean)

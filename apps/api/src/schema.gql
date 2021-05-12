@@ -98,7 +98,7 @@ type ConferenceAccess {
 }
 
 type Query {
-  discover(searchMeetingInput: SearchCriteriaInput!): MeetingSearchResponse!
+  discover(input: SearchCriteriaInput!): MeetingSearchResponse!
   myMeetings(searchMeetingInput: SearchCriteriaInput!): MeetingSearchResponse!
   meeting(id: String!): Meeting!
   tags: [Tag!]!
@@ -149,15 +149,15 @@ input TagOption {
 }
 
 type Mutation {
-  createMeeting(createMeetingInput: CreateMeetingInput!): Meeting!
-  updateMeeting(updateMeetingInput: UpdateMeetingInput!): Meeting!
+  createMeeting(input: CreateMeetingInput!): Meeting!
+  updateMeeting(input: UpdateMeetingInput!): Meeting!
   removeMeeting(id: String!): Boolean!
-  createTag(createTagInput: CreateTagInput!): Tag!
-  updateTag(updateTagInput: UpdateTagInput!): Tag!
+  createTag(input: CreateTagInput!): Tag!
+  updateTag(input: UpdateTagInput!): Tag!
   removeTag(id: Int!): Tag!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  updateCurrentUser(updateCurrentUserInput: UpdateCurrentUserInput!): User!
-  createConference(createConferenceInput: CreateConferenceInput!): Conference!
+  updateUser(input: UpdateUserInput!): User!
+  updateCurrentUser(input: UpdateCurrentUserInput!): User!
+  createConference(input: CreateConferenceInput!): Conference!
   publishConference(conferenceId: String!): Conference!
   stopConference(conferenceId: String!): Conference!
 }

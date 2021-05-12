@@ -9,6 +9,34 @@ import { TagOption } from "./../../__generated-interfaces__/globalTypes";
 // GraphQL mutation operation: CreateMeeting
 // ====================================================
 
+export interface CreateMeeting_createMeeting_host {
+  __typename: "User";
+  /**
+   * The id of the user
+   */
+  id: string;
+  /**
+   * The email of the user
+   */
+  email: string;
+  /**
+   * The name of the user
+   */
+  name: string;
+}
+
+export interface CreateMeeting_createMeeting_tags {
+  __typename: "Tag";
+  /**
+   * The id of the tag
+   */
+  id: number;
+  /**
+   * The name of the tag
+   */
+  name: string;
+}
+
 export interface CreateMeeting_createMeeting {
   __typename: "Meeting";
   /**
@@ -35,6 +63,14 @@ export interface CreateMeeting_createMeeting {
    * The date from which the conference can be created
    */
   prepareDate: any;
+  /**
+   * The hoster of the meeting
+   */
+  host: CreateMeeting_createMeeting_host;
+  /**
+   * The tags of the meeting
+   */
+  tags: CreateMeeting_createMeeting_tags[] | null;
 }
 
 export interface CreateMeeting {
