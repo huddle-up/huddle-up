@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Grid, CardActions } from '@material-ui/core';
 import VideocamIcon from '@material-ui/icons/Videocam';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { format, isToday, isWithinInterval } from 'date-fns';
 import Divider from '@material-ui/core/Divider';
 import EventIcon from '@material-ui/icons/Event';
@@ -13,10 +12,11 @@ import EditIcon from '@material-ui/icons/Edit';
 // import PersonAddIcon from '@material-ui/icons/PersonAdd';
 // import CloseIcon from '@material-ui/icons/Close';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
-import { Link, LinkButton } from '../link';
+import { LinkButton } from '../link';
 import { ConferenceStatus } from '../conference-status';
 import { useUser } from '../../models/user';
 import { TagsList } from '../tags';
+import { HostLink } from '../host-link';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,8 +27,15 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 2px',
     transform: 'scale(0.8)',
   },
-  title: {
+  metaFont: {
     fontSize: 14,
+  },
+  statusIcon: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  tags: {
+    marginTop: theme.spacing(1),
   },
   card: {
     marginTop: theme.spacing(1),
@@ -81,38 +88,31 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
     <Card className={classes.card} variant="outlined">
       <CardContent className={classes.cardContent}>
         <Grid container direction="row" justify="space-between" alignItems="center">
-          <Typography className={classes.title} color="textSecondary" gutterBottom>
+          <Typography className={classes.metaFont} color="textSecondary" gutterBottom>
             {isToday(meetingStart) ? t('meetings.today') : format(meetingStart, 'dd. MMMM yyyy')} {bull}{' '}
             {format(meetingStart, 'HH:mm')}
           </Typography>
           {live && (
-            <Link to="/meetings">
-              <Grid container direction="row" alignItems="center">
-                <Typography className={classes.title} color="textSecondary">
-                  {/* TODO add status */}
-                  Live
-                </Typography>
-                <VideocamIcon />
-              </Grid>
-            </Link>
+            <div className={classes.statusIcon}>
+              <Typography className={classes.metaFont} color="textSecondary">
+                {/* TODO add status */}
+                Live
+              </Typography>
+              <VideocamIcon />
+            </div>
           )}
         </Grid>
         <Typography variant="h5" component="h2">
-          <Link to="/meetings">{title}</Link>
+          {title}
         </Typography>
-        <TagsList tags={meeting.tags} />
+        <div className={classes.tags}>
+          <TagsList tags={meeting.tags} />
+        </div>
       </CardContent>
       <Divider />
       <CardContent className={classes.cardContent}>
         <Grid container direction="row" justify="space-between" alignItems="center">
-          <Link to="/profile">
-            <Grid container direction="row" alignItems="center">
-              <AccountCircleIcon fontSize="large" />{' '}
-              <Typography variant="body2">
-                {t('meetings.hostedby')} {host.name}
-              </Typography>
-            </Grid>
-          </Link>
+          <HostLink host={host} currentUser={user} />
           <ConferenceStatus meeting={meeting} />
           {/* <LinkButton
             to="/meetings"

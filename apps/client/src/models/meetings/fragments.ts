@@ -1,4 +1,6 @@
 import { gql } from '@apollo/client';
+import { TAG_FIELDS } from '../tags';
+import { USER_CORE_FIELDS } from '../user';
 
 export const MEETING_CORE_FIELDS = gql`
   fragment MeetingCoreFields on Meeting {
@@ -14,18 +16,15 @@ export const MEETING_CORE_FIELDS = gql`
 
 export const MEETING_FIELDS = gql`
   ${MEETING_CORE_FIELDS}
+  ${USER_CORE_FIELDS}
+  ${TAG_FIELDS}
   fragment MeetingFields on Meeting {
     ...MeetingCoreFields
     host {
-      id
-      email
-      name
-      __typename
+      ...UserCoreFields
     }
     tags {
-      id
-      name
-      __typename
+      ...TagFields
     }
   }
 `;
