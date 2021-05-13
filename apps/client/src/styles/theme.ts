@@ -13,6 +13,11 @@ export function createTheme(locale: Localization) {
           main: pink[700],
         },
       },
+      props: {
+        MuiButton: {
+          disableElevation: true,
+        },
+      },
     },
     locale
   );
