@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Grid, CardActions } from '@material-ui/core';
 import VideocamIcon from '@material-ui/icons/Videocam';
-import { format, isToday, isWithinInterval } from 'date-fns';
+import { format, isToday } from 'date-fns';
 import Divider from '@material-ui/core/Divider';
 import EventIcon from '@material-ui/icons/Event';
 import EditIcon from '@material-ui/icons/Edit';
@@ -13,10 +13,12 @@ import EditIcon from '@material-ui/icons/Edit';
 // import CloseIcon from '@material-ui/icons/Close';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { LinkButton } from '../link';
-import { ConferenceStatus } from '../conference-status';
 import { useUser } from '../../models/user';
 import { TagsList } from '../tags';
 import { HostLink } from '../host-link';
+import { useMeetingState } from '../../models/meetings';
+import { ConferenceAccess } from '../conference-access';
+import { ConferenceControl } from '../conference-control';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,16 +60,16 @@ interface MeetingCardProps {
 }
 
 function MeetingDetailCard({ meeting }: MeetingCardProps) {
+  const { user } = useUser();
   const { t } = useTranslation();
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
+  const meetingState = useMeetingState(meeting);
   const { id, title, description, startDate, endDate, host } = meeting;
   const meetingStart = new Date(startDate);
   const meetingEnd = new Date(endDate);
-  const live = isWithinInterval(new Date(), { start: meetingStart, end: meetingEnd });
 
-  const { user } = useUser();
   const isHost = user.id === host.id;
 
   // TODO implement different meeting actions
@@ -92,10 +94,9 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
             {isToday(meetingStart) ? t('meetings.today') : format(meetingStart, 'dd. MMMM yyyy')} {bull}{' '}
             {format(meetingStart, 'HH:mm')}
           </Typography>
-          {live && (
+          {meetingState.isPublished && (
             <div className={classes.statusIcon}>
               <Typography className={classes.metaFont} color="textSecondary">
-                {/* TODO add status */}
                 Live
               </Typography>
               <VideocamIcon />
@@ -113,7 +114,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
       <CardContent className={classes.cardContent}>
         <Grid container direction="row" justify="space-between" alignItems="center">
           <HostLink host={host} currentUser={user} />
-          <ConferenceStatus meeting={meeting} />
+          <ConferenceAccess meeting={meeting} state={meetingState} />
           {/* <LinkButton
             to="/meetings"
             variant="contained"
@@ -131,6 +132,14 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
             <SplitButton options={options} icons={iconOptions} defaultSelectedIndex={1} />
           </Grid> */}
       </CardContent>
+      {meetingState.canManage(user) && (
+        <>
+          <Divider />
+          <CardContent className={classes.cardContent}>
+            <ConferenceControl meeting={meeting} state={meetingState} user={user} />
+          </CardContent>
+        </>
+      )}
       <Divider />
       <CardContent className={classes.cardContent}>
         <Grid container direction="row" justify="space-between" alignItems="center">

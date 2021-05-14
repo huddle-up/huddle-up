@@ -23,6 +23,12 @@ export const MEETING_FIELDS = gql`
     host {
       ...UserCoreFields
     }
+    conference {
+      id
+      publishedAt
+      stoppedAt
+      __typename
+    }
     tags {
       ...TagFields
     }
