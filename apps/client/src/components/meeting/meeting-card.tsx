@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Grid } from '@material-ui/core';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import CheckIcon from '@material-ui/icons/Check';
-import { format, isToday, isWithinInterval } from 'date-fns';
+import { format, isToday } from 'date-fns';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { Link, LinkButton } from '../link';
 import { TagsList } from '../tags';
@@ -45,10 +45,9 @@ function MeetingCard({ meeting }: MeetingCardProps) {
   const { user } = useUser();
   const bull = <span className={classes.bullet}>•</span>;
 
-  const { id, title, startDate, endDate, host } = meeting;
+  const { id, title, startDate, host, conference } = meeting;
   const meetingStart = new Date(startDate);
-  const meetingEnd = new Date(endDate);
-  const live = isWithinInterval(new Date(), { start: meetingStart, end: meetingEnd });
+  const live = conference && conference.publishedAt && !conference.stoppedAt;
 
   return (
     <Card className={classes.card} variant="outlined">

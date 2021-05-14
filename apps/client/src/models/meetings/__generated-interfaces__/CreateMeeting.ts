@@ -25,6 +25,22 @@ export interface CreateMeeting_createMeeting_host {
   name: string;
 }
 
+export interface CreateMeeting_createMeeting_conference {
+  __typename: "Conference";
+  /**
+   * The id of the conference
+   */
+  id: string;
+  /**
+   * The date the conference has been published to participants at
+   */
+  publishedAt: any | null;
+  /**
+   * The date the conference has been stopped at
+   */
+  stoppedAt: any | null;
+}
+
 export interface CreateMeeting_createMeeting_tags {
   __typename: "Tag";
   /**
@@ -67,6 +83,10 @@ export interface CreateMeeting_createMeeting {
    * The hoster of the meeting
    */
   host: CreateMeeting_createMeeting_host;
+  /**
+   * The conference associated with the meeting
+   */
+  conference: CreateMeeting_createMeeting_conference | null;
   /**
    * The tags of the meeting
    */

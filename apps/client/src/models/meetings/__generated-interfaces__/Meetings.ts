@@ -25,6 +25,22 @@ export interface Meetings_discover_meetings_host {
   name: string;
 }
 
+export interface Meetings_discover_meetings_conference {
+  __typename: "Conference";
+  /**
+   * The id of the conference
+   */
+  id: string;
+  /**
+   * The date the conference has been published to participants at
+   */
+  publishedAt: any | null;
+  /**
+   * The date the conference has been stopped at
+   */
+  stoppedAt: any | null;
+}
+
 export interface Meetings_discover_meetings_tags {
   __typename: "Tag";
   /**
@@ -67,6 +83,10 @@ export interface Meetings_discover_meetings {
    * The hoster of the meeting
    */
   host: Meetings_discover_meetings_host;
+  /**
+   * The conference associated with the meeting
+   */
+  conference: Meetings_discover_meetings_conference | null;
   /**
    * The tags of the meeting
    */

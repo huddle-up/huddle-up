@@ -126,14 +126,20 @@
       "past": "Vergangene Treffen"
     },
     "conference": {
-      "start": "Treffen starten",
+      "state": {
+        "pending": "Das Treffen wurde noch nicht gestartet",
+        "early": "Das Treffen kann noch nicht gestartet werden",
+        "ready": "Das Treffen kann unten gestartet werden",
+        "ended": "Das Treffen wurde beendet",
+        "past": "Das Treffen kann nicht mehr gestartet werden",
+        "neverStarted": "Das Treffen wurde nicht durchgeführt"
+      },
       "join": "Treffen beitreten",
-      "pending": "Das Treffen wurde noch nicht gestartet",
-      "early": "Das Treffen kann noch nicht gestartet werden",
-      "setup": "Einrichten",
-      "publish": "Öffentlich machen",
-      "stop": "Beenden",
-      "ended": "Das Treffen wurde beendet"
+      "control": {
+        "start": "Treffen starten",
+        "publish": "Öffentlich machen",
+        "stop": "Beenden"
+      }
     },
     "form": {
       "title": "Titel",

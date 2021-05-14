@@ -133,14 +133,20 @@
       "endDate": "Estimated End"
     },
     "conference": {
-      "start": "Start Meeting",
+      "state": {
+        "pending": "The meeting has not been started",
+        "early": "You cannot start the meeting, yet",
+        "ready": "You can start the meeting below",
+        "ended": "The meeting has ended",
+        "past": "You cannot start the meeting anymore",
+        "neverStarted": "The meeting was not held"
+      },
       "join": "Join Meeting",
-      "pending": "The meeting has not been started",
-      "early": "You cannot start the conference, yet",
-      "setup": "Setup",
-      "publish": "Make Public",
-      "stop": "End Meeting",
-      "ended": "The meeting has ended"
+      "control": {
+        "start": "Start Meeting",
+        "publish": "Make Public",
+        "stop": "End Meeting"
+      }
     },
     "today": "Today",
     "hostedby": "Hosted by {{host}}",
