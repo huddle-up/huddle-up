@@ -64,7 +64,7 @@ function MeetingUpdatePage() {
     );
 
   return (
-    <AppPageMain>
+    <AppPageMain noAside>
       <section>
         <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.edit')} />
         {mutationLoading && (

@@ -54,7 +54,7 @@ function MeetingCreatePage() {
   }
 
   return (
-    <AppPageMain>
+    <AppPageMain noAside>
       <section>
         <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.new')} />
         {mutationLoading && (
