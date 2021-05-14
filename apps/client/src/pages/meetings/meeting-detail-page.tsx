@@ -37,7 +37,7 @@ function MeetingDetailPage() {
   if (queryError) return <Paper className={classes.paper}>`Error loading meeting! ${queryError.message}`</Paper>;
 
   return (
-    <AppPageMain>
+    <AppPageMain noAside>
       <section>
         <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('global.title.meeting')} />
         <MeetingDetailCard meeting={data.meeting} />
