@@ -162,7 +162,8 @@
     "participant": "Participant",
     "noMeetingsPlaceholder": "No meetings found",
     "orderDesc": "Newest Meetings first",
-    "orderAsc": "Oldest Meetings first"
+    "orderAsc": "Oldest Meetings first",
+    "noDescription": "No description available."
   },
   "profile": {
     "head": {

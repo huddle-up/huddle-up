@@ -154,7 +154,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
           </Grid>
         </Grid>
         <Typography variant="body2" className={classes.description}>
-          {description}
+          {description || t('meetings.noDescription')}
         </Typography>
       </CardContent>
       {isHost && (

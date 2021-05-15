@@ -161,7 +161,8 @@
     "participant": "Teilnehmer",
     "noMeetingsPlaceholder": "Keine Treffen gefunden",
     "orderDesc": "Neuste Treffen zuerst",
-    "orderAsc": "Älteste Treffen zuerst"
+    "orderAsc": "Älteste Treffen zuerst",
+    "noDescription": "Keine Beschreibung vorhanden."
   },
   "profile": {
     "head": {
