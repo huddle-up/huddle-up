@@ -24,6 +24,17 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type Participation {
+  """The id of the participation"""
+  id: String!
+
+  """The user associated with the participation"""
+  user: User!
+
+  """The meeting associated with the participation"""
+  meeting: Meeting!
+}
+
 type User {
   """The id of the user"""
   id: String!
@@ -37,8 +48,11 @@ type User {
   """The biography of the user"""
   biography: String
 
-  """The meetings of the user"""
+  """The meetings the user has hosted"""
   meetings: [Meeting!]!
+
+  """The meetings the user is a participant of"""
+  participations: [Participation!]!
 }
 
 type Meeting {
@@ -59,6 +73,9 @@ type Meeting {
 
   """The hoster of the meeting"""
   host: User!
+
+  """The participations of the meeting"""
+  participations: [Participation!]!
 
   """The conference associated with the meeting"""
   conference: Conference
@@ -109,6 +126,8 @@ type Query {
   conference(id: String!): Conference!
   conferenceByMeeting(meetingId: String!): Conference
   conferenceAccess(conferenceId: String!): ConferenceAccess!
+  userParticipation(userId: String, meetingId: String!): Participation
+  participations(meetingId: String!): [Participation!]!
 }
 
 input SearchCriteriaInput {
@@ -159,6 +178,8 @@ type Mutation {
   createConference(input: CreateConferenceInput!): Conference!
   publishConference(conferenceId: String!): Conference!
   stopConference(conferenceId: String!): Conference!
+  createParticipation(input: CreateParticipationInput!): Participation!
+  deleteParticipation(id: String!): Boolean!
 }
 
 input CreateMeetingInput {
@@ -239,4 +260,14 @@ input UpdateCurrentUserInput {
 input CreateConferenceInput {
   """The id of the meeting to create a conference for."""
   meetingId: String!
+}
+
+input CreateParticipationInput {
+  """The id of the meeting the participation should belong to"""
+  meetingId: String!
+
+  """
+  The id of the user the participation should belong to (optional, defaults to the current user)
+  """
+  userId: String
 }

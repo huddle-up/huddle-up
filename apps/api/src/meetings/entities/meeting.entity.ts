@@ -6,6 +6,7 @@ import {
   JoinTable,
   ManyToMany,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -13,6 +14,7 @@ import {
 import { Tag } from '../../tags/entities/tag.entity';
 import { Conference } from '../../conferences/entities/conference.entity';
 import { User } from '../../users/entities/user.entity';
+import { Participation } from '../../participations/entities/participation.entity';
 
 @Entity()
 @ObjectType()
@@ -43,6 +45,10 @@ export class Meeting {
 
   @Column()
   hostId: string;
+
+  @OneToMany(() => Participation, (participation) => participation.meeting)
+  @Field(() => [Participation], { description: 'The participations of the meeting' })
+  participations: Promise<Participation[]>;
 
   @OneToOne(() => Conference, (conference) => conference.meeting)
   @Field(() => Conference, { description: 'The conference associated with the meeting', nullable: true })
