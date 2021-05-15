@@ -95,7 +95,7 @@ function UserContent({ meeting, state, user }: ContentProps) {
   }
   return (
     <ContentRoot>
-      {(state.isInFuture || state.isStarted) && (
+      {(state.isInFuture || state.isReadyToStart || state.isStarted) && (
         <>
           <Schedule />
           <Typography component="span" variant="body2">
