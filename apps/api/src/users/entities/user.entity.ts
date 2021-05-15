@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Meeting } from '../../meetings/entities/meeting.entity';
+import { Participation } from '../../participations/entities/participation.entity';
 
 @Entity()
 @ObjectType()
@@ -22,8 +23,12 @@ export class User {
   biography?: string;
 
   @OneToMany(() => Meeting, (meeting) => meeting.host)
-  @Field(() => [Meeting], { description: 'The meetings of the user' })
+  @Field(() => [Meeting], { description: 'The meetings the user has hosted' })
   meetings: Promise<Meeting[]>;
+
+  @OneToMany(() => Participation, (participation) => participation.user)
+  @Field(() => [Participation], { description: 'The meetings the user is a participant of' })
+  participations: Promise<Participation>[];
 
   @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
 

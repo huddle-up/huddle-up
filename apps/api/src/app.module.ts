@@ -14,6 +14,7 @@ import { UsersModule } from './users/users.module';
 import { ConferencesModule } from './conferences/conferences.module';
 import { JitsiModule } from './jitsi/jitsi.module';
 import { TagsModule } from './tags/tags.module';
+import { ParticipationsModule } from './participations/participations.module';
 
 @Module({
   imports: [
@@ -50,6 +51,7 @@ import { TagsModule } from './tags/tags.module';
     ConferencesModule,
     JitsiModule,
     TagsModule,
+    ParticipationsModule,
   ],
   providers: [AppService],
 })
