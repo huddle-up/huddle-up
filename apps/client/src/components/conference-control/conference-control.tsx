@@ -97,6 +97,7 @@ const controlSteps = {
 };
 
 function ConferenceControl({ meeting, state, user }: ConferenceControlProps) {
+  const { t } = useTranslation();
   const classes = useStyles();
   const activeStep = useMemo(() => {
     if (state.isReadyToStart) {
@@ -116,34 +117,29 @@ function ConferenceControl({ meeting, state, user }: ConferenceControlProps) {
   return (
     <Stepper activeStep={activeStep} orientation="vertical" className={classes.root}>
       <Step completed={activeStep > controlSteps.start}>
-        <StepLabel>Start</StepLabel>
+        <StepLabel>{t('meetings.conference.control.steps.start')}</StepLabel>
         <StepContent>
           <StartConferenceButton meeting={meeting} state={state} user={user} />
         </StepContent>
       </Step>
       <Step completed={activeStep > controlSteps.setup}>
-        <StepLabel>Setup</StepLabel>
+        <StepLabel>{t('meetings.conference.control.steps.setup')}</StepLabel>
         <StepContent>
-          <Typography>
-            Your meeting is ready, but only visible to you. You can join the conference and set it up. Once it&apos;s
-            ready, make it available for all participants using the button below.
-          </Typography>
+          <Typography>{t('meetings.conference.control.steps.setupInfo')}</Typography>
           <PublishConferenceButton meeting={meeting} state={state} user={user} />
         </StepContent>
       </Step>
       <Step completed={activeStep > controlSteps.meet}>
-        <StepLabel>Meet</StepLabel>
+        <StepLabel>{t('meetings.conference.control.steps.meet')}</StepLabel>
         <StepContent>
-          <Typography>
-            You&apos;re live! Once you&apos;re done, you can stop the meeting using the button below.
-          </Typography>
+          <Typography>{t('meetings.conference.control.steps.meetInfo')}</Typography>
           <div>
             <StopConferenceButton meeting={meeting} state={state} user={user} />
           </div>
         </StepContent>
       </Step>
       <Step completed={activeStep === controlSteps.finished}>
-        <StepLabel>Finished</StepLabel>
+        <StepLabel>{t('meetings.conference.control.steps.finished')}</StepLabel>
       </Step>
     </Stepper>
   );
