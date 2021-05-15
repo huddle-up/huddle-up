@@ -145,7 +145,15 @@
       "control": {
         "start": "Start Meeting",
         "publish": "Make Public",
-        "stop": "End Meeting"
+        "stop": "End Meeting",
+        "steps": {
+          "start": "Start",
+          "setup": "Setup",
+          "setupInfo": "Your meeting is ready, but only visible to you. You can join the conference and set it up. Once it's ready, make it available for all participants using the button below.",
+          "meet": "Meet",
+          "meetInfo": "You're live! Once you're done, you can stop the meeting using the button below.",
+          "finished": "Finished"
+        }
       }
     },
     "today": "Today",

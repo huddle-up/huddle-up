@@ -138,7 +138,15 @@
       "control": {
         "start": "Treffen starten",
         "publish": "Öffentlich machen",
-        "stop": "Beenden"
+        "stop": "Beenden",
+        "steps": {
+          "start": "Start",
+          "setup": "Einrichten",
+          "setupInfo": "Das Treffen ist bereit, aber nur für dich sichtbar. Trete dem Treffen bei um es einzurichten. Wenn du bereit bist, kannst du es mit dem untenstehenden Knopf für alle verfügbar machen.",
+          "meet": "Treffen",
+          "meetInfo": "Das Treffen ist gestartet! Sobald es zu Ende ist, kannst du es über den untenstehenden Knopf beenden.",
+          "finished": "Beendet"
+        }
       }
     },
     "form": {
