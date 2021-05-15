@@ -42,10 +42,3 @@ export const UPDATE_MEETING = gql`
     }
   }
 `;
-
-// TODO is it possible to remove a meeting?
-// const REMOVE_MEETING = gql`
-//   mutation RemoveMeeting($id: Int) {
-//     removeMeeting(id: $id)
-//   }
-// `;

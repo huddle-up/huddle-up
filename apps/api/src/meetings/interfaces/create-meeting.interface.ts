@@ -6,5 +6,5 @@ export interface CreateMeeting {
   startDate: Date;
   endDate: Date;
   hostId: string;
-  tags?: Partial<Tag>[];
+  tags: Partial<Tag>[];
 }

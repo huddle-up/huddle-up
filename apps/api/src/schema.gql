@@ -151,7 +151,6 @@ input TagOption {
 type Mutation {
   createMeeting(input: CreateMeetingInput!): Meeting!
   updateMeeting(input: UpdateMeetingInput!): Meeting!
-  removeMeeting(id: String!): Boolean!
   createTag(input: CreateTagInput!): Tag!
   updateTag(input: UpdateTagInput!): Tag!
   removeTag(id: Int!): Tag!
@@ -175,8 +174,8 @@ input CreateMeetingInput {
   """The end date of the meeting"""
   endDate: DateTime!
 
-  """The optional tags of the meeting"""
-  tags: [TagOption!]
+  """The tags of the meeting"""
+  tags: [TagOption!]!
 }
 
 input UpdateMeetingInput {
@@ -192,7 +191,7 @@ input UpdateMeetingInput {
   """The end date of the meeting"""
   endDate: DateTime
 
-  """The optional tags of the meeting"""
+  """The tags of the meeting"""
   tags: [TagOption!]
 
   """The id of the meeting"""

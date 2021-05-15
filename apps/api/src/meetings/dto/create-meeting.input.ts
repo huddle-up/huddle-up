@@ -17,6 +17,6 @@ export class CreateMeetingInput {
   @Field(() => Date, { description: 'The end date of the meeting' })
   endDate: Date;
 
-  @Field(() => [TagOption], { nullable: true, description: 'The optional tags of the meeting' })
-  tags?: TagOption[];
+  @Field(() => [TagOption], { description: 'The tags of the meeting' })
+  tags: TagOption[];
 }

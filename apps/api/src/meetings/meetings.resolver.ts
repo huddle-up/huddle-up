@@ -39,9 +39,4 @@ export class MeetingsResolver {
   async updateMeeting(@Args('input') input: UpdateMeetingInput) {
     return this.meetingsService.update(input);
   }
-
-  @Mutation(() => Boolean)
-  async removeMeeting(@Args('id', { type: () => String }) id: string) {
-    return this.meetingsService.remove(id);
-  }
 }
