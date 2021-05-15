@@ -41,7 +41,7 @@ export class MeetingsService {
     return this.meetingRepository.find(entity);
   }
 
-  findOne(entity: Partial<Meeting>) {
+  async findOne(entity: Partial<Meeting>) {
     return this.meetingRepository.findOne(entity);
   }
 
@@ -109,7 +109,7 @@ export class MeetingsService {
     const { tags, ...partialMeeting } = updateMeeting;
     const existingMeeting = await this.meetingRepository.findOne({ id: partialMeeting.id });
     if (!existingMeeting) {
-      throw new NotFoundException(`Meeting with id ${partialMeeting.id} does not exist`);
+      throw new NotFoundException(`Meeting #${updateMeeting.id} not found`);
     }
 
     const meeting: Meeting = this.meetingRepository.create({ ...existingMeeting, ...partialMeeting });
