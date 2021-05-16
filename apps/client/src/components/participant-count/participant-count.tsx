@@ -1,6 +1,7 @@
-import { makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Tooltip, Typography } from '@material-ui/core';
 import { Group } from '@material-ui/icons';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { MeetingFields } from '../../models/meetings/__generated-interfaces__/MeetingFields';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,14 +21,18 @@ interface ParticipantCountProps {
 }
 
 function ParticipantCount({ meeting }: ParticipantCountProps) {
+  const { t } = useTranslation();
   const classes = useStyles();
+  const count = meeting.participations.length;
   return (
-    <div className={classes.root}>
-      <Group fontSize="small" />
-      <Typography variant="subtitle2" component="span">
-        {meeting.participations.length}
-      </Typography>
-    </div>
+    <Tooltip title={t('meetings.participation.count.participant', { count })}>
+      <div className={classes.root}>
+        <Group fontSize="small" />
+        <Typography variant="subtitle2" component="span">
+          {count}
+        </Typography>
+      </div>
+    </Tooltip>
   );
 }
 
