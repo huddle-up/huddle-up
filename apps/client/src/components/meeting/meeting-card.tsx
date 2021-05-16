@@ -1,15 +1,15 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, Grid } from '@material-ui/core';
-import VideocamIcon from '@material-ui/icons/Videocam';
-import CheckIcon from '@material-ui/icons/Check';
+import { Card, CardContent, Typography, Grid, Chip, Box } from '@material-ui/core';
+import { CheckCircle, Videocam } from '@material-ui/icons';
 import { format, isToday } from 'date-fns';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
-import { Link, LinkButton } from '../link';
+import { Link } from '../link';
 import { TagsList } from '../tags';
 import { HostLink } from '../host-link';
 import { useUser } from '../../models/user';
+import { ParticipantCount } from '../participant-count';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
+  spacer: {
+    flex: '1 1',
+  },
 }));
 
 interface MeetingCardProps {
@@ -48,24 +51,31 @@ function MeetingCard({ meeting }: MeetingCardProps) {
   const { id, title, startDate, host, conference } = meeting;
   const meetingStart = new Date(startDate);
   const live = conference && conference.publishedAt && !conference.stoppedAt;
+  const isParticipant = meeting.participations.some((p) => p.user.id === user.id);
 
   return (
     <Card className={classes.card} variant="outlined">
       <CardContent className={classes.cardContent}>
-        <Grid container direction="row" justify="space-between" alignItems="center">
+        <Grid container direction="row" alignItems="center">
           <Typography className={classes.metaFont} color="textSecondary" gutterBottom>
             {isToday(meetingStart) ? t('meetings.today') : format(meetingStart, 'dd. MMMM yyyy')} {bull}{' '}
             {format(meetingStart, 'HH:mm')}
           </Typography>
+          <div className={classes.spacer} />
+          {isParticipant && (
+            <Chip
+              size="small"
+              color="primary"
+              icon={<CheckCircle />}
+              label={t('meetings.participation.participating')}
+            />
+          )}
           {live && (
-            <Link to={`/meetings/${id}`}>
-              <Grid container direction="row" alignItems="center">
-                <Typography className={classes.metaFont} color="textSecondary">
-                  Live
-                </Typography>
-                <VideocamIcon />
-              </Grid>
-            </Link>
+            <Box ml={1}>
+              <Link to={`/meetings/${id}`}>
+                <Chip label="Live" size="small" color="secondary" icon={<Videocam />} />
+              </Link>
+            </Box>
           )}
         </Grid>
         <Typography variant="h5" component="h2">
@@ -76,9 +86,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
         </div>
         <Grid container direction="row" justify="space-between" alignItems="center">
           <HostLink host={host} currentUser={user} />
-          <LinkButton to="/meetings" variant="outlined" size="small" startIcon={<CheckIcon />}>
-            {t('meetings.participant')}
-          </LinkButton>
+          <ParticipantCount meeting={meeting} />
         </Grid>
       </CardContent>
     </Card>
