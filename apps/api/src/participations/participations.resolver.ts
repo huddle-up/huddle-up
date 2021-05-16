@@ -3,6 +3,7 @@ import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { JwtGqlAuthGuard } from '../auth/jwt/jwt-gql-auth.guard';
 import { CreateParticipationInput } from './dto/create-participation.input';
+import { DeleteParticipationOutput } from './dto/delete-participation.output';
 import { Participation } from './entities/participation.entity';
 import { ParticipationsService } from './participations.service';
 
@@ -33,12 +34,13 @@ export class ParticipationsResolver {
     return this.participationsService.find({ meetingId });
   }
 
-  @Mutation(() => Boolean, { name: 'deleteParticipation' })
+  @Mutation(() => DeleteParticipationOutput, { name: 'deleteParticipation', nullable: true })
   async deleteParticipation(@CurrentUser() { userId }, @Args('id') id: string) {
     const participation = await this.participationsService.findOne({ id });
     if (participation && participation.userId !== userId) {
       throw new UnauthorizedException();
     }
-    return this.participationsService.remove(id);
+    const success = await this.participationsService.remove(id);
+    return success ? new DeleteParticipationOutput(id, participation.meetingId) : null;
   }
 }

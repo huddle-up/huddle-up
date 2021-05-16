@@ -7,10 +7,6 @@ import { format, isToday } from 'date-fns';
 import Divider from '@material-ui/core/Divider';
 import EventIcon from '@material-ui/icons/Event';
 import EditIcon from '@material-ui/icons/Edit';
-// TODO implement different meeting actions
-// import CheckIcon from '@material-ui/icons/Check';
-// import PersonAddIcon from '@material-ui/icons/PersonAdd';
-// import CloseIcon from '@material-ui/icons/Close';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { LinkButton } from '../link';
 import { useUser } from '../../models/user';
@@ -19,6 +15,8 @@ import { HostLink } from '../host-link';
 import { useMeetingState } from '../../models/meetings';
 import { ConferenceAccess } from '../conference-access';
 import { ConferenceControl } from '../conference-control';
+import { MeetingParticipation } from '../meeting-participation';
+import { ParticipantCount } from '../participant-count';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -53,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'flex-end',
   },
+  spacer: {
+    flex: '1 1',
+  },
 }));
 
 interface MeetingCardProps {
@@ -70,21 +71,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
   const meetingStart = new Date(startDate);
   const meetingEnd = new Date(endDate);
 
-  const isHost = user.id === host.id;
-
-  // TODO implement different meeting actions
-  // const options = [
-  //   t('meetings.button.member'),
-  //   t('meetings.button.join'),
-  //   t('meetings.button.leave'),
-  //   t('meetings.button.cancel'),
-  // ];
-  // const iconOptions = [
-  //   <CheckIcon fontSize="small" />,
-  //   <PersonAddIcon fontSize="small" />,
-  //   <CloseIcon fontSize="small" />,
-  //   <CloseIcon fontSize="small" />,
-  // ];
+  const isHost = meetingState.isHost(user);
 
   return (
     <Card className={classes.card} variant="outlined">
@@ -112,25 +99,22 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
       </CardContent>
       <Divider />
       <CardContent className={classes.cardContent}>
-        <Grid container direction="row" justify="space-between" alignItems="center">
-          <HostLink host={host} currentUser={user} />
-          <ConferenceAccess meeting={meeting} state={meetingState} />
-          {/* <LinkButton
-            to="/meetings"
-            variant="contained"
-            color="secondary"
-            size="small"
-            disableElevation
-            endIcon={<VideocamIcon />}>
-            {t('meetings.button.attend')}
-          </LinkButton> */}
+        <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
+          <Grid item>
+            <HostLink host={host} currentUser={user} />
+          </Grid>
+          <Grid item>
+            <ConferenceAccess meeting={meeting} state={meetingState} />
+          </Grid>
         </Grid>
-        {/* TODO implement different meeting actions
-          <br />
-          <Grid container direction="row" justify="space-between" alignItems="center">
-            <Typography variant="body2">...</Typography>
-            <SplitButton options={options} icons={iconOptions} defaultSelectedIndex={1} />
-          </Grid> */}
+        <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
+          <Grid item>
+            <ParticipantCount meeting={meeting} />
+          </Grid>
+          <Grid item>
+            <MeetingParticipation meeting={meeting} state={meetingState} />
+          </Grid>
+        </Grid>
       </CardContent>
       {meetingState.canManage(user) && (
         <>

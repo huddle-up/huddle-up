@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
+import ButtonGroup, { ButtonGroupProps } from '@material-ui/core/ButtonGroup';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -9,22 +9,32 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import { CircularProgress } from '@material-ui/core';
 
-interface SplitButtonProps {
+interface SplitButtonProps extends Pick<ButtonGroupProps, 'variant' | 'color'> {
   options: string[];
   icons: React.ReactNode[];
-  defaultSelectedIndex: number;
+  selectedIndex: number;
+  onOptionClick: (index: number) => void;
+  disableOptions?: boolean;
+  loading?: boolean;
 }
 
-function SplitButton({ options, icons, defaultSelectedIndex }: SplitButtonProps) {
+function SplitButton({
+  options,
+  icons,
+  selectedIndex,
+  disableOptions,
+  variant,
+  color,
+  onOptionClick,
+  loading,
+}: SplitButtonProps) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
-  const [selectedIndex, setSelectedIndex] = React.useState(defaultSelectedIndex);
-
-  const handleClick = () => {};
 
   const handleMenuItemClick = (event: React.MouseEvent<HTMLLIElement, MouseEvent>, index: number) => {
-    setSelectedIndex(index);
+    onOptionClick(index);
     setOpen(false);
   };
 
@@ -42,20 +52,24 @@ function SplitButton({ options, icons, defaultSelectedIndex }: SplitButtonProps)
 
   return (
     <>
-      <ButtonGroup variant="contained" color="primary" ref={anchorRef} aria-label="split button">
-        <Button size="small" onClick={handleClick} startIcon={icons[selectedIndex]}>
+      <ButtonGroup variant={variant} color={color} ref={anchorRef} aria-label="split button">
+        <Button
+          size="small"
+          onClick={() => onOptionClick(selectedIndex)}
+          startIcon={loading ? <CircularProgress size="1em" /> : icons[selectedIndex]}>
           {options[selectedIndex]}
         </Button>
-        <Button
-          color="primary"
-          size="small"
-          aria-controls={open ? 'split-button-menu' : undefined}
-          aria-expanded={open ? 'true' : undefined}
-          aria-label="select merge strategy"
-          aria-haspopup="menu"
-          onClick={handleToggle}>
-          <ArrowDropDownIcon />
-        </Button>
+        {!disableOptions && (
+          <Button
+            size="small"
+            aria-controls={open ? 'split-button-menu' : undefined}
+            aria-expanded={open ? 'true' : undefined}
+            aria-label="select merge strategy"
+            aria-haspopup="menu"
+            onClick={handleToggle}>
+            <ArrowDropDownIcon />
+          </Button>
+        )}
       </ButtonGroup>
       <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
         {({ TransitionProps, placement }) => (
@@ -86,5 +100,9 @@ function SplitButton({ options, icons, defaultSelectedIndex }: SplitButtonProps)
     </>
   );
 }
+SplitButton.defaultProps = {
+  disableOptions: false,
+  loading: false,
+};
 
 export default SplitButton;

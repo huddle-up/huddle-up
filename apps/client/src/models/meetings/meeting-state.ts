@@ -58,11 +58,15 @@ export function useMeetingState(meeting?: MeetingFields) {
 
   // TODO: Move access control to separate module
   const isHost = (user: UserFields) => meeting && meeting.host.id === user.id;
+  const isParticipant = (user: UserFields) => meeting && meeting.participations.some((p) => p.user.id === user.id);
   const actions = {
     canStart: (user: UserFields) => isHost(user) && states.isReadyToStart,
     canStop: (user: UserFields) => isHost(user) && states.isPublished,
     canManage: (user: UserFields) => isHost(user) && (states.isReadyToStart || states.isStarted || states.isPublished),
-    canJoin: (user: UserFields) => (isHost(user) ? states.isStarted || states.isPublished : states.isPublished),
+    canJoin: (user: UserFields) =>
+      isHost(user) ? states.isStarted || states.isPublished : isParticipant(user) && states.isPublished,
+    isParticipant,
+    isHost,
   };
 
   return {

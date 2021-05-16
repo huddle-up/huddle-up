@@ -114,6 +114,14 @@ type ConferenceAccess {
   url: String!
 }
 
+type DeleteParticipationOutput {
+  """The id of the deleted participation"""
+  id: String!
+
+  """The id of the meeting the participation belonged to"""
+  meetingId: String!
+}
+
 type Query {
   discover(input: SearchCriteriaInput!): MeetingSearchResponse!
   myMeetings(searchMeetingInput: SearchCriteriaInput!): MeetingSearchResponse!
@@ -179,7 +187,7 @@ type Mutation {
   publishConference(conferenceId: String!): Conference!
   stopConference(conferenceId: String!): Conference!
   createParticipation(input: CreateParticipationInput!): Participation!
-  deleteParticipation(id: String!): Boolean!
+  deleteParticipation(id: String!): DeleteParticipationOutput
 }
 
 input CreateMeetingInput {
