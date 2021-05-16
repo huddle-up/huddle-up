@@ -41,6 +41,38 @@ export interface Meetings_discover_meetings_conference {
   stoppedAt: any | null;
 }
 
+export interface Meetings_discover_meetings_participations_meeting {
+  __typename: "Meeting";
+  /**
+   * The id of the meeting
+   */
+  id: string;
+}
+
+export interface Meetings_discover_meetings_participations_user {
+  __typename: "User";
+  /**
+   * The id of the user
+   */
+  id: string;
+}
+
+export interface Meetings_discover_meetings_participations {
+  __typename: "Participation";
+  /**
+   * The id of the participation
+   */
+  id: string;
+  /**
+   * The meeting associated with the participation
+   */
+  meeting: Meetings_discover_meetings_participations_meeting;
+  /**
+   * The user associated with the participation
+   */
+  user: Meetings_discover_meetings_participations_user;
+}
+
 export interface Meetings_discover_meetings_tags {
   __typename: "Tag";
   /**
@@ -87,6 +119,10 @@ export interface Meetings_discover_meetings {
    * The conference associated with the meeting
    */
   conference: Meetings_discover_meetings_conference | null;
+  /**
+   * The participations of the meeting
+   */
+  participations: Meetings_discover_meetings_participations[];
   /**
    * The tags of the meeting
    */

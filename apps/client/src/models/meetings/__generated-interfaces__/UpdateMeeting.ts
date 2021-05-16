@@ -41,6 +41,38 @@ export interface UpdateMeeting_updateMeeting_conference {
   stoppedAt: any | null;
 }
 
+export interface UpdateMeeting_updateMeeting_participations_meeting {
+  __typename: "Meeting";
+  /**
+   * The id of the meeting
+   */
+  id: string;
+}
+
+export interface UpdateMeeting_updateMeeting_participations_user {
+  __typename: "User";
+  /**
+   * The id of the user
+   */
+  id: string;
+}
+
+export interface UpdateMeeting_updateMeeting_participations {
+  __typename: "Participation";
+  /**
+   * The id of the participation
+   */
+  id: string;
+  /**
+   * The meeting associated with the participation
+   */
+  meeting: UpdateMeeting_updateMeeting_participations_meeting;
+  /**
+   * The user associated with the participation
+   */
+  user: UpdateMeeting_updateMeeting_participations_user;
+}
+
 export interface UpdateMeeting_updateMeeting_tags {
   __typename: "Tag";
   /**
@@ -87,6 +119,10 @@ export interface UpdateMeeting_updateMeeting {
    * The conference associated with the meeting
    */
   conference: UpdateMeeting_updateMeeting_conference | null;
+  /**
+   * The participations of the meeting
+   */
+  participations: UpdateMeeting_updateMeeting_participations[];
   /**
    * The tags of the meeting
    */

@@ -17,6 +17,9 @@ export function createTheme(locale: Localization) {
         MuiButton: {
           disableElevation: true,
         },
+        MuiButtonGroup: {
+          disableElevation: true,
+        },
       },
     },
     locale

@@ -41,6 +41,38 @@ export interface CreateMeeting_createMeeting_conference {
   stoppedAt: any | null;
 }
 
+export interface CreateMeeting_createMeeting_participations_meeting {
+  __typename: "Meeting";
+  /**
+   * The id of the meeting
+   */
+  id: string;
+}
+
+export interface CreateMeeting_createMeeting_participations_user {
+  __typename: "User";
+  /**
+   * The id of the user
+   */
+  id: string;
+}
+
+export interface CreateMeeting_createMeeting_participations {
+  __typename: "Participation";
+  /**
+   * The id of the participation
+   */
+  id: string;
+  /**
+   * The meeting associated with the participation
+   */
+  meeting: CreateMeeting_createMeeting_participations_meeting;
+  /**
+   * The user associated with the participation
+   */
+  user: CreateMeeting_createMeeting_participations_user;
+}
+
 export interface CreateMeeting_createMeeting_tags {
   __typename: "Tag";
   /**
@@ -87,6 +119,10 @@ export interface CreateMeeting_createMeeting {
    * The conference associated with the meeting
    */
   conference: CreateMeeting_createMeeting_conference | null;
+  /**
+   * The participations of the meeting
+   */
+  participations: CreateMeeting_createMeeting_participations[];
   /**
    * The tags of the meeting
    */
