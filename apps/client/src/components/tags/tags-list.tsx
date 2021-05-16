@@ -9,13 +9,14 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       display: 'flex',
       justifyContent: 'flex-start',
+      alignItems: 'center',
       flexWrap: 'wrap',
       listStyle: 'none',
       padding: 0,
       margin: 0,
-    },
-    icon: {
-      marginTop: theme.spacing(1),
+      '& > li': {
+        display: 'flex',
+      },
     },
     chip: {
       margin: theme.spacing(0.5),
@@ -35,11 +36,11 @@ function TagsList({ tags }: TagsListProps) {
       {tags?.length > 0 && (
         <>
           <li key="0">
-            <LocalOfferIcon className={classes.icon} />
+            <LocalOfferIcon />
           </li>
           {tags.map((tag) => (
             <li key={tag.id}>
-              <Chip label={tag.name} className={classes.chip} />
+              <Chip size="small" label={tag.name} className={classes.chip} />
             </li>
           ))}
         </>

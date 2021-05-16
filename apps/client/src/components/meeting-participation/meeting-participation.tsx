@@ -1,4 +1,4 @@
-import { Cancel, Check, CheckCircle, CheckCircleOutline } from '@material-ui/icons';
+import { Cancel, CheckCircle, CheckCircleOutline } from '@material-ui/icons';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MeetingState } from '../../models/meetings';

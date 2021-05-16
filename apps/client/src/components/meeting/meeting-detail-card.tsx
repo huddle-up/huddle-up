@@ -1,12 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, Grid, CardActions } from '@material-ui/core';
-import VideocamIcon from '@material-ui/icons/Videocam';
+import { Card, CardContent, Typography, Grid, CardActions, Box, Chip, Divider } from '@material-ui/core';
+import { Edit, Event, Videocam } from '@material-ui/icons';
 import { format, isToday } from 'date-fns';
-import Divider from '@material-ui/core/Divider';
-import EventIcon from '@material-ui/icons/Event';
-import EditIcon from '@material-ui/icons/Edit';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { LinkButton } from '../link';
 import { useUser } from '../../models/user';
@@ -82,12 +79,9 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
             {format(meetingStart, 'HH:mm')}
           </Typography>
           {meetingState.isPublished && (
-            <div className={classes.statusIcon}>
-              <Typography className={classes.metaFont} color="textSecondary">
-                Live
-              </Typography>
-              <VideocamIcon />
-            </div>
+            <Box ml={1}>
+              <Chip label="Live" size="small" color="secondary" icon={<Videocam />} />
+            </Box>
           )}
         </Grid>
         <Typography variant="h5" component="h2">
@@ -132,7 +126,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
           </Grid>
           <Grid item>
             <Grid container direction="row" alignItems="center">
-              <EventIcon />
+              <Event />
               {format(meetingStart, 'dd. MMMM yyyy HH:mm')} - {format(meetingEnd, 'dd. MMMM yyyy HH:mm')}
             </Grid>
           </Grid>
@@ -145,7 +139,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
         <>
           <Divider />
           <CardActions className={classes.actions}>
-            <LinkButton to={`/meetings/${id}/edit`} variant="outlined" color="primary" startIcon={<EditIcon />}>
+            <LinkButton to={`/meetings/${id}/edit`} variant="outlined" color="primary" startIcon={<Edit />}>
               {t('meetings.button.edit')}
             </LinkButton>
           </CardActions>
