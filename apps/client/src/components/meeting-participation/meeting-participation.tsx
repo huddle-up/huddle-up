@@ -1,5 +1,6 @@
-import { Cancel, Check } from '@material-ui/icons';
+import { Cancel, Check, CheckCircle, CheckCircleOutline } from '@material-ui/icons';
 import React, { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MeetingState } from '../../models/meetings';
 import { MeetingFields } from '../../models/meetings/__generated-interfaces__/MeetingFields';
 import { useCreateParticipation, useDeleteParticipation } from '../../models/participations';
@@ -23,11 +24,13 @@ function useMeetingParticipation({ meeting, state }: MeetingParticipationProps) 
   const cancel = () => {
     mutateCancel({ variables: { id: userParticipation.id } });
   };
+  const loading = createLoading || cancelLoading;
   return {
     isParticipant: state.isParticipant(user),
     participate,
     cancel,
-    loading: createLoading || cancelLoading,
+    loading,
+    hide: state.isHost(user) || state.isStopped || state.isInPast,
   };
 }
 
@@ -37,7 +40,8 @@ const actionMapping = {
 };
 
 function MeetingParticipation({ meeting, state }: MeetingParticipationProps) {
-  const { isParticipant, participate, cancel, loading } = useMeetingParticipation({ meeting, state });
+  const { t } = useTranslation();
+  const { isParticipant, participate, cancel, loading, hide } = useMeetingParticipation({ meeting, state });
   const handleClick = (i: number) => {
     if (i === actionMapping.participate && !isParticipant) {
       participate();
@@ -46,10 +50,16 @@ function MeetingParticipation({ meeting, state }: MeetingParticipationProps) {
       cancel();
     }
   };
+  if (hide) {
+    return null;
+  }
   return (
     <SplitButton
-      options={[isParticipant ? 'Participating' : 'Participate', 'Cancel participation']}
-      icons={[<Check />, <Cancel />]}
+      options={[
+        isParticipant ? t('meetings.participation.participating') : t('meetings.participation.participate'),
+        t('meetings.participation.doNotParticipate'),
+      ]}
+      icons={[isParticipant ? <CheckCircle /> : <CheckCircleOutline />, <Cancel />]}
       selectedIndex={0}
       color="secondary"
       onOptionClick={handleClick}

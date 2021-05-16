@@ -149,6 +149,15 @@
         }
       }
     },
+    "participation": {
+      "count": {
+        "participant": "{{ count }} Teilnehmer",
+        "participant_plural": "{{ count }} Teilnehmer"
+      },
+      "participate": "Teilnehmen",
+      "participating": "Teilnehmer",
+      "doNotParticipate": "Nicht teilnehmen"
+    },
     "form": {
       "title": "Titel",
       "description": "Beschreibung",

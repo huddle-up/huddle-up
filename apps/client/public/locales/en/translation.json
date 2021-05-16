@@ -156,6 +156,15 @@
         }
       }
     },
+    "participation": {
+      "count": {
+        "participant": "{{ count }} participant",
+        "participant_plural": "{{ count }} participants"
+      },
+      "participate": "Participate",
+      "participating": "Participating",
+      "doNotParticipate": "Do not participate"
+    },
     "today": "Today",
     "hostedby": "Hosted by {{host}}",
     "hostedbyYou": "Hosted by you",
