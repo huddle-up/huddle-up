@@ -8,7 +8,7 @@ export const CREATE_MEETING = gql`
     $description: String
     $startDate: DateTime!
     $endDate: DateTime!
-    $tags: [TagOption!]
+    $tags: [TagOption!]!
   ) {
     createMeeting(
       input: { title: $title, description: $description, startDate: $startDate, endDate: $endDate, tags: $tags }
@@ -26,7 +26,7 @@ export const UPDATE_MEETING = gql`
     $description: String
     $startDate: DateTime
     $endDate: DateTime
-    $tags: [TagOption!]
+    $tags: [TagOption!]!
   ) {
     updateMeeting(
       input: {
