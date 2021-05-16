@@ -47,7 +47,9 @@ function MeetingsPage() {
       limit,
     });
   }
-  const { meetings, totalCount } = data.discover;
+  const { totalCount } = data.discover;
+  // TODO: Filter out stopped meetings in query?
+  const meetings = data.discover.meetings.filter((meeting) => !meeting.conference || !meeting.conference.stoppedAt);
   const handlePageLimit = (max?: boolean) => {
     const newLimit = max ? totalCount : initialValues.limit + meetings.length;
     refetch({ limit: newLimit });
