@@ -38,10 +38,10 @@
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start:dev": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts start",
-    "build": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts build",
-    "test": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts test",
-    "test:cov": "cross-env SKIP_PREFLIGHT_CHECK=true react-scripts test --coverage",
+    "start:dev": "cross-env SKIP_PREFLIGHT_CHECK=true react-app-rewired start",
+    "build": "cross-env SKIP_PREFLIGHT_CHECK=true react-app-rewired build",
+    "test": "cross-env SKIP_PREFLIGHT_CHECK=true react-app-rewired test",
+    "test:cov": "cross-env SKIP_PREFLIGHT_CHECK=true react-app-rewired test --coverage",
     "format": "prettier --write ./",
     "eject": "react-scripts eject",
     "lint": "eslint ./",
@@ -71,6 +71,9 @@
     ]
   },
   "devDependencies": {
-    "apollo": "^2.32.5"
+    "apollo": "^2.32.5",
+    "customize-cra": "^1.0.0",
+    "dotenv-webpack": "^7.0.2",
+    "react-app-rewired": "^2.1.8"
   }
 }

@@ -1,4 +1,4 @@
-import { makeStyles, Tooltip, Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import { Group } from '@material-ui/icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
