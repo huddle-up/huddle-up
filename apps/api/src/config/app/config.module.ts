@@ -1,19 +1,14 @@
 import * as Joi from '@hapi/joi';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { resolve, join } from 'path';
 import configuration from './configuration';
 import { AppConfigService } from './config.service';
-
-function envPaths() {
-  const configDirectory = resolve(__dirname, '../../../../../config/api');
-  return [join(configDirectory, '.env')];
-}
+import { getEnvPath } from '../utils';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: envPaths(),
+      envFilePath: getEnvPath('.env'),
       load: [configuration],
       validationSchema: Joi.object({
         HU_PORT: Joi.number().default(4000),
