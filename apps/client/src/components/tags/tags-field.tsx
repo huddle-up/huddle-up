@@ -27,14 +27,23 @@ interface TagsFieldProps {
   filterSelectedOptions?: boolean;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
   allowUserOptions?: boolean;
+  maxTagLength?: number;
 }
 
 TagsField.defaultProps = {
   filterSelectedOptions: false,
   allowUserOptions: true,
+  maxTagLength: 25,
 };
 
-function TagsField({ name, label, setFieldValue, filterSelectedOptions, allowUserOptions }: TagsFieldProps) {
+function TagsField({
+  name,
+  label,
+  setFieldValue,
+  filterSelectedOptions,
+  allowUserOptions,
+  maxTagLength,
+}: TagsFieldProps) {
   const { t } = useTranslation();
   const { queryLoading, queryError, tagOptions } = useTagsQuery();
 
@@ -78,13 +87,17 @@ function TagsField({ name, label, setFieldValue, filterSelectedOptions, allowUse
             }
             return filtered;
           }}
-          renderInput={(params) => (
+          renderInput={({ inputProps, ...params }) => (
             <div>
               <TextField
                 {...params}
                 variant="outlined"
                 label={label}
                 error={!!errors[name]}
+                inputProps={{
+                  ...inputProps,
+                  maxLength: maxTagLength,
+                }}
                 helperText={
                   errors[name] &&
                   errors[name].map((error, index) => error && value[index] && `(${value[index].name}: ${error.name}) `)

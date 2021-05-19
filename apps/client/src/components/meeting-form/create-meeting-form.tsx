@@ -35,13 +35,16 @@ function CreateMeetingForm({
 }: MeetingFormProps) {
   const classes = useStyles();
   const { t } = useTranslation();
+  const maxTagLength = 25;
   const FormSchema = Yup.object().shape({
     title: Yup.string()
       .min(3, t('global.form.validation.minCountCharacters', { count: 3 }))
       .max(100, t('global.form.validation.maxCountCharacters', { count: 100 }))
       .required(t('global.form.validation.required')),
     tags: Yup.array().of(
-      Yup.object().shape({ name: Yup.string().max(25, t('global.form.validation.maxCountCharacters', { count: 25 })) })
+      Yup.object().shape({
+        name: Yup.string().max(maxTagLength, t('global.form.validation.maxCountCharacters', { count: maxTagLength })),
+      })
     ),
     description: Yup.string(),
     startDate: Yup.string().nullable().required(t('global.form.validation.required')),
@@ -69,7 +72,12 @@ function CreateMeetingForm({
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <TagsField name="tags" label={t('global.form.fields.tags')} setFieldValue={setFieldValue} />
+                  <TagsField
+                    name="tags"
+                    label={t('global.form.fields.tags')}
+                    setFieldValue={setFieldValue}
+                    maxTagLength={maxTagLength}
+                  />
                 </Grid>
                 <Grid item xs={12}>
                   <Field
