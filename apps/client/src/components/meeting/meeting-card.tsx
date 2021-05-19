@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Grid, Chip, Box } from '@material-ui/core';
-import { CheckCircle, Videocam } from '@material-ui/icons';
+import { CheckCircle, Videocam, AccountCircle } from '@material-ui/icons';
 import { format, isToday } from 'date-fns';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { Link } from '../link';
@@ -10,6 +10,7 @@ import { TagsList } from '../tags';
 import { HostLink } from '../host-link';
 import { useUser } from '../../models/user';
 import { ParticipantCount } from '../participant-count';
+import { isHost, isParticipant } from '../../utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,7 +52,6 @@ function MeetingCard({ meeting }: MeetingCardProps) {
   const { id, title, startDate, host, conference } = meeting;
   const meetingStart = new Date(startDate);
   const live = conference && conference.publishedAt && !conference.stoppedAt;
-  const isParticipant = meeting.participations.some((p) => p.user.id === user.id);
 
   return (
     <Card className={classes.card} variant="outlined">
@@ -62,13 +62,16 @@ function MeetingCard({ meeting }: MeetingCardProps) {
             {format(meetingStart, 'HH:mm')}
           </Typography>
           <div className={classes.spacer} />
-          {isParticipant && (
+          {isParticipant(user, meeting) && (
             <Chip
               size="small"
               color="primary"
               icon={<CheckCircle />}
               label={t('meetings.participation.participating')}
             />
+          )}
+          {isHost(user, meeting) && (
+            <Chip size="small" color="primary" icon={<AccountCircle />} label={t('meetings.host')} />
           )}
           {live && (
             <Box ml={1}>

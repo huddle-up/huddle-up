@@ -10,14 +10,16 @@ import { MyMeetings, MyMeetingsVariables } from '../../models/meetings/__generat
 import { MY_MEETINGS } from '../../models/meetings';
 import { AppPageAside, AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
-import { isInFutureFilter, isInPastFilter, isWithinIntervalFilter } from '../../utils';
+import { isHostOrParticipant, isInFutureFilter, isInPastFilter, isWithinIntervalFilter } from '../../utils';
 import { SearchForm } from '../../components/search-form';
 import { MeetingsVariables } from '../../models/meetings/__generated-interfaces__/Meetings';
 import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMoreCard } from '../../components/show-more-card';
+import { useUser } from '../../models/user';
 
 function MyMeetingsPage() {
   const { t } = useTranslation();
+  const { user } = useUser();
 
   const initialValues: MeetingsVariables = {
     searchValue: '',
@@ -56,6 +58,8 @@ function MyMeetingsPage() {
     refetch({ limit: newLimit });
   };
 
+  const myMeetings = isHostOrParticipant(user, meetings);
+
   return (
     <>
       <AppPageAside>
@@ -72,18 +76,15 @@ function MyMeetingsPage() {
       <AppPageMain>
         <section>
           <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.ongoing')} />
-          <MeetingList meetings={isWithinIntervalFilter(meetings)} />
+          <MeetingList meetings={isWithinIntervalFilter(myMeetings)} />
         </section>
-        {/* TODO: differentiate meetings i created and i joined */}
-        {/* import SentimentSatisfiedAltIcon from '@material-ui/icons/SentimentSatisfiedAlt'; */}
-        {/* <SectionHeader icon={<SentimentSatisfiedAltIcon />} title={t('meetings.title.createdByMe')} /> */}
         <section>
           <SectionHeader icon={<CalendarTodayIcon />} title={t('meetings.title.upcoming')} />
-          <MeetingList meetings={isInFutureFilter(meetings)} />
+          <MeetingList meetings={isInFutureFilter(myMeetings)} />
         </section>
         <section>
           <SectionHeader icon={<AccessTimeIcon />} title={t('meetings.title.past')} />
-          <MeetingList meetings={isInPastFilter(meetings)} />
+          <MeetingList meetings={isInPastFilter(myMeetings)} />
         </section>
       </AppPageMain>
     </>

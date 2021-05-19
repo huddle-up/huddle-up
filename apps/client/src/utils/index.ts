@@ -1,2 +1,9 @@
-export { isUndefined } from './helpers';
-export { isInFutureFilter, isInPastFilter, isWithinIntervalFilter } from './filter-meetings';
+export {
+  isUndefined,
+  isInFutureFilter,
+  isInPastFilter,
+  isWithinIntervalFilter,
+  isHost,
+  isParticipant,
+  isHostOrParticipant,
+} from './helpers';

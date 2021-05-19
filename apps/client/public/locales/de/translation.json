@@ -122,29 +122,28 @@
       "dateTime": "Datum und Zeit",
       "ongoing": "Laufende Treffen",
       "upcoming": "Anstehende Treffen",
-      "createdByMe": "Von mir erstellte Treffen",
       "past": "Vergangene Treffen"
     },
     "conference": {
       "state": {
-        "pending": "Das Treffen wurde noch nicht gestartet",
-        "early": "Das Treffen kann noch nicht gestartet werden",
-        "ready": "Das Treffen kann unten gestartet werden",
-        "ended": "Das Treffen wurde beendet",
-        "past": "Das Treffen kann nicht mehr gestartet werden",
-        "neverStarted": "Das Treffen wurde nicht durchgeführt"
+        "pending": "Die Video-Konferenz wurde noch nicht gestartet",
+        "early": "Die Video-Konferenz kann noch nicht gestartet werden",
+        "ready": "Die Video-Konferenz kann unten gestartet werden",
+        "ended": "Die Video-Konferenz wurde beendet",
+        "past": "Die Video-Konferenz kann nicht mehr gestartet werden",
+        "neverStarted": "Die Video-Konferenz wurde nicht durchgeführt"
       },
-      "join": "Treffen beitreten",
+      "join": "Video-Konferenz beitreten",
       "control": {
-        "start": "Treffen starten",
-        "publish": "Öffentlich machen",
+        "start": "Video-Konferenz starten",
+        "publish": "Für Teilnehmer freigeben",
         "stop": "Beenden",
         "steps": {
           "start": "Start",
-          "setup": "Einrichten",
-          "setupInfo": "Das Treffen ist bereit, aber nur für dich sichtbar. Trete dem Treffen bei um es einzurichten. Wenn du bereit bist, kannst du es mit dem untenstehenden Knopf für alle verfügbar machen.",
-          "meet": "Treffen",
-          "meetInfo": "Das Treffen ist gestartet! Sobald es zu Ende ist, kannst du es über den untenstehenden Knopf beenden.",
+          "setup": "Freigeben",
+          "setupInfo": "Die Video-Konferenz ist bereit, aber nur für dich sichtbar. Du kannst sie jetzt als erster betreten und danach mit dem untenstehenden Knopf für alle freigeben.",
+          "meet": "Aktiv",
+          "meetInfo": "Die Video-Konferenz ist aktiv! Sobald sie zu Ende ist, kannst du sie über den untenstehenden Knopf beenden. Ein erneuter Zugriff ist dann nicht mehr möglich.",
           "finished": "Beendet"
         }
       }
@@ -165,6 +164,7 @@
       "endDate": "Geplantes Ende"
     },
     "today": "Heute",
+    "host": "Veranstalter",
     "hostedby": "Veranstaltet von {{ host }}",
     "hostedbyYou": "Veranstaltet von dir",
     "participant": "Teilnehmer",
