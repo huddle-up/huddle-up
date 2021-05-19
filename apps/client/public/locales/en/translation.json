@@ -123,7 +123,6 @@
       "dateTime": "Date and Time",
       "ongoing": "Ongoing Meetings",
       "upcoming": "Upcoming Meetings",
-      "createdByMe": "Meetings created by me",
       "past": "Past Meetings"
     },
     "form": {
@@ -134,24 +133,24 @@
     },
     "conference": {
       "state": {
-        "pending": "The meeting has not been started",
-        "early": "You cannot start the meeting, yet",
-        "ready": "You can start the meeting below",
-        "ended": "The meeting has ended",
-        "past": "You cannot start the meeting anymore",
-        "neverStarted": "The meeting was not held"
+        "pending": "The video conference has not been started",
+        "early": "You cannot start the video conference, yet",
+        "ready": "You can start the video conference below",
+        "ended": "The video conference has ended",
+        "past": "You cannot start the video conference anymore",
+        "neverStarted": "The video conference was not held"
       },
-      "join": "Join Meeting",
+      "join": "Join Video Conference",
       "control": {
-        "start": "Start Meeting",
+        "start": "Start Video Conference",
         "publish": "Make Public",
-        "stop": "End Meeting",
+        "stop": "End Video Conference",
         "steps": {
           "start": "Start",
-          "setup": "Setup",
-          "setupInfo": "Your meeting is ready, but only visible to you. You can join the conference and set it up. Once it's ready, make it available for all participants using the button below.",
-          "meet": "Meet",
-          "meetInfo": "You're live! Once you're done, you can stop the meeting using the button below.",
+          "setup": "Share",
+          "setupInfo": "Your video conference is ready, but only visible to you. You can join now before you make it available for all participants using the button below.",
+          "meet": "Live",
+          "meetInfo": "You're live! Once you're done, you can stop the video conference using the button below. The access is then prohibited.",
           "finished": "Finished"
         }
       }
@@ -166,6 +165,7 @@
       "doNotParticipate": "Do not participate"
     },
     "today": "Today",
+    "host": "Host",
     "hostedby": "Hosted by {{host}}",
     "hostedbyYou": "Hosted by you",
     "participant": "Participant",
