@@ -116,6 +116,10 @@ export interface MyMeetings_myMeetings_meetings {
    */
   prepareDate: any;
   /**
+   * The maximum allowed participants of the meeting
+   */
+  maximumParticipants: number | null;
+  /**
    * The hoster of the meeting
    */
   host: MyMeetings_myMeetings_meetings_host;

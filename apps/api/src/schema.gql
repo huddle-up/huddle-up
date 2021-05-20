@@ -77,6 +77,9 @@ type Meeting {
   """The hoster of the meeting"""
   host: User!
 
+  """The maximum allowed participants of the meeting"""
+  maximumParticipants: Int
+
   """The participations of the meeting"""
   participations: [Participation!]!
 
@@ -208,6 +211,9 @@ input CreateMeetingInput {
 
   """The tags of the meeting"""
   tags: [TagOption!]!
+
+  """The maximum allowed participants of the meeting"""
+  maximumParticipants: Int
 }
 
 input UpdateMeetingInput {
@@ -225,6 +231,9 @@ input UpdateMeetingInput {
 
   """The tags of the meeting"""
   tags: [TagOption!]
+
+  """The maximum allowed participants of the meeting"""
+  maximumParticipants: Int
 
   """The id of the meeting"""
   id: String!

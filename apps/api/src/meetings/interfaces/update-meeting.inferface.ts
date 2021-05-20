@@ -8,4 +8,5 @@ export interface UpdateMeeting {
   endDate?: Date;
   hostId?: string;
   tags?: Partial<Tag>[];
+  maximumParticipants?: number;
 }

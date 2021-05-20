@@ -1,4 +1,4 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field, Int } from '@nestjs/graphql';
 import { TagOption } from './tag-option.input';
 // import { MinLength } from 'class-validator';
 
@@ -19,4 +19,7 @@ export class CreateMeetingInput {
 
   @Field(() => [TagOption], { description: 'The tags of the meeting' })
   tags: TagOption[];
+
+  @Field(() => Int, { nullable: true, description: 'The maximum allowed participants of the meeting' })
+  maximumParticipants?: number;
 }

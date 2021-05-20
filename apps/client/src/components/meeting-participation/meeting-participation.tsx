@@ -42,6 +42,8 @@ const actionMapping = {
 function MeetingParticipation({ meeting, state }: MeetingParticipationProps) {
   const { t } = useTranslation();
   const { isParticipant, participate, cancel, loading, hide } = useMeetingParticipation({ meeting, state });
+  const disableButton =
+    !isParticipant && meeting.maximumParticipants && meeting.maximumParticipants <= meeting.participations.length;
   const handleClick = (i: number) => {
     if (i === actionMapping.participate && !isParticipant) {
       participate();
@@ -50,9 +52,11 @@ function MeetingParticipation({ meeting, state }: MeetingParticipationProps) {
       cancel();
     }
   };
+
   if (hide) {
     return null;
   }
+
   return (
     <SplitButton
       options={[
@@ -66,6 +70,7 @@ function MeetingParticipation({ meeting, state }: MeetingParticipationProps) {
       variant={isParticipant ? 'contained' : 'outlined'}
       disableOptions={!isParticipant}
       loading={loading}
+      disableButton={disableButton}
     />
   );
 }

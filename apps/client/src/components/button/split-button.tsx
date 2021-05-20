@@ -18,6 +18,7 @@ interface SplitButtonProps extends Pick<ButtonGroupProps, 'variant' | 'color'> {
   onOptionClick: (index: number) => void;
   disableOptions?: boolean;
   loading?: boolean;
+  disableButton?: boolean;
 }
 
 function SplitButton({
@@ -29,6 +30,7 @@ function SplitButton({
   color,
   onOptionClick,
   loading,
+  disableButton,
 }: SplitButtonProps) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef<HTMLDivElement>(null);
@@ -56,7 +58,8 @@ function SplitButton({
         <Button
           size="small"
           onClick={() => onOptionClick(selectedIndex)}
-          startIcon={loading ? <CircularProgress size="1em" /> : icons[selectedIndex]}>
+          startIcon={loading ? <CircularProgress size="1em" /> : icons[selectedIndex]}
+          disabled={disableButton}>
           {options[selectedIndex]}
         </Button>
         {!disableOptions && (
@@ -103,6 +106,7 @@ function SplitButton({
 SplitButton.defaultProps = {
   disableOptions: false,
   loading: false,
+  disableButton: false,
 };
 
 export default SplitButton;

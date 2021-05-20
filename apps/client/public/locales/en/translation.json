@@ -123,13 +123,15 @@
       "dateTime": "Date and Time",
       "ongoing": "Ongoing Meetings",
       "upcoming": "Upcoming Meetings",
-      "past": "Past Meetings"
+      "past": "Past Meetings",
+      "rules": "Rules"
     },
     "form": {
       "title": "Title",
       "description": "Description",
       "startDate": "Start",
-      "endDate": "Estimated End"
+      "endDate": "Estimated End",
+      "maxParticipants": "Maximum Participants"
     },
     "conference": {
       "state": {
@@ -157,8 +159,8 @@
     },
     "participation": {
       "count": {
-        "participant": "{{ count }} participant",
-        "participant_plural": "{{ count }} participants"
+        "participant": "{{count}}{{total}} participant",
+        "participant_plural": "{{count}}{{total}} participants"
       },
       "participate": "Participate",
       "participating": "Participating",
@@ -193,6 +195,7 @@
       "fields": {
         "biography": "Biography"
       },
+      "joinedAt": "HuddleUp member since",
       "noName": "No name available",
       "noBiography": "No biography available"
     }

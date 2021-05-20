@@ -116,6 +116,10 @@ export interface Meetings_discover_meetings {
    */
   prepareDate: any;
   /**
+   * The maximum allowed participants of the meeting
+   */
+  maximumParticipants: number | null;
+  /**
    * The hoster of the meeting
    */
   host: Meetings_discover_meetings_host;

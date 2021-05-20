@@ -38,6 +38,7 @@ function MeetingCreatePage() {
     startDate: new Date().toUTCString(),
     endDate: endDate.toUTCString(),
     tags: [],
+    maximumParticipants: 10,
   };
 
   async function handleCreateMeeting(meetingVariables: CreateMeetingVariables) {
