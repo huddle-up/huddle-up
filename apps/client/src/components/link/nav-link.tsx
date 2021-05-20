@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 type NavLinkProps = MuiLinkProps<RouterNavLink, Pick<RouterNavLinkProps, 'to' | 'exact' | 'strict' | 'isActive'>>;
 
-function Link(props: NavLinkProps) {
+const Link = React.forwardRef((props: NavLinkProps, ref) => {
   const classes = useStyles();
   return (
     <MuiLink
@@ -32,6 +32,6 @@ function Link(props: NavLinkProps) {
       {...props}
     />
   );
-}
+});
 
 export default Link;

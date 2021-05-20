@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: '1fr auto 1fr',
     gridTemplateAreas: '"menu logo actions"',
     columnGap: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       gridTemplateAreas: '"logo menu actions"',
     },
   },
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     gridArea: 'menu',
     display: 'flex',
     justifyContent: 'flex-start',
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       justifyContent: 'center',
     },
   },

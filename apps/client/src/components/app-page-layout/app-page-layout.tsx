@@ -1,4 +1,4 @@
-import { Container, makeStyles } from '@material-ui/core';
+import { Container, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { LinkButton } from '../link';
@@ -46,6 +46,8 @@ const useStyles = makeStyles((theme) => ({
 
 function AppPageLayout({ children }: { children: React.ReactNode }) {
   const classes = useStyles();
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
   const { t } = useTranslation();
 
   return (
@@ -54,9 +56,11 @@ function AppPageLayout({ children }: { children: React.ReactNode }) {
         menu={<AppPageMenu />}
         actions={
           <>
-            <LinkButton variant="contained" disableElevation color="secondary" to="/meetings/create">
-              {t('meetings.title.new')}
-            </LinkButton>
+            {isDesktop && (
+              <LinkButton variant="contained" disableElevation color="secondary" to="/meetings/create">
+                {t('meetings.title.new')}
+              </LinkButton>
+            )}
             <UserMenu />
           </>
         }

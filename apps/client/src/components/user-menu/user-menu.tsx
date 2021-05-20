@@ -16,6 +16,12 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     margin: theme.spacing(0, 2),
   },
+  text: {
+    display: 'none',
+    [theme.breakpoints.up('md')]: {
+      display: 'block',
+    },
+  },
 }));
 
 interface UserMenuProps {
@@ -32,7 +38,7 @@ export function UserMenu({ user }: UserMenuProps) {
     <Link to="/profile" className={classes.link}>
       <div className={classes.container}>
         <Avatar className={classes.avatar}>{initial}</Avatar>
-        <Typography>{user.name}</Typography>
+        <Typography className={classes.text}>{user.name}</Typography>
       </div>
     </Link>
   );
