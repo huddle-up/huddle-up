@@ -116,6 +116,10 @@ export interface UpdateMeeting_updateMeeting {
    */
   prepareDate: any;
   /**
+   * The maximum allowed participants of the meeting
+   */
+  maximumParticipants: number | null;
+  /**
    * The hoster of the meeting
    */
   host: UpdateMeeting_updateMeeting_host;
@@ -144,4 +148,5 @@ export interface UpdateMeetingVariables {
   startDate?: any | null;
   endDate?: any | null;
   tags: TagOption[];
+  maximumParticipants?: number | null;
 }

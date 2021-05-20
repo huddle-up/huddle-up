@@ -114,6 +114,10 @@ export interface MeetingFields {
    */
   prepareDate: any;
   /**
+   * The maximum allowed participants of the meeting
+   */
+  maximumParticipants: number | null;
+  /**
    * The hoster of the meeting
    */
   host: MeetingFields_host;

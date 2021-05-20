@@ -122,7 +122,8 @@
       "dateTime": "Datum und Zeit",
       "ongoing": "Laufende Treffen",
       "upcoming": "Anstehende Treffen",
-      "past": "Vergangene Treffen"
+      "past": "Vergangene Treffen",
+      "rules": "Regeln"
     },
     "conference": {
       "state": {
@@ -150,8 +151,8 @@
     },
     "participation": {
       "count": {
-        "participant": "{{ count }} Teilnehmer",
-        "participant_plural": "{{ count }} Teilnehmer"
+        "participant": "{{count}}{{total}} Teilnehmer",
+        "participant_plural": "{{count}}{{total}} Teilnehmer"
       },
       "participate": "Teilnehmen",
       "participating": "Teilnehmer",
@@ -161,11 +162,12 @@
       "title": "Titel",
       "description": "Beschreibung",
       "startDate": "Start",
-      "endDate": "Geplantes Ende"
+      "endDate": "Geplantes Ende",
+      "maxParticipants": "Maximale Teilnehmer"
     },
     "today": "Heute",
     "host": "Veranstalter",
-    "hostedby": "Veranstaltet von {{ host }}",
+    "hostedby": "Veranstaltet von {{host}}",
     "hostedbyYou": "Veranstaltet von dir",
     "participant": "Teilnehmer",
     "noMeetingsPlaceholder": "Keine Treffen gefunden",
@@ -194,6 +196,7 @@
       }
     },
     "publicProfile": {
+      "joinedAt": "HuddleUp Mitglied seit",
       "noName": "Keine Name verfügbar",
       "noBiography": "Keine Biographie verfügbar"
     }

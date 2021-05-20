@@ -57,7 +57,7 @@ function PublicProfilePage() {
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <Typography variant="body2" className={classes.description}>
-                {`HuddleUp Mitglied seit ${format(parseISO(data.user.joinedAt), 'dd. MMMM yyyy')}`}
+                {`${t('profile.publicProfile.join')} ${format(parseISO(data.user.joinedAt), 'dd. MMMM yyyy')}`}
               </Typography>
             </Grid>
           </Grid>

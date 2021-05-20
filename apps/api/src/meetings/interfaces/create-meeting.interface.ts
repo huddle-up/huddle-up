@@ -7,4 +7,5 @@ export interface CreateMeeting {
   endDate: Date;
   hostId: string;
   tags: Partial<Tag>[];
+  maximumParticipants?: number;
 }

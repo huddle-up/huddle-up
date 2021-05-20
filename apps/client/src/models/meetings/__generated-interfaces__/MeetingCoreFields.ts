@@ -33,4 +33,8 @@ export interface MeetingCoreFields {
    * The date from which the conference can be created
    */
   prepareDate: any;
+  /**
+   * The maximum allowed participants of the meeting
+   */
+  maximumParticipants: number | null;
 }

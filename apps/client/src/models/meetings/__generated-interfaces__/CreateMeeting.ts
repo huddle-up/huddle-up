@@ -116,6 +116,10 @@ export interface CreateMeeting_createMeeting {
    */
   prepareDate: any;
   /**
+   * The maximum allowed participants of the meeting
+   */
+  maximumParticipants: number | null;
+  /**
    * The hoster of the meeting
    */
   host: CreateMeeting_createMeeting_host;
@@ -143,4 +147,5 @@ export interface CreateMeetingVariables {
   startDate: any;
   endDate: any;
   tags: TagOption[];
+  maximumParticipants?: number | null;
 }

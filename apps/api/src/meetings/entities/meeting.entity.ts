@@ -1,4 +1,4 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn,
@@ -45,6 +45,10 @@ export class Meeting {
 
   @Column()
   hostId: string;
+
+  @Column({ nullable: true })
+  @Field(() => Int, { nullable: true, description: 'The maximum allowed participants of the meeting' })
+  maximumParticipants?: number;
 
   @OneToMany(() => Participation, (participation) => participation.meeting)
   @Field(() => [Participation], { description: 'The participations of the meeting' })

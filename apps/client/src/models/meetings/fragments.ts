@@ -11,6 +11,7 @@ export const MEETING_CORE_FIELDS = gql`
     startDate
     endDate
     prepareDate
+    maximumParticipants
     __typename
   }
 `;

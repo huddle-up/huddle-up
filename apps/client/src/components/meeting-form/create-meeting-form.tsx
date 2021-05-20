@@ -30,7 +30,7 @@ interface MeetingFormProps {
 }
 
 function CreateMeetingForm({
-  initialValues: { title, description, startDate, endDate, tags },
+  initialValues: { title, description, startDate, endDate, tags, maximumParticipants },
   onSubmit,
 }: MeetingFormProps) {
   const classes = useStyles();
@@ -46,13 +46,21 @@ function CreateMeetingForm({
         name: Yup.string().max(maxTagLength, t('global.form.validation.maxCountCharacters', { count: maxTagLength })),
       })
     ),
-    description: Yup.string(),
+    description: Yup.string().nullable(),
     startDate: Yup.string().nullable().required(t('global.form.validation.required')),
     endDate: Yup.string().nullable().required(t('global.form.validation.required')),
+    maximumParticipants: Yup.number().nullable(),
   });
   return (
     <Formik
-      initialValues={{ title, description: description || '', startDate, endDate, tags: tags || [] }}
+      initialValues={{
+        title,
+        description: description || '',
+        startDate,
+        endDate,
+        tags: tags || [],
+        maximumParticipants,
+      }}
       validationSchema={FormSchema}
       onSubmit={onSubmit}>
       {({ submitForm, isSubmitting, handleReset, setFieldValue }) => (
@@ -102,6 +110,28 @@ function CreateMeetingForm({
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <DateTimeField name="endDate" label={t('meetings.form.endDate')} disablePast required />
+                </Grid>
+              </Grid>
+            </CardContent>
+            <Divider />
+            <CardContent className={classes.cardContent} component="fieldset">
+              <CardTitle title={t('meetings.title.rules')} titleComponent="legend" />
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Field
+                    component={TextField}
+                    variant="outlined"
+                    fullWidth
+                    name="maximumParticipants"
+                    label={t('meetings.form.maxParticipants')}
+                    type="number"
+                    onChange={(event) => {
+                      const { value } = event.target;
+                      if (!isNaN(value)) {
+                        setFieldValue('maximumParticipants', value < 0 || value === '' ? 0 : parseInt(value, 10));
+                      }
+                    }}
+                  />
                 </Grid>
               </Grid>
             </CardContent>
