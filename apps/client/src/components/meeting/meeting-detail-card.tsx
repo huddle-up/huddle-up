@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Grid, CardActions, Box, Chip, Divider } from '@material-ui/core';
 import { Edit, Event, Videocam } from '@material-ui/icons';
-import { format, isToday } from 'date-fns';
+import { format, isToday, parseISO } from 'date-fns';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { LinkButton } from '../link';
 import { useUser } from '../../models/user';
@@ -66,8 +66,8 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
 
   const meetingState = useMeetingState(meeting);
   const { id, title, description, startDate, endDate, host } = meeting;
-  const meetingStart = new Date(startDate);
-  const meetingEnd = new Date(endDate);
+  const meetingStart = parseISO(startDate);
+  const meetingEnd = parseISO(endDate);
 
   const isHost = meetingState.isHost(user);
 

@@ -172,24 +172,29 @@
     "noMeetingsPlaceholder": "No meetings found",
     "orderDesc": "Newest Meetings first",
     "orderAsc": "Oldest Meetings first",
-    "noDescription": "No description available."
+    "noDescription": "No description available"
   },
   "profile": {
     "head": {
-      "title": "My Profile"
+      "title": "My Profile",
+      "publicProfile": "Public Profile"
     },
     "nav": {
-      "profile": "Profile",
-      "logout": "Logout"
+      "profile": "My Profile",
+      "logout": "Logout",
+      "back": "Back"
     },
     "profile": {
       "profileSection": "My Profile",
+      "pulicProfileSection": "Public Profil",
       "yourInformation": "Your Information",
       "aboutYou": "About You",
       "aboutYouText": "Tell other users something about you!",
       "fields": {
         "biography": "Biography"
-      }
+      },
+      "noName": "No name available",
+      "noBiography": "No biography available"
     }
   },
   "filter": {

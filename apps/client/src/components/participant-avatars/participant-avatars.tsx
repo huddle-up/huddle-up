@@ -40,7 +40,7 @@ function ParticipantAvatars({ meeting, maxVisible }: ParticipantAvatarsProps) {
     <div className={classes.root}>
       <AvatarGroup max={maxVisible}>
         {users.map((user) => (
-          <Link to={`/profile/${user.id}`} className={classes.link}>
+          <Link to={`/profile/${user.id}`} className={classes.link} key={user.id}>
             <Avatar alt={user.name} className={[classes.avatar, 'MuiAvatarGroup-avatar'].join(' ')}>
               {user.shortName}
             </Avatar>

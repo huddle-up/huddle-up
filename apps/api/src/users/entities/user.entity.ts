@@ -30,7 +30,9 @@ export class User {
   @Field(() => [Participation], { description: 'The meetings the user is a participant of' })
   participations: Promise<Participation>[];
 
-  @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
+  @Field({ name: 'joinedAt', description: 'The join date of the user' })
+  @CreateDateColumn({ name: 'created_at' })
+  'created_at': Date;
 
   @UpdateDateColumn({ name: 'updated_at' }) 'updated_at': Date;
 

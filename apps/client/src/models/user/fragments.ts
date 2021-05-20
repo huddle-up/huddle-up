@@ -16,3 +16,13 @@ export const USER_FIELDS = gql`
     biography
   }
 `;
+
+export const PUBLIC_USER_FIELDS = gql`
+  fragment PublicUserFields on User {
+    id
+    name
+    biography
+    joinedAt
+    __typename
+  }
+`;

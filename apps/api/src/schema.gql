@@ -53,6 +53,9 @@ type User {
 
   """The meetings the user is a participant of"""
   participations: [Participation!]!
+
+  """The join date of the user"""
+  joinedAt: DateTime!
 }
 
 type Meeting {

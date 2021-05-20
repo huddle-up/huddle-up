@@ -171,24 +171,31 @@
     "noMeetingsPlaceholder": "Keine Treffen gefunden",
     "orderDesc": "Neuste Treffen zuerst",
     "orderAsc": "Älteste Treffen zuerst",
-    "noDescription": "Keine Beschreibung vorhanden."
+    "noDescription": "Keine Beschreibung vorhanden"
   },
   "profile": {
     "head": {
-      "title": "Mein Profil"
+      "title": "Mein Profil",
+      "publicProfile": "Öffentliches Profil"
     },
     "nav": {
-      "profile": "Profil",
-      "logout": "Logout"
+      "profile": "Mein Profil",
+      "logout": "Logout",
+      "back": "Zurück"
     },
     "profile": {
-      "profileSection": "Mein Profile",
+      "profileSection": "Mein Profil",
+      "pulicProfileSection": "Öffentliches Profil",
       "yourInformation": "Deine Angaben",
       "aboutYou": "Über dich",
       "aboutYouText": "Erzähl anderen Benutzern etwas über dich!",
       "fields": {
         "biography": "Biographie"
       }
+    },
+    "publicProfile": {
+      "noName": "Keine Name verfügbar",
+      "noBiography": "Keine Biographie verfügbar"
     }
   },
   "filter": {
