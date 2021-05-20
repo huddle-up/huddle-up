@@ -55,6 +55,10 @@ export interface Meetings_discover_meetings_participations_user {
    * The id of the user
    */
   id: string;
+  /**
+   * The name of the user
+   */
+  name: string;
 }
 
 export interface Meetings_discover_meetings_participations {

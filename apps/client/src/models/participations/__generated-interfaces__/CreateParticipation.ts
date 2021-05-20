@@ -21,6 +21,10 @@ export interface CreateParticipation_createParticipation_user {
    * The id of the user
    */
   id: string;
+  /**
+   * The name of the user
+   */
+  name: string;
 }
 
 export interface CreateParticipation_createParticipation {

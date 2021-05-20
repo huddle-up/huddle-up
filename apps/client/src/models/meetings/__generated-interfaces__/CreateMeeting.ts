@@ -55,6 +55,10 @@ export interface CreateMeeting_createMeeting_participations_user {
    * The id of the user
    */
   id: string;
+  /**
+   * The name of the user
+   */
+  name: string;
 }
 
 export interface CreateMeeting_createMeeting_participations {
@@ -138,5 +142,5 @@ export interface CreateMeetingVariables {
   description?: string | null;
   startDate: any;
   endDate: any;
-  tags?: TagOption[] | null;
+  tags: TagOption[];
 }

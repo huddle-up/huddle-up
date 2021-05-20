@@ -21,6 +21,10 @@ export interface ParticipationFields_user {
    * The id of the user
    */
   id: string;
+  /**
+   * The name of the user
+   */
+  name: string;
 }
 
 export interface ParticipationFields {

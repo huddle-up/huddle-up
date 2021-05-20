@@ -8,6 +8,7 @@ export const PARTICIPATION_FIELDS = gql`
     }
     user {
       id
+      name
     }
     __typename
   }
