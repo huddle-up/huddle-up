@@ -14,6 +14,7 @@ import { ConferenceAccess } from '../conference-access';
 import { ConferenceControl } from '../conference-control';
 import { MeetingParticipation } from '../meeting-participation';
 import { ParticipantCount } from '../participant-count';
+import { Avatars } from '../participant-avatars';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -103,6 +104,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
         </Grid>
         <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
           <Grid item>
+            <Avatars meeting={meeting} maxVisible={10} />
             <ParticipantCount meeting={meeting} />
           </Grid>
           <Grid item>

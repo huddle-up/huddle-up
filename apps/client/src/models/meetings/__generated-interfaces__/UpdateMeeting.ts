@@ -55,6 +55,10 @@ export interface UpdateMeeting_updateMeeting_participations_user {
    * The id of the user
    */
   id: string;
+  /**
+   * The name of the user
+   */
+  name: string;
 }
 
 export interface UpdateMeeting_updateMeeting_participations {
@@ -139,5 +143,5 @@ export interface UpdateMeetingVariables {
   description?: string | null;
   startDate?: any | null;
   endDate?: any | null;
-  tags?: TagOption[] | null;
+  tags: TagOption[];
 }
