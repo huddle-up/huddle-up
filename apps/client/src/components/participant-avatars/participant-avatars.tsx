@@ -25,12 +25,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface AvatarsProps {
+interface ParticipantAvatarsProps {
   meeting: MeetingFields;
   maxVisible: number;
 }
 
-function Avatars({ meeting, maxVisible }: AvatarsProps) {
+function ParticipantAvatars({ meeting, maxVisible }: ParticipantAvatarsProps) {
   const classes = useStyles();
   const users = meeting.participations.map((p) => {
     return { id: p.user.id, name: p.user.name, shortName: p.user.name.charAt(0).toUpperCase() };
@@ -51,4 +51,4 @@ function Avatars({ meeting, maxVisible }: AvatarsProps) {
   );
 }
 
-export default Avatars;
+export default ParticipantAvatars;
