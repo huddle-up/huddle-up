@@ -1,7 +1,9 @@
 import { useMutation } from '@apollo/client';
 import {
+  Box,
   Button,
   CircularProgress,
+  Grid,
   makeStyles,
   Step,
   StepContent,
@@ -28,6 +30,7 @@ import {
 import { MEETING, MeetingState } from '../../models/meetings';
 import { MeetingFields } from '../../models/meetings/__generated-interfaces__/MeetingFields';
 import { UserFields } from '../../models/user/__generated-interfaces__/UserFields';
+import { ConferenceJoinButton } from '../conference-join-button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -126,16 +129,32 @@ function ConferenceControl({ meeting, state, user }: ConferenceControlProps) {
         <StepLabel>{t('meetings.conference.control.steps.setup')}</StepLabel>
         <StepContent>
           <Typography>{t('meetings.conference.control.steps.setupInfo')}</Typography>
-          <PublishConferenceButton meeting={meeting} state={state} user={user} />
+          <Box mt={0.5}>
+            <Grid container spacing={1}>
+              <Grid item>
+                <ConferenceJoinButton conferenceId={meeting.conference?.id} />
+              </Grid>
+              <Grid item>
+                <PublishConferenceButton meeting={meeting} state={state} user={user} />
+              </Grid>
+            </Grid>
+          </Box>
         </StepContent>
       </Step>
       <Step completed={activeStep > controlSteps.meet}>
         <StepLabel>{t('meetings.conference.control.steps.meet')}</StepLabel>
         <StepContent>
           <Typography>{t('meetings.conference.control.steps.meetInfo')}</Typography>
-          <div>
-            <StopConferenceButton meeting={meeting} state={state} user={user} />
-          </div>
+          <Box mt={0.5}>
+            <Grid container spacing={1}>
+              <Grid item>
+                <ConferenceJoinButton conferenceId={meeting.conference?.id} />
+              </Grid>
+              <Grid item>
+                <StopConferenceButton meeting={meeting} state={state} user={user} />
+              </Grid>
+            </Grid>
+          </Box>
         </StepContent>
       </Step>
       <Step completed={activeStep === controlSteps.finished}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, Grid, CardActions, Box, Chip, Divider } from '@material-ui/core';
+import { fade, makeStyles } from '@material-ui/core/styles';
+import { Card, CardContent, Typography, Grid, Box, Chip, Collapse, CardActions, Divider } from '@material-ui/core';
 import { Edit, Event, Videocam } from '@material-ui/icons';
 import { format, isToday, parseISO } from 'date-fns';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
@@ -10,11 +10,12 @@ import { useUser } from '../../models/user';
 import { TagsList } from '../tags';
 import { HostLink } from '../host-link';
 import { useMeetingState } from '../../models/meetings';
-import { ConferenceAccess } from '../conference-access';
+import { ConferenceState } from '../conference-state';
 import { ConferenceControl } from '../conference-control';
 import { MeetingParticipation } from '../meeting-participation';
 import { ParticipantCount } from '../participant-count';
 import { ParticipantAvatars } from '../participant-avatars';
+import { ConferenceJoinButton } from '../conference-join-button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,27 +33,46 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
   },
-  tags: {
-    marginTop: theme.spacing(1),
-  },
   card: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
   },
   cardContent: {
     flexGrow: 1,
+    transition: theme.transitions.create('background-color'),
+  },
+  contentHighlight: {
+    backgroundColor: fade(theme.palette.secondary.light, 0.3),
   },
   description: {
     marginTop: theme.spacing(1),
-  },
-  actions: {
-    display: 'flex',
-    justifyContent: 'flex-end',
   },
   spacer: {
     flex: '1 1',
   },
 }));
+
+interface CardSectionProps {
+  children: React.ReactNode;
+  className?: string;
+  highlight?: boolean;
+}
+
+function CardSection({ children, className, highlight }: CardSectionProps) {
+  const classes = useStyles();
+  return (
+    <CardContent
+      className={[classes.cardContent, highlight ? classes.contentHighlight : '', className]
+        .filter((c) => !!c)
+        .join(' ')}>
+      {children}
+    </CardContent>
+  );
+}
+CardSection.defaultProps = {
+  className: '',
+  highlight: false,
+};
 
 interface MeetingCardProps {
   meeting: Meeting;
@@ -73,9 +93,9 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
 
   return (
     <Card className={classes.card} variant="outlined">
-      <CardContent className={classes.cardContent}>
+      <CardSection highlight={meetingState.isPublished}>
         <Grid container direction="row" justify="space-between" alignItems="center">
-          <Typography className={classes.metaFont} color="textSecondary" gutterBottom>
+          <Typography className={classes.metaFont} gutterBottom>
             {isToday(meetingStart) ? t('meetings.today') : format(meetingStart, 'dd. MMMM yyyy')} {bull}{' '}
             {format(meetingStart, 'HH:mm')}
           </Typography>
@@ -85,23 +105,45 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
             </Box>
           )}
         </Grid>
-        <Typography variant="h5" component="h2">
+        <Typography variant="h5" component="h1">
           {title}
         </Typography>
-        <div className={classes.tags}>
-          <TagsList tags={meeting.tags} />
-        </div>
-      </CardContent>
+        <Box mt={1}>
+          <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
+            <Grid item>
+              <HostLink host={host} currentUser={user} />
+            </Grid>
+            <Grid item>
+              <ConferenceState meeting={meeting} state={meetingState} />
+            </Grid>
+          </Grid>
+        </Box>
+      </CardSection>
       <Divider />
-      <CardContent className={classes.cardContent}>
-        <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
-          <Grid item>
-            <HostLink host={host} currentUser={user} />
+      <Collapse in={meetingState.isParticipant(user) && meetingState.canJoin(user)}>
+        <CardSection>
+          <Grid container direction="row" justify="space-between" alignItems="center">
+            <Grid item>
+              <Typography>The conference is live. You can join it now!</Typography>
+            </Grid>
+            <Grid item>
+              <ConferenceJoinButton conferenceId={meeting.conference?.id} />
+            </Grid>
           </Grid>
-          <Grid item>
-            <ConferenceAccess meeting={meeting} state={meetingState} />
-          </Grid>
-        </Grid>
+        </CardSection>
+        <Divider />
+      </Collapse>
+      <Collapse in={meetingState.canManage(user)}>
+        <CardSection>
+          <Typography variant="h6">Manage</Typography>
+          <Box mt={1}>
+            <ConferenceControl meeting={meeting} state={meetingState} user={user} />
+          </Box>
+        </CardSection>
+        <Divider />
+      </Collapse>
+      <CardSection>
+        <Typography variant="h6">Participants</Typography>
         <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
           <Grid item>
             <ParticipantAvatars meeting={meeting} maxVisible={10} />
@@ -111,17 +153,9 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
             <MeetingParticipation meeting={meeting} state={meetingState} />
           </Grid>
         </Grid>
-      </CardContent>
-      {meetingState.canManage(user) && (
-        <>
-          <Divider />
-          <CardContent className={classes.cardContent}>
-            <ConferenceControl meeting={meeting} state={meetingState} user={user} />
-          </CardContent>
-        </>
-      )}
+      </CardSection>
       <Divider />
-      <CardContent className={classes.cardContent}>
+      <CardSection>
         <Grid container direction="row" justify="space-between" alignItems="center">
           <Grid item>
             <Typography variant="h6">{t('meetings.title.details')}</Typography>
@@ -133,17 +167,22 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
             </Grid>
           </Grid>
         </Grid>
+        <Box mt={1}>
+          <TagsList tags={meeting.tags} />
+        </Box>
         <Typography variant="body2" className={classes.description}>
           {description || t('meetings.noDescription')}
         </Typography>
-      </CardContent>
+      </CardSection>
       {isHost && (
         <>
           <Divider />
-          <CardActions className={classes.actions}>
-            <LinkButton to={`/meetings/${id}/edit`} variant="outlined" color="primary" startIcon={<Edit />}>
-              {t('meetings.button.edit')}
-            </LinkButton>
+          <CardActions>
+            <Grid container justify="flex-end">
+              <LinkButton to={`/meetings/${id}/edit`} variant="outlined" color="primary" startIcon={<Edit />}>
+                {t('meetings.button.edit')}
+              </LinkButton>
+            </Grid>
           </CardActions>
         </>
       )}

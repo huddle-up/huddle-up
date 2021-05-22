@@ -19,12 +19,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface ConferenceAccessProps {
+interface ConferenceStateProps {
   meeting: MeetingFields;
   state: MeetingState;
 }
 
-interface ContentProps extends ConferenceAccessProps {
+interface ContentProps extends ConferenceStateProps {
   user: UserFields;
 }
 
@@ -68,14 +68,6 @@ function HostContent({ meeting, state, user }: ContentProps) {
           </Typography>
         </>
       )}
-      {state.isPublished && (
-        <>
-          <PlayCircleFilled />
-          <Typography component="span" variant="body2">
-            {t('meetings.conference.state.published')}
-          </Typography>
-        </>
-      )}
       {state.isStopped && (
         <>
           <EventBusy />
@@ -115,14 +107,6 @@ function UserContent({ meeting, state, user }: ContentProps) {
           </Typography>
         </>
       )}
-      {state.isPublished && (
-        <>
-          <PlayCircleFilled />
-          <Typography component="span" variant="body2">
-            {t('meetings.conference.state.published')}
-          </Typography>
-        </>
-      )}
       {state.isStopped && (
         <>
           <EventBusy />
@@ -143,10 +127,10 @@ function UserContent({ meeting, state, user }: ContentProps) {
   );
 }
 
-function ConferenceAccess({ meeting, state }: ConferenceAccessProps) {
+function ConferenceState({ meeting, state }: ConferenceStateProps) {
   const { user } = useUser();
   const ContentComponent = user.id === meeting.host.id ? HostContent : UserContent;
   return <ContentComponent meeting={meeting} state={state} user={user} />;
 }
 
-export default ConferenceAccess;
+export default ConferenceState;

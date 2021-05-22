@@ -137,7 +137,9 @@
       "state": {
         "pending": "The video conference has not been started",
         "early": "You cannot start the video conference, yet",
-        "ready": "You can start the video conference below",
+        "ready": "You can start the video conference",
+        "started": "The video conference is started",
+        "published": "The video conference is live",
         "ended": "The video conference has ended",
         "past": "You cannot start the video conference anymore",
         "neverStarted": "The video conference was not held"
@@ -149,7 +151,7 @@
         "stop": "End Video Conference",
         "steps": {
           "start": "Start",
-          "setup": "Share",
+          "setup": "Publish",
           "setupInfo": "Your video conference is ready, but only visible to you. You can join now before you make it available for all participants using the button below.",
           "meet": "Live",
           "meetInfo": "You're live! Once you're done, you can stop the video conference using the button below. The access is then prohibited.",
@@ -189,7 +191,7 @@
     },
     "profile": {
       "profileSection": "My Profile",
-      "pulicProfileSection": "Public Profil",
+      "pulicProfileSection": "Public Profile",
       "yourInformation": "Your Information",
       "aboutYou": "About You",
       "aboutYouText": "Tell other users something about you!",
