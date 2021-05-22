@@ -159,8 +159,9 @@
     },
     "participation": {
       "count": {
-        "participant": "{{count}}{{total}} participant",
-        "participant_plural": "{{count}}{{total}} participants"
+        "participant": "{{count}} participant",
+        "participant_plural": "{{count}} participants",
+        "participantsWithTotal": "{{count}} / {{total}} participants"
       },
       "participate": "Participate",
       "participating": "Participating",
