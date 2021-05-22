@@ -24,12 +24,14 @@ function ParticipantCount({ meeting }: ParticipantCountProps) {
   const { t } = useTranslation();
   const classes = useStyles();
   const count = meeting.participations.length;
-  const total = meeting.maximumParticipants > 0 ? ` / ${meeting.maximumParticipants}` : '';
+  const total = meeting.maximumParticipants;
   return (
     <div className={classes.root}>
       <Group fontSize="small" />
       <Typography variant="subtitle2" component="span">
-        {t('meetings.participation.count.participant', { count, total })}
+        {total && total > 0
+          ? t('meetings.participation.count.participantsWithTotal', { count, total })
+          : t('meetings.participation.count.participant', { count })}
       </Typography>
     </div>
   );

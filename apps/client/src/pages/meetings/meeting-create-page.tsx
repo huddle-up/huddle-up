@@ -11,6 +11,7 @@ import { AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
 import { CreateeMeetingForm } from '../../components/meeting-form';
 import { TagOption } from '../../models/__generated-interfaces__/globalTypes';
+import config from '../../config';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -38,7 +39,7 @@ function MeetingCreatePage() {
     startDate: new Date().toUTCString(),
     endDate: endDate.toUTCString(),
     tags: [],
-    maximumParticipants: 10,
+    maximumParticipants: config.get('rules.maxParticipants'),
   };
 
   async function handleCreateMeeting(meetingVariables: CreateMeetingVariables) {
