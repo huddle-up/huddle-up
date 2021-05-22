@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+import { fade, makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Grid, Chip, Box } from '@material-ui/core';
 import { CheckCircle, Videocam, AccountCircle } from '@material-ui/icons';
 import { format, isToday } from 'date-fns';
@@ -30,6 +30,10 @@ const useStyles = makeStyles((theme) => ({
   card: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1),
+    transition: theme.transitions.create('background-color'),
+  },
+  cardHighlight: {
+    backgroundColor: fade(theme.palette.secondary.light, 0.2),
   },
   cardContent: {
     flexGrow: 1,
@@ -54,10 +58,10 @@ function MeetingCard({ meeting }: MeetingCardProps) {
   const live = conference && conference.publishedAt && !conference.stoppedAt;
 
   return (
-    <Card className={classes.card} variant="outlined">
+    <Card className={[classes.card, live ? classes.cardHighlight : ''].join(' ')} variant="outlined">
       <CardContent className={classes.cardContent}>
         <Grid container direction="row" alignItems="center">
-          <Typography className={classes.metaFont} color="textSecondary" gutterBottom>
+          <Typography className={classes.metaFont} gutterBottom>
             {isToday(meetingStart) ? t('meetings.today') : format(meetingStart, 'dd. MMMM yyyy')} {bull}{' '}
             {format(meetingStart, 'HH:mm')}
           </Typography>
@@ -88,7 +92,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
           <TagsList tags={meeting.tags} />
         </div>
         <Grid container direction="row" justify="space-between" alignItems="center">
-          <HostLink host={host} currentUser={user} />
+          <HostLink host={host} currentUser={user} small />
           <ParticipantCount meeting={meeting} />
         </Grid>
       </CardContent>

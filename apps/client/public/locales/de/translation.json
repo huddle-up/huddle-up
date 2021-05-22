@@ -129,7 +129,9 @@
       "state": {
         "pending": "Die Video-Konferenz wurde noch nicht gestartet",
         "early": "Die Video-Konferenz kann noch nicht gestartet werden",
-        "ready": "Die Video-Konferenz kann unten gestartet werden",
+        "ready": "Die Video-Konferenz kann gestartet werden",
+        "started": "Die Video-Konferenz wurde gestartet",
+        "published": "Die Video-Konferenz ist live",
         "ended": "Die Video-Konferenz wurde beendet",
         "past": "Die Video-Konferenz kann nicht mehr gestartet werden",
         "neverStarted": "Die Video-Konferenz wurde nicht durchgeführt"

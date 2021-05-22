@@ -53,11 +53,11 @@ function PublicProfilePage() {
       <SectionHeader icon={<PersonOutlined />} title={t('profile.profile.pulicProfileSection')} />
       <Card className={classes.card} variant="outlined">
         <CardContent className={classes.cardContent} component="fieldset">
-          <CardTitle title={data.user.name || t('profile.publicProfile.noName')} titleComponent="legend" />
+          <CardTitle title={data.user.name || t('profile.profile.noName')} titleComponent="legend" />
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <Typography variant="body2" className={classes.description}>
-                {`${t('profile.publicProfile.join')} ${format(parseISO(data.user.joinedAt), 'dd. MMMM yyyy')}`}
+                {`${t('profile.profile.joinedAt')} ${format(parseISO(data.user.joinedAt), 'dd. MMMM yyyy')}`}
               </Typography>
             </Grid>
           </Grid>
@@ -68,7 +68,7 @@ function PublicProfilePage() {
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <Typography variant="body2" className={classes.description}>
-                {data.user.biography || t('profile.publicProfile.noBiography')}
+                {data.user.biography || t('profile.profile.noBiography')}
               </Typography>
             </Grid>
           </Grid>

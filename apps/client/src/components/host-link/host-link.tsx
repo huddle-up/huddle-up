@@ -1,5 +1,4 @@
-import { Grid, makeStyles, Typography } from '@material-ui/core';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { Avatar, Grid, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -17,6 +16,16 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(0.5),
   },
+  iconRegular: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+  },
+  iconSmall: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+    fontSize: theme.typography.body2.fontSize,
+    lineHeight: theme.typography.body2.lineHeight,
+  },
 }));
 
 interface HostLinkProps {
@@ -30,9 +39,11 @@ function HostLink({ host, currentUser, small }: HostLinkProps) {
   const classes = useStyles();
   const isHost = currentUser && currentUser.id === host.id;
   return (
-    <Link to="/profile" className={classes.link}>
+    <Link to={`/profile/${host.id}`} className={classes.link}>
       <Grid container direction="row" alignItems="center">
-        <AccountCircleIcon className={classes.icon} fontSize={small ? 'default' : 'large'} />
+        <Avatar className={[classes.icon, small ? classes.iconSmall : classes.iconRegular].join(' ')}>
+          {host.name.charAt(0).toUpperCase()}
+        </Avatar>
         <Typography component="span" variant="body2">
           {isHost ? t('meetings.hostedbyYou') : t('meetings.hostedby', { host: host.name })}
         </Typography>

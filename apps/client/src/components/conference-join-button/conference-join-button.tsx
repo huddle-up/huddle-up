@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Button, CircularProgress } from '@material-ui/core';
-import { PersonAdd } from '@material-ui/icons';
+import { Videocam } from '@material-ui/icons';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { CONFERENCE_ACCESS } from '../../models/conferences';
@@ -10,7 +10,7 @@ function ConferenceJoinButton({ conferenceId }: { conferenceId: string }) {
   const { t } = useTranslation();
   const { loading, data } = useQuery<ConferenceAccess>(CONFERENCE_ACCESS, { variables: { conferenceId } });
 
-  if (loading) {
+  if (loading || !data) {
     return <CircularProgress size="2em" />;
   }
 
@@ -22,7 +22,7 @@ function ConferenceJoinButton({ conferenceId }: { conferenceId: string }) {
       variant="contained"
       color="secondary"
       disableElevation
-      startIcon={<PersonAdd />}>
+      startIcon={<Videocam />}>
       {t('meetings.conference.join')}
     </Button>
   );
