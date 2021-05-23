@@ -196,9 +196,7 @@
       "aboutYouText": "Erzähl anderen Benutzern etwas über dich!",
       "fields": {
         "biography": "Biographie"
-      }
-    },
-    "publicProfile": {
+      },
       "joinedAt": "HuddleUp Mitglied seit",
       "noName": "Kein Name verfügbar",
       "noBiography": "Keine Biographie verfügbar"
