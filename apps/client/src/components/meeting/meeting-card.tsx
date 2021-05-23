@@ -79,9 +79,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
           )}
           {live && (
             <Box ml={1}>
-              <Link to={`/meetings/${id}`}>
-                <Chip label="Live" size="small" color="secondary" icon={<Videocam />} />
-              </Link>
+              <Chip label="Live" size="small" color="secondary" icon={<Videocam />} />
             </Box>
           )}
         </Grid>
