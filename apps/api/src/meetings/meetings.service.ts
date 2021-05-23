@@ -52,7 +52,8 @@ export class MeetingsService {
     const query = flow(
       (q) => this.applySearchFilter(q, searchValue),
       (q) => this.applyHostFilter(q, hostId),
-      (q) => this.applyDateFilter(q, fromDate, toDate),
+      (q) => this.applyStartDateFilter(q, fromDate, toDate),
+      (q) => this.applyEndDateFilter(q, hostId),
       (q) => this.applyTagFilter(q, tags)
     )(this.meetingRepository.createQueryBuilder('meeting'));
 
@@ -73,7 +74,14 @@ export class MeetingsService {
     return query;
   }
 
-  private applyDateFilter(
+  private applyHostFilter(query: SelectQueryBuilder<Meeting>, hostId: string): SelectQueryBuilder<Meeting> {
+    if (hostId) {
+      return query.andWhere('meeting.hostId = :hostId', { hostId });
+    }
+    return query;
+  }
+
+  private applyStartDateFilter(
     query: SelectQueryBuilder<Meeting>,
     fromDate: Date,
     toDate: Date
@@ -90,9 +98,9 @@ export class MeetingsService {
     return query;
   }
 
-  private applyHostFilter(query: SelectQueryBuilder<Meeting>, hostId: string): SelectQueryBuilder<Meeting> {
-    if (hostId) {
-      return query.andWhere('meeting.hostId = :hostId', { hostId });
+  private applyEndDateFilter(query: SelectQueryBuilder<Meeting>, hostId: string) {
+    if (!hostId) {
+      return query.andWhere('meeting.endDate > NOW()');
     }
     return query;
   }
