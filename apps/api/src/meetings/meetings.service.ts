@@ -45,15 +45,15 @@ export class MeetingsService {
     return this.meetingRepository.findOne(entity);
   }
 
-  async search(searchCriteria: SearchCriteria, hostId?: string) {
+  async search(searchCriteria: SearchCriteria, userId?: string) {
     const { searchValue, startDateOrderBy, offset, limit, fromDate, toDate, tags } = searchCriteria;
 
     // This will append the query builder options to the base query in the specified order
     const query = flow(
       (q) => this.applySearchFilter(q, searchValue),
-      (q) => this.applyHostFilter(q, hostId),
+      (q) => this.applyHostOrParticipantFilter(q, userId),
       (q) => this.applyStartDateFilter(q, fromDate, toDate),
-      (q) => this.applyEndDateFilter(q, hostId),
+      (q) => this.applyEndDateFilter(q, userId),
       (q) => this.applyTagFilter(q, tags)
     )(this.meetingRepository.createQueryBuilder('meeting'));
 
@@ -74,9 +74,14 @@ export class MeetingsService {
     return query;
   }
 
-  private applyHostFilter(query: SelectQueryBuilder<Meeting>, hostId: string): SelectQueryBuilder<Meeting> {
-    if (hostId) {
-      return query.andWhere('meeting.hostId = :hostId', { hostId });
+  private applyHostOrParticipantFilter(
+    query: SelectQueryBuilder<Meeting>,
+    userId: string
+  ): SelectQueryBuilder<Meeting> {
+    if (userId) {
+      return query
+        .leftJoin('meeting.participations', 'participation', 'participation.userId = :userId', { userId })
+        .andWhere('meeting.hostId = :userId OR participation.userId = :userId', { userId });
     }
     return query;
   }
@@ -98,8 +103,8 @@ export class MeetingsService {
     return query;
   }
 
-  private applyEndDateFilter(query: SelectQueryBuilder<Meeting>, hostId: string) {
-    if (!hostId) {
+  private applyEndDateFilter(query: SelectQueryBuilder<Meeting>, userId: string) {
+    if (!userId) {
       return query.andWhere('meeting.endDate > NOW()');
     }
     return query;
