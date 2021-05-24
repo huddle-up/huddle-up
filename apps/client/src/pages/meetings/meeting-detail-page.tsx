@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
@@ -29,9 +29,15 @@ function MeetingDetailPage() {
   const classes = useStyles();
   const { id } = useParams<MeetingVariables>();
 
-  const { loading: queryLoading, error: queryError, data } = useQuery<Meeting>(MEETING, {
+  const { loading: queryLoading, error: queryError, data, startPolling, stopPolling } = useQuery<Meeting>(MEETING, {
     variables: { id },
   });
+
+  useEffect(() => {
+    startPolling(5000);
+    return () => stopPolling();
+    // eslint-disable-next-line
+  }, []);
 
   if (queryLoading) return <Paper className={classes.paper}>Loading...</Paper>;
   if (queryError) return <Paper className={classes.paper}>`Error loading meeting! ${queryError.message}`</Paper>;
