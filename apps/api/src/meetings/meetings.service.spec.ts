@@ -26,6 +26,7 @@ const createMockRepository = <T = any>(): MockRepository<T> => ({
     limit: jest.fn().mockReturnThis(),
     offset: jest.fn().mockReturnThis(),
     innerJoin: jest.fn().mockReturnThis(),
+    leftJoin: jest.fn().mockReturnThis(),
     getManyAndCount: jest.fn(),
   }),
 });
@@ -226,7 +227,7 @@ describe('MeetingsService', () => {
           fromDate: new Date('2021-06-18T10:00:00Z'),
           toDate: new Date('2021-06-18T11:00:00Z'),
         };
-        const hostId = 'host-1';
+        const userId = 'user-1';
         const meetings: Partial<Meeting>[] = [{ id: 'meeting-1', title: 'test-meeting' }];
         const totalCount = 1;
         const { searchValue, tags, fromDate, toDate } = searchCriteria;
@@ -234,7 +235,7 @@ describe('MeetingsService', () => {
         const query = meetingRepository.createQueryBuilder('meeting');
         query.getManyAndCount.mockReturnValue(Promise.resolve([meetings, totalCount]));
 
-        const meeting = await service.search(searchCriteria, hostId);
+        const meeting = await service.search(searchCriteria, userId);
 
         expect(meeting).toEqual({ meetings, totalCount });
 
@@ -245,7 +246,9 @@ describe('MeetingsService', () => {
             search: `%${searchValue}%`,
           }
         );
-        expect(query.andWhere).toHaveBeenCalledWith('meeting.hostId = :hostId', { hostId });
+        expect(query.andWhere).toHaveBeenCalledWith('meeting.hostId = :userId OR participation.userId = :userId', {
+          userId,
+        });
         expect(query.andWhere).toHaveBeenCalledWith('meeting.startDate BETWEEN :fromDate AND :toDate', {
           fromDate,
           toDate,
