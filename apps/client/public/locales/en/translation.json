@@ -7,8 +7,7 @@
     "title": {
       "meeting": "Meeting",
       "myMeetings": "My Meetings",
-      "discover": "Discover",
-      "filter": "Filter"
+      "discover": "Discover"
     },
     "button": {
       "login": "Login",
@@ -118,19 +117,25 @@
     "title": {
       "new": "New Meeting",
       "edit": "Edit Meeting",
-      "details": "Details",
-      "about": "About the Meeting",
-      "dateTime": "Date and Time",
       "ongoing": "Ongoing Meetings",
       "upcoming": "Upcoming Meetings",
-      "past": "Past Meetings",
-      "rules": "Rules"
+      "past": "Past Meetings"
+    },
+    "details": {
+      "joinNow": "The conference is live. You can join it now!",
+      "manage": "Manage",
+      "participants": "Participants",
+      "details": "Details",
+      "noDescription": "No description available"
     },
     "form": {
+      "about": "About the Meeting",
       "title": "Title",
       "description": "Description",
+      "dateTime": "Date and Time",
       "startDate": "Start",
       "endDate": "Estimated End",
+      "rules": "Rules",
       "maxParticipants": "Maximum Participants"
     },
     "conference": {
@@ -169,15 +174,18 @@
       "participating": "Participating",
       "doNotParticipate": "Do not participate"
     },
+    "search": {
+      "filterSection": "Filter",
+      "searchMeeting": "Meeting search",
+      "orderDesc": "Newest Meetings first",
+      "orderAsc": "Oldest Meetings first"
+    },
     "today": "Today",
     "host": "Host",
     "hostedby": "Hosted by {{host}}",
     "hostedbyYou": "Hosted by you",
     "participant": "Participant",
-    "noMeetingsPlaceholder": "No meetings found",
-    "orderDesc": "Newest Meetings first",
-    "orderAsc": "Oldest Meetings first",
-    "noDescription": "No description available"
+    "noMeetingsPlaceholder": "No meetings found"
   },
   "profile": {
     "head": {
@@ -202,9 +210,5 @@
       "noName": "No name available",
       "noBiography": "No biography available"
     }
-  },
-  "filter": {
-    "filterSection": "Filter",
-    "searchMeeting": "Meeting search"
   }
 }

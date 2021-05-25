@@ -117,13 +117,26 @@
     "title": {
       "new": "Neues Treffen",
       "edit": "Treffen bearbeiten",
-      "details": "Details",
-      "about": "Über das Treffen",
-      "dateTime": "Datum und Zeit",
       "ongoing": "Laufende Treffen",
       "upcoming": "Anstehende Treffen",
-      "past": "Vergangene Treffen",
-      "rules": "Regeln"
+      "past": "Vergangene Treffen"
+    },
+    "details": {
+      "joinNow": "Die Video-Konferenz ist aktiv! Du kannst jetzt beitreten.",
+      "manage": "Verwalten",
+      "participants": "Teilnehmer",
+      "details": "Details",
+      "noDescription": "Keine Beschreibung vorhanden"
+    },
+    "form": {
+      "about": "Über das Treffen",
+      "title": "Titel",
+      "description": "Beschreibung",
+      "dateTime": "Datum und Zeit",
+      "startDate": "Start",
+      "endDate": "Geplantes Ende",
+      "rules": "Regeln",
+      "maxParticipants": "Maximale Teilnehmer"
     },
     "conference": {
       "state": {
@@ -161,22 +174,18 @@
       "participating": "Teilnehmer",
       "doNotParticipate": "Nicht teilnehmen"
     },
-    "form": {
-      "title": "Titel",
-      "description": "Beschreibung",
-      "startDate": "Start",
-      "endDate": "Geplantes Ende",
-      "maxParticipants": "Maximale Teilnehmer"
+    "search": {
+      "filterSection": "Filter",
+      "searchMeeting": "Treffen suchen",
+      "orderDesc": "Neuste Treffen zuerst",
+      "orderAsc": "Älteste Treffen zuerst"
     },
     "today": "Heute",
     "host": "Veranstalter",
     "hostedby": "Veranstaltet von {{host}}",
     "hostedbyYou": "Veranstaltet von dir",
     "participant": "Teilnehmer",
-    "noMeetingsPlaceholder": "Keine Treffen gefunden",
-    "orderDesc": "Neuste Treffen zuerst",
-    "orderAsc": "Älteste Treffen zuerst",
-    "noDescription": "Keine Beschreibung vorhanden"
+    "noMeetingsPlaceholder": "Keine Treffen gefunden"
   },
   "profile": {
     "head": {
@@ -201,9 +210,5 @@
       "noName": "Kein Name verfügbar",
       "noBiography": "Keine Biographie verfügbar"
     }
-  },
-  "filter": {
-    "filterSection": "Filter",
-    "searchMeeting": "Treffen suchen"
   }
 }
