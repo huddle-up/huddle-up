@@ -131,9 +131,7 @@ function ConferenceControl({ meeting, state, user }: ConferenceControlProps) {
           <Typography>{t('meetings.conference.control.steps.setupInfo')}</Typography>
           <Box mt={0.5}>
             <Grid container spacing={1}>
-              <Grid item>
-                <ConferenceJoinButton conferenceId={meeting.conference?.id} />
-              </Grid>
+              <Grid item>{!!meeting.conference && <ConferenceJoinButton conferenceId={meeting.conference.id} />}</Grid>
               <Grid item>
                 <PublishConferenceButton meeting={meeting} state={state} user={user} />
               </Grid>
@@ -147,9 +145,7 @@ function ConferenceControl({ meeting, state, user }: ConferenceControlProps) {
           <Typography>{t('meetings.conference.control.steps.meetInfo')}</Typography>
           <Box mt={0.5}>
             <Grid container spacing={1}>
-              <Grid item>
-                <ConferenceJoinButton conferenceId={meeting.conference?.id} />
-              </Grid>
+              <Grid item>{!!meeting.conference && <ConferenceJoinButton conferenceId={meeting.conference.id} />}</Grid>
               <Grid item>
                 <StopConferenceButton meeting={meeting} state={state} user={user} />
               </Grid>
