@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Grid, Box, Chip, Collapse, CardActions, Divider } from '@material-ui/core';
@@ -91,6 +91,11 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
 
   const isHost = meetingState.isHost(user);
 
+  const [showControls, setShowControls] = useState(false);
+  useEffect(() => {
+    setShowControls(showControls || meetingState.canManage(user));
+  }, [showControls, meetingState, user]);
+
   return (
     <Card className={classes.card} variant="outlined">
       <CardSection highlight={meetingState.isPublished}>
@@ -133,7 +138,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
         </CardSection>
         <Divider />
       </Collapse>
-      <Collapse in={meetingState.canManage(user)}>
+      <Collapse in={showControls}>
         <CardSection>
           <Typography variant="h6">{t('meetings.details.manage')}</Typography>
           <Box mt={1}>
