@@ -68,7 +68,7 @@ function UpdateMeetingForm({
         <Form>
           <Card className={classes.card} variant="outlined">
             <CardContent className={classes.cardContent} component="fieldset">
-              <CardTitle title={t('meetings.title.about')} titleComponent="legend" />
+              <CardTitle title={t('meetings.form.about')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Field
@@ -104,7 +104,7 @@ function UpdateMeetingForm({
             </CardContent>
             <Divider />
             <CardContent className={classes.cardContent} component="fieldset">
-              <CardTitle title={t('meetings.title.dateTime')} titleComponent="legend" />
+              <CardTitle title={t('meetings.form.dateTime')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
                   <DateTimeField name="startDate" label={t('meetings.form.startDate')} disablePast required />
@@ -116,7 +116,7 @@ function UpdateMeetingForm({
             </CardContent>
             <Divider />
             <CardContent className={classes.cardContent} component="fieldset">
-              <CardTitle title={t('meetings.title.rules')} titleComponent="legend" />
+              <CardTitle title={t('meetings.form.rules')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <Field

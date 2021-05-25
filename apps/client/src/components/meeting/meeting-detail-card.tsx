@@ -124,7 +124,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
         <CardSection>
           <Grid container direction="row" justify="space-between" alignItems="center">
             <Grid item>
-              <Typography>The conference is live. You can join it now!</Typography>
+              <Typography>{t('meetings.details.joinNow')}</Typography>
             </Grid>
             <Grid item>
               <ConferenceJoinButton conferenceId={meeting.conference?.id} />
@@ -135,7 +135,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
       </Collapse>
       <Collapse in={meetingState.canManage(user)}>
         <CardSection>
-          <Typography variant="h6">Manage</Typography>
+          <Typography variant="h6">{t('meetings.details.manage')}</Typography>
           <Box mt={1}>
             <ConferenceControl meeting={meeting} state={meetingState} user={user} />
           </Box>
@@ -143,7 +143,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
         <Divider />
       </Collapse>
       <CardSection>
-        <Typography variant="h6">Participants</Typography>
+        <Typography variant="h6">{t('meetings.details.participants')}</Typography>
         <Grid container direction="row" justify="space-between" alignItems="center" spacing={2}>
           <Grid item>
             <ParticipantAvatars meeting={meeting} maxVisible={10} />
@@ -158,7 +158,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
       <CardSection>
         <Grid container direction="row" justify="space-between" alignItems="center">
           <Grid item>
-            <Typography variant="h6">{t('meetings.title.details')}</Typography>
+            <Typography variant="h6">{t('meetings.details.details')}</Typography>
           </Grid>
           <Grid item>
             <Grid container direction="row" alignItems="center">
@@ -171,7 +171,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
           <TagsList tags={meeting.tags} />
         </Box>
         <Typography variant="body2" className={classes.description}>
-          {description || t('meetings.noDescription')}
+          {description || t('meetings.details.noDescription')}
         </Typography>
       </CardSection>
       {isHost && (
