@@ -42,8 +42,8 @@ function SearchForm({
   const { t } = useTranslation();
 
   const orderOptions = [
-    { name: t('meetings.orderDesc'), value: OrderBy.DESC },
-    { name: t('meetings.orderAsc'), value: OrderBy.ASC },
+    { name: t('meetings.search.orderDesc'), value: OrderBy.DESC },
+    { name: t('meetings.search.orderAsc'), value: OrderBy.ASC },
   ];
 
   const FormSchema = Yup.object().shape({
@@ -63,7 +63,7 @@ function SearchForm({
         <Form>
           <Card className={classes.card} variant="outlined">
             <CardContent className={classes.cardContent} component="fieldset">
-              <CardTitle title={t('filter.searchMeeting')} titleComponent="legend" />
+              <CardTitle title={t('meetings.search.searchMeeting')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12}>
                   <SearchField

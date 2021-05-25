@@ -63,7 +63,7 @@ function MyMeetingsPage() {
   return (
     <>
       <AppPageAside>
-        <SectionHeader icon={<FilterListIcon />} title={t('filter.filterSection')} />
+        <SectionHeader icon={<FilterListIcon />} title={t('meetings.search.filterSection')} />
         <SearchForm onSubmit={onSearch} initialValues={initialValues} />
         {totalCount > meetings.length && (
           <ShowMoreCard
