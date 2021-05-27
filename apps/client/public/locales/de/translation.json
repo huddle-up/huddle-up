@@ -21,8 +21,8 @@
       "okLabel": "ok",
       "todayLabel": "Jetzt",
       "invalidDateFormat": "Datumsformat ungültig (Bsp: 23.11.2021 13:24)",
-      "invalidMinStartDateMessage": "Start Datum darf nicht in der Vergangenheit liegen",
-      "invalidMinEndDateMessage": "End Datum muss nach dem Start Datum sein"
+      "invalidMinStartDateMessage": "Startdatum darf nicht in der Vergangenheit liegen",
+      "invalidMinEndDateMessage": "Enddatum muss nach dem Startdatum sein"
     },
     "footer": {
       "tagline": "Webplattform für Videotreffen",
