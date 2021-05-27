@@ -64,7 +64,7 @@ function UpdateMeetingForm({
       }}
       validationSchema={FormSchema}
       onSubmit={onSubmit}>
-      {({ submitForm, isSubmitting, handleReset, setFieldValue }) => (
+      {({ submitForm, isSubmitting, handleReset, setFieldValue, values }) => (
         <Form>
           <Card className={classes.card} variant="outlined">
             <CardContent className={classes.cardContent} component="fieldset">
@@ -107,10 +107,22 @@ function UpdateMeetingForm({
               <CardTitle title={t('meetings.form.dateTime')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
-                  <DateTimeField name="startDate" label={t('meetings.form.startDate')} disablePast required />
+                  <DateTimeField
+                    name="startDate"
+                    label={t('meetings.form.startDate')}
+                    required
+                    minDate={new Date()}
+                    minDateMessage={t('global.datepicker.invalidMinStartDateMessage')}
+                  />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  <DateTimeField name="endDate" label={t('meetings.form.endDate')} disablePast required />
+                  <DateTimeField
+                    name="endDate"
+                    label={t('meetings.form.endDate')}
+                    required
+                    minDate={values.startDate}
+                    minDateMessage={t('global.datepicker.invalidMinEndDateMessage')}
+                  />
                 </Grid>
               </Grid>
             </CardContent>

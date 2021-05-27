@@ -19,7 +19,10 @@
     },
     "datepicker": {
       "okLabel": "ok",
-      "todayLabel": "Jetzt"
+      "todayLabel": "Jetzt",
+      "invalidDateFormat": "Datumsformat ungültig (Bsp: 23.11.2021 13:24)",
+      "invalidMinStartDateMessage": "Start Datum darf nicht in der Vergangenheit liegen",
+      "invalidMinEndDateMessage": "End Datum muss nach dem Start Datum sein"
     },
     "footer": {
       "tagline": "Webplattform für Videotreffen",
