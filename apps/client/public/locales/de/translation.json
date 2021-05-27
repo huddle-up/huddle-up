@@ -96,6 +96,10 @@
       "main": "Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen."
     }
   },
+  "pagination": {
+    "showMore": "Mehr anzeigen",
+    "showingCountOfTotal": "Zeigt {{count}} von {{total}} an"
+  },
   "meetings": {
     "head": {
       "title": {
