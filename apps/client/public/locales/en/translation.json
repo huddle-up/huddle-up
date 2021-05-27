@@ -96,6 +96,10 @@
       "main": "Create, Categorize, Search and Join on virtual meetings about things you like with unfamiliar users."
     }
   },
+  "pagination": {
+    "showMore": "Show more",
+    "showingCountOfTotal": "Showing {{count}} of {{total}}"
+  },
   "meetings": {
     "head": {
       "title": {

@@ -11,8 +11,7 @@ import { MY_MEETINGS } from '../../models/meetings';
 import { AppPageAside, AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
 import { isHostOrParticipant, isInFutureFilter, isInPastFilter, isWithinIntervalFilter } from '../../utils';
-import { SearchForm } from '../../components/search-form';
-import { MeetingsVariables } from '../../models/meetings/__generated-interfaces__/Meetings';
+import { SearchForm, SearchFormVariables } from '../../components/search-form';
 import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMoreCard } from '../../components/show-more-card';
 import { useUser } from '../../models/user';
@@ -21,40 +20,44 @@ function MyMeetingsPage() {
   const { t } = useTranslation();
   const { user } = useUser();
 
-  const initialValues: MeetingsVariables = {
+  const initialValues = {
     searchValue: '',
-    startDateOrderBy: OrderBy.DESC,
     tags: [],
     fromDate: null,
     toDate: null,
+  };
+
+  const baseOptions = {
+    startDateOrderBy: OrderBy.DESC,
     offset: 0,
     limit: 5,
   };
 
   const { loading, error, data, refetch } = useQuery<MyMeetings, MyMeetingsVariables>(MY_MEETINGS, {
-    variables: initialValues,
+    variables: {
+      ...initialValues,
+      ...baseOptions,
+    },
   });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error! ${error.message}</p>;
 
-  async function onSearch({ searchValue, startDateOrderBy, tags, fromDate, toDate, offset, limit }: MeetingsVariables) {
+  async function onSearch({ searchValue, tags, fromDate, toDate }: SearchFormVariables) {
     await refetch({
       searchValue,
-      startDateOrderBy,
       tags: tags.map((tag) => {
         return { id: tag.id, name: tag.name };
       }),
       fromDate,
       toDate,
-      offset,
-      limit,
+      ...baseOptions,
     });
   }
 
   const { meetings, totalCount } = data.myMeetings;
   const handlePageLimit = (all?: boolean) => {
-    const newLimit = all ? totalCount : initialValues.limit + meetings.length;
+    const newLimit = all ? totalCount : baseOptions.limit + meetings.length;
     refetch({ limit: newLimit });
   };
 
@@ -68,7 +71,7 @@ function MyMeetingsPage() {
         {totalCount > meetings.length && (
           <ShowMoreCard
             title={`${t('global.title.myMeetings')} (${meetings.length}/${totalCount})`}
-            limit={initialValues.limit}
+            limit={baseOptions.limit}
             handlePageLimit={handlePageLimit}
           />
         )}
