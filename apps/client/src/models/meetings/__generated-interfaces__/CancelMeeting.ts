@@ -3,13 +3,11 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { OrderBy, TagOption } from "./../../__generated-interfaces__/globalTypes";
-
 // ====================================================
-// GraphQL query operation: MyMeetings
+// GraphQL mutation operation: CancelMeeting
 // ====================================================
 
-export interface MyMeetings_myMeetings_meetings_host {
+export interface CancelMeeting_cancelMeeting_host {
   __typename: "User";
   /**
    * The id of the user
@@ -25,7 +23,7 @@ export interface MyMeetings_myMeetings_meetings_host {
   name: string;
 }
 
-export interface MyMeetings_myMeetings_meetings_conference {
+export interface CancelMeeting_cancelMeeting_conference {
   __typename: "Conference";
   /**
    * The id of the conference
@@ -41,7 +39,7 @@ export interface MyMeetings_myMeetings_meetings_conference {
   stoppedAt: any | null;
 }
 
-export interface MyMeetings_myMeetings_meetings_participations_meeting {
+export interface CancelMeeting_cancelMeeting_participations_meeting {
   __typename: "Meeting";
   /**
    * The id of the meeting
@@ -49,7 +47,7 @@ export interface MyMeetings_myMeetings_meetings_participations_meeting {
   id: string;
 }
 
-export interface MyMeetings_myMeetings_meetings_participations_user {
+export interface CancelMeeting_cancelMeeting_participations_user {
   __typename: "User";
   /**
    * The id of the user
@@ -61,7 +59,7 @@ export interface MyMeetings_myMeetings_meetings_participations_user {
   name: string;
 }
 
-export interface MyMeetings_myMeetings_meetings_participations {
+export interface CancelMeeting_cancelMeeting_participations {
   __typename: "Participation";
   /**
    * The id of the participation
@@ -70,14 +68,14 @@ export interface MyMeetings_myMeetings_meetings_participations {
   /**
    * The meeting associated with the participation
    */
-  meeting: MyMeetings_myMeetings_meetings_participations_meeting;
+  meeting: CancelMeeting_cancelMeeting_participations_meeting;
   /**
    * The user associated with the participation
    */
-  user: MyMeetings_myMeetings_meetings_participations_user;
+  user: CancelMeeting_cancelMeeting_participations_user;
 }
 
-export interface MyMeetings_myMeetings_meetings_tags {
+export interface CancelMeeting_cancelMeeting_tags {
   __typename: "Tag";
   /**
    * The id of the tag
@@ -89,7 +87,7 @@ export interface MyMeetings_myMeetings_meetings_tags {
   name: string;
 }
 
-export interface MyMeetings_myMeetings_meetings {
+export interface CancelMeeting_cancelMeeting {
   __typename: "Meeting";
   /**
    * The id of the meeting
@@ -126,43 +124,25 @@ export interface MyMeetings_myMeetings_meetings {
   /**
    * The hoster of the meeting
    */
-  host: MyMeetings_myMeetings_meetings_host;
+  host: CancelMeeting_cancelMeeting_host;
   /**
    * The conference associated with the meeting
    */
-  conference: MyMeetings_myMeetings_meetings_conference | null;
+  conference: CancelMeeting_cancelMeeting_conference | null;
   /**
    * The participations of the meeting
    */
-  participations: MyMeetings_myMeetings_meetings_participations[];
+  participations: CancelMeeting_cancelMeeting_participations[];
   /**
    * The tags of the meeting
    */
-  tags: MyMeetings_myMeetings_meetings_tags[] | null;
+  tags: CancelMeeting_cancelMeeting_tags[] | null;
 }
 
-export interface MyMeetings_myMeetings {
-  __typename: "MeetingSearchResponse";
-  /**
-   * The found meetings
-   */
-  meetings: MyMeetings_myMeetings_meetings[];
-  /**
-   * The total number of meetings ignoring the pagination attributes
-   */
-  totalCount: number;
+export interface CancelMeeting {
+  cancelMeeting: CancelMeeting_cancelMeeting;
 }
 
-export interface MyMeetings {
-  myMeetings: MyMeetings_myMeetings;
-}
-
-export interface MyMeetingsVariables {
-  searchValue: string;
-  startDateOrderBy: OrderBy;
-  fromDate?: any | null;
-  toDate?: any | null;
-  tags?: TagOption[] | null;
-  offset?: number | null;
-  limit?: number | null;
+export interface CancelMeetingVariables {
+  id: string;
 }

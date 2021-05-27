@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import { useQuery, useMutation } from '@apollo/client';
 import { Redirect, useParams } from 'react-router-dom';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import { Card, Typography } from '@material-ui/core';
+import { Cancel, PlayCircleOutline } from '@material-ui/icons';
 import { Meeting, MeetingVariables } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { UpdateMeeting, UpdateMeetingVariables } from '../../models/meetings/__generated-interfaces__/UpdateMeeting';
 import { MEETING, UPDATE_MEETING } from '../../models/meetings';
 import { AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
-import { UpdateMeetingForm } from '../../components/meeting-form';
+import { CancelMeetingForm, UpdateMeetingForm } from '../../components/meeting-form';
 import { TagOption } from '../../models/__generated-interfaces__/globalTypes';
 
 const useStyles = makeStyles((theme) => ({
@@ -66,7 +66,7 @@ function MeetingUpdatePage() {
   return (
     <AppPageMain noAside>
       <section>
-        <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.edit')} />
+        <SectionHeader icon={<PlayCircleOutline />} title={t('meetings.title.edit')} />
         {mutationLoading && (
           <Card className={classes.card} variant="outlined">
             <Typography>Loading...</Typography>
@@ -80,6 +80,10 @@ function MeetingUpdatePage() {
         {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meetings/${id}`} />}
 
         <UpdateMeetingForm onSubmit={handleMeetingUpdate} initialValues={data.meeting} />
+      </section>
+      <section>
+        <SectionHeader icon={<Cancel />} title={t('meetings.cancel.title')} />
+        <CancelMeetingForm meeting={data.meeting} />
       </section>
     </AppPageMain>
   );

@@ -11,6 +11,7 @@ enum MeetingStates {
   Published,
   Stopped,
   Past,
+  Canceled,
 }
 
 function getMeetingState(meeting?: MeetingFields, currentDate?: Date): MeetingStates {
@@ -18,6 +19,10 @@ function getMeetingState(meeting?: MeetingFields, currentDate?: Date): MeetingSt
   if (!meeting) {
     return MeetingStates.Void;
   }
+  if (meeting.canceledOn) {
+    return MeetingStates.Canceled;
+  }
+
   const { conference } = meeting;
   if (!conference) {
     if (isBefore(parseISO(meeting.endDate), compareDate)) {
@@ -47,6 +52,7 @@ export function useMeetingState(meeting?: MeetingFields) {
   const currentState = getMeetingState(meeting, currentDate);
 
   const states = {
+    isCanceled: currentState === MeetingStates.Canceled,
     isLoading: currentState === MeetingStates.Void,
     isInFuture: currentState === MeetingStates.Future,
     isReadyToStart: currentState === MeetingStates.ReadyToStart,
@@ -63,6 +69,7 @@ export function useMeetingState(meeting?: MeetingFields) {
     canStart: (user: UserFields) => isHost(user) && states.isReadyToStart,
     canStop: (user: UserFields) => isHost(user) && states.isPublished,
     canManage: (user: UserFields) => isHost(user) && (states.isReadyToStart || states.isStarted || states.isPublished),
+    canCancel: (user: UserFields) => isHost(user) && !(states.isStarted || states.isPublished || states.isInPast),
     canJoin: (user: UserFields) =>
       isHost(user) ? states.isStarted || states.isPublished : isParticipant(user) && states.isPublished,
     isParticipant,

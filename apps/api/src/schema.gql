@@ -91,6 +91,9 @@ type Meeting {
 
   """The date from which the conference can be created"""
   prepareDate: DateTime!
+
+  """The date on which the meeting has been canceled"""
+  canceledOn: DateTime
 }
 
 type Tag {
@@ -184,6 +187,7 @@ input TagOption {
 type Mutation {
   createMeeting(input: CreateMeetingInput!): Meeting!
   updateMeeting(input: UpdateMeetingInput!): Meeting!
+  cancelMeeting(id: String!): Meeting!
   createTag(input: CreateTagInput!): Tag!
   updateTag(input: UpdateTagInput!): Tag!
   removeTag(id: Int!): Tag!

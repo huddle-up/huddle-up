@@ -116,6 +116,10 @@ export interface CreateMeeting_createMeeting {
    */
   prepareDate: any;
   /**
+   * The date on which the meeting has been canceled
+   */
+  canceledOn: any | null;
+  /**
    * The maximum allowed participants of the meeting
    */
   maximumParticipants: number | null;

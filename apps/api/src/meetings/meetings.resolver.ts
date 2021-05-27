@@ -1,5 +1,5 @@
-import { UseGuards } from '@nestjs/common';
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { NotFoundException, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { MeetingsService } from './meetings.service';
 import { Meeting } from './entities/meeting.entity';
 import { CreateMeetingInput } from './dto/create-meeting.input';
@@ -38,5 +38,17 @@ export class MeetingsResolver {
   @Mutation(() => Meeting)
   async updateMeeting(@Args('input') input: UpdateMeetingInput) {
     return this.meetingsService.update(input);
+  }
+
+  @Mutation(() => Meeting)
+  async cancelMeeting(@Args('id', { type: () => String }) id: string, @CurrentUser() authUser) {
+    const meeting = await this.meetingsService.findOne({ id });
+    if (!meeting) {
+      throw new NotFoundException(`Meeting #${id} not found`);
+    }
+    if (meeting.hostId !== authUser.userId) {
+      throw new UnauthorizedException();
+    }
+    return this.meetingsService.cancel(meeting);
   }
 }
