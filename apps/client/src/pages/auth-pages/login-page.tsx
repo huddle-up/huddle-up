@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { AuthCard } from '../../components/auth-card';
 import { Link } from '../../components/link';
 import { useOidc } from '../../contexts/oidc';
+import { ROUTES } from '../../routes';
 import AuthButton from './auth-button';
 
 const useStyles = makeStyles({
@@ -36,7 +37,7 @@ function LoginPage() {
               <Typography component="p" variant="body2">
                 {t('authPages.login.switchToRegisterText')}
               </Typography>
-              <Link color="secondary" to="/register">
+              <Link color="secondary" to={ROUTES.auth.register}>
                 {t('authPages.login.switchToRegisterLink')}
               </Link>
             </Container>

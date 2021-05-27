@@ -17,6 +17,7 @@ import { ParticipantCount } from '../participant-count';
 import { ParticipantAvatars } from '../participant-avatars';
 import { ConferenceJoinButton } from '../conference-join-button';
 import { CanceledStatusChip, HostStatusChip, LiveStatusChip } from './status-chips';
+import { generateLink, ROUTES } from '../../routes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -197,7 +198,11 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
           <Divider />
           <CardActions>
             <Grid container justify="flex-end">
-              <LinkButton to={`/meetings/${id}/edit`} variant="outlined" color="primary" startIcon={<Edit />}>
+              <LinkButton
+                to={generateLink(ROUTES.meetings.edit, { id })}
+                variant="outlined"
+                color="primary"
+                startIcon={<Edit />}>
                 {t('meetings.button.edit')}
               </LinkButton>
             </Grid>

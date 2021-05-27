@@ -4,6 +4,7 @@ import { ExitToApp, PersonOutlined, ArrowBack } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
 import { NavLink, useHistory } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth';
+import { ROUTES } from '../../routes';
 
 function ProfileNav() {
   const { logout } = useAuth();
@@ -22,7 +23,7 @@ function ProfileNav() {
       </List>
       <Divider />
       <List component="nav">
-        <ListItem button component={NavLink} to="/profile">
+        <ListItem button component={NavLink} to={ROUTES.profile.profile}>
           <ListItemIcon>
             <PersonOutlined />
           </ListItemIcon>

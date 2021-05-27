@@ -10,6 +10,7 @@ import { OidcProvider } from '../../contexts/oidc';
 import { useAuth } from '../../contexts/auth';
 import { LargeLogo } from '../../components/logo';
 import { Link } from '../../components/link';
+import { ROUTES } from '../../routes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,20 +42,20 @@ function AuthPages() {
   const { t } = useTranslation();
   return (
     <OidcProvider>
-      {loggedIn && <Redirect to="/discover" />}
+      {loggedIn && <Redirect to={ROUTES.meetings.discover} />}
       <PublicPageLayout header={<></>}>
         <Container className={classes.root}>
           <Container className={classes.logoContainer}>
             <LargeLogo className={classes.logo} />
           </Container>
           <Switch>
-            <Route path="/login" exact>
+            <Route path={ROUTES.auth.login} exact>
               <LoginPage />
             </Route>
-            <Route path="/login/callback">
+            <Route path={ROUTES.auth.loginCallback}>
               <LoginCallbackPage />
             </Route>
-            <Route path="/register">
+            <Route path={ROUTES.auth.register}>
               <RegisterPage />
             </Route>
             <Route path="*">

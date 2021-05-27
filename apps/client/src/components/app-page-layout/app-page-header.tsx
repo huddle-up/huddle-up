@@ -1,6 +1,7 @@
 import { AppBar, makeStyles, Toolbar } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../routes';
 import { LargeLogo } from '../logo';
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +51,7 @@ function AppPageHeader({ menu, actions }: AppPageHeaderProps) {
   return (
     <AppBar position="fixed" color="default" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <Link to="/meetings" className={classes.logoContainer}>
+        <Link to={ROUTES.meetings.discover} className={classes.logoContainer}>
           <LargeLogo className={classes.logo} />
         </Link>
         <div className={classes.menu}>{menu}</div>

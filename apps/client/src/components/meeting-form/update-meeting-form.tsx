@@ -10,6 +10,7 @@ import { LinkButton } from '../link';
 import { UpdateMeetingVariables } from '../../models/meetings/__generated-interfaces__/UpdateMeeting';
 import { DateTimeField } from '../datetime-field';
 import { TagsField } from '../tags';
+import { generateLink, ROUTES } from '../../routes';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -156,7 +157,11 @@ function UpdateMeetingForm({
               <Button onClick={handleReset} disabled={isSubmitting} variant="outlined" color="primary">
                 {t('global.form.clear')}
               </Button>
-              <LinkButton to={`/meetings/${id}`} disabled={isSubmitting} variant="outlined" color="primary">
+              <LinkButton
+                to={generateLink(ROUTES.meetings.meeting, { id })}
+                disabled={isSubmitting}
+                variant="outlined"
+                color="primary">
                 {t('global.form.cancel')}
               </LinkButton>
               <Button

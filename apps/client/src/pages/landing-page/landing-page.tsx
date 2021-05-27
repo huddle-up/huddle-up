@@ -8,6 +8,7 @@ import Container from '@material-ui/core/Container';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import { PublicPageLayout } from '../../components/public-page-layout';
 import { LinkButton } from '../../components/link';
+import { ROUTES } from '../../routes';
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -59,7 +60,7 @@ function LandingPage() {
           <div className={classes.heroButtons}>
             <Grid container spacing={2} justify="center">
               <Grid item>
-                <LinkButton to="/register" variant="contained" color="primary" endIcon={<ChevronRight />}>
+                <LinkButton to={ROUTES.auth.register} variant="contained" color="primary" endIcon={<ChevronRight />}>
                   {t('landingpage.button.getstarted')}
                 </LinkButton>
               </Grid>

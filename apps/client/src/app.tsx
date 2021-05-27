@@ -7,6 +7,7 @@ import { useConfig } from './contexts/config';
 import { AppPage } from './pages/app-page';
 import { AuthPages } from './pages/auth-pages';
 import { LandingPage } from './pages/landing-page';
+import { ROUTES } from './routes';
 
 function App() {
   const config = useConfig();
@@ -22,7 +23,7 @@ function App() {
           <PublicRoute path="/" exact>
             <LandingPage />
           </PublicRoute>
-          <PublicRoute path="/(login|register)">
+          <PublicRoute path={`/(${ROUTES.auth.slugs})`}>
             <AuthPages />
           </PublicRoute>
           <AuthRoute path="*">
