@@ -47,8 +47,11 @@ function CreateMeetingForm({
       })
     ),
     description: Yup.string().nullable(),
-    startDate: Yup.string().nullable().required(t('global.form.validation.required')),
-    endDate: Yup.string().nullable().required(t('global.form.validation.required')),
+    startDate: Yup.date().nullable().required(t('global.form.validation.required')),
+    endDate: Yup.date()
+      .nullable()
+      .required(t('global.form.validation.required'))
+      .min(Yup.ref('startDate'), t('global.datepicker.invalidMinEndDateMessage')),
     maximumParticipants: Yup.number().nullable(),
   });
   return (
