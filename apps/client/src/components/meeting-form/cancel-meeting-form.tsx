@@ -3,9 +3,10 @@ import { Button, Card, CardContent, CircularProgress, Collapse, Grid, Typography
 import { Cancel } from '@material-ui/icons';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CANCEL_MEETING, isCanceled } from '../../models/meetings';
+import { CANCEL_MEETING } from '../../models/meetings';
 import { CancelMeeting, CancelMeetingVariables } from '../../models/meetings/__generated-interfaces__/CancelMeeting';
 import { MeetingFields } from '../../models/meetings/__generated-interfaces__/MeetingFields';
+import { isCanceled } from '../../utils/helpers';
 
 interface CancelMeetingProps {
   meeting: MeetingFields;
