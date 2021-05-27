@@ -3,6 +3,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { UserCoreFields } from '../../models/user/__generated-interfaces__/UserCoreFields';
+import { generateLink, ROUTES } from '../../routes';
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -39,7 +40,7 @@ function HostLink({ host, currentUser, small }: HostLinkProps) {
   const classes = useStyles();
   const isHost = currentUser && currentUser.id === host.id;
   return (
-    <Link to={`/profile/${host.id}`} className={classes.link}>
+    <Link to={generateLink(ROUTES.profile.publicProfile, { id: host.id })} className={classes.link}>
       <Grid container direction="row" alignItems="center">
         <Avatar className={[classes.icon, small ? classes.iconSmall : classes.iconRegular].join(' ')}>
           {host.name.charAt(0).toUpperCase()}

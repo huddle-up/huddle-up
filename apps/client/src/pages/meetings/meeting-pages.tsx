@@ -7,37 +7,38 @@ import MeetingDetailPage from './meeting-detail-page';
 import MeetingUpdatePage from './meeting-update-page';
 import MeetingsPage from './meetings-page';
 import MyMeetingsPage from './my-meetings-page';
+import { ROUTES } from '../../routes';
 
 function MeetingPages() {
   const { t } = useTranslation();
 
   return (
     <Switch>
-      <Route path="/discover">
+      <Route path={ROUTES.meetings.discover}>
         <Helmet>
           <title>{t('global.title.discover')}</title>
         </Helmet>
         <MeetingsPage />
       </Route>
-      <Route path="/meetings/create">
+      <Route path={ROUTES.meetings.create}>
         <Helmet>
           <title>{t('meetings.head.title.create')}</title>
         </Helmet>
         <MeetingCreatePage />
       </Route>
-      <Route path="/meetings/:id/edit">
+      <Route path={ROUTES.meetings.edit}>
         <Helmet>
           <title>{t('meetings.head.title.edit')}</title>
         </Helmet>
         <MeetingUpdatePage />
       </Route>
-      <Route path="/meetings/:id">
+      <Route path={ROUTES.meetings.meeting}>
         <Helmet>
           <title>{t('meetings.head.title.view')}</title>
         </Helmet>
         <MeetingDetailPage />
       </Route>
-      <Route path="/meetings">
+      <Route path={ROUTES.meetings.myMeetings}>
         <Helmet>
           <title>{t('global.title.myMeetings')}</title>
         </Helmet>

@@ -1,6 +1,7 @@
 import { Container, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { ROUTES } from '../../routes';
 import { LinkButton } from '../link';
 import { UserMenu } from '../user-menu';
 import AppPageHeader from './app-page-header';
@@ -57,7 +58,7 @@ function AppPageLayout({ children }: { children: React.ReactNode }) {
         actions={
           <>
             {isDesktop && (
-              <LinkButton variant="contained" disableElevation color="secondary" to="/meetings/create">
+              <LinkButton variant="contained" disableElevation color="secondary" to={ROUTES.meetings.create}>
                 {t('meetings.title.new')}
               </LinkButton>
             )}

@@ -3,6 +3,7 @@ import { Avatar, makeStyles } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import { AvatarGroup } from '@material-ui/lab';
 import { MeetingFields } from '../../models/meetings/__generated-interfaces__/MeetingFields';
+import { generateLink, ROUTES } from '../../routes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +41,7 @@ function ParticipantAvatars({ meeting, maxVisible }: ParticipantAvatarsProps) {
     <div className={classes.root}>
       <AvatarGroup max={maxVisible}>
         {users.map((user) => (
-          <Link to={`/profile/${user.id}`} className={classes.link} key={user.id}>
+          <Link to={generateLink(ROUTES.profile.profile, { id: user.id })} className={classes.link} key={user.id}>
             <Avatar alt={user.name} className={[classes.avatar, 'MuiAvatarGroup-avatar'].join(' ')}>
               {user.shortName}
             </Avatar>

@@ -14,6 +14,7 @@ import { Menu } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { LinkProps, useLocation } from 'react-router-dom';
+import { ROUTES } from '../../routes';
 import { LinkButton, NavLink } from '../link';
 
 const useStyles = makeStyles((theme) => ({
@@ -123,7 +124,7 @@ function AppPageMenu() {
       mobile: true,
       link: {
         label: t('global.title.discover'),
-        to: '/discover',
+        to: ROUTES.meetings.discover,
       },
     },
     {
@@ -132,7 +133,7 @@ function AppPageMenu() {
       mobile: true,
       link: {
         label: t('global.title.myMeetings'),
-        to: '/meetings',
+        to: ROUTES.meetings.myMeetings,
       },
     },
     {
@@ -143,7 +144,7 @@ function AppPageMenu() {
       type: 'component',
       mobile: true,
       component: (
-        <LinkButton variant="contained" disableElevation color="secondary" to="/meetings/create">
+        <LinkButton variant="contained" disableElevation color="secondary" to={ROUTES.meetings.create}>
           {t('meetings.title.new')}
         </LinkButton>
       ),

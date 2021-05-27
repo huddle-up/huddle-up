@@ -4,6 +4,7 @@ import { CircularProgress, Container, makeStyles, Typography } from '@material-u
 import { ChevronLeft } from '@material-ui/icons';
 import { LinkButton } from '../../../components/link';
 import { useLoginCallbackPage } from './use-login-callback-page';
+import { ROUTES } from '../../../routes';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -29,7 +30,7 @@ function LoginCallbackPage() {
           <Typography component="p" variant="body1" className={classes.error}>
             {t('authPages.callback.error')}
           </Typography>
-          <LinkButton variant="contained" color="secondary" to="/login" startIcon={<ChevronLeft />}>
+          <LinkButton variant="contained" color="secondary" to={ROUTES.auth.login} startIcon={<ChevronLeft />}>
             {t('authPages.callback.backToLogin')}
           </LinkButton>
         </>

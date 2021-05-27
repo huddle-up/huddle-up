@@ -3,6 +3,7 @@ import { AppBar, makeStyles, Toolbar } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import { Link, LinkButton } from '../link';
 import { LargeLogo } from '../logo';
+import { ROUTES } from '../../routes';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -36,10 +37,10 @@ function PublicPageHeader() {
         </Link>
         <div className={classes.spacer} />
         <nav>
-          <Link variant="button" color="inherit" to="/login" className={classes.link}>
+          <Link variant="button" color="inherit" to={ROUTES.auth.login} className={classes.link}>
             {t('global.button.login')}
           </Link>
-          <LinkButton to="/register" color="inherit" variant="outlined" className={classes.link}>
+          <LinkButton to={ROUTES.auth.register} color="inherit" variant="outlined" className={classes.link}>
             {t('global.button.register')}
           </LinkButton>
         </nav>
