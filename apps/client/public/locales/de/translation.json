@@ -145,6 +145,13 @@
       "rules": "Regeln",
       "maxParticipants": "Maximale Teilnehmer"
     },
+    "cancel": {
+      "title": "Treffen absagen",
+      "description": "Falls das Treffen nicht stattfinden wird, kann es hier abgesagt werden. Dies kann nicht rückgängig gemacht werden!",
+      "cancel": "Treffen absagen",
+      "confirm": "Absage bestätigen",
+      "canceled": "Das Treffen wurde abgesagt."
+    },
     "conference": {
       "state": {
         "pending": "Die Video-Konferenz wurde noch nicht gestartet",
@@ -186,6 +193,10 @@
       "searchMeeting": "Treffen suchen",
       "orderDesc": "Neuste Treffen zuerst",
       "orderAsc": "Älteste Treffen zuerst"
+    },
+    "state": {
+      "live": "Live",
+      "canceled": "Abgesagt"
     },
     "today": "Heute",
     "host": "Veranstalter",

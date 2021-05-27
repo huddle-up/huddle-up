@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { addMinutes } from 'date-fns';
 import { DeleteResult, Repository, SelectQueryBuilder } from 'typeorm';
@@ -10,6 +10,7 @@ import { CreateMeeting } from './interfaces/create-meeting.interface';
 import { SearchCriteria } from './interfaces/search-criteria.interface';
 import { UpdateMeeting } from './interfaces/update-meeting.inferface';
 import { Tag } from '../tags/entities/tag.entity';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
 @Injectable()
 export class MeetingsService {
@@ -136,6 +137,14 @@ export class MeetingsService {
 
     const { id } = await this.meetingRepository.save(meeting);
     return this.findOne({ id });
+  }
+
+  async cancel(meeting: Meeting) {
+    if (meeting.canceledOn) {
+      return meeting;
+    }
+    const canceledMeeting = this.meetingRepository.create({ ...meeting, canceledOn: new Date() });
+    return this.meetingRepository.save(canceledMeeting);
   }
 
   private addPreparationTime(startDate: Date) {

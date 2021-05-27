@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, Grid, Box, Chip, Collapse, CardActions, Divider } from '@material-ui/core';
-import { Edit, Event, Videocam } from '@material-ui/icons';
+import { Card, CardContent, Typography, Grid, Box, Collapse, CardActions, Divider } from '@material-ui/core';
+import { Edit, Event } from '@material-ui/icons';
 import { format, isToday, parseISO } from 'date-fns';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { LinkButton } from '../link';
@@ -16,6 +16,7 @@ import { MeetingParticipation } from '../meeting-participation';
 import { ParticipantCount } from '../participant-count';
 import { ParticipantAvatars } from '../participant-avatars';
 import { ConferenceJoinButton } from '../conference-join-button';
+import { CanceledStatusChip, HostStatusChip, LiveStatusChip } from './status-chips';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   metaFont: {
     fontSize: 14,
   },
-  statusIcon: {
+  statusChips: {
     display: 'flex',
     alignItems: 'center',
   },
@@ -104,11 +105,23 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
             {isToday(meetingStart) ? t('meetings.today') : format(meetingStart, 'dd. MMMM yyyy')} {bull}{' '}
             {format(meetingStart, 'HH:mm')}
           </Typography>
-          {meetingState.isPublished && (
-            <Box ml={1}>
-              <Chip label="Live" size="small" color="secondary" icon={<Videocam />} />
-            </Box>
-          )}
+          <div className={classes.statusChips}>
+            {isHost && (
+              <Box ml={1}>
+                <HostStatusChip />
+              </Box>
+            )}
+            {meetingState.isPublished && (
+              <Box ml={1}>
+                <LiveStatusChip />
+              </Box>
+            )}
+            {meetingState.isCanceled && (
+              <Box ml={1}>
+                <CanceledStatusChip />
+              </Box>
+            )}
+          </div>
         </Grid>
         <Typography variant="h5" component="h1">
           {title}

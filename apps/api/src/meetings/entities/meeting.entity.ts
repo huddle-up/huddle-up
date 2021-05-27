@@ -67,6 +67,10 @@ export class Meeting {
   @Field(() => Date, { description: 'The date from which the conference can be created' })
   prepareDate: Date;
 
+  @Column({ nullable: true })
+  @Field(() => Date, { nullable: true, description: 'The date on which the meeting has been canceled' })
+  canceledOn?: Date;
+
   @CreateDateColumn({ name: 'created_at' })
   'created_at': Date;
 

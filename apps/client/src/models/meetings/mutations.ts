@@ -52,3 +52,12 @@ export const UPDATE_MEETING = gql`
     }
   }
 `;
+
+export const CANCEL_MEETING = gql`
+  ${MEETING_FIELDS}
+  mutation CancelMeeting($id: String!) {
+    cancelMeeting(id: $id) {
+      ...MeetingFields
+    }
+  }
+`;

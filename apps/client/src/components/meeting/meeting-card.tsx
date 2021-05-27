@@ -1,8 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { fade, makeStyles } from '@material-ui/core/styles';
-import { Card, CardContent, Typography, Grid, Chip, Box } from '@material-ui/core';
-import { CheckCircle, Videocam, AccountCircle } from '@material-ui/icons';
+import { Card, CardContent, Typography, Grid, Box } from '@material-ui/core';
 import { format, isToday } from 'date-fns';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { Link } from '../link';
@@ -11,6 +10,7 @@ import { HostLink } from '../host-link';
 import { useUser } from '../../models/user';
 import { ParticipantCount } from '../participant-count';
 import { isHost, isParticipant } from '../../utils';
+import { CanceledStatusChip, HostStatusChip, LiveStatusChip, ParticipantStatusChip } from './status-chips';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,6 +56,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
   const { id, title, startDate, host, conference } = meeting;
   const meetingStart = new Date(startDate);
   const live = conference && conference.publishedAt && !conference.stoppedAt;
+  const canceled = !!meeting.canceledOn;
 
   return (
     <Card className={[classes.card, live ? classes.cardHighlight : ''].join(' ')} variant="outlined">
@@ -67,19 +68,23 @@ function MeetingCard({ meeting }: MeetingCardProps) {
           </Typography>
           <div className={classes.spacer} />
           {isParticipant(user, meeting) && (
-            <Chip
-              size="small"
-              color="primary"
-              icon={<CheckCircle />}
-              label={t('meetings.participation.participating')}
-            />
+            <Box ml={1}>
+              <ParticipantStatusChip />
+            </Box>
           )}
           {isHost(user, meeting) && (
-            <Chip size="small" color="primary" icon={<AccountCircle />} label={t('meetings.host')} />
+            <Box ml={1}>
+              <HostStatusChip />
+            </Box>
           )}
           {live && (
             <Box ml={1}>
-              <Chip label="Live" size="small" color="secondary" icon={<Videocam />} />
+              <LiveStatusChip />
+            </Box>
+          )}
+          {canceled && (
+            <Box ml={1}>
+              <CanceledStatusChip />
             </Box>
           )}
         </Grid>

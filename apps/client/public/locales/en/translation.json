@@ -145,6 +145,13 @@
       "rules": "Rules",
       "maxParticipants": "Maximum Participants"
     },
+    "cancel": {
+      "title": "Cancel Meeting",
+      "description": "If the meeting will not take place, you can cancel it here. This cannot be undone!",
+      "cancel": "Cancel meeting",
+      "confirm": "Confirm cancelation",
+      "canceled": "The meeting has been canceled."
+    },
     "conference": {
       "state": {
         "pending": "The video conference has not been started",
@@ -186,6 +193,10 @@
       "searchMeeting": "Meeting search",
       "orderDesc": "Newest Meetings first",
       "orderAsc": "Oldest Meetings first"
+    },
+    "state": {
+      "live": "Live",
+      "canceled": "Canceled"
     },
     "today": "Today",
     "host": "Host",
