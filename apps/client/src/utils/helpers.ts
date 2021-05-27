@@ -32,3 +32,7 @@ export function isHost(user: UserFields, meeting: Meeting): boolean {
 export function isParticipant(user: UserFields, meeting: Meeting): boolean {
   return meeting && user ? meeting.participations?.some((p) => p.user?.id === user.id) : false;
 }
+
+export function isCanceled(meeting: Meeting): boolean {
+  return !!meeting.canceledOn;
+}
