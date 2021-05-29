@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@apollo/client';
-import { Collapse } from '@material-ui/core';
+import { Box, CircularProgress, Collapse, Grid } from '@material-ui/core';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FilterListIcon from '@material-ui/icons/FilterList';
@@ -16,33 +16,89 @@ import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMore } from '../../components/show-more';
 import { ROUTES } from '../../routes';
 
+function LoadingContent() {
+  return (
+    <Grid container justify="center">
+      <Box m={2} mt={10}>
+        <CircularProgress size="2em" />
+      </Box>
+    </Grid>
+  );
+}
+
+interface MeetingsPageListProps {
+  data: Meetings;
+  onLoadMore: () => void;
+  isLoadingMore: boolean;
+}
+
+function MeetingsPageList({ data, onLoadMore, isLoadingMore }: MeetingsPageListProps) {
+  const { t } = useTranslation();
+
+  const { totalCount } = data.discover;
+  // TODO: Filter out stopped meetings in query?
+  const meetings = data.discover.meetings.filter((meeting) => !meeting.conference || !meeting.conference.stoppedAt);
+
+  return (
+    <AppPageMain>
+      <section>
+        <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.ongoing')} />
+        <MeetingList linkTemplate={ROUTES.meetings.discoverMeeting} meetings={isWithinIntervalFilter(meetings)} />
+      </section>
+      <section>
+        <SectionHeader icon={<CalendarTodayIcon />} title={t('meetings.title.upcoming')} />
+        <MeetingList linkTemplate={ROUTES.meetings.discoverMeeting} meetings={isInFutureFilter(meetings)} />
+      </section>
+      <Collapse in={totalCount > meetings.length}>
+        <ShowMore
+          totalCount={totalCount}
+          currentCount={meetings.length}
+          onClick={onLoadMore}
+          isLoading={isLoadingMore}
+        />
+      </Collapse>
+    </AppPageMain>
+  );
+}
+
 function useMeetingsSearch(initialValues: SearchFormVariables, defaultOrderBy: OrderBy) {
   const [currentSearch, setCurrentSearch] = useState(initialValues);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [previousData, setPreviousData] = useState(null);
+
   const baseOptions = {
     startDateOrderBy: defaultOrderBy,
     offset: 0,
     limit: 5,
   };
 
-  const getQueryVariables = () => ({
-    ...currentSearch,
-    ...baseOptions,
-  });
-
   const { loading, error, data, refetch } = useQuery<Meetings, MeetingsVariables>(MEETINGS, {
-    variables: getQueryVariables(),
+    variables: {
+      ...currentSearch,
+      ...baseOptions,
+    },
   });
 
   const search = (values: SearchFormVariables) => {
+    setPreviousData(null);
     setCurrentSearch(values);
-    refetch(getQueryVariables());
   };
 
-  const loadMore = () => {
-    refetch({ limit: data.discover.meetings.length + baseOptions.limit });
+  const loadMore = async () => {
+    setPreviousData(data);
+    setIsLoadingMore(true);
+    await refetch({ limit: data.discover.meetings.length + baseOptions.limit });
+    setIsLoadingMore(false);
   };
 
-  return { loading, error, data, search, loadMore };
+  return {
+    loading: loading && !isLoadingMore,
+    error,
+    data: isLoadingMore ? previousData : data,
+    search,
+    loadMore,
+    isLoadingMore,
+  };
 }
 
 function MeetingsPage() {
@@ -55,10 +111,9 @@ function MeetingsPage() {
     toDate: null,
   };
 
-  const { loading, error, data, search, loadMore } = useMeetingsSearch(initialValues, OrderBy.ASC);
+  const { loading, error, data, search, loadMore, isLoadingMore } = useMeetingsSearch(initialValues, OrderBy.ASC);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error! ${error.message}</p>;
+  if (error) return <p>Error! {error.message}</p>;
 
   async function onSearch({ tags, ...values }: SearchFormVariables) {
     search({
@@ -68,10 +123,8 @@ function MeetingsPage() {
       ...values,
     });
   }
-  const { totalCount } = data.discover;
-  // TODO: Filter out stopped meetings in query?
-  const meetings = data.discover.meetings.filter((meeting) => !meeting.conference || !meeting.conference.stoppedAt);
-  const handlePageLimit = () => {
+
+  const onLoadMore = () => {
     loadMore();
   };
 
@@ -81,24 +134,11 @@ function MeetingsPage() {
         <SectionHeader icon={<FilterListIcon />} title={t('meetings.search.filterSection')} />
         <SearchForm onSubmit={onSearch} initialValues={initialValues} />
       </AppPageAside>
-      <AppPageMain>
-        <section>
-          <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.ongoing')} />
-          <MeetingList linkTemplate={ROUTES.meetings.discoverMeeting} meetings={isWithinIntervalFilter(meetings)} />
-        </section>
-        <section>
-          <SectionHeader icon={<CalendarTodayIcon />} title={t('meetings.title.upcoming')} />
-          <MeetingList linkTemplate={ROUTES.meetings.discoverMeeting} meetings={isInFutureFilter(meetings)} />
-        </section>
-        <Collapse in={totalCount > meetings.length}>
-          <ShowMore
-            totalCount={totalCount}
-            currentCount={meetings.length}
-            onClick={handlePageLimit}
-            isLoading={loading}
-          />
-        </Collapse>
-      </AppPageMain>
+      {loading ? (
+        <LoadingContent />
+      ) : (
+        <MeetingsPageList data={data} onLoadMore={onLoadMore} isLoadingMore={isLoadingMore} />
+      )}
     </>
   );
 }
