@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { AppService } from './app.service';
 import { AppConfigModule } from './config/app/config.module';
 import { DatabaseConfigModule } from './config/database/config.module';
 import { DatabaseConfigService } from './config/database/config.service';
@@ -53,6 +52,5 @@ import { ParticipationsModule } from './participations/participations.module';
     TagsModule,
     ParticipationsModule,
   ],
-  providers: [AppService],
 })
 export class AppModule {}

@@ -15,7 +15,7 @@ export class ParticipationsService {
   async create({ meetingId, userId }: CreateParticipation) {
     const meeting = await this.meetingsService.findOne({ id: meetingId });
     if (!meeting) {
-      throw new NotFoundException(`Meeting with id ${meetingId} does not exist`);
+      throw new NotFoundException(`Meeting #${meetingId} not found`);
     }
 
     const existing = await this.findOne({ meetingId, userId });

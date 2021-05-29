@@ -36,7 +36,7 @@ const tagService = { findOrCreate: (tags: Partial<Tag>[]) => Promise.resolve([ta
 
 describe('MeetingsService', () => {
   let service: MeetingsService;
-  let meetingRepository: MockRepository;
+  let meetingsRepository: MockRepository;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -52,7 +52,7 @@ describe('MeetingsService', () => {
     }).compile();
 
     service = module.get<MeetingsService>(MeetingsService);
-    meetingRepository = module.get<MockRepository>(getRepositoryToken(Meeting));
+    meetingsRepository = module.get<MockRepository>(getRepositoryToken(Meeting));
   });
 
   it('should be defined', () => {
@@ -65,7 +65,7 @@ describe('MeetingsService', () => {
         const id = 'meeting-1';
         const expectedMeeting: Partial<Meeting> = { id, title: 'Meeting 1' };
 
-        meetingRepository.findOne.mockReturnValue(expectedMeeting);
+        meetingsRepository.findOne.mockReturnValue(expectedMeeting);
         const meeting = await service.findOne({ id });
         expect(meeting).toEqual(expectedMeeting);
       });
@@ -74,7 +74,7 @@ describe('MeetingsService', () => {
     describe('otherwise', () => {
       it('should throw the "NotFoundException"', async (done) => {
         const id = '1';
-        meetingRepository.findOne.mockReturnValue(undefined);
+        meetingsRepository.findOne.mockReturnValue(undefined);
 
         try {
           await service.findOne({ id });
@@ -94,7 +94,7 @@ describe('MeetingsService', () => {
         const meetingId2 = { id: 'meeeting-2', title: 'Meeting 2' };
         const extectedMeetingArray: Partial<Meeting>[] = [meetingId1, meetingId2];
 
-        meetingRepository.find.mockReturnValue(extectedMeetingArray);
+        meetingsRepository.find.mockReturnValue(extectedMeetingArray);
         const meeting = await service.findAll();
         expect(meeting).toEqual(extectedMeetingArray);
       });
@@ -104,7 +104,7 @@ describe('MeetingsService', () => {
       it('should return an emty array', async () => {
         const extectedMeetingArray = [];
 
-        meetingRepository.find.mockReturnValue(extectedMeetingArray);
+        meetingsRepository.find.mockReturnValue(extectedMeetingArray);
         const meeting = await service.findAll();
         expect(meeting).toEqual(extectedMeetingArray);
       });
@@ -114,11 +114,11 @@ describe('MeetingsService', () => {
   describe('find', () => {
     describe('when meetings with TITLE exist', () => {
       it('should return an array of meeting objects', async () => {
-        const meetingId1 = { id: 'meeeting-1', title: 'Meeting 1' };
-        const meetingId2 = { id: 'meeeting-2', title: 'Meeting 2' };
+        const meetingId1 = { id: 'meeting-1', title: 'Meeting 1' };
+        const meetingId2 = { id: 'meeting-2', title: 'Meeting 2' };
         const extectedMeetingArray: Partial<Meeting>[] = [meetingId1, meetingId2];
 
-        meetingRepository.find.mockReturnValue(extectedMeetingArray);
+        meetingsRepository.find.mockReturnValue(extectedMeetingArray);
         const meeting = await service.find({ title: 'Meeting' });
         expect(meeting).toEqual(extectedMeetingArray);
       });
@@ -128,7 +128,7 @@ describe('MeetingsService', () => {
       it('should return an emty array', async () => {
         const extectedMeetingArray = [];
 
-        meetingRepository.find.mockReturnValue(extectedMeetingArray);
+        meetingsRepository.find.mockReturnValue(extectedMeetingArray);
         const meeting = await service.find({ title: 'Meeting 3' });
         expect(meeting).toEqual(extectedMeetingArray);
       });
@@ -159,12 +159,12 @@ describe('MeetingsService', () => {
           ...presavedMeeting,
         };
 
-        meetingRepository.create.mockReturnValue({ ...newMeeting, prepareDate: new Date() });
-        meetingRepository.save.mockReturnValue(savedMeeting);
+        meetingsRepository.create.mockReturnValue({ ...newMeeting, prepareDate: new Date() });
+        meetingsRepository.save.mockReturnValue(savedMeeting);
 
         const meeting = await service.create(newMeeting);
         expect(meeting).toEqual(savedMeeting);
-        expect(meetingRepository.save).toBeCalledWith(presavedMeeting);
+        expect(meetingsRepository.save).toBeCalledWith(presavedMeeting);
       });
     });
   });
@@ -191,19 +191,19 @@ describe('MeetingsService', () => {
           prepareDate: new Date('2021-06-18T09:30:00Z'),
         };
 
-        meetingRepository.findOne.mockReturnValue(updatedMeeting);
-        meetingRepository.create.mockReturnValue({ ...updateMeeting, prepareDate: new Date() });
-        meetingRepository.save.mockReturnValue(updatedMeeting);
+        meetingsRepository.findOne.mockReturnValue(updatedMeeting);
+        meetingsRepository.create.mockReturnValue({ ...updateMeeting, prepareDate: new Date() });
+        meetingsRepository.save.mockReturnValue(updatedMeeting);
 
         const meeting = await service.update(updateMeeting);
-        expect(meetingRepository.save).toBeCalledWith(updatedMeeting);
+        expect(meetingsRepository.save).toBeCalledWith(updatedMeeting);
         expect(meeting).toEqual(updatedMeeting);
       });
     });
 
     describe('otherwise', () => {
       it('should throw the "NotFoundException"', async (done) => {
-        meetingRepository.findOne.mockReturnValue(undefined);
+        meetingsRepository.findOne.mockReturnValue(undefined);
 
         try {
           await service.update(updateMeeting);
@@ -232,7 +232,7 @@ describe('MeetingsService', () => {
         const totalCount = 1;
         const { searchValue, tags, fromDate, toDate } = searchCriteria;
 
-        const query = meetingRepository.createQueryBuilder('meeting');
+        const query = meetingsRepository.createQueryBuilder('meeting');
         query.getManyAndCount.mockReturnValue(Promise.resolve([meetings, totalCount]));
 
         const meeting = await service.search(searchCriteria, userId);
@@ -268,7 +268,7 @@ describe('MeetingsService', () => {
         const meetings: Meeting[] = [];
         const totalCount = 0;
 
-        const query = meetingRepository.createQueryBuilder('meeting');
+        const query = meetingsRepository.createQueryBuilder('meeting');
         query.getManyAndCount.mockReturnValue(Promise.resolve([meetings, totalCount]));
 
         const meeting = await service.search(searchCriteria);

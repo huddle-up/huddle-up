@@ -13,13 +13,8 @@ export class TagsService {
     return this.tagRepository.save(tag);
   }
 
-  // TODO add limit
   async findAll() {
     return this.tagRepository.find();
-  }
-
-  async find(entity: Partial<Tag>) {
-    return this.tagRepository.find(entity);
   }
 
   async findOne(entity: Partial<Tag>) {
@@ -34,13 +29,6 @@ export class TagsService {
       return this.create({ name });
     });
     return Promise.all(resolvedTags);
-  }
-
-  async update(partialTag: Partial<Tag>) {
-    const tag = await this.tagRepository.findOne({ id: partialTag.id });
-    if (!tag) {
-      throw new NotFoundException(`Tag with id ${partialTag.id} does not exist`);
-    }
   }
 
   async remove(id: number) {

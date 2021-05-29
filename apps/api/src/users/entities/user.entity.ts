@@ -35,8 +35,4 @@ export class User {
   'created_at': Date;
 
   @UpdateDateColumn({ name: 'updated_at' }) 'updated_at': Date;
-
-  get joinedAt(): Date {
-    return this.created_at;
-  }
 }
