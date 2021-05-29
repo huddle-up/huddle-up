@@ -64,8 +64,8 @@ describe('OidcAuthService', () => {
   });
 
   describe('verify', () => {
-    describe('when a token is provided', () => {
-      it('should return the oidc-token object', async () => {
+    describe('when an invalid token is provided', () => {
+      it('should return null', async () => {
         const token =
           'https://meet.jit.si/HuddleUp--conference-1?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJqaXRzaSIsInN1YiI6Imh0dHBzOi8vbWVldC5qaXQuc2kiLCJpc3MiOiJhcHBJZCIsInJvb20iOiJIdWRkbGVVcC0tY29uZmVyZW5jZS0xIiwibW9kZXJhdG9yIjp0cnVlLCJjb250ZXh0Ijp7InVzZXIiOnsibmFtZSI6IlVzZXIgMSIsImlkIjoidXNlci0xIiwiZW1haWwiOiJ1c2VyQHRlc3QuY2gifX0sImlhdCI6MTYyMjMwMTY0N30.n6_1nPIQdjqogq5frYKpvLDjBUxmISbPzD6kzbTl9FA#config.subject=%22test-meeting%22&userInfo.displayName=%22User%201%22';
         const verifiedToken = await service.verify(token);
