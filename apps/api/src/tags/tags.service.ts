@@ -31,6 +31,15 @@ export class TagsService {
     return Promise.all(resolvedTags);
   }
 
+  async update(partialTag: Partial<Tag>) {
+    const tag = await this.tagRepository.findOne({ id: partialTag.id });
+    if (!tag) {
+      throw new NotFoundException(`Tag #${partialTag.id} not found`);
+    }
+    await this.tagRepository.save(tag);
+    return this.tagRepository.findOne({ id: partialTag.id });
+  }
+
   async remove(id: number) {
     const result: DeleteResult = await this.tagRepository.delete(id);
     return result.affected === 1;
