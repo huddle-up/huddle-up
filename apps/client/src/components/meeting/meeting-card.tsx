@@ -11,6 +11,7 @@ import { useUser } from '../../models/user';
 import { ParticipantCount } from '../participant-count';
 import { isHost, isParticipant } from '../../utils';
 import { CanceledStatusChip, HostStatusChip, LiveStatusChip, ParticipantStatusChip } from './status-chips';
+import { generateLink } from '../../routes';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,9 +46,10 @@ const useStyles = makeStyles((theme) => ({
 
 interface MeetingCardProps {
   meeting: Meeting;
+  linkTemplate: string;
 }
 
-function MeetingCard({ meeting }: MeetingCardProps) {
+function MeetingCard({ meeting, linkTemplate }: MeetingCardProps) {
   const { t } = useTranslation();
   const classes = useStyles();
   const { user } = useUser();
@@ -89,7 +91,7 @@ function MeetingCard({ meeting }: MeetingCardProps) {
           )}
         </Grid>
         <Typography variant="h5" component="h2">
-          <Link to={`/meetings/${id}`}>{title}</Link>
+          <Link to={generateLink(linkTemplate, { id })}>{title}</Link>
         </Typography>
         <div className={classes.tags}>
           <TagsList tags={meeting.tags} />

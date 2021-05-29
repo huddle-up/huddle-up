@@ -48,7 +48,7 @@ function MenuDesktop({ entries }: MenuProps) {
     <nav>
       {entries.map(({ type, link, component }, i) =>
         type === 'link' ? (
-          <NavLink exact to={link.to} key={`${link.label}-${link.to}`}>
+          <NavLink to={link.to} key={`${link.label}-${link.to}`}>
             {link.label}
           </NavLink>
         ) : (

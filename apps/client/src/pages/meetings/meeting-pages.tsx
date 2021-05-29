@@ -14,6 +14,12 @@ function MeetingPages() {
 
   return (
     <Switch>
+      <Route path={ROUTES.meetings.discoverMeeting}>
+        <Helmet>
+          <title>{t('meetings.head.title.view')}</title>
+        </Helmet>
+        <MeetingDetailPage />
+      </Route>
       <Route path={ROUTES.meetings.discover}>
         <Helmet>
           <title>{t('global.title.discover')}</title>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Divider, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import { ExitToApp, PersonOutlined, ArrowBack } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { NavLink, useHistory } from 'react-router-dom';
+import { matchPath, NavLink, useHistory, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth';
 import { ROUTES } from '../../routes';
 
@@ -10,10 +10,19 @@ function ProfileNav() {
   const { logout } = useAuth();
   const { t } = useTranslation();
   const history = useHistory();
+  const location = useLocation();
+
+  const matches = (path: string, exact = false) => {
+    const match = matchPath(location.pathname, {
+      path,
+      exact,
+    });
+    return match !== null;
+  };
 
   return (
     <Card variant="outlined">
-      <List component="nav">
+      <List>
         <ListItem button onClick={() => history.goBack()}>
           <ListItemIcon>
             <ArrowBack />
@@ -23,7 +32,11 @@ function ProfileNav() {
       </List>
       <Divider />
       <List component="nav">
-        <ListItem button component={NavLink} to={ROUTES.profile.profile}>
+        <ListItem
+          button
+          component={NavLink}
+          selected={matches(ROUTES.profile.profile, true)}
+          to={ROUTES.profile.profile}>
           <ListItemIcon>
             <PersonOutlined />
           </ListItemIcon>
@@ -31,7 +44,7 @@ function ProfileNav() {
         </ListItem>
       </List>
       <Divider />
-      <List component="nav">
+      <List>
         <ListItem button onClick={() => logout()}>
           <ListItemIcon>
             <ExitToApp />
