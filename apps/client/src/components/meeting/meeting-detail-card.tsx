@@ -145,9 +145,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
             <Grid item>
               <Typography>{t('meetings.details.joinNow')}</Typography>
             </Grid>
-            <Grid item>
-              <ConferenceJoinButton conferenceId={meeting.conference?.id} />
-            </Grid>
+            <Grid item>{!!meeting.conference && <ConferenceJoinButton conferenceId={meeting.conference.id} />}</Grid>
           </Grid>
         </CardSection>
         <Divider />
