@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-interface JitsiJwtConfig {
+export interface JitsiJwtConfig {
   enabled: boolean;
   appId: string;
   secret: string;

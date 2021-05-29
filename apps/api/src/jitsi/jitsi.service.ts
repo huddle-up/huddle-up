@@ -6,7 +6,7 @@ import { JitsiConfigService } from '../config/jitsi/config.service';
 import { User } from '../users/entities/user.entity';
 import { JitsiConferenceProps } from './interfaces/jitsi-conference-props.interface';
 
-interface CreateConnectionStringOptions {
+export interface CreateConnectionStringOptions {
   host: string;
   roomName: string;
   subject: string;

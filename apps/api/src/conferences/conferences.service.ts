@@ -28,14 +28,6 @@ export class ConferencesService {
     return this.conferenceRepository.save(conference);
   }
 
-  async update(conference: Conference) {
-    const existing = await this.conferenceRepository.findOne({ id: conference.id });
-    if (!existing) {
-      throw new NotFoundException(`The conference with id ${conference.id} does not exist.`);
-    }
-    return this.conferenceRepository.save(conference);
-  }
-
   async publish(conference: Conference) {
     if (!conference.publishedAt) {
       conference.publishedAt = new Date();
