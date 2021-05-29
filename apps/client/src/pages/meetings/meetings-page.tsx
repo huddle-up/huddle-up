@@ -14,6 +14,7 @@ import { isInFutureFilter, isWithinIntervalFilter } from '../../utils';
 import { SearchForm, SearchFormVariables } from '../../components/search-form';
 import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMore } from '../../components/show-more';
+import { ROUTES } from '../../routes';
 
 function useMeetingsSearch(initialValues: SearchFormVariables, defaultOrderBy: OrderBy) {
   const [currentSearch, setCurrentSearch] = useState(initialValues);
@@ -83,11 +84,11 @@ function MeetingsPage() {
       <AppPageMain>
         <section>
           <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.ongoing')} />
-          <MeetingList meetings={isWithinIntervalFilter(meetings)} />
+          <MeetingList linkTemplate={ROUTES.meetings.discoverMeeting} meetings={isWithinIntervalFilter(meetings)} />
         </section>
         <section>
           <SectionHeader icon={<CalendarTodayIcon />} title={t('meetings.title.upcoming')} />
-          <MeetingList meetings={isInFutureFilter(meetings)} />
+          <MeetingList linkTemplate={ROUTES.meetings.discoverMeeting} meetings={isInFutureFilter(meetings)} />
         </section>
         <Collapse in={totalCount > meetings.length}>
           <ShowMore
