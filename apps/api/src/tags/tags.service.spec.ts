@@ -138,6 +138,45 @@ describe('MeetingsService', () => {
     });
   });
 
+  describe('update', () => {
+    const updateTag: Partial<Tag> = {
+      id: 1,
+      name: 'Tag 1',
+    };
+
+    describe('when tag with ID exists', () => {
+      it('should return the updated tag object with ID', async () => {
+        const updatedTag: Partial<Tag> = {
+          id: 1,
+          name: 'Tag 1',
+        };
+
+        tagsRepository.findOne.mockReturnValue(updatedTag);
+        tagsRepository.create.mockReturnValue(updateTag);
+        tagsRepository.save.mockReturnValue(updatedTag);
+
+        const user = await service.update(updateTag);
+        expect(tagsRepository.save).toBeCalledWith(updatedTag);
+        expect(user).toEqual(updatedTag);
+      });
+    });
+
+    describe('otherwise', () => {
+      it('should throw the "NotFoundException"', async (done) => {
+        tagsRepository.findOne.mockReturnValue(undefined);
+
+        try {
+          await service.update(updateTag);
+          done();
+        } catch (err) {
+          expect(err).toBeInstanceOf(NotFoundException);
+          expect(err.message).toEqual(`Tag #${updateTag.id} not found`);
+          done();
+        }
+      });
+    });
+  });
+
   describe('remove', () => {
     const removeTag: Partial<Tag> = {
       id: 1,

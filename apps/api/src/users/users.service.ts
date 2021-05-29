@@ -7,7 +7,6 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(@InjectRepository(User) private readonly usersRepository: Repository<User>) {}
 
-  // TODO replace partial with interface
   async create(newUser: Partial<User>) {
     const user = this.usersRepository.create(newUser);
     return this.usersRepository.save(user);
@@ -21,7 +20,6 @@ export class UsersService {
     return this.usersRepository.find();
   }
 
-  // TODO replace partial with interface
   async update(id: string, partialUser: Partial<User>) {
     const user = await this.usersRepository.findOne({ id });
     if (!user) {
