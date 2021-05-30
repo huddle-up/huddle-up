@@ -1,12 +1,38 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
+import * as fs from 'fs';
 import { Tag } from './entities/tag.entity';
 import { CreateTag } from './interfaces/create-tag.interface';
+import { getEnvPath } from '../config/utils';
 
 @Injectable()
 export class TagsService {
   constructor(@InjectRepository(Tag) private readonly tagRepository: Repository<Tag>) {}
+
+  async onModuleInit() {
+    const tagsArray = await this.getPredefinedTags();
+    const tags: Partial<Tag>[] = tagsArray.map((name) => {
+      return {
+        name,
+        predefined: true,
+      };
+    });
+
+    this.findOrCreate(tags);
+  }
+
+  private getPredefinedTags(): Promise<string[]> {
+    try {
+      const tagsConfigPath = getEnvPath('tags.json');
+      if (!fs.existsSync(tagsConfigPath)) {
+        return Promise.resolve([]);
+      }
+      return JSON.parse(fs.readFileSync(tagsConfigPath, 'utf8')).tags;
+    } catch (e) {
+      return Promise.resolve([]);
+    }
+  }
 
   async create(newTag: CreateTag) {
     const tag = this.tagRepository.create(newTag);
@@ -22,11 +48,15 @@ export class TagsService {
   }
 
   async findOrCreate(tags: Partial<Tag>[]) {
-    const resolvedTags = tags.map(({ id, name }) => {
+    const resolvedTags = tags.map(async ({ id, name, predefined }) => {
       if (id) {
         return this.findOne({ id });
       }
-      return this.create({ name });
+      const tag = name && (await this.findOne({ name }));
+      if (tag) {
+        return tag;
+      }
+      return this.create({ name, predefined });
     });
     return Promise.all(resolvedTags);
   }
@@ -35,6 +65,9 @@ export class TagsService {
     const tag = await this.tagRepository.findOne({ id: partialTag.id });
     if (!tag) {
       throw new NotFoundException(`Tag #${partialTag.id} not found`);
+    }
+    if (tag.predefined) {
+      throw new BadRequestException(`Tag #${partialTag.id} is predefined and can't be changed`);
     }
     await this.tagRepository.save(tag);
     return this.tagRepository.findOne({ id: partialTag.id });

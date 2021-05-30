@@ -103,6 +103,9 @@ type Tag {
   """The name of the tag"""
   name: String!
 
+  """The flag indicating if predefined"""
+  predefined: Boolean!
+
   """The meetings with this tag"""
   meetings: [Meeting!]
 }
@@ -246,11 +249,17 @@ input UpdateMeetingInput {
 input CreateTagInput {
   """The name of the tag"""
   name: String!
+
+  """The flag indicating if predefined"""
+  predefined: Boolean
 }
 
 input UpdateTagInput {
   """The name of the tag"""
   name: String
+
+  """The flag indicating if predefined"""
+  predefined: Boolean
 
   """The id of the tag"""
   id: Int!

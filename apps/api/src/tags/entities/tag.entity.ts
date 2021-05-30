@@ -13,6 +13,10 @@ export class Tag {
   @Field({ description: 'The name of the tag' })
   name: string;
 
+  @Column('bool', { default: false })
+  @Field({ description: 'The flag indicating if predefined' })
+  predefined: boolean;
+
   @ManyToMany(() => Meeting, (meeting) => meeting.tags)
   @Field(() => [Meeting], { nullable: true, description: 'The meetings with this tag' })
   meetings: Promise<Meeting[]>;
