@@ -39,7 +39,7 @@ export class Meeting {
   @Field(() => Date, { description: 'The end date of the meeting' })
   endDate: Date;
 
-  @ManyToOne(() => User, (user) => user.meetings)
+  @ManyToOne(() => User, (user) => user.meetings, { onDelete: 'CASCADE' })
   @Field(() => User, { name: 'host', description: 'The hoster of the meeting' })
   host: Promise<User>;
 
@@ -50,11 +50,11 @@ export class Meeting {
   @Field(() => Int, { nullable: true, description: 'The maximum allowed participants of the meeting' })
   maximumParticipants?: number;
 
-  @OneToMany(() => Participation, (participation) => participation.meeting)
+  @OneToMany(() => Participation, (participation) => participation.meeting, { cascade: ['remove'] })
   @Field(() => [Participation], { description: 'The participations of the meeting' })
   participations: Promise<Participation[]>;
 
-  @OneToOne(() => Conference, (conference) => conference.meeting)
+  @OneToOne(() => Conference, (conference) => conference.meeting, { cascade: ['remove'] })
   @Field(() => Conference, { description: 'The conference associated with the meeting', nullable: true })
   conference: Promise<Conference | null>;
 

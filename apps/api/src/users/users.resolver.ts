@@ -37,4 +37,9 @@ export class UsersResolver {
   async updateCurrentUser(@Args('input') input: UpdateCurrentUserInput, @CurrentUser() { userId }) {
     return this.usersService.update(userId, input);
   }
+
+  @Mutation(() => Boolean)
+  removeTag(@Args('id', { type: () => String }) id: string) {
+    return this.usersService.remove(id);
+  }
 }

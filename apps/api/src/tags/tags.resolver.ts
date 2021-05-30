@@ -28,7 +28,7 @@ export class TagsResolver {
     return this.tagsService.update(input);
   }
 
-  @Mutation(() => Tag)
+  @Mutation(() => Boolean)
   removeTag(@Args('id', { type: () => Int }) id: number) {
     return this.tagsService.remove(id);
   }

@@ -10,14 +10,14 @@ export class Participation {
   @Field({ description: 'The id of the participation' })
   id: string;
 
-  @ManyToOne(() => User, (user) => user.participations)
+  @ManyToOne(() => User, (user) => user.participations, { onDelete: 'CASCADE' })
   @Field(() => User, { description: 'The user associated with the participation' })
   user: Promise<User>;
 
   @Column()
   userId: string;
 
-  @ManyToOne(() => Meeting, (meeting) => meeting.participations)
+  @ManyToOne(() => Meeting, (meeting) => meeting.participations, { onDelete: 'CASCADE' })
   @Field(() => Meeting, { description: 'The meeting associated with the participation' })
   meeting: Promise<Meeting>;
 

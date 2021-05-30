@@ -193,7 +193,7 @@ type Mutation {
   cancelMeeting(id: String!): Meeting!
   createTag(input: CreateTagInput!): Tag!
   updateTag(input: UpdateTagInput!): Tag!
-  removeTag(id: Int!): Tag!
+  removeTag(id: String!): Boolean!
   updateUser(input: UpdateUserInput!): User!
   updateCurrentUser(input: UpdateCurrentUserInput!): User!
   createConference(input: CreateConferenceInput!): Conference!
