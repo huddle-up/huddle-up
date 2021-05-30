@@ -24,7 +24,6 @@ function DeleteAccountForm({ id }: RemoveTagVariables) {
   return (
     <Card variant="outlined">
       <CardContent>
-        {/* <Collapse in={!canceled}> */}
         <Grid container justify="space-between" alignItems="center">
           <Typography component="p">{t('profile.delete.description')}</Typography>
           {showRemove ? (
@@ -42,7 +41,6 @@ function DeleteAccountForm({ id }: RemoveTagVariables) {
             </Button>
           )}
         </Grid>
-        {/* </Collapse> */}
       </CardContent>
     </Card>
   );
