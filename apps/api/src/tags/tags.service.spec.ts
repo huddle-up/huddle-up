@@ -75,7 +75,8 @@ describe('MeetingsService', () => {
         const unsavedTagsArray: Partial<Tag>[] = [newTag, existingTag];
         const savedTagsArray: Partial<Tag>[] = [newTagSaved, existingTag];
 
-        tagsRepository.findOne.mockReturnValue(existingTag);
+        tagsRepository.findOne.mockReturnValueOnce(undefined);
+        tagsRepository.findOne.mockReturnValueOnce(existingTag);
         tagsRepository.create.mockReturnValue(newTagSaved);
         tagsRepository.save.mockReturnValue(newTagSaved);
         const foundTags = await service.findOrCreate(unsavedTagsArray);
@@ -121,6 +122,7 @@ describe('MeetingsService', () => {
           meetings: null,
           created_at: null,
           updated_at: null,
+          predefined: false,
         };
         const savedTag: Partial<Tag> = {
           ...presavedTag,
