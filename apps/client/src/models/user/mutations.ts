@@ -11,3 +11,9 @@ export const UPDATE_CURRENT_USER = gql`
     }
   }
 `;
+
+export const REMOVE_USER = gql`
+  mutation RemoveTag($id: String!) {
+    removeTag(id: $id)
+  }
+`;

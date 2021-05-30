@@ -24,7 +24,7 @@ export class AuthUser {
   /**
    * The user associated with this AuthUser
    */
-  @OneToOne(() => User)
+  @OneToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn()
   user: Promise<User>;
 

@@ -18,10 +18,3 @@ export const UPDATE_TAG = gql`
     }
   }
 `;
-
-// TODO is it possible to remove a tag?
-// const REMOVE_TAG = gql`
-//   mutation RemoveTag($id: Int) {
-//     removeTag(id: $id)
-//   }
-// `;

@@ -227,6 +227,12 @@
       "joinedAt": "HuddleUp member since",
       "noName": "No name available",
       "noBiography": "No biography available"
+    },
+    "delete": {
+      "dangerZoneSection": "Danger Zone",
+      "deleteAccount": "Delete Account",
+      "description": "Delete your account and remove all data associated with it. Beware, this is irreversible!",
+      "confirm": "Confirm delete account"
     }
   }
 }

@@ -227,6 +227,12 @@
       "joinedAt": "HuddleUp Mitglied seit",
       "noName": "Kein Name verfügbar",
       "noBiography": "Keine Biographie verfügbar"
+    },
+    "delete": {
+      "dangerZoneSection": "Gefahrenzone",
+      "deleteAccount": "Benutzerkonto löschen",
+      "description": "Lösche dein Benutzerkonto und alle damit bezogenen Daten. Dies kann nicht rückgängig gemacht werden!",
+      "confirm": "Benutzerkonto löschen bestätigen"
     }
   }
 }
