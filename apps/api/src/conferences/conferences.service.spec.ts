@@ -7,6 +7,7 @@ import { User } from '../users/entities/user.entity';
 import { ConferencesService } from './conferences.service';
 import { Conference } from './entities/conference.entity';
 import { CreateConference } from './interfaces/create-conference.interface';
+import { CONFERENCE_PROVIDER } from './interfaces/conference-provider.interface';
 
 type MockRepository<T = any> = Partial<Record<keyof Repository<T>, jest.Mock>>;
 const createMockRepository = <T = any>(): MockRepository<T> => ({
@@ -54,7 +55,7 @@ describe('ConferencesService', () => {
           provide: getRepositoryToken(Conference),
           useValue: createMockRepository(),
         },
-        { provide: JitsiService, useValue: jitsiService },
+        { provide: CONFERENCE_PROVIDER, useValue: jitsiService },
       ],
     }).compile();
 
