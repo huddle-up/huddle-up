@@ -12,7 +12,8 @@
     "button": {
       "login": "Login",
       "register": "Register",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "edit": "Edit"
     },
     "link": {
       "help": "help"
