@@ -135,14 +135,14 @@ type DeleteParticipationOutput {
 }
 
 type Query {
+  users: [User!]!
+  user(id: String!): User!
+  currentUser: User!
   discover(input: SearchCriteriaInput!): MeetingSearchResponse!
   myMeetings(searchMeetingInput: SearchCriteriaInput!): MeetingSearchResponse!
   meeting(id: String!): Meeting!
   tags: [Tag!]!
   tag(id: Int!): Tag!
-  users: [User!]!
-  user(id: String!): User!
-  currentUser: User!
   conference(id: String!): Conference!
   conferenceByMeeting(meetingId: String!): Conference
   conferenceAccess(conferenceId: String!): ConferenceAccess!
@@ -188,19 +188,44 @@ input TagOption {
 }
 
 type Mutation {
+  updateUser(input: UpdateUserInput!): User!
+  updateCurrentUser(input: UpdateCurrentUserInput!): User!
+  removeTag(id: Int!): Boolean!
   createMeeting(input: CreateMeetingInput!): Meeting!
   updateMeeting(input: UpdateMeetingInput!): Meeting!
   cancelMeeting(id: String!): Meeting!
   createTag(input: CreateTagInput!): Tag!
   updateTag(input: UpdateTagInput!): Tag!
-  removeTag(id: String!): Boolean!
-  updateUser(input: UpdateUserInput!): User!
-  updateCurrentUser(input: UpdateCurrentUserInput!): User!
   createConference(input: CreateConferenceInput!): Conference!
   publishConference(conferenceId: String!): Conference!
   stopConference(conferenceId: String!): Conference!
   createParticipation(input: CreateParticipationInput!): Participation!
   deleteParticipation(id: String!): DeleteParticipationOutput
+}
+
+input UpdateUserInput {
+  """The id of the user"""
+  id: String!
+
+  """The email of the user"""
+  email: String!
+
+  """The name of the user"""
+  name: String!
+
+  """The biography of the user"""
+  biography: String
+}
+
+input UpdateCurrentUserInput {
+  """The email of the user"""
+  email: String!
+
+  """The name of the user"""
+  name: String!
+
+  """The biography of the user"""
+  biography: String
 }
 
 input CreateMeetingInput {
@@ -263,31 +288,6 @@ input UpdateTagInput {
 
   """The id of the tag"""
   id: Int!
-}
-
-input UpdateUserInput {
-  """The id of the user"""
-  id: String!
-
-  """The email of the user"""
-  email: String!
-
-  """The name of the user"""
-  name: String!
-
-  """The biography of the user"""
-  biography: String
-}
-
-input UpdateCurrentUserInput {
-  """The email of the user"""
-  email: String!
-
-  """The name of the user"""
-  name: String!
-
-  """The biography of the user"""
-  biography: String
 }
 
 input CreateConferenceInput {

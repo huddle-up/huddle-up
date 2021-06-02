@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import * as jsonwebtoken from 'jsonwebtoken';
 import { Conference } from '../conferences/entities/conference.entity';
 import { ConferenceProviderProps } from '../conferences/interfaces/conference-provider-props.interface';
+import { ConferenceProvider } from '../conferences/interfaces/conference-provider.interface';
 import { JitsiConfigService } from '../config/jitsi/config.service';
 import { User } from '../users/entities/user.entity';
 import { JitsiConferenceProps } from './interfaces/jitsi-conference-props.interface';
@@ -17,7 +18,7 @@ export interface CreateConnectionStringOptions {
 }
 
 @Injectable()
-export class JitsiService {
+export class JitsiService implements ConferenceProvider {
   constructor(private jitsiConfigService: JitsiConfigService) {}
 
   async create(conference: Conference): Promise<ConferenceProviderProps> {
