@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation } from '@apollo/client';
-import { Button, Card, CardContent, CircularProgress, Collapse, Grid, Typography } from '@material-ui/core';
+import { Button, Card, CardContent, CircularProgress, Grid, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useTranslation } from 'react-i18next';
 import { REMOVE_USER } from '../../models/user';

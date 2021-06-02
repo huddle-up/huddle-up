@@ -1,5 +1,6 @@
-import React from 'react';
-import { Button, Card, CardActions, CardContent, Divider, Grid, makeStyles } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Button, Card, CardActions, CardContent, CircularProgress, Divider, Grid, makeStyles } from '@material-ui/core';
+import { Edit, Save } from '@material-ui/icons';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { useTranslation } from 'react-i18next';
@@ -32,6 +33,7 @@ interface UserProfileFormProps {
 function UserProfileForm({ initialValues: { name, email, biography }, onSubmit }: UserProfileFormProps) {
   const classes = useStyles();
   const { t } = useTranslation();
+  const [isEditing, setIsEditing] = useState(false);
   const FormSchema = Yup.object().shape({
     name: Yup.string()
       .max(50, t('global.form.validation.maxCountCharacters', { count: 50 }))
@@ -47,7 +49,7 @@ function UserProfileForm({ initialValues: { name, email, biography }, onSubmit }
       {({ submitForm, isSubmitting, handleReset }) => (
         <Form>
           <Card className={classes.card} variant="outlined">
-            <CardContent className={classes.cardContent} component="fieldset">
+            <CardContent className={classes.cardContent} component="fieldset" disabled={!isEditing}>
               <CardTitle title={t('profile.profile.yourInformation')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12} md={6}>
@@ -73,7 +75,7 @@ function UserProfileForm({ initialValues: { name, email, biography }, onSubmit }
               </Grid>
             </CardContent>
             <Divider />
-            <CardContent className={classes.cardContent} component="fieldset">
+            <CardContent className={classes.cardContent} component="fieldset" disabled={!isEditing}>
               <CardTitle
                 title={t('profile.profile.aboutYou')}
                 caption={t('profile.profile.aboutYouText')}
@@ -94,12 +96,36 @@ function UserProfileForm({ initialValues: { name, email, biography }, onSubmit }
             </CardContent>
             <Divider />
             <CardActions className={classes.actions}>
-              <Button onClick={handleReset} disabled={isSubmitting} variant="outlined" color="primary">
-                {t('global.form.clear')}
-              </Button>
-              <Button onClick={submitForm} disabled={isSubmitting} variant="contained" disableElevation color="primary">
-                {t('global.form.save')}
-              </Button>
+              {isEditing ? (
+                <>
+                  <Button
+                    onClick={() => {
+                      handleReset();
+                      setIsEditing(false);
+                    }}
+                    disabled={isSubmitting}
+                    variant="outlined"
+                    color="primary">
+                    {t('global.form.cancel')}
+                  </Button>
+                  <Button
+                    onClick={async () => {
+                      await submitForm();
+                      setIsEditing(false);
+                    }}
+                    disabled={isSubmitting}
+                    variant="contained"
+                    disableElevation
+                    color="primary"
+                    startIcon={isSubmitting ? <CircularProgress size="1em" /> : <Save />}>
+                    {t('global.form.save')}
+                  </Button>
+                </>
+              ) : (
+                <Button onClick={() => setIsEditing(true)} variant="contained" color="primary" startIcon={<Edit />}>
+                  {t('global.button.edit')}
+                </Button>
+              )}
             </CardActions>
           </Card>
         </Form>
