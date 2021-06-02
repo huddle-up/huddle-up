@@ -1,5 +1,6 @@
-import { Avatar, makeStyles, Typography } from '@material-ui/core';
-import React, { useMemo } from 'react';
+import { makeStyles, Typography } from '@material-ui/core';
+import { AccountCircle } from '@material-ui/icons';
+import React from 'react';
 import { useUser } from '../../models/user';
 import { ROUTES } from '../../routes';
 import { Link } from '../link';
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   avatar: {
-    margin: theme.spacing(0, 2),
+    margin: theme.spacing(0, 1, 0, 2),
   },
   text: {
     display: 'none',
@@ -33,12 +34,11 @@ interface UserMenuProps {
 }
 
 export function UserMenu({ user }: UserMenuProps) {
-  const initial = useMemo(() => (user.name ? user.name.charAt(0).toUpperCase() : ''), [user.name]);
   const classes = useStyles();
   return (
     <Link to={ROUTES.profile.profile} className={classes.link}>
       <div className={classes.container}>
-        <Avatar className={classes.avatar}>{initial}</Avatar>
+        <AccountCircle fontSize="large" className={classes.avatar} />
         <Typography className={classes.text}>{user.name}</Typography>
       </div>
     </Link>
