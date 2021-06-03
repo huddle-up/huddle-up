@@ -10,15 +10,13 @@ import { MyMeetings, MyMeetingsVariables } from '../../models/meetings/__generat
 import { MY_MEETINGS } from '../../models/meetings';
 import { AppPageAside, AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
-import { isHostOrParticipant, isInFutureFilter, isInPastFilter, isWithinIntervalFilter } from '../../utils';
+import { isInFutureFilter, isInPastFilter, isWithinIntervalFilter } from '../../utils';
 import { SearchForm, SearchFormVariables } from '../../components/search-form';
 import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMoreCard } from '../../components/show-more-card';
-import { useUser } from '../../models/user';
 
 function MyMeetingsPage() {
   const { t } = useTranslation();
-  const { user } = useUser();
 
   const initialValues = {
     searchValue: '',
@@ -55,22 +53,20 @@ function MyMeetingsPage() {
     });
   }
 
-  const { meetings, totalCount } = data.myMeetings;
+  const { meetings: myMeetings, totalCount } = data.myMeetings;
   const handlePageLimit = (all?: boolean) => {
-    const newLimit = all ? totalCount : baseOptions.limit + meetings.length;
+    const newLimit = all ? totalCount : baseOptions.limit + myMeetings.length;
     refetch({ limit: newLimit });
   };
-
-  const myMeetings = isHostOrParticipant(user, meetings);
 
   return (
     <>
       <AppPageAside>
         <SectionHeader icon={<FilterListIcon />} title={t('meetings.search.filterSection')} />
         <SearchForm onSubmit={onSearch} initialValues={initialValues} />
-        {totalCount > meetings.length && (
+        {totalCount > myMeetings.length && (
           <ShowMoreCard
-            title={`${t('global.title.myMeetings')} (${meetings.length}/${totalCount})`}
+            title={`${t('global.title.myMeetings')} (${myMeetings.length}/${totalCount})`}
             limit={baseOptions.limit}
             handlePageLimit={handlePageLimit}
           />
