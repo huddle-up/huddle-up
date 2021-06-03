@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, Logger, NotFoundException } from '@nes
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import * as fs from 'fs';
-import { FileLogger } from 'common/logging/file-logger';
+import { FileLogger } from '../common/logging/file-logger';
 import { Tag } from './entities/tag.entity';
 import { CreateTag } from './interfaces/create-tag.interface';
 import { getEnvPath } from '../config/utils';

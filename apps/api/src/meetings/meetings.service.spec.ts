@@ -51,7 +51,6 @@ describe('MeetingsService', () => {
       ],
     }).compile();
 
-    module.useLogger(console);
     service = module.get<MeetingsService>(MeetingsService);
     meetingsRepository = module.get<MockRepository>(getRepositoryToken(Meeting));
   });
