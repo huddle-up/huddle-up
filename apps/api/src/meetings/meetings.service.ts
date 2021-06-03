@@ -10,7 +10,6 @@ import { CreateMeeting } from './interfaces/create-meeting.interface';
 import { SearchCriteria } from './interfaces/search-criteria.interface';
 import { UpdateMeeting } from './interfaces/update-meeting.inferface';
 import { Tag } from '../tags/entities/tag.entity';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
 @Injectable()
 export class MeetingsService {
@@ -47,7 +46,7 @@ export class MeetingsService {
   }
 
   async search(searchCriteria: SearchCriteria, userId?: string) {
-    const { searchValue, startDateOrderBy, offset, limit, fromDate, toDate, tags } = searchCriteria;
+    const { searchValue, startDateOrderBy, offset, limit, fromDate, toDate, tags, filterOutStopped } = searchCriteria;
 
     // This will append the query builder options to the base query in the specified order
     const query = flow(
@@ -55,7 +54,8 @@ export class MeetingsService {
       (q) => this.applyHostOrParticipantFilter(q, userId),
       (q) => this.applyStartDateFilter(q, fromDate, toDate),
       (q) => this.applyEndDateFilter(q, userId),
-      (q) => this.applyTagFilter(q, tags)
+      (q) => this.applyTagFilter(q, tags),
+      (q) => this.applyConferenceFilter(q, filterOutStopped)
     )(this.meetingRepository.createQueryBuilder('meeting'));
 
     const [meetings, totalCount] = await query
@@ -68,7 +68,7 @@ export class MeetingsService {
 
   private applySearchFilter(query: SelectQueryBuilder<Meeting>, search: string): SelectQueryBuilder<Meeting> {
     if (search) {
-      return query.andWhere('(meeting.title LIKE :search OR meeting.description LIKE :search)', {
+      return query.andWhere('(meeting.title ILIKE :search OR meeting.description LIKE :search)', {
         search: `%${search}%`,
       });
     }
@@ -107,6 +107,16 @@ export class MeetingsService {
   private applyEndDateFilter(query: SelectQueryBuilder<Meeting>, userId: string) {
     if (!userId) {
       return query.andWhere('meeting.endDate > NOW()');
+    }
+    return query;
+  }
+
+  private applyConferenceFilter(
+    query: SelectQueryBuilder<Meeting>,
+    filterOutStopped: boolean
+  ): SelectQueryBuilder<Meeting> {
+    if (filterOutStopped) {
+      return query.leftJoin('meeting.conference', 'conference').andWhere('conference.stoppedAt IS NULL');
     }
     return query;
   }

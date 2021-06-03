@@ -9,4 +9,5 @@ export interface SearchCriteria {
   toDate?: Date;
   offset?: number;
   limit?: number;
+  filterOutStopped?: boolean;
 }

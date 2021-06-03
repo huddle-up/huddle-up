@@ -5,6 +5,7 @@ import { Box, CircularProgress, Collapse, Grid } from '@material-ui/core';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import isEqual from 'lodash.isequal';
 import { MeetingList } from '../../components/meeting';
 import { Meetings, MeetingsVariables } from '../../models/meetings/__generated-interfaces__/Meetings';
 import { MEETINGS } from '../../models/meetings';
@@ -35,9 +36,7 @@ interface MeetingsPageListProps {
 function MeetingsPageList({ data, onLoadMore, isLoadingMore }: MeetingsPageListProps) {
   const { t } = useTranslation();
 
-  const { totalCount } = data.discover;
-  // TODO: Filter out stopped meetings in query?
-  const meetings = data.discover.meetings.filter((meeting) => !meeting.conference || !meeting.conference.stoppedAt);
+  const { meetings, totalCount } = data.discover;
 
   return (
     <AppPageMain>
@@ -79,9 +78,13 @@ function useMeetingsSearch(initialValues: SearchFormVariables, defaultOrderBy: O
     },
   });
 
-  const search = (values: SearchFormVariables) => {
+  const search = async (values: SearchFormVariables) => {
     setPreviousData(null);
-    setCurrentSearch(values);
+    if (isEqual(currentSearch, values)) {
+      refetch(baseOptions);
+    } else {
+      setCurrentSearch(values);
+    }
   };
 
   const loadMore = async () => {

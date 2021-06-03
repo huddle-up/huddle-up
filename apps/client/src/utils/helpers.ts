@@ -21,10 +21,6 @@ export function isInPastFilter(meetings: Meeting[]): Meeting[] {
   return meetings.filter((meeting) => isPast(parseISO(meeting.endDate)));
 }
 
-export function isHostOrParticipant(user: UserFields, meetings: Meeting[]): Meeting[] {
-  return user ? meetings.filter((meeting) => isHost(user, meeting) || isParticipant(user, meeting)) : [];
-}
-
 export function isHost(user: UserFields, meeting: Meeting): boolean {
   return meeting && user ? meeting.host?.id === user.id : false;
 }

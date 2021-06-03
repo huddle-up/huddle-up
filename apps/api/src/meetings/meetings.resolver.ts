@@ -22,7 +22,7 @@ export class MeetingsResolver {
 
   @Query(() => MeetingSearchResponse, { name: 'discover' })
   async findAll(@Args('input') searchCriteria: SearchCriteriaInput) {
-    return this.meetingsService.search(searchCriteria);
+    return this.meetingsService.search({ filterOutStopped: true, ...searchCriteria });
   }
 
   @Query(() => MeetingSearchResponse, { name: 'myMeetings' })

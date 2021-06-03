@@ -5,5 +5,4 @@ export {
   isWithinIntervalFilter,
   isHost,
   isParticipant,
-  isHostOrParticipant,
 } from './helpers';
