@@ -226,6 +226,7 @@ describe('MeetingsService', () => {
           tags: [{ id: 1 }, { id: 2 }],
           fromDate: new Date('2021-06-18T10:00:00Z'),
           toDate: new Date('2021-06-18T11:00:00Z'),
+          filterOutStopped: true,
         };
         const userId = 'user-1';
         const meetings: Partial<Meeting>[] = [{ id: 'meeting-1', title: 'test-meeting' }];
@@ -241,7 +242,7 @@ describe('MeetingsService', () => {
 
         // additional checks to proof the existence of some queries in private methods
         expect(query.andWhere).toHaveBeenCalledWith(
-          '(meeting.title LIKE :search OR meeting.description LIKE :search)',
+          '(meeting.title ILIKE :search OR meeting.description ILIKE :search)',
           {
             search: `%${searchValue}%`,
           }
@@ -256,6 +257,7 @@ describe('MeetingsService', () => {
         expect(query.innerJoin).toHaveBeenCalledWith('meeting.tags', 'tag', 'tag.id IN (:...tagIds)', {
           tagIds: tags.map((t) => t.id),
         });
+        expect(query.andWhere).toHaveBeenCalledWith('conference.stoppedAt IS NULL');
       });
     });
 

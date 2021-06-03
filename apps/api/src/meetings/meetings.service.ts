@@ -68,7 +68,7 @@ export class MeetingsService {
 
   private applySearchFilter(query: SelectQueryBuilder<Meeting>, search: string): SelectQueryBuilder<Meeting> {
     if (search) {
-      return query.andWhere('(meeting.title ILIKE :search OR meeting.description LIKE :search)', {
+      return query.andWhere('(meeting.title ILIKE :search OR meeting.description ILIKE :search)', {
         search: `%${search}%`,
       });
     }
