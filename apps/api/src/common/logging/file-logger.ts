@@ -11,10 +11,11 @@ export class FileLogger extends Logger {
         errors({ stack: true }),
         timestamp(),
         printf((msg) => {
+          const mainMessage = `${msg.timestamp} [${msg.level}] ${msg.service} - ${msg.message}`;
           if (msg.trace) {
-            return `${msg.timestamp} [${msg.level}] ${msg.message} : ${msg.trace}`;
+            return `${mainMessage} : ${msg.trace}`;
           }
-          return `${msg.timestamp} [${msg.level}] ${msg.message}`;
+          return mainMessage;
         })
       ),
       defaultMeta: { service: 'HuddleUp' },
@@ -36,7 +37,7 @@ export class FileLogger extends Logger {
   }
 
   error(message: string, trace: string) {
-    logger.error(message, trace);
+    logger.error(message, { trace });
     super.error(message, trace);
   }
 
