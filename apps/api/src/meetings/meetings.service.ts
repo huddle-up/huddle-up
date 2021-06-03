@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { addMinutes } from 'date-fns';
 import { Repository, SelectQueryBuilder } from 'typeorm';
@@ -10,7 +10,6 @@ import { CreateMeeting } from './interfaces/create-meeting.interface';
 import { SearchCriteria } from './interfaces/search-criteria.interface';
 import { UpdateMeeting } from './interfaces/update-meeting.inferface';
 import { Tag } from '../tags/entities/tag.entity';
-import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
 @Injectable()
 export class MeetingsService {
