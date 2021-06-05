@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     gridTemplateColumns: 'auto',
     gridTemplateRows: 'auto',
     gridTemplateAreas: `
+      "top"
       "aside"
       "main"
       "meta"
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
       gridTemplateColumns: '1fr 3fr',
       gridTemplateRows: 'auto',
       gridTemplateAreas: `
+      "top-aside top-main"
       "aside main"
       "meta main"
       `,
@@ -39,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up('lg')]: {
       gridTemplateColumns: '1fr 3fr 1fr',
       gridTemplateAreas: `
+      "top-aside top-main top-meta"
       "aside main meta"
       `,
     },

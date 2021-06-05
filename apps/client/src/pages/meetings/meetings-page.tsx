@@ -16,6 +16,7 @@ import { SearchForm, SearchFormVariables } from '../../components/search-form';
 import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMore } from '../../components/show-more';
 import { ROUTES } from '../../routes';
+import { AppPageTitle } from '../../components/app-page-title';
 
 function LoadingContent() {
   return (
@@ -39,7 +40,7 @@ function MeetingsPageList({ data, onLoadMore, isLoadingMore }: MeetingsPageListP
   const { meetings, totalCount } = data.discover;
 
   return (
-    <AppPageMain>
+    <AppPageMain noMarginTop>
       <section>
         <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.ongoing')} />
         <MeetingList linkTemplate={ROUTES.meetings.allMeetingsMeeting} meetings={isWithinIntervalFilter(meetings)} />
@@ -133,7 +134,8 @@ function MeetingsPage() {
 
   return (
     <>
-      <AppPageAside>
+      <AppPageTitle title={t('global.title.allMeetings')} />
+      <AppPageAside noMarginTop>
         <SectionHeader icon={<FilterListIcon />} title={t('meetings.search.filterSection')} />
         <SearchForm onSubmit={onSearch} initialValues={initialValues} />
       </AppPageAside>
