@@ -13,6 +13,8 @@ import { CreateeMeetingForm } from '../../components/meeting-form';
 import { TagOption } from '../../models/__generated-interfaces__/globalTypes';
 import config from '../../config';
 import { generateLink, ROUTES } from '../../routes';
+import { Breadcrumbs } from '../../components/breadcrumbs';
+import { Link } from '../../components/link';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -57,21 +59,26 @@ function MeetingCreatePage() {
   }
 
   return (
-    <AppPageMain noAside>
-      <section>
-        <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.new')} />
-        {mutationLoading && (
-          <Card className={classes.card} variant="outlined">
-            <Typography>Loading...</Typography>
-          </Card>
-        )}
-        {mutationError && <p>Error... ${mutationError.message}</p>}
-        {!mutationLoading && !mutationError && mutationCalled && (
-          <Redirect to={generateLink(ROUTES.meetings.meeting, { id: mutationData.createMeeting.id })} />
-        )}
-        <CreateeMeetingForm onSubmit={handleCreateMeeting} initialValues={initialValues} />
-      </section>
-    </AppPageMain>
+    <>
+      <Breadcrumbs noAside>
+        <Link to={ROUTES.meetings.myMeetings}>&lt; {t('global.title.myMeetings')}</Link>
+      </Breadcrumbs>
+      <AppPageMain noAside noMarginTop>
+        <section>
+          <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.new')} />
+          {mutationLoading && (
+            <Card className={classes.card} variant="outlined">
+              <Typography>Loading...</Typography>
+            </Card>
+          )}
+          {mutationError && <p>Error... ${mutationError.message}</p>}
+          {!mutationLoading && !mutationError && mutationCalled && (
+            <Redirect to={generateLink(ROUTES.meetings.meeting, { id: mutationData.createMeeting.id })} />
+          )}
+          <CreateeMeetingForm onSubmit={handleCreateMeeting} initialValues={initialValues} />
+        </section>
+      </AppPageMain>
+    </>
   );
 }
 

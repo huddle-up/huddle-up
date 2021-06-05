@@ -1,13 +1,14 @@
 {
   "global": {
     "head": {
-      "title": "Plattform für Videotreffen | HuddleUp ",
+      "title": "HuddleUp - Treffen, diskutieren, kennenlernen",
       "description": "Webplattform für Videotreffen, Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen"
     },
     "title": {
       "meeting": "Treffen",
       "myMeetings": "Meine Treffen",
-      "allMeetings": "Alle Treffen"
+      "allMeetings": "Alle Treffen",
+      "meetingDetails": "Treffen"
     },
     "button": {
       "login": "Einloggen",

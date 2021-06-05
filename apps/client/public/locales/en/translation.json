@@ -1,13 +1,14 @@
 {
   "global": {
     "head": {
-      "title": "Create and Join Videomeetings | HuddleUp ",
+      "title": "HuddleUp - Meet, Discuss, Connect",
       "description": "A place to meet, discuss and get to know each other online"
     },
     "title": {
       "meeting": "Meeting",
       "myMeetings": "My Meetings",
-      "allMeetings": "All Meetings"
+      "allMeetings": "All Meetings",
+      "meetingDetails": "Meeting Details"
     },
     "button": {
       "login": "Login",

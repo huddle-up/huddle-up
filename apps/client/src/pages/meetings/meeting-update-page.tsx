@@ -12,6 +12,9 @@ import { AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
 import { CancelMeetingForm, UpdateMeetingForm } from '../../components/meeting-form';
 import { TagOption } from '../../models/__generated-interfaces__/globalTypes';
+import { Breadcrumbs } from '../../components/breadcrumbs';
+import { Link } from '../../components/link';
+import { generateLink, ROUTES } from '../../routes';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -64,28 +67,34 @@ function MeetingUpdatePage() {
     );
 
   return (
-    <AppPageMain noAside>
-      <section>
-        <SectionHeader icon={<PlayCircleOutline />} title={t('meetings.title.edit')} />
-        {mutationLoading && (
-          <Card className={classes.card} variant="outlined">
-            <Typography>Loading...</Typography>
-          </Card>
-        )}
-        {mutationError && (
-          <Card className={classes.card} variant="outlined">
-            <Typography>Error... ${mutationError.message}</Typography>
-          </Card>
-        )}
-        {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meetings/${id}`} />}
+    <>
+      <Breadcrumbs noAside>
+        <Link to={ROUTES.meetings.myMeetings}>&lt; {t('global.title.myMeetings')}</Link>
+        <Link to={generateLink(ROUTES.meetings.meeting, { id })}>{t('global.title.meetingDetails')}</Link>
+      </Breadcrumbs>
+      <AppPageMain noAside noMarginTop>
+        <section>
+          <SectionHeader icon={<PlayCircleOutline />} title={t('meetings.title.edit')} />
+          {mutationLoading && (
+            <Card className={classes.card} variant="outlined">
+              <Typography>Loading...</Typography>
+            </Card>
+          )}
+          {mutationError && (
+            <Card className={classes.card} variant="outlined">
+              <Typography>Error... ${mutationError.message}</Typography>
+            </Card>
+          )}
+          {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meetings/${id}`} />}
 
-        <UpdateMeetingForm onSubmit={handleMeetingUpdate} initialValues={data.meeting} />
-      </section>
-      <section>
-        <SectionHeader icon={<Cancel />} title={t('meetings.cancel.title')} />
-        <CancelMeetingForm meeting={data.meeting} />
-      </section>
-    </AppPageMain>
+          <UpdateMeetingForm onSubmit={handleMeetingUpdate} initialValues={data.meeting} />
+        </section>
+        <section>
+          <SectionHeader icon={<Cancel />} title={t('meetings.cancel.title')} />
+          <CancelMeetingForm meeting={data.meeting} />
+        </section>
+      </AppPageMain>
+    </>
   );
 }
 
