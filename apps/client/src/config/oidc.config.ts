@@ -7,6 +7,8 @@ export function loadOidcConfig() {
       issuer: process.env.REACT_APP_OIDC_ISSUER,
       redirectUri: process.env.REACT_APP_OIDC_REDIRECT_URI,
       scope: process.env.REACT_APP_OIDC_SCOPE || 'openid email profile',
+      providerName: process.env.REACT_APP_OIDC_PROVIDER_NAME,
+      providerIcon: process.env.REACT_APP_OIDC_PROVIDER_ICON,
     },
   };
 }
