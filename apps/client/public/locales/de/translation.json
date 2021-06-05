@@ -16,7 +16,8 @@
       "edit": "Bearbeiten"
     },
     "link": {
-      "help": "Hilfe"
+      "help": "Hilfe",
+      "about": "Über HuddleUp"
     },
     "datepicker": {
       "okLabel": "ok",
@@ -25,9 +26,9 @@
       "invalidMinStartDateMessage": "Startdatum darf nicht in der Vergangenheit liegen",
       "invalidMinEndDateMessage": "Enddatum muss nach dem Startdatum sein"
     },
-    "footer": {
-      "tagline": "Webplattform für Videotreffen",
-      "description": "Erstelle und beitrete Videotreffen mit interessanten Themen"
+    "tagline": {
+      "long": "Ein Ort um sich online zu treffen, diskutieren und kennenlernen",
+      "short": "Treffen, diskutieren, kennenlernen"
     },
     "option": {
       "add": "Hinzufügen"
@@ -89,7 +90,7 @@
     "backLink": "Zurück zur Startseite"
   },
   "landingpage": {
-    "title": "Willkommen bei HuddleUp",
+    "title": "HuddleUp",
     "button": {
       "getstarted": "Loslegen"
     },

@@ -2,7 +2,7 @@
   "global": {
     "head": {
       "title": "Create and Join Videomeetings | HuddleUp ",
-      "description": "Webapplication for Videomeetings, Create, Categorize, Search and Join on virtual meetings about things you like with unfamiliar users"
+      "description": "A place to meet, discuss and get to know each other online"
     },
     "title": {
       "meeting": "Meeting",
@@ -16,7 +16,8 @@
       "edit": "Edit"
     },
     "link": {
-      "help": "help"
+      "help": "Help",
+      "about": "About HuddleUp"
     },
     "datepicker": {
       "okLabel": "ok",
@@ -25,9 +26,9 @@
       "invalidMinStartDateMessage": "Start date must not be in the past",
       "invalidMinEndDateMessage": "End date must be before the start date"
     },
-    "footer": {
-      "tagline": "Webapplication for Videomeetings",
-      "description": "Create and join Videomeetings with interesting topics"
+    "tagline": {
+      "long": "A place to meet, discuss and get to know each other online",
+      "short": "Meet, discuss, connect"
     },
     "option": {
       "add": "Add"
@@ -89,12 +90,9 @@
     "backLink": "Back to Home"
   },
   "landingpage": {
-    "title": "Welcome to HuddleUp",
+    "title": "HuddleUp",
     "button": {
       "getstarted": "Get Started"
-    },
-    "description": {
-      "main": "Create, Categorize, Search and Join on virtual meetings about things you like with unfamiliar users."
     }
   },
   "pagination": {
