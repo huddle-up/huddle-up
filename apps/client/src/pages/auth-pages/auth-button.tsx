@@ -1,5 +1,13 @@
 import { Avatar, Button, makeStyles, Typography } from '@material-ui/core';
+import { AccountCircle, EmailOutlined, Facebook, GitHub } from '@material-ui/icons';
 import React from 'react';
+
+const icons = {
+  account: () => <AccountCircle />,
+  facebook: () => <Facebook />,
+  github: () => <GitHub />,
+  email: () => <EmailOutlined />,
+};
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -18,22 +26,24 @@ const useStyles = makeStyles((theme) => ({
   },
   label: {
     marginRight: theme.spacing(1),
+    fontSize: theme.typography.subtitle1.fontSize,
   },
 }));
 
 interface AuthButtonProps {
   label: string;
   iconSrc?: string;
-  icon?: React.ReactNode;
+  icon?: keyof typeof icons;
   onClick: React.MouseEventHandler;
 }
 
 function AuthButton({ label, iconSrc, icon, onClick }: AuthButtonProps) {
   const classes = useStyles();
+  const iconComponent = icon && Object.keys(icons).includes(icon) ? icons[icon]() : icons.account();
   return (
     <Button className={classes.button} onClick={onClick}>
       <Avatar className={classes.avatar} src={iconSrc}>
-        {icon}
+        {iconComponent}
       </Avatar>
       <Typography className={classes.label} component="span" variant="h6">
         {label}

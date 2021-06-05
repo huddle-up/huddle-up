@@ -27,6 +27,10 @@ function useOidcProviderState() {
   return {
     signInCallback,
     signInRedirect,
+    providerInfo: {
+      name: config.get<string>('oidc.providerName'),
+      icon: config.get<string>('oidc.providerIcon'),
+    },
   };
 }
 

@@ -1,5 +1,4 @@
 import { Container, makeStyles, Typography } from '@material-ui/core';
-import { EmailOutlined } from '@material-ui/icons';
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
@@ -22,7 +21,7 @@ const useStyles = makeStyles({
 
 function LoginPage() {
   const classes = useStyles();
-  const oidc = useOidc();
+  const { signInRedirect, providerInfo } = useOidc();
   const { t } = useTranslation();
   return (
     <>
@@ -34,7 +33,7 @@ function LoginPage() {
           title={t('authPages.login.title')}
           bottom={
             <Container className={classes.bottom}>
-              <Typography component="p" variant="body2">
+              <Typography component="p" variant="body2" align="center">
                 {t('authPages.login.switchToRegisterText')}
               </Typography>
               <Link color="secondary" to={ROUTES.auth.register}>
@@ -43,9 +42,9 @@ function LoginPage() {
             </Container>
           }>
           <AuthButton
-            icon={<EmailOutlined />}
-            label={t('authPages.login.loginWith', { with: 'Email' })}
-            onClick={() => oidc.signInRedirect()}
+            icon={providerInfo.icon}
+            label={t('authPages.login.loginWith', { with: providerInfo.name })}
+            onClick={() => signInRedirect()}
           />
         </AuthCard>
       </Container>
