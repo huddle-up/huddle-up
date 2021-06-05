@@ -21,12 +21,10 @@ export class FileLogger extends Logger {
       ),
       defaultMeta: { service: 'HuddleUp' },
       transports: [
-        //
         // - Write all logs with level `error` and below to `error.log`
-        // - Write all logs with level `info` and below to `combined.log`
-        //
         new logger.transports.File({ filename: logPath('error.log'), level: 'error' }),
-        new logger.transports.File({ filename: logPath('combined.log') }),
+        // - Write all logs with level `info` and below to `combined.log`
+        // new logger.transports.File({ filename: logPath('combined.log') }),
       ],
     });
     super(context, isTimestampEnabled);
