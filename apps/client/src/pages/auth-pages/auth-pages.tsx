@@ -42,7 +42,7 @@ function AuthPages() {
   const { t } = useTranslation();
   return (
     <OidcProvider>
-      {loggedIn && <Redirect to={ROUTES.meetings.discover} />}
+      {loggedIn && <Redirect to={ROUTES.meetings.allMeetings} />}
       <PublicPageLayout header={<></>}>
         <Container className={classes.root}>
           <Container className={classes.logoContainer}>

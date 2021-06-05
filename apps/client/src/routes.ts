@@ -9,8 +9,8 @@ export const ROUTES = {
   },
   meetings: {
     slugs: 'meetings|my-meetings',
-    discover: '/meetings',
-    discoverMeeting: '/meetings/:id',
+    allMeetings: '/meetings',
+    allMeetingsMeeting: '/meetings/:id',
     meeting: '/my-meetings/:id',
     myMeetings: '/my-meetings',
     create: '/my-meetings/create',

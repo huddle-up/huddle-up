@@ -42,11 +42,11 @@ function MeetingsPageList({ data, onLoadMore, isLoadingMore }: MeetingsPageListP
     <AppPageMain>
       <section>
         <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.ongoing')} />
-        <MeetingList linkTemplate={ROUTES.meetings.discoverMeeting} meetings={isWithinIntervalFilter(meetings)} />
+        <MeetingList linkTemplate={ROUTES.meetings.allMeetingsMeeting} meetings={isWithinIntervalFilter(meetings)} />
       </section>
       <section>
         <SectionHeader icon={<CalendarTodayIcon />} title={t('meetings.title.upcoming')} />
-        <MeetingList linkTemplate={ROUTES.meetings.discoverMeeting} meetings={isInFutureFilter(meetings)} />
+        <MeetingList linkTemplate={ROUTES.meetings.allMeetingsMeeting} meetings={isInFutureFilter(meetings)} />
       </section>
       <Collapse in={totalCount > meetings.length}>
         <ShowMore

@@ -123,8 +123,8 @@ function AppPageMenu() {
       desktop: true,
       mobile: true,
       link: {
-        label: t('global.title.discover'),
-        to: ROUTES.meetings.discover,
+        label: t('global.title.allMeetings'),
+        to: ROUTES.meetings.allMeetings,
       },
     },
     {

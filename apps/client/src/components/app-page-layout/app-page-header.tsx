@@ -51,7 +51,7 @@ function AppPageHeader({ menu, actions }: AppPageHeaderProps) {
   return (
     <AppBar position="fixed" color="default" elevation={0} className={classes.appBar}>
       <Toolbar className={classes.toolbar}>
-        <Link to={ROUTES.meetings.discover} className={classes.logoContainer}>
+        <Link to={ROUTES.meetings.allMeetings} className={classes.logoContainer}>
           <LargeLogo className={classes.logo} />
         </Link>
         <div className={classes.menu}>{menu}</div>
