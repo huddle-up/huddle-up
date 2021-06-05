@@ -1,8 +1,7 @@
-import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeleteResult, Repository } from 'typeorm';
 import * as fs from 'fs';
-import { FileLogger } from '../common/logging/file-logger';
 import { Tag } from './entities/tag.entity';
 import { CreateTag } from './interfaces/create-tag.interface';
 import { getEnvPath } from '../config/utils';
@@ -10,8 +9,6 @@ import { getEnvPath } from '../config/utils';
 @Injectable()
 export class TagsService {
   constructor(@InjectRepository(Tag) private readonly tagRepository: Repository<Tag>) {}
-
-  private readonly logger = new Logger(FileLogger.name);
 
   async onModuleInit() {
     const tagsArray = await this.getPredefinedTags();
@@ -59,7 +56,6 @@ export class TagsService {
       if (tag) {
         return tag;
       }
-      this.logger.log(`Tag ${name} not found, create it`);
       return this.create({ name, predefined });
     });
     return Promise.all(resolvedTags);
