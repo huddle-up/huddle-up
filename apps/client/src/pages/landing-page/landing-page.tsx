@@ -9,6 +9,7 @@ import ChevronRight from '@material-ui/icons/ChevronRight';
 import { PublicPageLayout } from '../../components/public-page-layout';
 import { LinkButton } from '../../components/link';
 import { ROUTES } from '../../routes';
+import { LargeLogo } from '../../components/logo';
 
 const useStyles = makeStyles((theme) => ({
   heroContent: {
@@ -17,19 +18,17 @@ const useStyles = makeStyles((theme) => ({
     flex: '1 0',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundImage: 'url(https://source.unsplash.com/960x400/daily?meeting,social)',
-    [theme.breakpoints.up('md')]: {
-      backgroundImage: 'url(https://source.unsplash.com/1280x720/daily?meeting,social)',
-    },
-    [theme.breakpoints.up('lg')]: {
-      backgroundImage: 'url(https://source.unsplash.com/1920x1080/daily?meeting,social)',
-    },
-    [theme.breakpoints.up('xl')]: {
-      backgroundImage: 'url(https://source.unsplash.com/2560x1440/daily?meeting,social)',
-    },
+    backgroundImage: 'url(/img/landing-bg.jpg)',
     backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundPosition: 'center bottom',
     padding: theme.spacing(8, 0, 6),
+  },
+  hiddenTitle: {
+    display: 'none',
+  },
+  titleLogo: {
+    width: theme.spacing(25),
+    padding: theme.spacing(3, 0, 2),
   },
   heroButtons: {
     marginTop: theme.spacing(4),
@@ -50,11 +49,12 @@ function LandingPage() {
       <div className={classes.heroContent}>
         <Container maxWidth="sm">
           <Paper variant="outlined" className={classes.paper}>
-            <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
-              {t('landingpage.title')}
+            <Typography component="h1" variant="body1" align="center" color="textPrimary">
+              <span className={classes.hiddenTitle}>{t('landingpage.title')}</span>
+              <LargeLogo className={classes.titleLogo} />
             </Typography>
-            <Typography variant="h5" align="center" color="textSecondary">
-              {t('landingpage.description.main')}
+            <Typography variant="h6" align="center" color="textSecondary" gutterBottom>
+              {t('global.tagline.long')}
             </Typography>
           </Paper>
           <div className={classes.heroButtons}>
