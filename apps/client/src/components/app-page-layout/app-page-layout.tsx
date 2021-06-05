@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ROUTES } from '../../routes';
 import { LinkButton } from '../link';
 import { UserMenu } from '../user-menu';
+import AppPageFooter from './app-page-footer';
 import AppPageHeader from './app-page-header';
 import AppPageMenu from './app-page-menu';
 
@@ -73,6 +74,7 @@ function AppPageLayout({ children }: { children: React.ReactNode }) {
       <Container maxWidth="xl" className={classes.content}>
         {children}
       </Container>
+      <AppPageFooter />
     </div>
   );
 }
