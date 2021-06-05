@@ -14,6 +14,7 @@ import { isInFutureFilter, isInPastFilter, isWithinIntervalFilter } from '../../
 import { SearchForm, SearchFormVariables } from '../../components/search-form';
 import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMoreCard } from '../../components/show-more-card';
+import { AppPageTitle } from '../../components/app-page-title';
 
 function MyMeetingsPage() {
   const { t } = useTranslation();
@@ -61,7 +62,8 @@ function MyMeetingsPage() {
 
   return (
     <>
-      <AppPageAside>
+      <AppPageTitle title={t('global.title.myMeetings')} />
+      <AppPageAside noMarginTop>
         <SectionHeader icon={<FilterListIcon />} title={t('meetings.search.filterSection')} />
         <SearchForm onSubmit={onSearch} initialValues={initialValues} />
         {totalCount > myMeetings.length && (
@@ -72,7 +74,7 @@ function MyMeetingsPage() {
           />
         )}
       </AppPageAside>
-      <AppPageMain>
+      <AppPageMain noMarginTop>
         <section>
           <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.ongoing')} />
           <MeetingList meetings={isWithinIntervalFilter(myMeetings)} />
