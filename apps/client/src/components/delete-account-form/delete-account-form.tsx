@@ -4,12 +4,12 @@ import { Button, Card, CardContent, CircularProgress, Grid, Typography } from '@
 import DeleteIcon from '@material-ui/icons/Delete';
 import { useTranslation } from 'react-i18next';
 import { REMOVE_USER } from '../../models/user';
-import { RemoveTag, RemoveTagVariables } from '../../models/user/__generated-interfaces__/RemoveTag';
+import { RemoveUser, RemoveUserVariables } from '../../models/user/__generated-interfaces__/RemoveUser';
 import { useAuth } from '../../contexts/auth';
 
-function DeleteAccountForm({ id }: RemoveTagVariables) {
+function DeleteAccountForm({ id }: RemoveUserVariables) {
   const { t } = useTranslation();
-  const [mutate, { loading }] = useMutation<RemoveTag, RemoveTagVariables>(REMOVE_USER);
+  const [mutate, { loading }] = useMutation<RemoveUser, RemoveUserVariables>(REMOVE_USER);
   const [showRemove, setShowRemove] = useState(false);
   const { logout } = useAuth();
 
