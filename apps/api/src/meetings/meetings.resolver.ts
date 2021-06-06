@@ -15,8 +15,8 @@ export class MeetingsResolver {
   constructor(private readonly meetingsService: MeetingsService) {}
 
   @Mutation(() => Meeting)
-  async createMeeting(@Args('input') input: CreateMeetingInput, @CurrentUser() authUser) {
-    const meeting = { ...input, hostId: authUser.userId };
+  async createMeeting(@Args('input') input: CreateMeetingInput, @CurrentUser() { userId }) {
+    const meeting = { ...input, hostId: userId };
     return this.meetingsService.create(meeting);
   }
 
@@ -26,8 +26,8 @@ export class MeetingsResolver {
   }
 
   @Query(() => MeetingSearchResponse, { name: 'myMeetings' })
-  async findMyMeetings(@CurrentUser() authUser, @Args('searchMeetingInput') searchCriteria: SearchCriteriaInput) {
-    return this.meetingsService.search(searchCriteria, authUser.userId);
+  async findMyMeetings(@Args('searchMeetingInput') searchCriteria: SearchCriteriaInput, @CurrentUser() { userId }) {
+    return this.meetingsService.search(searchCriteria, userId);
   }
 
   @Query(() => Meeting, { name: 'meeting' })
@@ -36,17 +36,21 @@ export class MeetingsResolver {
   }
 
   @Mutation(() => Meeting)
-  async updateMeeting(@Args('input') input: UpdateMeetingInput) {
+  async updateMeeting(@Args('input') input: UpdateMeetingInput, @CurrentUser() { userId }) {
+    const meeting = await this.meetingsService.findOne({ id: input.id });
+    if (meeting && meeting.hostId !== userId) {
+      throw new UnauthorizedException();
+    }
     return this.meetingsService.update(input);
   }
 
   @Mutation(() => Meeting)
-  async cancelMeeting(@Args('id', { type: () => String }) id: string, @CurrentUser() authUser) {
+  async cancelMeeting(@Args('id', { type: () => String }) id: string, @CurrentUser() { userId }) {
     const meeting = await this.meetingsService.findOne({ id });
     if (!meeting) {
       throw new NotFoundException(`Meeting #${id} not found`);
     }
-    if (meeting.hostId !== authUser.userId) {
+    if (meeting.hostId !== userId) {
       throw new UnauthorizedException();
     }
     return this.meetingsService.cancel(meeting);

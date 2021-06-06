@@ -35,7 +35,7 @@ export class ParticipationsResolver {
   }
 
   @Mutation(() => DeleteParticipationOutput, { name: 'deleteParticipation', nullable: true })
-  async deleteParticipation(@CurrentUser() { userId }, @Args('id') id: string) {
+  async deleteParticipation(@Args('id') id: string, @CurrentUser() { userId }) {
     const participation = await this.participationsService.findOne({ id });
     if (participation && participation.userId !== userId) {
       throw new UnauthorizedException();
