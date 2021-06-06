@@ -1,4 +1,4 @@
-import { UseGuards } from '@nestjs/common';
+import { UnauthorizedException, UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
@@ -28,8 +28,12 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
-  async updateUser(@Args('input') input: UpdateUserInput) {
+  async updateUser(@Args('input') input: UpdateUserInput, @CurrentUser() { userId }) {
     const { id, ...user } = input;
+    const existingUser = await this.usersService.findOne({ id });
+    if (existingUser && existingUser.id !== userId) {
+      throw new UnauthorizedException();
+    }
     return this.usersService.update(id, user);
   }
 
@@ -39,7 +43,11 @@ export class UsersResolver {
   }
 
   @Mutation(() => Boolean)
-  removeTag(@Args('id', { type: () => String }) id: string) {
+  async removeUser(@Args('id', { type: () => String }) id: string, @CurrentUser() { userId }) {
+    const user = await this.usersService.findOne({ id });
+    if (user && user.id !== userId) {
+      throw new UnauthorizedException();
+    }
     return this.usersService.remove(id);
   }
 }

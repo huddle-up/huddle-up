@@ -11,7 +11,6 @@ import { MeetingsModule } from './meetings/meetings.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { ConferencesModule } from './conferences/conferences.module';
-import { JitsiModule } from './jitsi/jitsi.module';
 import { TagsModule } from './tags/tags.module';
 import { ParticipationsModule } from './participations/participations.module';
 
@@ -25,7 +24,7 @@ import { ParticipationsModule } from './participations/participations.module';
         playground: gqlConfigService.playground,
         debug: true,
         installSubscriptionHandlers: true,
-        autoSchemaFile: join(__dirname, 'schema.gql'),
+        autoSchemaFile: 'src/schema.gql',
       }),
     }),
     TypeOrmModule.forRootAsync({

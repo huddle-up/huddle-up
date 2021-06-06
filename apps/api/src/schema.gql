@@ -190,12 +190,13 @@ input TagOption {
 type Mutation {
   updateUser(input: UpdateUserInput!): User!
   updateCurrentUser(input: UpdateCurrentUserInput!): User!
-  removeTag(id: Int!): Boolean!
+  removeUser(id: String!): Boolean!
   createMeeting(input: CreateMeetingInput!): Meeting!
   updateMeeting(input: UpdateMeetingInput!): Meeting!
   cancelMeeting(id: String!): Meeting!
   createTag(input: CreateTagInput!): Tag!
   updateTag(input: UpdateTagInput!): Tag!
+  removeTag(id: Int!): Boolean!
   createConference(input: CreateConferenceInput!): Conference!
   publishConference(conferenceId: String!): Conference!
   stopConference(conferenceId: String!): Conference!
@@ -274,17 +275,11 @@ input UpdateMeetingInput {
 input CreateTagInput {
   """The name of the tag"""
   name: String!
-
-  """The flag indicating if predefined"""
-  predefined: Boolean
 }
 
 input UpdateTagInput {
   """The name of the tag"""
   name: String
-
-  """The flag indicating if predefined"""
-  predefined: Boolean
 
   """The id of the tag"""
   id: Int!
