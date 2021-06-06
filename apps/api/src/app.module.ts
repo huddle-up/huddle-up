@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { join } from 'path';
+import { resolve, join } from 'path';
 import { AppConfigModule } from './config/app/config.module';
 import { DatabaseConfigModule } from './config/database/config.module';
 import { DatabaseConfigService } from './config/database/config.service';
@@ -24,7 +24,7 @@ import { ParticipationsModule } from './participations/participations.module';
         playground: gqlConfigService.playground,
         debug: true,
         installSubscriptionHandlers: true,
-        autoSchemaFile: 'src/schema.gql',
+        autoSchemaFile: resolve(__dirname, '..', 'src', 'schema.gql'),
       }),
     }),
     TypeOrmModule.forRootAsync({
