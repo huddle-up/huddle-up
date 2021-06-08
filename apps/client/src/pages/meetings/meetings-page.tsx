@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from '@apollo/client';
-import { Box, CircularProgress, Collapse, Grid } from '@material-ui/core';
+import { Collapse } from '@material-ui/core';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import FilterListIcon from '@material-ui/icons/FilterList';
@@ -17,16 +17,8 @@ import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMore } from '../../components/show-more';
 import { ROUTES } from '../../routes';
 import { AppPageTitle } from '../../components/app-page-title';
-
-function LoadingContent() {
-  return (
-    <Grid container justify="center">
-      <Box m={2} mt={10}>
-        <CircularProgress size="2em" />
-      </Box>
-    </Grid>
-  );
-}
+import { LoadingContent } from '../../components/Loading';
+import { ErrorCard } from '../../components/error';
 
 interface MeetingsPageListProps {
   data: Meetings;
@@ -117,7 +109,13 @@ function MeetingsPage() {
 
   const { loading, error, data, search, loadMore, isLoadingMore } = useMeetingsSearch(initialValues, OrderBy.ASC);
 
-  if (error) return <p>Error! {error.message}</p>;
+  if (error) {
+    return (
+      <AppPageMain noAside noMarginTop>
+        <ErrorCard isInline={false} detail={error.message} />
+      </AppPageMain>
+    );
+  }
 
   async function onSearch({ tags, ...values }: SearchFormVariables) {
     search({

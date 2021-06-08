@@ -11,11 +11,14 @@ import {
   UpdateCurrentUserVariables,
 } from '../../models/user/__generated-interfaces__/UpdateCurrentUser';
 import DeleteAccountForm from '../../components/delete-account-form/delete-account-form';
+import { ErrorCard } from '../../components/error';
 
 function ProfilePage() {
   const { t } = useTranslation();
-  const { user } = useUser();
-  const [updateUser] = useMutation<UpdateCurrentUser, UpdateCurrentUserVariables>(UPDATE_CURRENT_USER);
+  const { user, error } = useUser();
+  const [updateUser, { error: mutationError }] = useMutation<UpdateCurrentUser, UpdateCurrentUserVariables>(
+    UPDATE_CURRENT_USER
+  );
   const onFormSubmit = async ({ name, email, biography }) => {
     await updateUser({
       variables: {
@@ -25,9 +28,11 @@ function ProfilePage() {
       },
     });
   };
+
   return (
     <section>
       <SectionHeader icon={<PersonOutlined />} title={t('profile.profile.profileSection')} />
+      {(error || mutationError) && <ErrorCard detail={error.message} />}
       <UserProfileForm onSubmit={onFormSubmit} initialValues={user} />
       <SectionHeader icon={<OfflineBoltIcon />} title={t('profile.delete.dangerZoneSection')} dangerZone />
       <DeleteAccountForm id={user.id} />

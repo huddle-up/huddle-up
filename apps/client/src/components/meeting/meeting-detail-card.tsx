@@ -4,6 +4,8 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Grid, Box, Collapse, CardActions, Divider } from '@material-ui/core';
 import { Edit, Event } from '@material-ui/icons';
 import { format, isToday, parseISO } from 'date-fns';
+import deLocale from 'date-fns/locale/de';
+import enLocale from 'date-fns/locale/en-US';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { LinkButton } from '../link';
 import { useUser } from '../../models/user';
@@ -85,6 +87,8 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
   const { t } = useTranslation();
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
+
+  const locale = navigator.language?.startsWith('de') ? deLocale : enLocale;
 
   const meetingState = useMeetingState(meeting);
   const { id, title, description, startDate, endDate, host } = meeting;
@@ -180,7 +184,8 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
           <Grid item>
             <Grid container direction="row" alignItems="center">
               <Event />
-              {format(meetingStart, 'dd. MMMM yyyy HH:mm')} - {format(meetingEnd, 'dd. MMMM yyyy HH:mm')}
+              {format(meetingStart, 'dd. MMMM yyyy HH:mm', { locale })} -{' '}
+              {format(meetingEnd, 'dd. MMMM yyyy HH:mm', { locale })}
             </Grid>
           </Grid>
         </Grid>

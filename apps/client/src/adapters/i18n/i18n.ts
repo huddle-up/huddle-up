@@ -11,6 +11,7 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: config.get<string>('i18n.defaultLocale'),
+    supportedLngs: config.get<string[]>('i18n.availableLocales'),
     debug: config.get<boolean>('i18n.debug'),
 
     interpolation: {

@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { Field } from 'formik';
-import { CircularProgress } from '@material-ui/core';
 import useTagsQuery from './use-tags-query';
+import { ErrorCard } from '../error';
+import { LoadingContent } from '../Loading';
 
 const filter = createFilterOptions<TagOption>({
   matchFrom: 'any',
@@ -47,8 +48,11 @@ function TagsField({
   const { t } = useTranslation();
   const { queryLoading, queryError, tagOptions } = useTagsQuery();
 
-  if (queryLoading) return <CircularProgress size="2em" />;
-  if (queryError) return <p>Error! ${queryError.message}</p>;
+  if (queryLoading) return <LoadingContent />;
+
+  if (queryError) {
+    return <ErrorCard detail={queryError.message} />;
+  }
 
   return (
     <Field name={name}>

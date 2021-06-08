@@ -2,7 +2,8 @@
   "global": {
     "head": {
       "title": "HuddleUp - Treffen, diskutieren, kennenlernen",
-      "description": "Webplattform für Videotreffen, Erstellen, kategorisieren, suchen und teilnehmen von virtuellen Treffen über interessierte Themen mit einander unbekannten Personen"
+      "description": "Ein Ort um sich online zu treffen, diskutieren und kennenlernen",
+      "error": "error"
     },
     "title": {
       "meeting": "Treffen",
@@ -54,6 +55,13 @@
         "to": "Bis",
         "tags": "Tags"
       }
+    },
+    "error": {
+      "title": "Fehler",
+      "info": "Oh nein, ein Fehler ist aufgetaucht!",
+      "refreshPage": "Seite aktualisieren",
+      "home": "Startseite",
+      "details": "Fehler Details"
     }
   },
   "authPages": {
