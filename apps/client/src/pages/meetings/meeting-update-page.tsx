@@ -15,10 +15,13 @@ import { Link } from '../../components/link';
 import { generateLink, ROUTES } from '../../routes';
 import { ErrorCard } from '../../components/error';
 import { LoadingContent } from '../../components/Loading';
+import { useUser } from '../../models/user';
+import { isHost } from '../../utils';
 
 function MeetingUpdatePage() {
   const { t } = useTranslation();
   const { id } = useParams<MeetingVariables>();
+  const { user } = useUser();
 
   const { loading: queryLoading, error: queryError, data } = useQuery<Meeting>(MEETING, {
     variables: { id },
@@ -52,6 +55,9 @@ function MeetingUpdatePage() {
     );
   }
 
+  const { meeting } = data;
+  if (!isHost(user, meeting)) return <Redirect to={ROUTES.meetings.myMeetings} />;
+
   return (
     <>
       <Breadcrumbs noAside>
@@ -65,11 +71,11 @@ function MeetingUpdatePage() {
           {mutationError && <ErrorCard detail={mutationError.message} />}
           {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meetings/${id}`} />}
 
-          <UpdateMeetingForm onSubmit={handleMeetingUpdate} initialValues={data.meeting} />
+          <UpdateMeetingForm onSubmit={handleMeetingUpdate} initialValues={meeting} />
         </section>
         <section>
           <SectionHeader icon={<Cancel />} title={t('meetings.cancel.title')} />
-          <CancelMeetingForm meeting={data.meeting} />
+          <CancelMeetingForm meeting={meeting} />
         </section>
       </AppPageMain>
     </>
