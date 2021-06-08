@@ -2,13 +2,15 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { PersonOutlined } from '@material-ui/icons';
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent, Divider, Grid, Typography, makeStyles, Paper } from '@material-ui/core';
+import { Card, CardContent, Divider, Grid, Typography, makeStyles } from '@material-ui/core';
 import { useParams } from 'react-router';
 import { format, parseISO } from 'date-fns';
 import { SectionHeader } from '../../components/section-header';
 import { CardTitle } from '../../components/card-title';
 import { User, UserVariables } from '../../models/user/__generated-interfaces__/User';
 import { USER } from '../../models/user';
+import { ErrorCard } from '../../components/error';
+import { LoadingContent } from '../../components/Loading';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -45,8 +47,11 @@ function PublicProfilePage() {
     variables: { id },
   });
 
-  if (queryLoading) return <Paper className={classes.paper}>Loading...</Paper>;
-  if (queryError) return <Paper className={classes.paper}>`Error loading user! ${queryError.message}`</Paper>;
+  if (queryLoading) return <LoadingContent />;
+
+  if (queryError) {
+    return <ErrorCard isInline={false} detail={queryError.message} />;
+  }
 
   return (
     <section>

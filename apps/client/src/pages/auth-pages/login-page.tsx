@@ -1,5 +1,5 @@
-import { Container, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
+import { Container, makeStyles, Typography } from '@material-ui/core';
 import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 import { AuthCard } from '../../components/auth-card';

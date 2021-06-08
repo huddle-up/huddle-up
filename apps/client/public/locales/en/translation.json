@@ -2,7 +2,8 @@
   "global": {
     "head": {
       "title": "HuddleUp - Meet, Discuss, Connect",
-      "description": "A place to meet, discuss and get to know each other online"
+      "description": "A place to meet, discuss and get to know each other online",
+      "error": "error"
     },
     "title": {
       "meeting": "Meeting",
@@ -54,6 +55,13 @@
         "to": "To",
         "tags": "Tags"
       }
+    },
+    "error": {
+      "title": "Error",
+      "info": "Woops something went wrong, oh noes!",
+      "refreshPage": "Refresh Page",
+      "home": "Home",
+      "details": "Error Details"
     }
   },
   "authPages": {

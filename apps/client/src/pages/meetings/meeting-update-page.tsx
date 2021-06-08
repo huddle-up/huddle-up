@@ -1,9 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
 import { useQuery, useMutation } from '@apollo/client';
 import { Redirect, useParams } from 'react-router-dom';
-import { Card, Typography } from '@material-ui/core';
 import { Cancel, PlayCircleOutline } from '@material-ui/icons';
 import { Meeting, MeetingVariables } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { UpdateMeeting, UpdateMeetingVariables } from '../../models/meetings/__generated-interfaces__/UpdateMeeting';
@@ -15,17 +13,11 @@ import { TagOption } from '../../models/__generated-interfaces__/globalTypes';
 import { Breadcrumbs } from '../../components/breadcrumbs';
 import { Link } from '../../components/link';
 import { generateLink, ROUTES } from '../../routes';
-
-const useStyles = makeStyles((theme) => ({
-  card: {
-    marginBottom: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-}));
+import { ErrorCard } from '../../components/error';
+import { LoadingContent } from '../../components/Loading';
 
 function MeetingUpdatePage() {
   const { t } = useTranslation();
-  const classes = useStyles();
   const { id } = useParams<MeetingVariables>();
 
   const { loading: queryLoading, error: queryError, data } = useQuery<Meeting>(MEETING, {
@@ -50,21 +42,15 @@ function MeetingUpdatePage() {
     });
   }
 
-  // TODO Improve handling of loading and errors
-  if (queryLoading)
+  if (queryLoading) return <LoadingContent />;
+
+  if (queryError) {
     return (
-      <Card className={classes.card} variant="outlined">
-        <Card className={classes.card} variant="outlined">
-          <Typography>Loading...</Typography>
-        </Card>
-      </Card>
+      <AppPageMain noAside noMarginTop>
+        <ErrorCard isInline={false} detail={queryError.message} />
+      </AppPageMain>
     );
-  if (queryError)
-    return (
-      <Card className={classes.card} variant="outlined">
-        <Typography>`Error loading meeting! ${queryError.message}`</Typography>
-      </Card>
-    );
+  }
 
   return (
     <>
@@ -75,16 +61,8 @@ function MeetingUpdatePage() {
       <AppPageMain noAside noMarginTop>
         <section>
           <SectionHeader icon={<PlayCircleOutline />} title={t('meetings.title.edit')} />
-          {mutationLoading && (
-            <Card className={classes.card} variant="outlined">
-              <Typography>Loading...</Typography>
-            </Card>
-          )}
-          {mutationError && (
-            <Card className={classes.card} variant="outlined">
-              <Typography>Error... ${mutationError.message}</Typography>
-            </Card>
-          )}
+          {mutationLoading && <LoadingContent />}
+          {mutationError && <ErrorCard detail={mutationError.message} />}
           {!mutationLoading && !mutationError && mutationCalled && <Redirect to={`/meetings/${id}`} />}
 
           <UpdateMeetingForm onSubmit={handleMeetingUpdate} initialValues={data.meeting} />

@@ -15,6 +15,8 @@ import { SearchForm, SearchFormVariables } from '../../components/search-form';
 import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMoreCard } from '../../components/show-more-card';
 import { AppPageTitle } from '../../components/app-page-title';
+import { ErrorCard } from '../../components/error';
+import { LoadingContent } from '../../components/Loading';
 
 function MyMeetingsPage() {
   const { t } = useTranslation();
@@ -39,8 +41,15 @@ function MyMeetingsPage() {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error! ${error.message}</p>;
+  if (loading) return <LoadingContent />;
+
+  if (error) {
+    return (
+      <AppPageMain noAside noMarginTop>
+        <ErrorCard isInline={false} detail={error.message} />
+      </AppPageMain>
+    );
+  }
 
   async function onSearch({ searchValue, tags, fromDate, toDate }: SearchFormVariables) {
     await refetch({

@@ -1,10 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
 import { useMutation } from '@apollo/client';
 import { Redirect } from 'react-router';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import { Card, Typography } from '@material-ui/core';
 import { CreateMeeting, CreateMeetingVariables } from '../../models/meetings/__generated-interfaces__/CreateMeeting';
 import { CREATE_MEETING } from '../../models/meetings';
 import { AppPageMain } from '../../components/app-page-layout';
@@ -15,17 +13,11 @@ import config from '../../config';
 import { generateLink, ROUTES } from '../../routes';
 import { Breadcrumbs } from '../../components/breadcrumbs';
 import { Link } from '../../components/link';
-
-const useStyles = makeStyles((theme) => ({
-  card: {
-    marginBottom: theme.spacing(2),
-    padding: theme.spacing(2),
-  },
-}));
+import { ErrorCard } from '../../components/error';
+import { LoadingContent } from '../../components/Loading';
 
 function MeetingCreatePage() {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   const [
     createMeeting,
@@ -66,12 +58,8 @@ function MeetingCreatePage() {
       <AppPageMain noAside noMarginTop>
         <section>
           <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.new')} />
-          {mutationLoading && (
-            <Card className={classes.card} variant="outlined">
-              <Typography>Loading...</Typography>
-            </Card>
-          )}
-          {mutationError && <p>Error... ${mutationError.message}</p>}
+          {mutationLoading && <LoadingContent />}
+          {mutationError && <ErrorCard detail={mutationError.message} />}
           {!mutationLoading && !mutationError && mutationCalled && (
             <Redirect to={generateLink(ROUTES.meetings.meeting, { id: mutationData.createMeeting.id })} />
           )}

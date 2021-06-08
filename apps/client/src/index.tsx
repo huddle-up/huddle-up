@@ -4,12 +4,16 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './app';
 import { AppProviders } from './contexts';
+import { ErrorBoundary } from './components/error';
+import { LoadingContent } from './components/Loading';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Suspense fallback="loading...">
+    <Suspense fallback={LoadingContent}>
       <AppProviders>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </AppProviders>
     </Suspense>
   </React.StrictMode>,
