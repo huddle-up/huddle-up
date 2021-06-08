@@ -2,8 +2,7 @@
   "global": {
     "head": {
       "title": "HuddleUp - Treffen, diskutieren, kennenlernen",
-      "description": "Ein Ort um sich online zu treffen, diskutieren und kennenlernen",
-      "error": "error"
+      "description": "Ein Ort um sich online zu treffen, diskutieren und kennenlernen"
     },
     "title": {
       "meeting": "Treffen",
@@ -58,10 +57,10 @@
     },
     "error": {
       "title": "Fehler",
-      "info": "Oh nein, ein Fehler ist aufgetaucht!",
+      "info": "Oh nein, es ist ein Fehler aufgetaucht!",
       "refreshPage": "Seite aktualisieren",
       "home": "Startseite",
-      "details": "Fehler Details"
+      "details": "Fehlerdetails"
     }
   },
   "authPages": {
