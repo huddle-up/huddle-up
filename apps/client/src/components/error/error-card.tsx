@@ -7,11 +7,9 @@ const useStyles = makeStyles((theme) => ({
   card: {
     margin: theme.spacing(2),
   },
-
   cardInline: {
     margin: theme.spacing(2, 0),
   },
-
   detail: {
     marginTop: theme.spacing(2),
   },
