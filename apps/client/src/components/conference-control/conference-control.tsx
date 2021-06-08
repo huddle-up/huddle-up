@@ -46,7 +46,6 @@ interface ConferenceControlProps {
 
 function StartConferenceButton({ meeting, state, user }: ConferenceControlProps) {
   const { t } = useTranslation();
-  // TODO: The manual refetching should be avoidable with SSE
   const [start, { loading }] = useMutation<CreateConference, CreateConferenceVariables>(CREATE_CONFERENCE, {
     refetchQueries: [{ query: MEETING, variables: { id: meeting.id } }],
   });
