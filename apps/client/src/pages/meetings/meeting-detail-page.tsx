@@ -12,7 +12,7 @@ import { Breadcrumbs } from '../../components/breadcrumbs';
 import { Link } from '../../components/link';
 import { ROUTES } from '../../routes';
 import { ErrorCard } from '../../components/error';
-import { LoadingContent } from '../../components/Loading';
+import { LoadingContent } from '../../components/loading';
 
 function MeetingDetailPage() {
   const { t } = useTranslation();

@@ -14,7 +14,7 @@ import { Breadcrumbs } from '../../components/breadcrumbs';
 import { Link } from '../../components/link';
 import { generateLink, ROUTES } from '../../routes';
 import { ErrorCard } from '../../components/error';
-import { LoadingContent } from '../../components/Loading';
+import { LoadingContent } from '../../components/loading';
 import { useUser } from '../../models/user';
 import { isHost } from '../../utils';
 
