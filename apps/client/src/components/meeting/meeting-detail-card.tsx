@@ -100,10 +100,9 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
   const [showControls, setShowControls] = useState(false);
   useEffect(() => {
     const canManage =
-      isHost && [MeetingState.ReadyToStart, MeetingState.Started, MeetingState.Live].includes(meetingState);
+      isHosting && [MeetingState.ReadyToStart, MeetingState.Started, MeetingState.Live].includes(meetingState);
     setShowControls(showControls || canManage);
-  }, [showControls, meetingState, user]);
-
+  }, [showControls, meetingState, user, isHosting]);
   return (
     <Card className={classes.card} variant="outlined">
       <CardSection highlight={meetingState === MeetingState.Live}>
@@ -159,9 +158,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
       <Collapse in={showControls}>
         <CardSection>
           <Typography variant="h6">{t('meetings.details.manage')}</Typography>
-          <Box mt={1}>
-            <ConferenceControl meeting={meeting} state={meetingState} user={user} />
-          </Box>
+          <Box mt={1}>{isHosting && <ConferenceControl meeting={meeting} state={meetingState} user={user} />}</Box>
         </CardSection>
         <Divider />
       </Collapse>
