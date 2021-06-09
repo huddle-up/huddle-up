@@ -27,7 +27,7 @@ import {
   StopConference,
   StopConferenceVariables,
 } from '../../models/conferences/__generated-interfaces__/StopConference';
-import { MEETING, MeetingState } from '../../models/meetings';
+import { canBePublished, MEETING, MeetingState } from '../../models/meetings';
 import { MeetingFields } from '../../models/meetings/__generated-interfaces__/MeetingFields';
 import { UserFields } from '../../models/user/__generated-interfaces__/UserFields';
 import { ConferenceJoinButton } from '../conference-join-button';
@@ -64,15 +64,21 @@ function StartConferenceButton({ meeting, state, user }: ConferenceControlProps)
 function PublishConferenceButton({ meeting, state, user }: ConferenceControlProps) {
   const { t } = useTranslation();
   const [publish, { loading }] = useMutation<PublishConference, PublishConferenceVariables>(PUBLISH_CONFERENCE);
+  const canPublish = canBePublished(meeting);
   return (
-    <Button
-      onClick={() => publish({ variables: { conferenceId: meeting.conference.id } })}
-      disabled={loading}
-      variant="outlined"
-      color="secondary"
-      startIcon={loading ? <CircularProgress size="1em" /> : <PlayArrow />}>
-      {t('meetings.conference.control.publish')}
-    </Button>
+    <Grid container direction="column">
+      <Button
+        onClick={() => publish({ variables: { conferenceId: meeting.conference.id } })}
+        disabled={loading || !canPublish}
+        variant="outlined"
+        color="secondary"
+        startIcon={loading ? <CircularProgress size="1em" /> : <PlayArrow />}>
+        {t('meetings.conference.control.publish')}
+      </Button>
+      {!canPublish && (
+        <Typography variant="caption">{t('meetings.conference.control.publishNotYetPossible')}</Typography>
+      )}
+    </Grid>
   );
 }
 

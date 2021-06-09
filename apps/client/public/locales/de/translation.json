@@ -179,6 +179,7 @@
       "control": {
         "start": "Video-Konferenz starten",
         "publish": "Für Teilnehmer freigeben",
+        "publishNotYetPossible": "Die Konferenz kann erst zur Startzeit freigegeben werden",
         "stop": "Beenden",
         "steps": {
           "start": "Start",
