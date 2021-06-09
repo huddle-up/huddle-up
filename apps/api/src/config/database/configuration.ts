@@ -6,4 +6,5 @@ export default registerAs('database', () => ({
   database: process.env.HU_DB_DATABASE,
   host: process.env.HU_DB_HOST,
   port: process.env.HU_DB_PORT,
+  synchronize: process.env.HU_DB_SYNCHRONIZE || false,
 }));
