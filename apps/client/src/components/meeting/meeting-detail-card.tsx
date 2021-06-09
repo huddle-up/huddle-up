@@ -10,7 +10,7 @@ import { useUser } from '../../models/user';
 import { useLocales } from '../../contexts/locales';
 import { TagsList } from '../tags';
 import { HostLink } from '../host-link';
-import { useMeetingState } from '../../models/meetings';
+import { isCanceled, isHost, isParticipant, MeetingState, useWatchMeetingState } from '../../models/meetings';
 import { ConferenceState } from '../conference-state';
 import { ConferenceControl } from '../conference-control';
 import { MeetingParticipation } from '../meeting-participation';
@@ -89,38 +89,41 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
 
   const { dateLocale: locale } = useLocales();
 
-  const meetingState = useMeetingState(meeting);
+  const meetingState = useWatchMeetingState(meeting);
   const { id, title, description, startDate, endDate, host } = meeting;
   const meetingStart = parseISO(startDate);
   const meetingEnd = parseISO(endDate);
 
-  const isHost = meetingState.isHost(user);
+  const isHosting = isHost(user, meeting);
+  const isParticipating = isParticipant(user, meeting);
 
   const [showControls, setShowControls] = useState(false);
   useEffect(() => {
-    setShowControls(showControls || meetingState.canManage(user));
+    const canManage =
+      isHost && [MeetingState.ReadyToStart, MeetingState.Started, MeetingState.Live].includes(meetingState);
+    setShowControls(showControls || canManage);
   }, [showControls, meetingState, user]);
 
   return (
     <Card className={classes.card} variant="outlined">
-      <CardSection highlight={meetingState.isPublished}>
+      <CardSection highlight={meetingState === MeetingState.Live}>
         <Grid container direction="row" justify="space-between" alignItems="center">
           <Typography className={classes.metaFont} gutterBottom>
             {isToday(meetingStart) ? t('meetings.today') : format(meetingStart, 'dd. MMMM yyyy')} {bull}{' '}
             {format(meetingStart, 'HH:mm')}
           </Typography>
           <div className={classes.statusChips}>
-            {isHost && (
+            {isHosting && (
               <Box ml={1}>
                 <HostStatusChip />
               </Box>
             )}
-            {meetingState.isPublished && (
+            {meetingState === MeetingState.Live && (
               <Box ml={1}>
                 <LiveStatusChip />
               </Box>
             )}
-            {meetingState.isCanceled && (
+            {isCanceled(meeting) && (
               <Box ml={1}>
                 <CanceledStatusChip />
               </Box>
@@ -142,7 +145,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
         </Box>
       </CardSection>
       <Divider />
-      <Collapse in={meetingState.isParticipant(user) && meetingState.canJoin(user)}>
+      <Collapse in={isParticipating && meetingState === MeetingState.Live}>
         <CardSection>
           <Grid container direction="row" justify="space-between" alignItems="center">
             <Grid item>
@@ -195,7 +198,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
           {description || t('meetings.details.noDescription')}
         </Typography>
       </CardSection>
-      {isHost && (
+      {isHosting && (
         <>
           <Divider />
           <CardActions>

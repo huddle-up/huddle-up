@@ -52,7 +52,7 @@ function StartConferenceButton({ meeting, state, user }: ConferenceControlProps)
   return (
     <Button
       onClick={() => start({ variables: { meetingId: meeting.id } })}
-      disabled={loading || !state.canStart(user)}
+      disabled={loading}
       variant="contained"
       color="secondary"
       startIcon={loading ? <CircularProgress size="1em" /> : <PlayArrow />}>
@@ -67,7 +67,7 @@ function PublishConferenceButton({ meeting, state, user }: ConferenceControlProp
   return (
     <Button
       onClick={() => publish({ variables: { conferenceId: meeting.conference.id } })}
-      disabled={loading || !state.canManage(user)}
+      disabled={loading}
       variant="outlined"
       color="secondary"
       startIcon={loading ? <CircularProgress size="1em" /> : <PlayArrow />}>
@@ -82,7 +82,7 @@ function StopConferenceButton({ meeting, state, user }: ConferenceControlProps) 
   return (
     <Button
       onClick={() => publish({ variables: { conferenceId: meeting.conference.id } })}
-      disabled={loading || !state.canStop(user)}
+      disabled={loading}
       variant="outlined"
       color="secondary"
       startIcon={loading ? <CircularProgress size="1em" /> : <Stop />}>
@@ -102,16 +102,16 @@ function ConferenceControl({ meeting, state, user }: ConferenceControlProps) {
   const { t } = useTranslation();
   const classes = useStyles();
   const activeStep = useMemo(() => {
-    if (state.isReadyToStart) {
+    if (state === MeetingState.ReadyToStart) {
       return controlSteps.start;
     }
-    if (state.isStarted) {
+    if (state === MeetingState.Started) {
       return controlSteps.setup;
     }
-    if (state.isPublished) {
+    if (state === MeetingState.Live) {
       return controlSteps.meet;
     }
-    if (state.isStopped) {
+    if (state === MeetingState.Stopped) {
       return controlSteps.finished;
     }
     return -1;

@@ -2,14 +2,14 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Grid, Box } from '@material-ui/core';
-import { format, isToday } from 'date-fns';
+import { format, parseISO } from 'date-fns';
+import { isCanceled, isLive, isToday, isHost, isParticipant } from '../../models/meetings';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { Link } from '../link';
 import { TagsList } from '../tags';
 import { HostLink } from '../host-link';
 import { useUser } from '../../models/user';
 import { ParticipantCount } from '../participant-count';
-import { isHost, isParticipant } from '../../utils';
 import { CanceledStatusChip, HostStatusChip, LiveStatusChip, ParticipantStatusChip } from './status-chips';
 import { generateLink } from '../../routes';
 
@@ -55,18 +55,17 @@ function MeetingCard({ meeting, linkTemplate }: MeetingCardProps) {
   const { user } = useUser();
   const bull = <span className={classes.bullet}>•</span>;
 
-  const { id, title, startDate, host, conference } = meeting;
-  const meetingStart = new Date(startDate);
-  const live = conference && conference.publishedAt && !conference.stoppedAt;
-  const canceled = !!meeting.canceledOn;
+  const { id, title, startDate, host } = meeting;
+  const live = isLive(meeting, user);
+  const canceled = isCanceled(meeting);
 
   return (
     <Card className={[classes.card, live ? classes.cardHighlight : ''].join(' ')} variant="outlined">
       <CardContent className={classes.cardContent}>
         <Grid container direction="row" alignItems="center">
           <Typography className={classes.metaFont} gutterBottom>
-            {isToday(meetingStart) ? t('meetings.today') : format(meetingStart, 'dd. MMMM yyyy')} {bull}{' '}
-            {format(meetingStart, 'HH:mm')}
+            {isToday(meeting) ? t('meetings.today') : format(parseISO(startDate), 'dd. MMMM yyyy')} {bull}{' '}
+            {format(parseISO(startDate), 'HH:mm')}
           </Typography>
           <div className={classes.spacer} />
           {isParticipant(user, meeting) && (

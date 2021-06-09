@@ -1,7 +1,7 @@
 import { Cancel, CheckCircle, CheckCircleOutline } from '@material-ui/icons';
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MeetingState } from '../../models/meetings';
+import { isHost, isInPast, isParticipant, isStopped, MeetingState } from '../../models/meetings';
 import { MeetingFields } from '../../models/meetings/__generated-interfaces__/MeetingFields';
 import { useCreateParticipation, useDeleteParticipation } from '../../models/participations';
 import { useUser } from '../../models/user';
@@ -12,7 +12,7 @@ interface MeetingParticipationProps {
   state: MeetingState;
 }
 
-function useMeetingParticipation({ meeting, state }: MeetingParticipationProps) {
+function useMeetingParticipation({ meeting }: MeetingParticipationProps) {
   const { user } = useUser();
   const userParticipation = useMemo(() => meeting.participations.find((p) => p.user.id === user.id), [meeting, user]);
   const [mutateParticipate, { loading: createLoading }] = useCreateParticipation();
@@ -26,11 +26,11 @@ function useMeetingParticipation({ meeting, state }: MeetingParticipationProps) 
   };
   const loading = createLoading || cancelLoading;
   return {
-    isParticipant: state.isParticipant(user),
+    isParticipating: isParticipant(user, meeting),
     participate,
     cancel,
     loading,
-    hide: state.isHost(user) || state.isStopped || state.isInPast,
+    hide: isHost(user, meeting) || isStopped(meeting) || isInPast(meeting),
   };
 }
 
@@ -41,14 +41,14 @@ const actionMapping = {
 
 function MeetingParticipation({ meeting, state }: MeetingParticipationProps) {
   const { t } = useTranslation();
-  const { isParticipant, participate, cancel, loading, hide } = useMeetingParticipation({ meeting, state });
+  const { isParticipating, participate, cancel, loading, hide } = useMeetingParticipation({ meeting, state });
   const disableButton =
-    !isParticipant && meeting.maximumParticipants && meeting.maximumParticipants <= meeting.participations.length;
+    !isParticipating && meeting.maximumParticipants && meeting.maximumParticipants <= meeting.participations.length;
   const handleClick = (i: number) => {
-    if (i === actionMapping.participate && !isParticipant) {
+    if (i === actionMapping.participate && !isParticipating) {
       participate();
     }
-    if (i === actionMapping.cancel && isParticipant) {
+    if (i === actionMapping.cancel && isParticipating) {
       cancel();
     }
   };
@@ -60,15 +60,15 @@ function MeetingParticipation({ meeting, state }: MeetingParticipationProps) {
   return (
     <SplitButton
       options={[
-        isParticipant ? t('meetings.participation.participating') : t('meetings.participation.participate'),
+        isParticipating ? t('meetings.participation.participating') : t('meetings.participation.participate'),
         t('meetings.participation.doNotParticipate'),
       ]}
-      icons={[isParticipant ? <CheckCircle /> : <CheckCircleOutline />, <Cancel />]}
+      icons={[isParticipating ? <CheckCircle /> : <CheckCircleOutline />, <Cancel />]}
       selectedIndex={0}
       color="secondary"
       onOptionClick={handleClick}
-      variant={isParticipant ? 'contained' : 'outlined'}
-      disableOptions={!isParticipant}
+      variant={isParticipating ? 'contained' : 'outlined'}
+      disableOptions={!isParticipating}
       loading={loading}
       disableButton={disableButton}
     />
