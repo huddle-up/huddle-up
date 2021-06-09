@@ -4,11 +4,10 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, Typography, Grid, Box, Collapse, CardActions, Divider } from '@material-ui/core';
 import { Edit, Event } from '@material-ui/icons';
 import { format, isToday, parseISO } from 'date-fns';
-import deLocale from 'date-fns/locale/de';
-import enLocale from 'date-fns/locale/en-US';
 import { Meeting_meeting as Meeting } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { LinkButton } from '../link';
 import { useUser } from '../../models/user';
+import { useLocales } from '../../contexts/locales';
 import { TagsList } from '../tags';
 import { HostLink } from '../host-link';
 import { useMeetingState } from '../../models/meetings';
@@ -88,7 +87,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
 
-  const locale = navigator.language?.startsWith('de') ? deLocale : enLocale;
+  const { dateLocale: locale } = useLocales();
 
   const meetingState = useMeetingState(meeting);
   const { id, title, description, startDate, endDate, host } = meeting;
