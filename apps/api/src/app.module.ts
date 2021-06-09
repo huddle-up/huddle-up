@@ -37,10 +37,8 @@ import { ParticipationsModule } from './participations/participations.module';
         database: dbConfigService.database,
         host: dbConfigService.host,
         port: dbConfigService.port,
-        // TODO: Check if this can cause problems if certain modules are not needed
         entities: [join(__dirname, '/**/*.entity{.ts,.js}')],
-        // TODO: Use migrations for production
-        synchronize: true,
+        synchronize: dbConfigService.synchronize,
       }),
     }),
     AuthModule,

@@ -4,9 +4,17 @@ import { DatabaseConfigService } from './config.service';
 
 const mockedValue = 'mockedValue';
 const port = 3001;
+const synchronize = false;
 const configService = {
   get: (path: string) => {
-    return path === 'database.port' ? port : mockedValue;
+    switch (path) {
+      case 'database.port':
+        return port;
+      case 'database.synchronize':
+        return synchronize;
+      default:
+        return mockedValue;
+    }
   },
 };
 
@@ -43,5 +51,9 @@ describe('ConfigService', () => {
 
   it('should get the port from config service', () => {
     expect(service.port).toEqual(port);
+  });
+
+  it('should get the synchronize flag from config service', () => {
+    expect(service.synchronize).toEqual(synchronize);
   });
 });

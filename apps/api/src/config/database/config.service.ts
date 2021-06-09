@@ -1,5 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { resolve, join } from 'path';
+import * as fs from 'fs';
 
 @Injectable()
 export class DatabaseConfigService {
@@ -23,5 +26,9 @@ export class DatabaseConfigService {
 
   get port(): number {
     return Number(this.configService.get<number>('database.port'));
+  }
+
+  get synchronize(): boolean {
+    return Boolean(this.configService.get<boolean>('database.synchronize'));
   }
 }

@@ -14,6 +14,7 @@ import { DatabaseConfigService } from './config.service';
         HU_DB_DATABASE: Joi.string().required(),
         HU_DB_HOST: Joi.string().required(),
         HU_DB_PORT: Joi.string().required(),
+        HU_DB_SYNCHRONIZE: Joi.boolean().default(false),
       }),
       validationOptions: {
         allowUnknown: true,
