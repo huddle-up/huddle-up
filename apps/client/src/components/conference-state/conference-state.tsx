@@ -35,7 +35,7 @@ function ContentRoot({ children }: { children: React.ReactNode }) {
 
 function HostContent({ meeting, state, user }: ContentProps) {
   const { t } = useTranslation();
-  if (state.isLoading) {
+  if (state === MeetingState.Void) {
     return (
       <ContentRoot>
         <CircularProgress size="2em" />
@@ -44,7 +44,7 @@ function HostContent({ meeting, state, user }: ContentProps) {
   }
   return (
     <ContentRoot>
-      {state.isInFuture && (
+      {state === MeetingState.Future && (
         <>
           <Schedule />
           <Typography component="span" variant="body2">
@@ -52,7 +52,7 @@ function HostContent({ meeting, state, user }: ContentProps) {
           </Typography>
         </>
       )}
-      {state.canStart(user) && (
+      {state === MeetingState.ReadyToStart && (
         <>
           <PlayCircleFilled />
           <Typography component="span" variant="body2">
@@ -60,7 +60,7 @@ function HostContent({ meeting, state, user }: ContentProps) {
           </Typography>
         </>
       )}
-      {state.isStarted && (
+      {state === MeetingState.Started && (
         <>
           <PlayCircleFilled />
           <Typography component="span" variant="body2">
@@ -68,7 +68,7 @@ function HostContent({ meeting, state, user }: ContentProps) {
           </Typography>
         </>
       )}
-      {state.isStopped && (
+      {state === MeetingState.Stopped && (
         <>
           <EventBusy />
           <Typography component="span" variant="body2">
@@ -76,7 +76,7 @@ function HostContent({ meeting, state, user }: ContentProps) {
           </Typography>
         </>
       )}
-      {state.isInPast && (
+      {state === MeetingState.Past && (
         <>
           <History />
           <Typography component="span" variant="body2">
@@ -90,7 +90,7 @@ function HostContent({ meeting, state, user }: ContentProps) {
 
 function UserContent({ meeting, state, user }: ContentProps) {
   const { t } = useTranslation();
-  if (state.isLoading) {
+  if (state === MeetingState.Void) {
     return (
       <ContentRoot>
         <CircularProgress size="2em" />
@@ -99,7 +99,7 @@ function UserContent({ meeting, state, user }: ContentProps) {
   }
   return (
     <ContentRoot>
-      {(state.isInFuture || state.isReadyToStart || state.isStarted) && (
+      {[MeetingState.Future, MeetingState.ReadyToStart, MeetingState.Started].includes(state) && (
         <>
           <Schedule />
           <Typography component="span" variant="body2">
@@ -107,7 +107,7 @@ function UserContent({ meeting, state, user }: ContentProps) {
           </Typography>
         </>
       )}
-      {state.isStopped && (
+      {state === MeetingState.Stopped && (
         <>
           <EventBusy />
           <Typography component="span" variant="body2">
@@ -115,7 +115,7 @@ function UserContent({ meeting, state, user }: ContentProps) {
           </Typography>
         </>
       )}
-      {state.isInPast && (
+      {state === MeetingState.Past && (
         <>
           <History />
           <Typography component="span" variant="body2">

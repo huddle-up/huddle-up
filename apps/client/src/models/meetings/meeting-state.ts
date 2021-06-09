@@ -1,85 +1,46 @@
-import { isAfter, isBefore, parseISO } from 'date-fns';
-import { useEffect, useState } from 'react';
+import { useCurrentTick } from '../../utils';
 import { UserFields } from '../user/__generated-interfaces__/UserFields';
+import { isCanceled, isInFuture, isInPast, isLive, isStopped } from './utils';
 import { MeetingFields } from './__generated-interfaces__/MeetingFields';
 
-enum MeetingStates {
+export enum MeetingState {
   Void,
   Future,
   ReadyToStart,
   Started,
-  Published,
+  Live,
   Stopped,
   Past,
   Canceled,
 }
 
-function getMeetingState(meeting?: MeetingFields, currentDate?: Date): MeetingStates {
+export function useMeetingState(meeting?: MeetingFields, user?: UserFields, currentDate?: Date): MeetingState {
   const compareDate = currentDate || new Date();
   if (!meeting) {
-    return MeetingStates.Void;
+    return MeetingState.Void;
   }
-  if (meeting.canceledOn) {
-    return MeetingStates.Canceled;
+  if (isCanceled(meeting)) {
+    return MeetingState.Canceled;
   }
 
-  const { conference } = meeting;
-  if (!conference) {
-    if (isBefore(parseISO(meeting.endDate), compareDate)) {
-      return MeetingStates.Past;
+  if (!meeting.conference) {
+    if (isInPast(meeting, compareDate)) {
+      return MeetingState.Past;
     }
-    return isAfter(parseISO(meeting.prepareDate), compareDate) ? MeetingStates.Future : MeetingStates.ReadyToStart;
+    return isInFuture(meeting, compareDate) ? MeetingState.Future : MeetingState.ReadyToStart;
   }
-  if (conference.stoppedAt) {
-    return MeetingStates.Stopped;
+  if (isStopped(meeting)) {
+    return MeetingState.Stopped;
   }
-  if (conference.publishedAt) {
-    return MeetingStates.Published;
+  if (isLive(meeting, user, compareDate)) {
+    return MeetingState.Live;
   }
-  return MeetingStates.Started;
+  return MeetingState.Started;
 }
 
-export function useMeetingState(meeting?: MeetingFields) {
+export function useWatchMeetingState(meeting?: MeetingFields, user?: UserFields) {
   // The state changes based on the current time, so we use an interval to make sure it updates
-  const [currentDate, setCurrentDate] = useState(new Date());
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentDate(new Date());
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  const currentDate = useCurrentTick();
 
-  const currentState = getMeetingState(meeting, currentDate);
-
-  const states = {
-    isCanceled: currentState === MeetingStates.Canceled,
-    isLoading: currentState === MeetingStates.Void,
-    isInFuture: currentState === MeetingStates.Future,
-    isReadyToStart: currentState === MeetingStates.ReadyToStart,
-    isStarted: currentState === MeetingStates.Started,
-    isPublished: currentState === MeetingStates.Published,
-    isStopped: currentState === MeetingStates.Stopped,
-    isInPast: currentState === MeetingStates.Past,
-  };
-
-  // TODO: Move access control to separate module
-  const isHost = (user: UserFields) => meeting && meeting.host.id === user.id;
-  const isParticipant = (user: UserFields) => meeting && meeting.participations.some((p) => p.user.id === user.id);
-  const actions = {
-    canStart: (user: UserFields) => isHost(user) && states.isReadyToStart,
-    canStop: (user: UserFields) => isHost(user) && states.isPublished,
-    canManage: (user: UserFields) => isHost(user) && (states.isReadyToStart || states.isStarted || states.isPublished),
-    canCancel: (user: UserFields) => isHost(user) && !(states.isStarted || states.isPublished || states.isInPast),
-    canJoin: (user: UserFields) =>
-      isHost(user) ? states.isStarted || states.isPublished : isParticipant(user) && states.isPublished,
-    isParticipant,
-    isHost,
-  };
-
-  return {
-    ...states,
-    ...actions,
-  };
+  return useMeetingState(meeting, user, currentDate);
 }
-
-export type MeetingState = ReturnType<typeof useMeetingState>;

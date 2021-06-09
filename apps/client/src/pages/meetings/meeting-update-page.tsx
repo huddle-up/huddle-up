@@ -5,7 +5,7 @@ import { Redirect, useParams } from 'react-router-dom';
 import { Cancel, PlayCircleOutline } from '@material-ui/icons';
 import { Meeting, MeetingVariables } from '../../models/meetings/__generated-interfaces__/Meeting';
 import { UpdateMeeting, UpdateMeetingVariables } from '../../models/meetings/__generated-interfaces__/UpdateMeeting';
-import { MEETING, UPDATE_MEETING } from '../../models/meetings';
+import { isHost, MEETING, UPDATE_MEETING } from '../../models/meetings';
 import { AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
 import { CancelMeetingForm, UpdateMeetingForm } from '../../components/meeting-form';
@@ -16,7 +16,6 @@ import { generateLink, ROUTES } from '../../routes';
 import { ErrorCard } from '../../components/error';
 import { LoadingContent } from '../../components/loading';
 import { useUser } from '../../models/user';
-import { isHost } from '../../utils';
 
 function MeetingUpdatePage() {
   const { t } = useTranslation();
