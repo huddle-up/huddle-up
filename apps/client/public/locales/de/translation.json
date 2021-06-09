@@ -153,14 +153,16 @@
       "startDate": "Start",
       "endDate": "Geplantes Ende",
       "rules": "Regeln",
-      "maxParticipants": "Maximale Teilnehmer"
+      "maxParticipants": "Maximale Teilnehmer",
+      "noMoreUpdate": "Das Treffen kann nicht mehr angepasst werden."
     },
     "cancel": {
       "title": "Treffen absagen",
       "description": "Falls das Treffen nicht stattfinden wird, kann es hier abgesagt werden. Dies kann nicht rückgängig gemacht werden!",
       "cancel": "Treffen absagen",
       "confirm": "Absage bestätigen",
-      "canceled": "Das Treffen wurde abgesagt."
+      "canceled": "Das Treffen wurde abgesagt.",
+      "noMore": "Das Treffen kann nicht mehr abgesagt werden."
     },
     "conference": {
       "state": {

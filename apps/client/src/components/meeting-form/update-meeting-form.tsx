@@ -28,11 +28,13 @@ const useStyles = makeStyles((theme) => ({
 interface MeetingFormProps {
   initialValues: UpdateMeetingVariables;
   onSubmit: (values: UpdateMeetingVariables) => Promise<void>;
+  disabled?: boolean;
 }
 
 function UpdateMeetingForm({
   initialValues: { id, title, description, startDate, endDate, tags, maximumParticipants },
   onSubmit,
+  disabled,
 }: MeetingFormProps) {
   const classes = useStyles();
   const { t } = useTranslation();
@@ -71,7 +73,7 @@ function UpdateMeetingForm({
       {({ submitForm, isSubmitting, handleReset, setFieldValue, values }) => (
         <Form>
           <Card className={classes.card} variant="outlined">
-            <CardContent className={classes.cardContent} component="fieldset">
+            <CardContent className={classes.cardContent} component="fieldset" disabled={disabled}>
               <CardTitle title={t('meetings.form.about')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -107,7 +109,7 @@ function UpdateMeetingForm({
               </Grid>
             </CardContent>
             <Divider />
-            <CardContent className={classes.cardContent} component="fieldset">
+            <CardContent className={classes.cardContent} component="fieldset" disabled={disabled}>
               <CardTitle title={t('meetings.form.dateTime')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12} sm={6}>
@@ -131,7 +133,7 @@ function UpdateMeetingForm({
               </Grid>
             </CardContent>
             <Divider />
-            <CardContent className={classes.cardContent} component="fieldset">
+            <CardContent className={classes.cardContent} component="fieldset" disabled={disabled}>
               <CardTitle title={t('meetings.form.rules')} titleComponent="legend" />
               <Grid container spacing={2}>
                 <Grid item xs={12}>
@@ -152,33 +154,40 @@ function UpdateMeetingForm({
                 </Grid>
               </Grid>
             </CardContent>
-            <Divider />
-            <CardActions className={classes.actions}>
-              <Button onClick={handleReset} disabled={isSubmitting} variant="outlined" color="primary">
-                {t('global.form.clear')}
-              </Button>
-              <LinkButton
-                to={generateLink(ROUTES.meetings.meeting, { id })}
-                disabled={isSubmitting}
-                variant="outlined"
-                color="primary">
-                {t('global.form.cancel')}
-              </LinkButton>
-              <Button
-                onClick={submitForm}
-                disabled={isSubmitting}
-                variant="contained"
-                disableElevation
-                color="primary"
-                startIcon={<SaveIcon />}>
-                {t('global.form.save')}
-              </Button>
-            </CardActions>
+            {!disabled && (
+              <>
+                <Divider />
+                <CardActions className={classes.actions}>
+                  <Button onClick={handleReset} disabled={isSubmitting} variant="outlined" color="primary">
+                    {t('global.form.clear')}
+                  </Button>
+                  <LinkButton
+                    to={generateLink(ROUTES.meetings.meeting, { id })}
+                    disabled={isSubmitting}
+                    variant="outlined"
+                    color="primary">
+                    {t('global.form.cancel')}
+                  </LinkButton>
+                  <Button
+                    onClick={submitForm}
+                    disabled={isSubmitting}
+                    variant="contained"
+                    disableElevation
+                    color="primary"
+                    startIcon={<SaveIcon />}>
+                    {t('global.form.save')}
+                  </Button>
+                </CardActions>
+              </>
+            )}
           </Card>
         </Form>
       )}
     </Formik>
   );
 }
+UpdateMeetingForm.defaultProps = {
+  disabled: false,
+};
 
 export default UpdateMeetingForm;
