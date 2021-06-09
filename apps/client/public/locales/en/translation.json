@@ -176,6 +176,7 @@
       "control": {
         "start": "Start Video Conference",
         "publish": "Make Public",
+        "publishNotYetPossible": "The conference can be published at the start time of the meeting",
         "stop": "End Video Conference",
         "steps": {
           "start": "Start",

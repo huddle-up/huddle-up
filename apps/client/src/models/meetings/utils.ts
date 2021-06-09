@@ -79,7 +79,9 @@ export function canBeStarted(meeting: MeetingFields, currentDate?: Date): boolea
 
 export function canBePublished(meeting: MeetingFields, currentDate?: Date): boolean {
   const compareDate = currentDate || new Date();
-  return isStarted(meeting) && !isPublished(meeting) && !isInPast(meeting, compareDate);
+  return (
+    isStarted(meeting) && !isPublished(meeting) && !isInFuture(meeting, compareDate) && !isInPast(meeting, compareDate)
+  );
 }
 
 export function canBeStopped(meeting: MeetingFields): boolean {
