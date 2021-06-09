@@ -150,14 +150,16 @@
       "startDate": "Start",
       "endDate": "Estimated End",
       "rules": "Rules",
-      "maxParticipants": "Maximum Participants"
+      "maxParticipants": "Maximum Participants",
+      "noMoreUpdate": "The meeting cannot be updated anymore."
     },
     "cancel": {
       "title": "Cancel Meeting",
       "description": "If the meeting will not take place, you can cancel it here. This cannot be undone!",
       "cancel": "Cancel meeting",
       "confirm": "Confirm cancelation",
-      "canceled": "The meeting has been canceled."
+      "canceled": "The meeting has been canceled.",
+      "noMore": "The meeting cannot be canceled anymore."
     },
     "conference": {
       "state": {
