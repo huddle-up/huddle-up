@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { Field } from 'formik';
 import useTagsQuery from './use-tags-query';
 import { ErrorCard } from '../error';
-import { LoadingContent } from '../Loading';
+import { LoadingContent } from '../loading';
 
 const filter = createFilterOptions<TagOption>({
   matchFrom: 'any',

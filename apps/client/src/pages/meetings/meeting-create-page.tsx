@@ -14,7 +14,7 @@ import { generateLink, ROUTES } from '../../routes';
 import { Breadcrumbs } from '../../components/breadcrumbs';
 import { Link } from '../../components/link';
 import { ErrorCard } from '../../components/error';
-import { LoadingContent } from '../../components/Loading';
+import { LoadingContent } from '../../components/loading';
 
 function MeetingCreatePage() {
   const { t } = useTranslation();

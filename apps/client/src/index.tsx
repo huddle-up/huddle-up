@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import App from './app';
 import { AppProviders } from './contexts';
 import { ErrorBoundary } from './components/error';
-import { LoadingContent } from './components/Loading';
+import { LoadingContent } from './components/loading';
 
 ReactDOM.render(
   <React.StrictMode>

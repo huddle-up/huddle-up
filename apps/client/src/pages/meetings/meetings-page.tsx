@@ -17,7 +17,7 @@ import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMore } from '../../components/show-more';
 import { ROUTES } from '../../routes';
 import { AppPageTitle } from '../../components/app-page-title';
-import { LoadingContent } from '../../components/Loading';
+import { LoadingContent } from '../../components/loading';
 import { ErrorCard } from '../../components/error';
 
 interface MeetingsPageListProps {

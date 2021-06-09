@@ -10,7 +10,7 @@ import { CardTitle } from '../../components/card-title';
 import { User, UserVariables } from '../../models/user/__generated-interfaces__/User';
 import { USER } from '../../models/user';
 import { ErrorCard } from '../../components/error';
-import { LoadingContent } from '../../components/Loading';
+import { LoadingContent } from '../../components/loading';
 
 const useStyles = makeStyles((theme) => ({
   card: {

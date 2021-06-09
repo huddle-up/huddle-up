@@ -16,7 +16,7 @@ import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMoreCard } from '../../components/show-more-card';
 import { AppPageTitle } from '../../components/app-page-title';
 import { ErrorCard } from '../../components/error';
-import { LoadingContent } from '../../components/Loading';
+import { LoadingContent } from '../../components/loading';
 
 function MyMeetingsPage() {
   const { t } = useTranslation();
