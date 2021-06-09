@@ -1,5 +1,6 @@
-import { NotFoundException, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { BadRequestException, NotFoundException, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { isPast } from 'date-fns';
 import { MeetingsService } from './meetings.service';
 import { Meeting } from './entities/meeting.entity';
 import { CreateMeetingInput } from './dto/create-meeting.input';
@@ -41,6 +42,13 @@ export class MeetingsResolver {
     if (meeting && meeting.hostId !== userId) {
       throw new UnauthorizedException();
     }
+    if (!meeting) {
+      throw new NotFoundException(`Meeting #${input.id} not found`);
+    }
+    const conference = await meeting.conference;
+    if (conference) {
+      throw new UnauthorizedException('You cannot edit a meeting once it has been started.');
+    }
     return this.meetingsService.update(input);
   }
 
@@ -52,6 +60,13 @@ export class MeetingsResolver {
     }
     if (meeting.hostId !== userId) {
       throw new UnauthorizedException();
+    }
+    const conference = await meeting.conference;
+    if (conference || isPast(meeting.startDate)) {
+      throw new BadRequestException('Cannot cancel a started meeting');
+    }
+    if (meeting.canceledOn) {
+      return meeting;
     }
     return this.meetingsService.cancel(meeting);
   }
