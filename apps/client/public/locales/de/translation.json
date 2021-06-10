@@ -138,6 +138,10 @@
       "upcoming": "Anstehende Treffen",
       "past": "Vergangene Treffen"
     },
+    "myMeetingsNav": {
+      "ongoingAndUpcoming": "Laufend & Anstehend",
+      "past": "Vergangen"
+    },
     "details": {
       "joinNow": "Die Video-Konferenz ist aktiv! Du kannst jetzt beitreten.",
       "manage": "Verwalten",

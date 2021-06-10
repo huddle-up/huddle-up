@@ -31,10 +31,12 @@ export type SearchFormVariables = Pick<MeetingsVariables, 'searchValue' | 'fromD
 
 interface SearchFormProps {
   initialValues: SearchFormVariables;
+  searchPast?: boolean;
+  searchFuture?: boolean;
   onSubmit: (values: SearchFormVariables) => Promise<void>;
 }
 
-function SearchForm({ initialValues, onSubmit }: SearchFormProps) {
+function SearchForm({ initialValues, onSubmit, searchPast, searchFuture }: SearchFormProps) {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -69,10 +71,20 @@ function SearchForm({ initialValues, onSubmit }: SearchFormProps) {
                   />
                 </Grid>
                 <Grid item xs={12}>
-                  <DateTimeField name="fromDate" label={t('global.form.fields.from')} />
+                  <DateTimeField
+                    name="fromDate"
+                    disableFuture={searchPast}
+                    disablePast={searchFuture}
+                    label={t('global.form.fields.from')}
+                  />
                 </Grid>
                 <Grid item xs={12}>
-                  <DateTimeField name="toDate" label={t('global.form.fields.to')} />
+                  <DateTimeField
+                    name="toDate"
+                    disableFuture={searchPast}
+                    disablePast={searchFuture}
+                    label={t('global.form.fields.to')}
+                  />
                 </Grid>
               </Grid>
             </CardContent>
@@ -97,5 +109,9 @@ function SearchForm({ initialValues, onSubmit }: SearchFormProps) {
     </Formik>
   );
 }
+SearchForm.defaultProps = {
+  searchPast: false,
+  searchFuture: false,
+};
 
 export default SearchForm;

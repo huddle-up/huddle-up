@@ -135,6 +135,10 @@
       "upcoming": "Upcoming Meetings",
       "past": "Past Meetings"
     },
+    "myMeetingsNav": {
+      "ongoingAndUpcoming": "Ongoing & Upcoming",
+      "past": "Past"
+    },
     "details": {
       "joinNow": "The conference is live. You can join it now!",
       "manage": "Manage",

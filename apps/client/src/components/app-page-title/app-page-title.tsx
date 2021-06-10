@@ -14,17 +14,22 @@ const useStyles = makeStyles((theme) => ({
 
 interface AppPageTitleProps {
   title: string;
+  children?: React.ReactNode;
 }
 
-function AppPageTitle({ title }: AppPageTitleProps) {
+function AppPageTitle({ title, children }: AppPageTitleProps) {
   const classes = useStyles();
   return (
     <AppPageTopMain className={classes.top}>
       <Typography component="h1" variant="h3" className={classes.title}>
         {title}
       </Typography>
+      {children}
     </AppPageTopMain>
   );
 }
+AppPageTitle.defaultProps = {
+  children: null,
+};
 
 export default AppPageTitle;
