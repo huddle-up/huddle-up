@@ -43,7 +43,7 @@ export function isReadyToStart(meeting: MeetingFields, currentDate?: Date): bool
 }
 
 export function isStarted(meeting: MeetingFields): boolean {
-  return !!meeting;
+  return !!meeting.conference;
 }
 
 export function isPublished(meeting: MeetingFields): boolean {
