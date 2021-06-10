@@ -12,8 +12,8 @@ module.exports = {
   host: env.HU_DB_HOST,
   port: env.HU_DB_PORT,
   entities: [path.join(__dirname, '/**/*.entity{.ts,.js}')],
-  migrations: ['migrations/*.ts'],
+  migrations: ['src/migrations/*.ts'],
   cli: {
-    migrationsDir: 'migrations',
+    migrationsDir: 'src/migrations',
   },
 };
