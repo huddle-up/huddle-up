@@ -13,6 +13,7 @@ export const ROUTES = {
     allMeetingsMeeting: '/meetings/:id',
     meeting: '/my-meetings/:id',
     myMeetings: '/my-meetings',
+    myPastMeetings: '/my-meetings/past',
     create: '/my-meetings/create',
     edit: '/my-meetings/:id/edit',
   },

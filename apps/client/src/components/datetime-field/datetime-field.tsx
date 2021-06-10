@@ -13,6 +13,8 @@ interface DateTimeFieldProps {
   showTodayButton?: boolean;
   minDateMessage?: string;
   minDate?: Date;
+  disablePast?: boolean;
+  disableFuture?: boolean;
 }
 
 DateTimeField.defaultProps = {
@@ -21,6 +23,8 @@ DateTimeField.defaultProps = {
   showTodayButton: true,
   minDateMessage: undefined,
   minDate: new Date(0),
+  disablePast: false,
+  disableFuture: false,
 };
 
 function DateTimeField({
@@ -31,6 +35,8 @@ function DateTimeField({
   showTodayButton,
   minDateMessage,
   minDate,
+  disablePast,
+  disableFuture,
 }: DateTimeFieldProps) {
   const { t } = useTranslation();
 
@@ -53,6 +59,8 @@ function DateTimeField({
       minDate={minDate}
       minDateMessage={minDateMessage}
       invalidDateMessage={t('global.datepicker.invalidDateFormat')}
+      disablePast={disablePast}
+      disableFuture={disableFuture}
       autoOk
       ampm={false}
       InputProps={{

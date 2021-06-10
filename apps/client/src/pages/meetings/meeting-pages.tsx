@@ -6,7 +6,7 @@ import MeetingCreatePage from './meeting-create-page';
 import MeetingDetailPage from './meeting-detail-page';
 import MeetingUpdatePage from './meeting-update-page';
 import MeetingsPage from './meetings-page';
-import MyMeetingsPage from './my-meetings-page';
+import { MyMeetingsPage } from './my-meetings';
 import { ROUTES } from '../../routes';
 
 function MeetingPages() {
@@ -38,17 +38,17 @@ function MeetingPages() {
         </Helmet>
         <MeetingUpdatePage />
       </Route>
+      <Route path={`(${ROUTES.meetings.myMeetings}|${ROUTES.meetings.myPastMeetings})`} exact>
+        <Helmet>
+          <title>{t('global.title.myMeetings')}</title>
+        </Helmet>
+        <MyMeetingsPage />
+      </Route>
       <Route path={ROUTES.meetings.meeting}>
         <Helmet>
           <title>{t('meetings.head.title.view')}</title>
         </Helmet>
         <MeetingDetailPage />
-      </Route>
-      <Route path={ROUTES.meetings.myMeetings}>
-        <Helmet>
-          <title>{t('global.title.myMeetings')}</title>
-        </Helmet>
-        <MyMeetingsPage />
       </Route>
     </Switch>
   );
