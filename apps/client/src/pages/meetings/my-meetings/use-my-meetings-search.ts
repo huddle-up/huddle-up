@@ -14,7 +14,7 @@ export function useMyMeetingsSearch(initialValues: SearchFormVariables, defaultO
   const baseOptions = {
     startDateOrderBy: defaultOrderBy,
     offset: 0,
-    limit: 5,
+    limit: 10,
   };
 
   const { loading, error, data, refetch } = useQuery<MyMeetings, MyMeetingsVariables>(MY_MEETINGS, {

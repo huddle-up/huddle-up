@@ -11,6 +11,7 @@ import { CreateMeeting } from './interfaces/create-meeting.interface';
 import { UpdateMeeting } from './interfaces/update-meeting.inferface';
 import { SearchCriteria } from './interfaces/search-criteria.interface';
 import { OrderBy } from './enums/OrderBy.enum';
+import { CompletionState } from './enums/completion-state.enum';
 
 type MockRepository<T = any> = Partial<Record<keyof Repository<T>, jest.Mock>>;
 const createMockRepository = <T = any>(): MockRepository<T> => ({
@@ -226,7 +227,7 @@ describe('MeetingsService', () => {
           tags: [{ id: 1 }, { id: 2 }],
           fromDate: new Date('2021-06-18T10:00:00Z'),
           toDate: new Date('2021-06-18T11:00:00Z'),
-          filterOutStopped: true,
+          completionState: CompletionState.OngoingOrFuture,
         };
         const userId = 'user-1';
         const meetings: Partial<Meeting>[] = [{ id: 'meeting-1', title: 'test-meeting' }];
@@ -247,9 +248,6 @@ describe('MeetingsService', () => {
             search: `%${searchValue}%`,
           }
         );
-        expect(query.andWhere).toHaveBeenCalledWith('meeting.hostId = :userId OR participation.userId = :userId', {
-          userId,
-        });
         expect(query.andWhere).toHaveBeenCalledWith('meeting.startDate BETWEEN :fromDate AND :toDate', {
           fromDate,
           toDate,
@@ -257,7 +255,6 @@ describe('MeetingsService', () => {
         expect(query.innerJoin).toHaveBeenCalledWith('meeting.tags', 'tag', 'tag.id IN (:...tagIds)', {
           tagIds: tags.map((t) => t.id),
         });
-        expect(query.andWhere).toHaveBeenCalledWith('conference.stoppedAt IS NULL');
       });
     });
 

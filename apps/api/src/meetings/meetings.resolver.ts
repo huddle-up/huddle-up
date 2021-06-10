@@ -9,6 +9,7 @@ import { JwtGqlAuthGuard } from '../auth/jwt/jwt-gql-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { SearchCriteriaInput } from './dto/search-criteria.input';
 import { MeetingSearchResponse } from './dto/meeting-search-response.dto';
+import { CompletionState } from './enums/completion-state.enum';
 
 @Resolver(() => Meeting)
 @UseGuards(JwtGqlAuthGuard)
@@ -23,7 +24,7 @@ export class MeetingsResolver {
 
   @Query(() => MeetingSearchResponse, { name: 'discover' })
   async findAll(@Args('input') searchCriteria: SearchCriteriaInput) {
-    return this.meetingsService.search({ filterOutStopped: true, ...searchCriteria });
+    return this.meetingsService.search({ ...searchCriteria, completionState: CompletionState.OngoingOrFuture });
   }
 
   @Query(() => MeetingSearchResponse, { name: 'myMeetings' })

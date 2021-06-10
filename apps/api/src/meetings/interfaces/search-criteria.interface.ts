@@ -1,5 +1,6 @@
 import { OrderBy } from '../enums/OrderBy.enum';
 import { Tag } from '../../tags/entities/tag.entity';
+import { CompletionState } from '../enums/completion-state.enum';
 
 export interface SearchCriteria {
   searchValue: string;
@@ -9,5 +10,5 @@ export interface SearchCriteria {
   toDate?: Date;
   offset?: number;
   limit?: number;
-  filterOutStopped?: boolean;
+  completionState?: CompletionState;
 }

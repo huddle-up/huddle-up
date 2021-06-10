@@ -1,4 +1,5 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
+import { CompletionState } from '../enums/completion-state.enum';
 import { OrderBy } from '../enums/OrderBy.enum';
 import { TagOption } from './tag-option.input';
 
@@ -30,4 +31,7 @@ export class SearchCriteriaInput {
     description: 'The optional pagination limit, needs offset field to work.',
   })
   limit: number;
+
+  @Field(() => CompletionState, { nullable: true, description: 'The state of meetings to search' })
+  completionState?: CompletionState;
 }
