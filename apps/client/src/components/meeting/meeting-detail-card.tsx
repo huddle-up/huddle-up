@@ -89,7 +89,7 @@ function MeetingDetailCard({ meeting }: MeetingCardProps) {
 
   const { dateLocale: locale } = useLocales();
 
-  const meetingState = useWatchMeetingState(meeting);
+  const meetingState = useWatchMeetingState(meeting, user);
   const { id, title, description, startDate, endDate, host } = meeting;
   const meetingStart = parseISO(startDate);
   const meetingEnd = parseISO(endDate);
