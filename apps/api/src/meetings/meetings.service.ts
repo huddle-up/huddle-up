@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { addMinutes } from 'date-fns';
 import { Repository, SelectQueryBuilder } from 'typeorm';
@@ -10,6 +10,7 @@ import { CreateMeeting } from './interfaces/create-meeting.interface';
 import { SearchCriteria } from './interfaces/search-criteria.interface';
 import { UpdateMeeting } from './interfaces/update-meeting.inferface';
 import { Tag } from '../tags/entities/tag.entity';
+import { CompletionState } from './enums/completion-state.enum';
 
 @Injectable()
 export class MeetingsService {
@@ -46,16 +47,14 @@ export class MeetingsService {
   }
 
   async search(searchCriteria: SearchCriteria, userId?: string) {
-    const { searchValue, startDateOrderBy, offset, limit, fromDate, toDate, tags, filterOutStopped } = searchCriteria;
-
+    const { searchValue, startDateOrderBy, offset, limit, fromDate, toDate, tags, completionState } = searchCriteria;
     // This will append the query builder options to the base query in the specified order
     const query = flow(
       (q) => this.applySearchFilter(q, searchValue),
       (q) => this.applyHostOrParticipantFilter(q, userId),
-      (q) => this.applyStartDateFilter(q, fromDate, toDate),
-      (q) => this.applyEndDateFilter(q, userId),
       (q) => this.applyTagFilter(q, tags),
-      (q) => this.applyConferenceFilter(q, filterOutStopped)
+      (q) => this.applyCompletionFilter(q, completionState),
+      (q) => this.applyStartDateFilter(q, fromDate, toDate)
     )(this.meetingRepository.createQueryBuilder('meeting'));
 
     const [meetings, totalCount] = await query
@@ -80,9 +79,19 @@ export class MeetingsService {
     userId: string
   ): SelectQueryBuilder<Meeting> {
     if (userId) {
-      return query
-        .leftJoin('meeting.participations', 'participation', 'participation.userId = :userId', { userId })
-        .andWhere('meeting.hostId = :userId OR participation.userId = :userId', { userId });
+      return query.andWhere(
+        (queryBuilder) => {
+          const subQuery = queryBuilder
+            .subQuery()
+            .select('1')
+            .from('participation', 'participation')
+            .where('participation.meetingId = meeting.id')
+            .andWhere('participation.userId = :userId', { userId })
+            .getQuery();
+          return `(meeting.hostId = :userId OR EXISTS(${subQuery}))`;
+        },
+        { userId }
+      );
     }
     return query;
   }
@@ -104,19 +113,30 @@ export class MeetingsService {
     return query;
   }
 
-  private applyEndDateFilter(query: SelectQueryBuilder<Meeting>, userId: string) {
-    if (!userId) {
-      return query.andWhere('meeting.endDate > NOW()');
+  private applyCompletionFilter(query: SelectQueryBuilder<Meeting>, state?: CompletionState) {
+    if (state === CompletionState.CompletedOrPast) {
+      return query.andWhere((queryBuilder) => {
+        const subQuery = queryBuilder
+          .subQuery()
+          .select('1')
+          .from('conference', 'conference')
+          .where('conference.stoppedAt IS NOT NULL')
+          .andWhere('conference.meetingId = meeting.id')
+          .getQuery();
+        return `(EXISTS ${subQuery} OR meeting.endDate < NOW())`;
+      });
     }
-    return query;
-  }
-
-  private applyConferenceFilter(
-    query: SelectQueryBuilder<Meeting>,
-    filterOutStopped: boolean
-  ): SelectQueryBuilder<Meeting> {
-    if (filterOutStopped) {
-      return query.leftJoin('meeting.conference', 'conference').andWhere('conference.stoppedAt IS NULL');
+    if (state === CompletionState.OngoingOrFuture) {
+      return query.andWhere((queryBuilder) => {
+        const subQuery = queryBuilder
+          .subQuery()
+          .select('1')
+          .from('conference', 'conference')
+          .where('conference.stoppedAt IS NOT NULL')
+          .andWhere('conference.meetingId = meeting.id')
+          .getQuery();
+        return `(NOT EXISTS ${subQuery} AND meeting.endDate > NOW())`;
+      });
     }
     return query;
   }

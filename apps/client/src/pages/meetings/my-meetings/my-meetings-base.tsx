@@ -7,7 +7,7 @@ import { LoadingContent } from '../../../components/loading';
 import { SearchForm, SearchFormVariables } from '../../../components/search-form';
 import { SectionHeader } from '../../../components/section-header';
 import { MyMeetings_myMeetings } from '../../../models/meetings/__generated-interfaces__/MyMeetings';
-import { OrderBy } from '../../../models/__generated-interfaces__/globalTypes';
+import { CompletionState, OrderBy } from '../../../models/__generated-interfaces__/globalTypes';
 import { useMyMeetingsSearch } from './use-my-meetings-search';
 
 interface MyMeetingsBaseRenderProps {
@@ -19,7 +19,7 @@ interface MyMeetingsBaseRenderProps {
 interface MyMeetingsBaseProps {
   orderBy: OrderBy;
   children: (renderProps: MyMeetingsBaseRenderProps) => React.ReactNode;
-  direction?: 'past' | 'future';
+  direction: 'past' | 'future';
 }
 
 function MyMeetingsBase({ orderBy, children, direction }: MyMeetingsBaseProps) {
@@ -30,16 +30,13 @@ function MyMeetingsBase({ orderBy, children, direction }: MyMeetingsBaseProps) {
     tags: [],
     fromDate: null,
     toDate: null,
+    completionState: direction === 'past' ? CompletionState.CompletedOrPast : CompletionState.OngoingOrFuture,
   };
 
   const { loading, error, data, search, loadMore, isLoadingMore } = useMyMeetingsSearch(initialValues, orderBy);
 
   if (error) {
     return <ErrorCard isInline={false} detail={error.message} />;
-  }
-
-  if (loading) {
-    return <LoadingContent />;
   }
 
   async function onSearch({ tags, ...values }: SearchFormVariables) {
@@ -58,16 +55,15 @@ function MyMeetingsBase({ orderBy, children, direction }: MyMeetingsBaseProps) {
         <SearchForm
           onSubmit={onSearch}
           initialValues={initialValues}
-          searchPast={direction === 'future'}
-          searchFuture={direction === 'past'}
+          searchPast={direction === 'past'}
+          searchFuture={direction === 'future'}
         />
       </AppPageAside>
-      <AppPageMain noMarginTop>{children({ data: data.myMeetings, isLoadingMore, loadMore })}</AppPageMain>
+      <AppPageMain noMarginTop>
+        {loading ? <LoadingContent /> : children({ data: data.myMeetings, isLoadingMore, loadMore })}
+      </AppPageMain>
     </>
   );
 }
-MyMeetingsBase.defaultProps = {
-  direction: 'future',
-};
 
 export default MyMeetingsBase;

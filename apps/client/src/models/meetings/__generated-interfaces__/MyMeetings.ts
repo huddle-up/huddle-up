@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { OrderBy, TagOption } from "./../../__generated-interfaces__/globalTypes";
+import { OrderBy, TagOption, CompletionState } from "./../../__generated-interfaces__/globalTypes";
 
 // ====================================================
 // GraphQL query operation: MyMeetings
@@ -165,4 +165,5 @@ export interface MyMeetingsVariables {
   tags?: TagOption[] | null;
   offset?: number | null;
   limit?: number | null;
+  completionState?: CompletionState | null;
 }

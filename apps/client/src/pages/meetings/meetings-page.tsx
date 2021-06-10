@@ -8,10 +8,9 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import isEqual from 'lodash.isequal';
 import { MeetingList } from '../../components/meeting';
 import { Meetings, MeetingsVariables } from '../../models/meetings/__generated-interfaces__/Meetings';
-import { MEETINGS } from '../../models/meetings';
+import { isLive, MEETINGS } from '../../models/meetings';
 import { AppPageAside, AppPageMain } from '../../components/app-page-layout';
 import { SectionHeader } from '../../components/section-header';
-import { isInFutureFilter, isWithinIntervalFilter } from '../../utils';
 import { SearchForm, SearchFormVariables } from '../../components/search-form';
 import { OrderBy } from '../../models/__generated-interfaces__/globalTypes';
 import { ShowMore } from '../../components/show-more';
@@ -19,6 +18,7 @@ import { ROUTES } from '../../routes';
 import { AppPageTitle } from '../../components/app-page-title';
 import { LoadingContent } from '../../components/loading';
 import { ErrorCard } from '../../components/error';
+import { useUser } from '../../models/user';
 
 interface MeetingsPageListProps {
   data: Meetings;
@@ -28,6 +28,7 @@ interface MeetingsPageListProps {
 
 function MeetingsPageList({ data, onLoadMore, isLoadingMore }: MeetingsPageListProps) {
   const { t } = useTranslation();
+  const { user } = useUser();
 
   const { meetings, totalCount } = data.discover;
 
@@ -35,11 +36,17 @@ function MeetingsPageList({ data, onLoadMore, isLoadingMore }: MeetingsPageListP
     <AppPageMain noMarginTop>
       <section>
         <SectionHeader icon={<PlayCircleOutlineIcon />} title={t('meetings.title.ongoing')} />
-        <MeetingList linkTemplate={ROUTES.meetings.allMeetingsMeeting} meetings={isWithinIntervalFilter(meetings)} />
+        <MeetingList
+          linkTemplate={ROUTES.meetings.allMeetingsMeeting}
+          meetings={meetings.filter((meeting) => isLive(meeting, user))}
+        />
       </section>
       <section>
         <SectionHeader icon={<CalendarTodayIcon />} title={t('meetings.title.upcoming')} />
-        <MeetingList linkTemplate={ROUTES.meetings.allMeetingsMeeting} meetings={isInFutureFilter(meetings)} />
+        <MeetingList
+          linkTemplate={ROUTES.meetings.allMeetingsMeeting}
+          meetings={meetings.filter((meeting) => !isLive(meeting, user))}
+        />
       </section>
       <Collapse in={totalCount > meetings.length}>
         <ShowMore
@@ -61,7 +68,7 @@ function useMeetingsSearch(initialValues: SearchFormVariables, defaultOrderBy: O
   const baseOptions = {
     startDateOrderBy: defaultOrderBy,
     offset: 0,
-    limit: 5,
+    limit: 10,
   };
 
   const { loading, error, data, refetch } = useQuery<Meetings, MeetingsVariables>(MEETINGS, {

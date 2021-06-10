@@ -8,6 +8,14 @@
 //==============================================================
 
 /**
+ * The completion state of a meeting
+ */
+export enum CompletionState {
+  CompletedOrPast = "CompletedOrPast",
+  OngoingOrFuture = "OngoingOrFuture",
+}
+
+/**
  * The order by direction
  */
 export enum OrderBy {

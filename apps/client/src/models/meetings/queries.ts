@@ -50,6 +50,7 @@ export const MY_MEETINGS = gql`
     $tags: [TagOption!]
     $offset: Int
     $limit: Int
+    $completionState: CompletionState
   ) {
     myMeetings(
       searchMeetingInput: {
@@ -60,6 +61,7 @@ export const MY_MEETINGS = gql`
         tags: $tags
         offset: $offset
         limit: $limit
+        completionState: $completionState
       }
     ) {
       meetings {

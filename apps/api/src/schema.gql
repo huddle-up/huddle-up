@@ -171,6 +171,9 @@ input SearchCriteriaInput {
 
   """The optional pagination limit, needs offset field to work."""
   limit: Int
+
+  """The state of meetings to search"""
+  completionState: CompletionState
 }
 
 """The order by direction"""
@@ -185,6 +188,12 @@ input TagOption {
 
   """The name of the tag"""
   name: String
+}
+
+"""The completion state of a meeting"""
+enum CompletionState {
+  OngoingOrFuture
+  CompletedOrPast
 }
 
 type Mutation {
