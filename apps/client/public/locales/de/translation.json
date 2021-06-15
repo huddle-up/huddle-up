@@ -143,7 +143,7 @@
       "past": "Vergangen"
     },
     "details": {
-      "joinNow": "Die Video-Konferenz ist aktiv! Du kannst jetzt beitreten.",
+      "joinNow": "Die Videokonferenz ist aktiv! Du kannst jetzt beitreten.",
       "manage": "Verwalten",
       "participants": "Teilnehmer",
       "details": "Details",
@@ -170,27 +170,27 @@
     },
     "conference": {
       "state": {
-        "pending": "Die Video-Konferenz wurde noch nicht gestartet",
-        "early": "Die Video-Konferenz kann noch nicht gestartet werden",
-        "ready": "Die Video-Konferenz kann gestartet werden",
-        "started": "Die Video-Konferenz wurde gestartet",
-        "published": "Die Video-Konferenz ist live",
-        "ended": "Die Video-Konferenz wurde beendet",
-        "past": "Die Video-Konferenz kann nicht mehr gestartet werden",
-        "neverStarted": "Die Video-Konferenz wurde nicht durchgeführt"
+        "pending": "Die Videokonferenz wurde noch nicht gestartet",
+        "early": "Die Videokonferenz kann noch nicht gestartet werden",
+        "ready": "Die Videokonferenz kann gestartet werden",
+        "started": "Die Videokonferenz wurde gestartet",
+        "published": "Die Videokonferenz ist live",
+        "ended": "Die Videokonferenz wurde beendet",
+        "past": "Die Videokonferenz kann nicht mehr gestartet werden",
+        "neverStarted": "Die Videokonferenz wurde nicht durchgeführt"
       },
-      "join": "Video-Konferenz beitreten",
+      "join": "Videokonferenz beitreten",
       "control": {
-        "start": "Video-Konferenz starten",
+        "start": "Videokonferenz starten",
         "publish": "Für Teilnehmer freigeben",
         "publishNotYetPossible": "Die Konferenz kann erst zur Startzeit freigegeben werden",
         "stop": "Beenden",
         "steps": {
           "start": "Start",
           "setup": "Freigeben",
-          "setupInfo": "Die Video-Konferenz ist bereit, aber nur für dich sichtbar. Du kannst sie jetzt als erster betreten und danach mit dem untenstehenden Knopf für alle freigeben.",
+          "setupInfo": "Die Videokonferenz ist bereit, aber nur für dich sichtbar. Du kannst sie jetzt als erster betreten und danach mit dem untenstehenden Knopf für alle freigeben.",
           "meet": "Aktiv",
-          "meetInfo": "Die Video-Konferenz ist aktiv! Sobald sie zu Ende ist, kannst du sie über den untenstehenden Knopf beenden. Ein erneuter Zugriff ist dann nicht mehr möglich.",
+          "meetInfo": "Die Videokonferenz ist aktiv! Sobald sie zu Ende ist, kannst du sie über den untenstehenden Knopf beenden. Ein erneuter Zugriff ist dann nicht mehr möglich.",
           "finished": "Beendet"
         }
       }
