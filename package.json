@@ -6,6 +6,7 @@
     "clean": "lerna clean",
     "start": "lerna run --stream --no-sort start:dev",
     "build": "lerna run build",
+    "migrate": "lerna run typeorm:migration:run",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint:fix",
     "format": "lerna run format",
