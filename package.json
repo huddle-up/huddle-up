@@ -1,6 +1,17 @@
 {
   "name": "huddle-up",
   "private": true,
+  "license": "MIT",
+  "description": "A place to discuss, meet and get to know each other online",
+  "contributors": [
+    "Flavio Böni <flavio.boeni@ost.ch>",
+    "Severin Hauser <severin.hauser@ost.ch>"
+  ],
+  "repository": "https://github.com/huddle-up/huddle-up",
+  "homepage": "https://huddle-up.github.io/handbook",
+  "bugs": {
+    "url": "https://github.com/huddle-up/huddle-up/issues"
+  },
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean",

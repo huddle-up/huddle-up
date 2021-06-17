@@ -1,10 +1,18 @@
 {
   "name": "@huddle-up/api",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "version": "1.0.0",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "description": "Backend API for HuddleUp",
+  "contributors": [
+    "Flavio Böni <flavio.boeni@ost.ch>",
+    "Severin Hauser <severin.hauser@ost.ch>"
+  ],
+  "repository": "https://github.com/huddle-up/huddle-up",
+  "homepage": "https://huddle-up.github.io/handbook",
+  "bugs": {
+    "url": "https://github.com/huddle-up/huddle-up/issues"
+  },
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",

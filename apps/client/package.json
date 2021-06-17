@@ -1,7 +1,18 @@
 {
   "name": "@huddle-up/client",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "license": "MIT",
+  "description": "Frontend client for HuddleUp",
+  "contributors": [
+    "Flavio Böni <flavio.boeni@ost.ch>",
+    "Severin Hauser <severin.hauser@ost.ch>"
+  ],
+  "repository": "https://github.com/huddle-up/huddle-up",
+  "homepage": "https://huddle-up.github.io/handbook",
+  "bugs": {
+    "url": "https://github.com/huddle-up/huddle-up/issues"
+  },
   "dependencies": {
     "@apollo/client": "^3.3.14",
     "@date-io/date-fns": "1.3.13",
